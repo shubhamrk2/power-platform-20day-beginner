@@ -55,6 +55,7 @@ from, and optional "skills" (actions it can take, like looking something up in y
 <li><span class="box"></span><span class="txt">Set <strong>Instructions</strong>: "You are a friendly library assistant. Answer questions about books politely and briefly."</span></li>
 <li><span class="box"></span><span class="txt">Add a <strong>Knowledge source</strong>: upload a one-page FAQ you write (opening hours, how to borrow — made up).</span></li>
 <li><span class="box"></span><span class="txt">Create a <strong>Topic</strong> with trigger phrases like "opening hours" + a message answer.</span></li>
+<li><span class="box"></span><span class="txt"><em>Connect it to your project (stretch):</em> add an <strong>Action</strong> that calls a small Power Automate flow which looks up a title in your <strong>Book</strong> table and returns whether it's in stock. Now the bot can answer "Is <em>Dune</em> available?" from your real data — the bot, a flow, and Dataverse working together.</span></li>
 <li><span class="box"></span><span class="txt">Use the <strong>Test</strong> panel to chat with it (wait a minute if knowledge is still indexing). Then <strong>Publish</strong> → <strong>Demo website</strong> and chat with it in a normal tab.</span></li>
 </ul></div>
 
@@ -128,7 +129,8 @@ in another (Test), and running for real in a third (Production) — moving your 
 <div class="card c-do"><span class="lab">Do this — look, export, and take a tiny Azure tour</span>
 <ul class="tasks">
 <li><span class="box"></span><span class="txt"><code>admin.powerplatform.microsoft.com</code>: tour <strong>Environments</strong> and <strong>Resources → Capacity</strong>. Open <strong>Policies → Data policies</strong> and look at how connectors drag between Business / Non-business / Blocked.</span></li>
-<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Solutions</strong> → <strong>My Learning Solution</strong> → <strong>Export → Unmanaged</strong> → download the <code>.zip</code>. That zip is your whole solution as a movable file.</span></li>
+<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Solutions</strong> → <strong>My Learning Solution</strong> → <strong>Export → Unmanaged</strong> → download the <code>.zip</code>. That zip is your <strong>whole project</strong> (tables, apps, flows) as one movable file — <em>this is also your backup</em> (see "Keep it forever" on the home page).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Back up the data too:</strong> open your <strong>Loan</strong> and <strong>Member</strong> tables → <strong>Export → Export to Excel</strong>, and save the files. (The solution keeps the <em>design</em>; these keep the <em>rows</em>.)</span></li>
 <li><span class="box"></span><span class="txt"><em>Azure tour (with the account owner):</em> open <code>portal.azure.com</code>; read the home page; create a <strong>Resource group</strong> <code>rg-learning</code> (a free "folder").</span></li>
 <li><span class="box"></span><span class="txt">Create a <strong>Key Vault</strong> in it (a safe for secrets); add a made-up secret <code>DemoSecret = not-a-real-password</code>. Look at <strong>Microsoft Entra ID → Users</strong> (the identity system).</span></li>
 <li><span class="box"></span><span class="txt"><strong>Clean up:</strong> <strong>Resource groups → rg-learning → Delete resource group</strong> (type the name). This removes everything so nothing bills.</span></li>

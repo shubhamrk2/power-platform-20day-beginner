@@ -5,6 +5,20 @@ Platform **and Power BI**, using an active **Microsoft 365 E5** trial and an **A
 trial. No software to install, nothing that needs a powerful laptop, and **no Power Automate
 Desktop** — everything works in a normal web browser (and in an incognito/private window).
 
+**One growing project.** From Day 2 you build a single **Community Library** ecosystem — Dataverse
+tables (Book, Author, Member, Loan) → a canvas app → Power Automate flows → SharePoint → a Copilot
+Studio chatbot → a Power BI report on the *same* Loan data. Nothing is a throwaway exercise; each day
+plugs into what came before, so by Day 20 you have a real project of your own.
+
+**Self-contained.** Every step gives the exact table names, columns, lookups, Power Fx expressions,
+DAX measures, and clicks — you never need to search or ask an AI to complete a step. Links to
+Microsoft Learn are provided *in order* as optional extra depth, not as required reading.
+
+**Keeping your project after the trial ends.** The trial's cloud copy is deleted when the trial
+lapses, but you can keep everything: export the solution `.zip` + table data + the Power BI `.pbix`
+(Day 16 & Day 20), and import into a free **Power Apps Developer Plan** (no card, no expiry). See the
+"Keep it forever" section on the home page.
+
 ## How to open it
 
 Open **`index.html`** in your browser (double-click it). It's a small **multi-page site** with

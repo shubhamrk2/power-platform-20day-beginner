@@ -58,10 +58,10 @@ of information ("metadata").</p>
 
 <div class="card c-do"><span class="lab">Do this — make a list and automate it</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><code>microsoft365.com</code> (app launcher ▦) → <strong>SharePoint → Create site → Team site</strong> = <code>Learning Site</code>.</span></li>
-<li><span class="box"></span><span class="txt">On the site: <strong>+ New → List</strong> = <code>Tasks</code>; columns <code>Owner</code> (Text), <code>Due</code> (Date), <code>Done</code> (Yes/No). Add a few items.</span></li>
-<li><span class="box"></span><span class="txt"><strong>+ New → Document library</strong> = <code>Files</code>; upload a harmless sample file.</span></li>
-<li><span class="box"></span><span class="txt">Power Automate: automated flow, trigger <strong>When an item is created (SharePoint)</strong> → your site → Tasks → email yourself the new task's Title.</span></li>
+<li><span class="box"></span><span class="txt"><code>microsoft365.com</code> (app launcher ▦) → <strong>SharePoint → Create site → Team site</strong> = <code>Community Library</code> — your project's team site.</span></li>
+<li><span class="box"></span><span class="txt">On the site: <strong>+ New → List</strong> = <code>Library Events</code>; columns <code>Event name</code> (Title), <code>Date</code> (Date), <code>Location</code> (Text). Add a couple of made-up events (e.g. "Book club").</span></li>
+<li><span class="box"></span><span class="txt"><strong>+ New → Document library</strong> = <code>Policies</code>; upload a harmless sample file (e.g. a one-page "borrowing rules" doc).</span></li>
+<li><span class="box"></span><span class="txt">Power Automate: automated flow, trigger <strong>When an item is created (SharePoint)</strong> → your site → <strong>Library Events</strong> → email yourself the new event's name and date. (Now SharePoint is part of your ecosystem too.)</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — the "5,000 item" number</span>
@@ -112,13 +112,13 @@ conveyor belt from a messy source to a tidy table. The visual cleaning tool insi
 <figcaption>A dataflow moves data from a messy source, through Power Query, into a clean table</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — import a spreadsheet into Dataverse</span>
+<div class="card c-do"><span class="lab">Do this — bulk-import new members into your project</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Make a tiny CSV (Notepad → <code>people.csv</code>): header row <code>FirstName,LastName,Department,Status</code> + ~6 made-up rows.</span></li>
+<li><span class="box"></span><span class="txt">Make a CSV (Notepad → <code>new-members.csv</code>): header <code>FirstName,LastName,Email,Membership</code> + ~8 made-up members.</span></li>
 <li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Dataflows → New dataflow → Text/CSV</strong> → upload.</span></li>
-<li><span class="box"></span><span class="txt">In Power Query: <strong>Use first row as headers</strong>; set column <strong>types</strong>; <strong>filter</strong> Status = Active; add a <strong>custom column</strong> <code>FullName = FirstName &amp; " " &amp; LastName</code>.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Load to a new table</strong>, set a <strong>key column</strong> (so re-runs update, not duplicate), <strong>Publish</strong>, then check the table.</span></li>
-<li><span class="box"></span><span class="txt">Open <strong>Advanced editor</strong> to read the M your clicks produced (just read it).</span></li>
+<li><span class="box"></span><span class="txt">In Power Query: <strong>Use first row as headers</strong>; set column <strong>types</strong>; add a <strong>custom column</strong> <code>Full name = FirstName &amp; " " &amp; LastName</code>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Load to existing table</strong> → your <strong>Member</strong> table; map Full name → Full name, Email → Email, Membership → Membership. Set <strong>Email</strong> as the <strong>key column</strong> (so re-runs update instead of duplicating). <strong>Publish</strong>.</span></li>
+<li><span class="box"></span><span class="txt">Check the Member table — your 8 members are added in bulk. Re-run the dataflow and confirm it <em>updates</em> (no duplicates). Open <strong>Advanced editor</strong> to read the M.</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — dataflow vs flow (they sound alike)</span>
@@ -178,8 +178,8 @@ web</em> — format a sheet, read a table — then run them from a Power Automat
 
 <div class="card c-do"><span class="lab">Do this — an Office Script, then peek at connectors</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Open <strong>Excel on the web</strong> (via <code>microsoft365.com</code> → Excel → blank). Type a few values.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Automate → Record Actions</strong>; format a cell, type a value, <strong>Stop</strong>. Open the script and read the TypeScript it generated.</span></li>
+<li><span class="box"></span><span class="txt">Open <strong>Excel on the web</strong> (via <code>microsoft365.com</code> → Excel → blank). Paste a few rows that look like a <strong>loans export</strong> (Book, Member, Due date) so the script has something realistic to tidy.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Automate → Record Actions</strong>; bold the header row and format the dates, then <strong>Stop</strong>. Open the script and read the TypeScript it generated.</span></li>
 <li><span class="box"></span><span class="txt">Edit the script to <em>return</em> a value (see the README sample). Save.</span></li>
 <li><span class="box"></span><span class="txt">In Power Automate: add <strong>Run script (Excel Online)</strong> → pick your workbook &amp; script → run and watch the sheet change.</span></li>
 <li><span class="box"></span><span class="txt"><em>Optional peek:</em> Power Automate → <strong>Custom connectors → New → Create from blank</strong>; just look at the General / Security / Definition tabs to see how you'd wrap a web API.</span></li>

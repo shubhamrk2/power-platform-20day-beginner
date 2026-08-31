@@ -22,10 +22,11 @@
 <header class="hero" id="welcome">
   <span class="pill">Start here</span>
   <h1>Learn Microsoft Power Platform &amp; Power BI, from zero.</h1>
-  <p>Twenty days. Everything in your web browser — no software to install, nothing that needs a
-  powerful laptop. Each day explains the <em>why</em> in plain English and the <em>how</em>
-  click-by-click, with diagrams. The last four days are a full <strong>Power BI</strong> track.
-  Take your time; there is no rush.</p>
+  <p>Twenty days, and one project you keep building the whole way through. Everything in your web
+  browser — no software to install, nothing that needs a powerful laptop. Each day explains the
+  <em>why</em> in plain English and the <em>how</em> click-by-click, with diagrams. By Day 20 you'll
+  have a complete <strong>Community Library</strong> ecosystem — data, apps, automation, a chatbot,
+  and a Power BI report — that is <em>yours</em>.</p>
 </header>
 
 <section id="how">
@@ -57,6 +58,63 @@ Never type in real personal or work information from anyone.</li>
 <li><strong>Only build in the environment called "Learning"</strong> (set up on Day 0). This keeps your
 practice cleanly separate from anything else in the account.</li>
 </ol></div>
+</section>
+
+<section id="project">
+<h2>Your project: the Community Library</h2>
+<p>This course is <strong>not</strong> a set of unrelated exercises. From Day 2 onward you build
+<em>one</em> real thing — a <strong>Community Library</strong> — and it grows a little every day. By the
+end it's a complete, connected <strong>ecosystem</strong>: a database, apps people use, automations that
+run by themselves, a chatbot, and a Power BI report — all sharing the <em>same</em> data. It becomes a
+project that is genuinely <em>yours</em>, and something you can show people.</p>
+
+<figure class="fig">
+<svg viewBox="0 0 640 340" role="img" aria-label="Ecosystem: Dataverse in the centre, with canvas app, model-driven app, flows, SharePoint, Copilot Studio and Power BI around it">
+<defs><marker id="e1" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<!-- centre: Dataverse -->
+<rect x="238" y="128" width="164" height="84" rx="12" fill="#f3fbf6" stroke="#0e9f6e" stroke-width="1.6"/>
+<text x="320" y="152" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f2733">Dataverse</text>
+<text x="320" y="172" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">Book · Author</text>
+<text x="320" y="186" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">Member · Loan</text>
+<text x="320" y="203" text-anchor="middle" font-family="sans-serif" font-size="8.5" fill="#7b8798">the shared data</text>
+<!-- spokes -->
+<g stroke="#9fb0c8" stroke-width="1.4">
+<line x1="238" y1="150" x2="150" y2="70" marker-end="url(#e1)"/>
+<line x1="402" y1="150" x2="490" y2="70" marker-end="url(#e1)"/>
+<line x1="238" y1="170" x2="120" y2="170" marker-end="url(#e1)"/>
+<line x1="402" y1="170" x2="520" y2="170" marker-end="url(#e1)"/>
+<line x1="238" y1="192" x2="150" y2="272" marker-end="url(#e1)"/>
+<line x1="402" y1="192" x2="490" y2="272" marker-end="url(#e1)"/>
+</g>
+<!-- surrounding tools -->
+<g font-family="sans-serif" font-size="10.5" text-anchor="middle">
+<rect x="70" y="40" width="140" height="46" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="140" y="60" font-weight="bold" fill="#1f2733">Canvas app</text><text x="140" y="76" font-size="8.5" fill="#7b8798">people use it</text>
+<rect x="430" y="40" width="150" height="46" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="505" y="60" font-weight="bold" fill="#1f2733">Model-driven app</text><text x="505" y="76" font-size="8.5" fill="#7b8798">back office</text>
+<rect x="8" y="147" width="140" height="46" rx="9" fill="#fff8e9" stroke="#e0a020"/><text x="78" y="167" font-weight="bold" fill="#1f2733">Power Automate</text><text x="78" y="183" font-size="8.5" fill="#7b8798">flows &amp; approvals</text>
+<rect x="500" y="147" width="132" height="46" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="566" y="167" font-weight="bold" fill="#1f2733">SharePoint</text><text x="566" y="183" font-size="8.5" fill="#7b8798">events &amp; files</text>
+<rect x="70" y="256" width="140" height="46" rx="9" fill="#f4f2fb" stroke="#7a5cd6"/><text x="140" y="276" font-weight="bold" fill="#1f2733">Copilot Studio</text><text x="140" y="292" font-size="8.5" fill="#7b8798">Library Helper bot</text>
+<rect x="430" y="256" width="150" height="46" rx="9" fill="#f4f2fb" stroke="#7a5cd6"/><text x="505" y="276" font-weight="bold" fill="#1f2733">Power BI</text><text x="505" y="292" font-size="8.5" fill="#7b8798">report on Loans</text>
+</g>
+</svg>
+<figcaption>Everything connects to the same Dataverse data — that's the ecosystem you'll build</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">How the project grows, day by day</span>
+<table>
+<tr><th>Days</th><th>What you add to the project</th></tr>
+<tr><td>2–4</td><td>The <strong>data</strong>: Book, Author, Member and Loan tables (linked), inside one solution.</td></tr>
+<tr><td>5–8</td><td>The <strong>apps</strong>: a canvas app to browse books and lend them, and a model-driven back-office app.</td></tr>
+<tr><td>9–11</td><td>The <strong>automation</strong>: email a member when they borrow, remind about overdue loans, approve new members.</td></tr>
+<tr><td>12–14</td><td>More <strong>data &amp; integration</strong>: a SharePoint events list, importing members in bulk, an Office Script.</td></tr>
+<tr><td>15–16</td><td>The <strong>AI &amp; governance</strong>: a "Library Helper" chatbot, then package the whole project into a solution.</td></tr>
+<tr><td>17–20</td><td>The <strong>insight</strong>: a Power BI report on your <em>Loan</em> data — loans over time, popular books, overdue counts.</td></tr>
+</table>
+</div>
+
+<div class="card c-tip"><span class="lab">Tip — one theme, everything reused</span>
+Notice the <strong>Loan</strong> table is special: it records each borrowing event, so later it becomes the
+"fact" your Power BI report measures, with Book, Member and Date as the things you slice by. Nothing you
+build gets thrown away — each day plugs into what came before.</div>
 </section>
 
 <section class="day" id="setup">
@@ -157,6 +215,44 @@ Desktop</strong> (a free Windows app) is the "when you have a laptop" step that 
 <div class="card c-check"><span class="lab">Ready?</span>
 Make sure Day 0 (above) is done, then open <a href="phase1.html"><strong>Phase 1 · Foundations</strong></a>
 and begin Day 1. See you in there. 🌱</div>
+</section>
+
+<section id="keep">
+<h2>Keep your project forever (read this early)</h2>
+<div class="card c-warn"><span class="lab">Important — the trial doesn't last, so plan ahead</span>
+<p>The Microsoft 365 trial eventually ends. When it does (or if it's cancelled), the tenant is disabled
+and later <strong>deleted</strong> — and the <em>running</em> project (apps, flows, tables, reports) goes
+with it, because it lives in Microsoft's cloud. The good news: you can <strong>preserve everything</strong>
+and even keep it running for <strong>free, forever</strong>. Two layers:</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Layer 1 — back it up to files you own</span>
+<p>These files are yours permanently, on your computer:</p>
+<ul>
+<li><strong>The solution</strong> — export <em>My Learning Solution</em> as an unmanaged <code>.zip</code>
+(Day 16). It contains your tables, apps, and flows.</li>
+<li><strong>The data</strong> — export table rows to Excel/CSV (from each table's grid → Export).</li>
+<li><strong>The Power BI report</strong> — save it as a <code>.pbix</code> file (Power BI Desktop), or
+download it from the Service.</li>
+</ul>
+</div>
+
+<div class="card c-concept"><span class="lab">Layer 2 — keep it <em>running</em> for free (the Developer Plan)</span>
+<p>The <strong>Power Apps Developer Plan</strong>
+(<a href="https://powerapps.microsoft.com/developerplan">powerapps.microsoft.com/developerplan</a>) is
+<strong>free forever, no card, no expiry</strong>, and includes its own Dataverse environment. You
+<em>import</em> your exported solution there and the whole project keeps working — canvas app, flows,
+tables, chatbot, and Power BI (free tier for personal use).</p>
+<p><strong>The one catch:</strong> the Developer Plan must live on an account that <em>survives</em> the
+trial — not the learner account created inside the trial tenant. So either sign up for the Developer Plan
+with a <strong>separate personal account</strong>, or do the export + import <strong>before</strong> the
+trial ends. If in doubt, get a Developer Plan early and build a habit of exporting your solution each week.</p>
+</div>
+
+<div class="card c-check"><span class="lab">In one line</span>
+The trial's copy won't survive cancellation — but <strong>export your solution + data + .pbix</strong>,
+and <strong>import into a free Developer Plan</strong>, and your Community Library is yours to keep and
+keep using. Day 16 and Day 20 walk you through it.</div>
 </section>
 
 <div class="pn">

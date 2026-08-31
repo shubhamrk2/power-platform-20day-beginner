@@ -65,8 +65,8 @@ position…) you can set, sometimes with a formula.</p>
 
 <div class="card c-do"><span class="lab">Do this — build a one-screen app</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Open <strong>My Learning Solution → New → App → Canvas app</strong>. Choose <strong>Tablet</strong> layout. Name it <code>Book Explorer</code>.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Insert</strong> a <strong>Label</strong>; set its Text to <code>My Book Explorer</code>. Make it big/bold.</span></li>
+<li><span class="box"></span><span class="txt">Open <strong>My Learning Solution → New → App → Canvas app</strong>. Choose <strong>Tablet</strong> layout. Name it <code>Library Manager</code> — <em>this is your project's main app; you'll grow it all through Phase 2</em>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Insert</strong> a <strong>Label</strong>; set its Text to <code>My Community Library</code>. Make it big/bold.</span></li>
 <li><span class="box"></span><span class="txt">Insert a <strong>Text input</strong> and a <strong>Button</strong>; move them around.</span></li>
 <li><span class="box"></span><span class="txt">Select the button; change its <strong>Text</strong> to <code>Say hello</code> and its <strong>Fill</strong> colour.</span></li>
 <li><span class="box"></span><span class="txt">Press <strong>Play ▶</strong> to preview; <span class="kbd">Esc</span> to stop; <span class="kbd">Ctrl</span>+<span class="kbd">S</span> to save.</span></li>
@@ -109,7 +109,7 @@ typed in the box named NameInput".</p>
 
 <div class="card c-do"><span class="lab">Do this — make the button react</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">In <strong>Book Explorer</strong>, rename the text input to <code>NameInput</code> in the tree view.</span></li>
+<li><span class="box"></span><span class="txt">In <strong>Library Manager</strong>, rename the text input to <code>NameInput</code> in the tree view.</span></li>
 <li><span class="box"></span><span class="txt">Select the <strong>button</strong>; in the property dropdown choose <strong>OnSelect</strong>; type <code>Notify("Hello " &amp; NameInput.Text)</code>.</span></li>
 <li><span class="box"></span><span class="txt"><strong>Play ▶</strong>, type a name, click the button — a greeting appears.</span></li>
 <li><span class="box"></span><span class="txt">Now a variable: set OnSelect to <code>Set(gGreeting, "Hi " &amp; NameInput.Text)</code>. Add a <strong>Label</strong> whose Text = <code>gGreeting</code>. Play again — the label updates on click. Save.</span></li>
@@ -150,12 +150,13 @@ show and change real rows. A connection to a table is a <strong>data source</str
 by the database at large scale. For your tiny practice data it never matters.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — list books and add new ones</span>
+<div class="card c-do"><span class="lab">Do this — list books, add books, and lend them</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Insert → Gallery → Vertical</strong>; choose the <strong>Book</strong> table. Set the layout to show <code>Title</code> and <code>Author</code>.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Insert → Edit form</strong>; Data source = Book; Fields = Title, Author, Pages, Genre, In stock.</span></li>
-<li><span class="box"></span><span class="txt">Add a "New" button: OnSelect = <code>NewForm(EditForm1)</code>. Add a "Save" button: OnSelect = <code>SubmitForm(EditForm1)</code>.</span></li>
-<li><span class="box"></span><span class="txt">Set the form's <strong>Item</strong> = <code>Gallery1.Selected</code>. Play, click a book, edit, Save — confirm it changes. Save the app.</span></li>
+<li><span class="box"></span><span class="txt">On the first screen, <strong>Insert → Gallery → Vertical</strong>; <strong>rename it to <code>BookGallery</code></strong> (double-click its name in the tree view); choose the <strong>Book</strong> table. Set the layout to show <code>Title</code> and <code>Author</code>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Insert → Edit form</strong>; <strong>rename it to <code>BookForm</code></strong>; Data source = Book; Fields = Title, Author, Pages, Genre, In stock. Add a "New" button with <strong>OnSelect</strong> = <code>NewForm(BookForm)</code> and a "Save" button with <strong>OnSelect</strong> = <code>SubmitForm(BookForm)</code>. Set the form's <strong>Item</strong> property = <code>BookGallery.Selected</code>. Play, edit a book, Save.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Add a "Lend a book" screen</strong> (New screen → blank). This is the heart of the app.</span></li>
+<li><span class="box"></span><span class="txt">On it, <strong>Insert → Edit form</strong> and <strong>rename it to <code>LoanForm</code></strong> (double-click its name in the tree view). Set Data source = <strong>Loan</strong>; Fields = Book, Member, Loan date, Due date. Add a <strong>Submit</strong> button with <strong>OnSelect</strong> = <code>SubmitForm(LoanForm)</code>. Set the <strong>screen's OnVisible</strong> = <code>NewForm(LoanForm)</code> so the form is blank each time.</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Loans gallery</strong> showing the Loan table (Book + Member + Due date). Play → create a loan by picking a Book and a Member — you just lent a book through your own app. Save.</span></li>
 </ul></div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
@@ -210,11 +211,11 @@ comes free. Canvas → custom, pixel-perfect; model-driven → fast, data-heavy 
 
 <div class="card c-do"><span class="lab">Do this — build a model-driven app, then shape it</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>My Learning Solution → New → App → Model-driven app</strong> = <code>Library Manager</code>. Add pages for <strong>Book</strong> and <strong>Author</strong>. <strong>Save → Publish → Play</strong>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>My Learning Solution → New → App → Model-driven app</strong> = <code>Library Back Office</code>. Add pages for all four tables: <strong>Book, Author, Member</strong> and <strong>Loan</strong>. <strong>Save → Publish → Play</strong>.</span></li>
 <li><span class="box"></span><span class="txt">Explore the auto-generated left menu, grids, and forms. Add a new book here and notice how fast it felt vs the canvas app.</span></li>
 <li><span class="box"></span><span class="txt">In the solution, open <strong>Book → Views → New view</strong> = <code>In stock</code>; filter <em>In stock = Yes</em>. Save &amp; Publish.</span></li>
 <li><span class="box"></span><span class="txt"><strong>Book → Business rules → New</strong>: if <em>Genre = Textbook</em> then set <em>Pages</em> as Business Required. Activate.</span></li>
-<li><span class="box"></span><span class="txt">In <strong>Library Manager</strong>, try adding a Textbook without Pages — the rule blocks you. Switch to the "In stock" view.</span></li>
+<li><span class="box"></span><span class="txt">In <strong>Library Back Office</strong>, try adding a Textbook without Pages — the rule blocks you. Switch to the "In stock" view.</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — same data, two apps</span>

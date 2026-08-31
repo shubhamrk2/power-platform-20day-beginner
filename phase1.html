@@ -198,12 +198,20 @@ Author table). The options are <em>live data</em> that grows as you add rows.</l
 details → <strong>lookup</strong>.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — add an Author table and link it</span>
+<div class="card c-do"><span class="lab">Do this — grow the project's data model: Author, Member, Loan</span>
 <ul class="tasks">
 <li><span class="box"></span><span class="txt"><strong>Tables → New table</strong> = <code>Author</code>. Rename its primary column to <code>Full name</code>; add <code>Country</code> (Text), <code>Born</code> (Date). Add 2–3 authors.</span></li>
-<li><span class="box"></span><span class="txt">Open <strong>Book</strong> → delete the old text <code>Author</code> column → <strong>+ New column</strong> → type <strong>Lookup</strong> → Related table = <strong>Author</strong>. Name it <code>Author</code>.</span></li>
-<li><span class="box"></span><span class="txt">In the Book grid, set each book's Author by <em>picking</em> from your Author rows. You can only pick authors that exist — that's the lookup's power.</span></li>
+<li><span class="box"></span><span class="txt">Open <strong>Book</strong> → delete the old text <code>Author</code> column → <strong>+ New column</strong> → type <strong>Lookup</strong> → Related table = <strong>Author</strong>. Set each book's author by picking from your Author rows.</span></li>
+<li><span class="box"></span><span class="txt">New table <code>Member</code> (rename primary column to <code>Full name</code>): add <code>Email</code> (Text), <code>Join date</code> (Date), <code>Membership</code> (Choice: Standard / Student / Senior). Add 3 members.</span></li>
+<li><span class="box"></span><span class="txt">New table <code>Loan</code> — <strong>the heart of your project</strong>. Columns: <code>Book</code> (<strong>Lookup → Book</strong>), <code>Member</code> (<strong>Lookup → Member</strong>), <code>Loan date</code> (Date), <code>Due date</code> (Date), <code>Returned</code> (Yes/No), <code>Status</code> (Choice: Open / Returned / Overdue).</span></li>
+<li><span class="box"></span><span class="txt">Add 3–4 <strong>Loan</strong> rows, each linking a real Book to a real Member with dates. (You just recorded borrowing <em>events</em>.)</span></li>
 </ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — why the Loan table matters</span>
+<strong>Loan</strong> points to <em>two</em> other tables (Book and Member) — two relationships in one table.
+It records an <em>event</em> (a borrowing), which is exactly what a Power BI report measures later: in
+Phase 6, <strong>Loan</strong> becomes the "fact" table, and Book, Member and Date become the things you
+slice by. Everything connects.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
@@ -241,8 +249,9 @@ people get limited roles so they only touch what they should.</p>
 <div class="card c-do"><span class="lab">Do this — create a solution and adopt your tables</span>
 <ul class="tasks">
 <li><span class="box"></span><span class="txt"><strong>Solutions → New solution</strong> = <code>My Learning Solution</code>. New publisher: name <code>Learner</code>, prefix <code>learn</code>.</span></li>
-<li><span class="box"></span><span class="txt">Open it → <strong>Add existing → Table</strong> → add <strong>Book</strong> and <strong>Author</strong>.</span></li>
-<li><span class="box"></span><span class="txt">From now on, build <em>inside</em> this solution so everything stays together.</span></li>
+<li><span class="box"></span><span class="txt">Open it → <strong>Add existing → Table</strong> → add all four project tables: <strong>Book, Author, Member, Loan</strong>.</span></li>
+<li><span class="box"></span><span class="txt">Add one <strong>environment variable</strong> to see how settings are stored: in the solution → <strong>New → More → Environment variable</strong> → name <code>LoanPeriodDays</code>, type Number, current value <code>14</code>. (You'll use it in a flow later.)</span></li>
+<li><span class="box"></span><span class="txt">From now on, build <em>everything inside this solution</em> so the whole project stays in one movable box (this is also how you'll back it up — see "Keep it forever" on the home page).</span></li>
 <li><span class="box"></span><span class="txt">Peek: <code>admin.powerplatform.microsoft.com</code> → <strong>Environments → Learning</strong>. Just look at its settings, users and capacity.</span></li>
 </ul></div>
 
@@ -256,6 +265,7 @@ environment it's usually exported as <strong>managed</strong> (locked). More on 
 <li><b>Publisher / prefix</b> — the name tag added to what you create (e.g. <code>learn_</code>).</li>
 <li><b>Security role</b> — a set of permissions (who can do what).</li>
 <li><b>Managed / unmanaged</b> — locked (shipped) vs editable (in-progress) solution.</li>
+<li><b>Environment variable</b> — a stored setting (like <code>LoanPeriodDays</code>) you can change without editing apps or flows.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>

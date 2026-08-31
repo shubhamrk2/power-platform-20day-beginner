@@ -75,16 +75,27 @@ laptop" tool. Where a step is Desktop-only, this course says so and gives the br
 <li><span class="box"></span><span class="txt">Bookmark Microsoft's free training (links in the box below). You'll follow this course, and dip into those modules for extra depth.</span></li>
 </ul></div>
 
-<div class="card c-concept"><span class="lab">Reference — the official Microsoft learning paths (free)</span>
-<p>This phase mirrors Microsoft's own Power BI training. Use these for extra detail and practice; they're
-free and map straight onto PL-300:</p>
-<ul>
-<li><a href="https://learn.microsoft.com/en-us/training/powerplatform/power-bi">Power BI training hub</a> — the top-level page.</li>
-<li><a href="https://learn.microsoft.com/en-us/training/paths/get-started-power-bi/">Get started with Power BI</a> — the gentle intro (pairs with our <em>Setup</em> + Day 17).</li>
-<li><a href="https://learn.microsoft.com/en-us/training/paths/data-analytics-microsoft/">Get started with Microsoft data analytics</a> — get, clean, transform with Power Query (pairs with Day 19).</li>
-<li><a href="https://learn.microsoft.com/en-us/training/paths/model-data-power-bi/">Model data with Power BI</a> — relationships, calculations, DAX (pairs with Day 19).</li>
-<li><a href="https://learn.microsoft.com/en-us/training/paths/build-power-bi-visuals-reports/">Build Power BI visuals and reports</a> — visualise &amp; analyse (pairs with Days 18 &amp; 20).</li>
-</ul></div>
+<div class="card c-concept"><span class="lab">Reference — the official Microsoft training, in order</span>
+<p>This course is self-contained — you don't <em>need</em> anything else to finish the project. But when you
+want more depth (and to prepare for PL-300), work Microsoft's free modules <strong>in this order</strong>.</p>
+<p><strong>Path 1 — <a href="https://learn.microsoft.com/en-us/training/paths/data-analytics-microsoft/">Get started with Microsoft data analytics</a></strong> (pairs with Setup + Day 17):</p>
+<ol>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/data-analytics-microsoft/">Explore the analytics process that turns data into insights</a></li>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-power-bi/">Get started building with Power BI</a></li>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/introduction-end-analytics-use-microsoft-fabric/">Introduction to end-to-end analytics using Microsoft Fabric</a></li>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/power-bi-copilot/">Get started with Copilot in Power BI</a></li>
+</ol>
+<p><strong>Path 2 — <a href="https://learn.microsoft.com/en-us/training/paths/model-data-power-bi/">Model data with Power BI</a></strong> (pairs with Day 19):</p>
+<ol>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/configure-semantic-model-power-bi/">Configure a semantic model</a></li>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/dax-power-bi-write-formulas/">Write DAX formulas for semantic models</a></li>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/dax-power-bi-create-calculations/">Create DAX calculations in semantic models</a></li>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/dax-power-bi-modify-filter/">Modify DAX filter context in semantic models</a></li>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/dax-power-bi-time-intelligence/">Use DAX time intelligence functions in semantic models</a></li>
+<li><a href="https://learn.microsoft.com/en-us/training/modules/power-bi-visual-calculations/">Create visual calculations in Power BI Desktop</a></li>
+</ol>
+<p><strong>Path 3 — <a href="https://learn.microsoft.com/en-us/training/paths/build-power-bi-visuals-reports/">Build Power BI visuals and reports</a></strong> (pairs with Days 18 &amp; 20), and the <a href="https://learn.microsoft.com/en-us/training/powerplatform/power-bi">Power BI training hub</a> for everything else.</p>
+</div>
 
 <div class="card c-tip"><span class="lab">Tip — how to combine this course and Microsoft Learn</span>
 Do a <em>day</em> here first (it explains the ideas simply and gives you a task), then open the matching
@@ -145,12 +156,17 @@ button: files (<strong>Excel</strong>, <strong>CSV</strong>), databases (SQL Ser
 <figcaption>One dataset can feed many reports; a dashboard pins the highlights</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — get data into Power BI</span>
+<div class="card c-warn"><span class="lab">Your Power BI report uses YOUR project — not a new file</span>
+This whole phase builds a report on the <strong>Loan</strong> data from your Community Library. Nothing new
+to invent: <strong>Loan</strong> is the fact (each borrowing), and <strong>Book</strong>, <strong>Member</strong>
+and <strong>Date</strong> are what you slice by.</div>
+
+<div class="card c-do"><span class="lab">Do this — get your project's data into Power BI</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Make a small Excel file: sheet <code>Sales</code> with columns <code>Date, Product, Region, Amount</code> and ~15 made-up rows.</span></li>
-<li><span class="box"></span><span class="txt"><strong>In the Service:</strong> <code>app.powerbi.com</code> → <strong>My workspace → New / Get data → Files → Local file</strong> → upload → <strong>Import</strong>. A <strong>dataset</strong> appears.</span></li>
-<li><span class="box"></span><span class="txt"><strong>If you have Desktop:</strong> open Power BI Desktop → <strong>Get data → Excel</strong> → pick the sheet → <strong>Load</strong>. (Try <strong>Get data → Dataverse</strong> too, and connect to your Learning tables from earlier phases.)</span></li>
-<li><span class="box"></span><span class="txt">Open the built-in <strong>Sample</strong> report in the Service; click a bar and watch other charts react ("everything filters everything").</span></li>
+<li><span class="box"></span><span class="txt"><strong>Best (Desktop):</strong> open Power BI Desktop → <strong>Get data → Dataverse</strong> → sign in to your Learning environment → load <strong>Loan, Book, Member</strong>. This connects Power BI straight to your project.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Browser-only alternative:</strong> use the <strong>Loan</strong> and <strong>Member</strong> Excel files you exported on Day 16 (plus a quick Books export). In <code>app.powerbi.com</code> → <strong>My workspace → New / Get data → Files → Local file</strong> → upload → <strong>Import</strong>. A <strong>dataset</strong> appears.</span></li>
+<li><span class="box"></span><span class="txt">Choose <strong>Import</strong> (know when you'd use DirectQuery — see the tip below).</span></li>
+<li><span class="box"></span><span class="txt">Open the built-in <strong>Sample</strong> report in the Service; click a bar and watch other charts react ("everything filters everything") to see where you're heading.</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — Import vs DirectQuery</span>
@@ -167,8 +183,8 @@ learning, choose <strong>Import</strong>.</div>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-Name the four steps, and confirm your <strong>Sales</strong> dataset is in My workspace. Bonus: which
-storage mode would you pick for a 2-billion-row always-live database? (<em>DirectQuery.</em>)</div>
+Name the four steps, and confirm your <strong>Loan</strong> (and Book, Member) data is loaded into Power BI.
+Bonus: which storage mode would you pick for a 2-billion-row always-live database? (<em>DirectQuery.</em>)</div>
 </section>
 
 <!-- DAY 18 -->
@@ -192,17 +208,17 @@ totals automatically.</p>
 <rect x="188" y="64" width="140" height="46" rx="6" fill="#fff" stroke="#9fb0c8"/><text x="258" y="91" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">card</text>
 <rect x="34" y="120" width="294" height="46" rx="6" fill="#fff" stroke="#9fb0c8"/><text x="181" y="147" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">line chart + slicer</text>
 <rect x="352" y="30" width="90" height="150" rx="8" fill="#f4f6f9" stroke="#cbd3de"/><text x="397" y="50" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1f2733">Visuals</text><text x="397" y="70" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">chart types</text><text x="397" y="92" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">+ field wells</text>
-<rect x="448" y="30" width="98" height="150" rx="8" fill="#f4f6f9" stroke="#cbd3de"/><text x="497" y="50" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1f2733">Data</text><text x="497" y="70" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">Sales</text><text x="497" y="86" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">· Amount</text><text x="497" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">· Region…</text><text x="497" y="126" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1f2733">Filters</text></svg>
+<rect x="448" y="30" width="98" height="150" rx="8" fill="#f4f6f9" stroke="#cbd3de"/><text x="497" y="50" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1f2733">Data</text><text x="497" y="70" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">Loan</text><text x="497" y="86" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">· Book</text><text x="497" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">· Member…</text><text x="497" y="126" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1f2733">Filters</text></svg>
 <figcaption>The report editor: canvas on the left, Visualizations / Data / Filters panes on the right</figcaption>
 </figure>
 
 <div class="card c-concept"><span class="lab">Concept — the visuals you'll use most</span>
 <ul>
-<li><strong>Card</strong> — one big number (Total Sales). <strong>KPI</strong> — a number vs a target.</li>
+<li><strong>Card</strong> — one big number (e.g. Total Loans). <strong>KPI</strong> — a number vs a target.</li>
 <li><strong>Bar / column chart</strong> — compare categories.</li>
 <li><strong>Line chart</strong> — a trend over time.</li>
 <li><strong>Table / matrix</strong> — detail rows; a matrix groups rows <em>and</em> columns (a pivot table).</li>
-<li><strong>Slicer</strong> — an on-screen filter people click (e.g. pick a Region).</li>
+<li><strong>Slicer</strong> — an on-screen filter people click (e.g. pick a Membership).</li>
 <li><strong>Map, pie/donut, treemap, gauge</strong> — use thoughtfully; bars and lines are usually clearest.</li>
 </ul></div>
 
@@ -216,11 +232,11 @@ Quarter → Month), and <strong>drill-through</strong> jumps to a detail page fo
 
 <div class="card c-do"><span class="lab">Do this — build a polished report page</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Open the <strong>Sales</strong> dataset → <strong>Create report</strong> (Service) or build in Desktop.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Card</strong> = <code>Amount</code> (Total sales); a <strong>column chart</strong> (<code>Region</code> × <code>Amount</code>); a <strong>line chart</strong> (<code>Date</code> × <code>Amount</code>).</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Slicer</strong> on <code>Product</code>. Click a product — watch cross-filtering.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Format</strong> a visual: give it a title, data labels, and colours (the paint-roller icon). Add a <strong>page-level filter</strong> (e.g. only one Region).</span></li>
-<li><span class="box"></span><span class="txt">Try the <strong>Q&amp;A</strong> visual: type <em>"total amount by region"</em> and let Power BI build the chart. <strong>Save</strong> the report as <code>Sales Overview</code>.</span></li>
+<li><span class="box"></span><span class="txt">Open your <strong>Loan</strong> data → <strong>Create report</strong> (Service) or build in Desktop.</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Card</strong> = count of <code>Loan</code> (Total loans); a <strong>column chart</strong> of loans by <code>Genre</code> (from Book); a <strong>line chart</strong> of loans by <code>Loan date</code>.</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Slicer</strong> on <code>Membership</code> (from Member). Click a value — watch cross-filtering across every chart.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Format</strong> a visual: give it a title, data labels, and colours (the paint-roller icon). Add a <strong>page-level filter</strong> (e.g. only <em>Returned = No</em> to see current loans).</span></li>
+<li><span class="box"></span><span class="txt">Try the <strong>Q&amp;A</strong> visual: type <em>"count of loans by genre"</em> and let Power BI build the chart. <strong>Save</strong> the report as <code>Library Loans</code>.</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — good charts, not fancy charts</span>
@@ -266,10 +282,10 @@ re-order or delete — a recipe you can re-run any time the source changes.</p>
 <text x="380" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Preview (updates each step)</text>
 <line x1="230" y1="58" x2="530" y2="58" stroke="#eef1f6"/>
 <g font-family="monospace" font-size="9.5" fill="#7b8798">
-<text x="230" y="80">FirstName | LastName | Dept | Status</text>
-<text x="230" y="100">Ada       | Byron    | R&amp;D  | Active</text>
-<text x="230" y="118">Alan      | Turing   | R&amp;D  | Active</text>
-<text x="230" y="140">…filtered to Active, FullName added…</text></g>
+<text x="230" y="80">FirstName | LastName | Membership</text>
+<text x="230" y="100">Ada       | Byron    | Student</text>
+<text x="230" y="118">Alan      | Turing   | Standard</text>
+<text x="230" y="140">…types set, Full name column added…</text></g>
 </svg>
 <figcaption>Power Query records your clicks as re-runnable "Applied steps"</figcaption>
 </figure>
@@ -284,7 +300,7 @@ native query (fast); certain steps break folding, after which work happens local
 
 <div class="card c-concept"><span class="lab">Concept — modelling: relationships, cardinality, star schema</span>
 <p>Real reports use several linked tables (the relationships from Day 3). A <strong>relationship</strong>
-has a <strong>cardinality</strong> — usually <em>one-to-many</em> (one Product, many Sales) — and a
+has a <strong>cardinality</strong> — usually <em>one-to-many</em> (one Book, many Loans) — and a
 <strong>filter direction</strong>. BI's favourite shape is the <strong>star schema</strong>: a central
 <strong>fact table</strong> (the numbers/events) surrounded by <strong>dimension tables</strong> (the
 things you slice by). Add a dedicated <strong>Date table</strong> so time features work.</p>
@@ -297,10 +313,10 @@ things you slice by). Add a dedicated <strong>Date table</strong> so time featur
 <line x1="260" y1="130" x2="95" y2="208" stroke="#9fb0c8" stroke-width="1.5"/>
 <line x1="260" y1="130" x2="425" y2="208" stroke="#9fb0c8" stroke-width="1.5"/>
 <rect x="30" y="30" width="130" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="95" y="50" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Dim: Date</text><text x="95" y="65" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">year, month</text>
-<rect x="360" y="30" width="130" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="425" y="50" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Dim: Product</text><text x="425" y="65" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">name, category</text>
-<rect x="30" y="186" width="130" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="95" y="206" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Dim: Region</text><text x="95" y="221" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">area, country</text>
-<rect x="360" y="186" width="130" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="425" y="206" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Dim: Customer</text><text x="425" y="221" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">name, segment</text>
-<rect x="190" y="102" width="140" height="56" rx="9" fill="#f3fbf6" stroke="#0e9f6e" stroke-width="1.5"/><text x="260" y="126" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">FACT: Sales</text><text x="260" y="144" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">Amount, Qty + keys</text>
+<rect x="360" y="30" width="130" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="425" y="50" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Dim: Book</text><text x="425" y="65" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">title, genre</text>
+<rect x="30" y="186" width="130" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="95" y="206" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Dim: Member</text><text x="95" y="221" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">name, membership</text>
+<rect x="360" y="186" width="130" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="425" y="206" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Dim: Status</text><text x="425" y="221" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">open, returned…</text>
+<rect x="190" y="102" width="140" height="56" rx="9" fill="#f3fbf6" stroke="#0e9f6e" stroke-width="1.5"/><text x="260" y="126" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">FACT: Loan</text><text x="260" y="144" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">one borrowing + keys</text>
 </svg>
 <figcaption>Star schema — measurable facts in the middle, "slice-by" dimensions around it</figcaption>
 </figure>
@@ -311,10 +327,10 @@ whole tables and totals." A <strong>measure</strong> recomputes for <em>whatever
 (the <em>filter context</em>); a <strong>calculated column</strong> is worked out row-by-row and stored.
 The powerful function is <strong>CALCULATE</strong>, which changes the filter context; and
 <strong>time-intelligence</strong> functions (like <code>TOTALYTD</code>) need that Date table.</p>
-<pre><code>Total Sales   = SUM(Sales[Amount])
-Order Count   = COUNTROWS(Sales)
-Sales (North) = CALCULATE([Total Sales], Region[Area] = "North")
-Sales YTD     = TOTALYTD([Total Sales], 'Date'[Date])</code></pre>
+<pre><code>Total Loans  = COUNTROWS(Loan)
+Open Loans   = CALCULATE(COUNTROWS(Loan), Loan[Returned] = false)
+Fiction Loans = CALCULATE([Total Loans], Book[Genre] = "Fiction")
+Loans YTD    = TOTALYTD([Total Loans], 'Dates'[Date])</code></pre>
 </div>
 
 <figure class="fig">
@@ -323,23 +339,24 @@ Sales YTD     = TOTALYTD([Total Sales], 'Date'[Date])</code></pre>
 <text x="146" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Measure</text>
 <text x="146" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">recomputes for the</text>
 <text x="146" y="84" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">current filters/slicers</text>
-<text x="146" y="104" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">Total = SUM(Sales[Amount])</text>
+<text x="146" y="104" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">Total Loans = COUNTROWS(Loan)</text>
 <rect x="286" y="24" width="256" height="92" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
 <text x="414" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Calculated column</text>
 <text x="414" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">a fixed value worked</text>
 <text x="414" y="84" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">out per row, at refresh</text>
-<text x="414" y="104" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">Big = IF(Amount&gt;100,"Y","N")</text>
+<text x="414" y="104" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">Loan days = DATEDIFF(...,DAY)</text>
 </svg>
 <figcaption>Totals that must react to filters → measure; a per-row value → calculated column</figcaption>
 </figure>
 
 <div class="card c-do"><span class="lab">Do this — clean, model, and calculate</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Transform data</strong> (Power Query): open your data, <strong>promote headers</strong>, set <strong>types</strong>, <strong>filter</strong> a column, add a <strong>custom column</strong> (e.g. FullName). Read the Applied steps.</span></li>
-<li><span class="box"></span><span class="txt">Add a second table <code>Products</code> (<code>Product, Category</code>). In <strong>Model</strong> view, create a <strong>relationship</strong> from Sales[Product] to Products[Product] (one-to-many).</span></li>
-<li><span class="box"></span><span class="txt">Build a chart of <code>Amount</code> by <code>Category</code> — only possible because the tables are linked.</span></li>
-<li><span class="box"></span><span class="txt"><strong>New measure</strong>: <code>Total Sales = SUM(Sales[Amount])</code>; add <code>Order Count</code> and <code>Avg Sale</code>. Click a slicer — watch them recompute.</span></li>
-<li><span class="box"></span><span class="txt"><em>Stretch (Desktop):</em> add a Date table, then a <code>Sales YTD</code> measure with <code>TOTALYTD</code>, and a <code>CALCULATE</code> measure for one region.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Transform data</strong> (Power Query): open your <strong>Member</strong> query, <strong>promote headers</strong> if needed, set <strong>types</strong> (Join date → Date), and read the Applied steps.</span></li>
+<li><span class="box"></span><span class="txt">In <strong>Model</strong> view, make sure the relationships are there: <strong>Loan[Book] → Book</strong> and <strong>Loan[Member] → Member</strong> (both one-to-many). If you imported from Excel, drag the matching columns together to create them.</span></li>
+<li><span class="box"></span><span class="txt">Build a chart of loan <strong>count</strong> by <code>Book[Genre]</code> — only possible because Loan is linked to Book.</span></li>
+<li><span class="box"></span><span class="txt"><strong>New measure</strong> (Modeling → New measure) — type each exactly:<br><code>Total Loans = COUNTROWS(Loan)</code><br><code>Open Loans = CALCULATE(COUNTROWS(Loan), Loan[Returned] = false)</code><br><code>Avg Loan Days = AVERAGEX(Loan, DATEDIFF(Loan[Loan date], Loan[Due date], DAY))</code></span></li>
+<li><span class="box"></span><span class="txt">Put <code>Total Loans</code> and <code>Open Loans</code> in Cards; add <code>Membership</code> as a slicer and watch them recompute.</span></li>
+<li><span class="box"></span><span class="txt"><em>Stretch (Desktop):</em> create a date table — <strong>Modeling → New table</strong> → <code>Dates = CALENDARAUTO()</code> — relate <code>Dates[Date]</code> to <code>Loan[Loan date]</code>, then add <code>Loans YTD = TOTALYTD([Total Loans], 'Dates'[Date])</code>.</span></li>
 </ul></div>
 
 <div class="card c-warn"><span class="lab">Careful — this day is much richer in Desktop</span>
@@ -400,10 +417,11 @@ Dataverse security (Day 4) and DLP (Day 16). You may also see <strong>sensitivit
 
 <div class="card c-do"><span class="lab">Do this — publish, pin, and glance at RLS</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Make sure <strong>Sales Overview</strong> is saved in a workspace (publish from Desktop if you built it there).</span></li>
-<li><span class="box"></span><span class="txt">On a visual, click <strong>pin</strong> → <strong>New dashboard</strong> = <code>Sales Dashboard</code>; pin two or three visuals. Open the dashboard; click a tile → it jumps to the report.</span></li>
+<li><span class="box"></span><span class="txt">Make sure your <strong>Library Loans</strong> report is saved in a workspace (publish from Desktop if you built it there).</span></li>
+<li><span class="box"></span><span class="txt">On a visual, click <strong>pin</strong> → <strong>New dashboard</strong> = <code>Library Dashboard</code>; pin the Total Loans card, the loans-by-genre chart, and the loans-over-time line. Open the dashboard; click a tile → it jumps to the report.</span></li>
 <li><span class="box"></span><span class="txt">Explore <strong>Share</strong> / <strong>Manage permissions</strong> and the dataset's <strong>Security</strong> (where RLS roles live) — read to understand; don't share anything real.</span></li>
 <li><span class="box"></span><span class="txt">Find <strong>Settings → Scheduled refresh</strong> on the dataset and read the options.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Keep your report forever:</strong> if you built in Desktop, <strong>File → Save as</strong> a <code>.pbix</code> on your computer. From the Service you can also <strong>Download this report (.pbix)</strong>. That file is yours permanently (see "Keep it forever" on the home page).</span></li>
 </ul></div>
 
 <div class="card c-do"><span class="lab">Do this — your capstone (ties the whole course together)</span>

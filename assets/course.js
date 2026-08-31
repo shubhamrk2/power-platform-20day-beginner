@@ -1,7 +1,7 @@
 (function(){
   // ---- site map: pages and their day-anchors (shared across every page) ----
   var PAGES=[
-    {p:'index',   file:'index.html',    t:'Start here', days:[['welcome','Welcome'],['how','How to use'],['setup','Day 0 · Setup'],['roadmap','The roadmap']]},
+    {p:'index',   file:'index.html',    t:'Start here', days:[['welcome','Welcome'],['how','How to use'],['project','Your project'],['setup','Day 0 · Setup'],['roadmap','The roadmap'],['keep','Keep it forever']]},
     {p:'phase1',  file:'phase1.html',   t:'Foundations', gk:'Phase 1', days:[['day1','Day 1 · Orientation'],['day2','Day 2 · Tables & data'],['day3','Day 3 · Relationships'],['day4','Day 4 · Solutions & security']]},
     {p:'phase2',  file:'phase2.html',   t:'Building apps', gk:'Phase 2', days:[['day5','Day 5 · Canvas app'],['day6','Day 6 · Power Fx'],['day7','Day 7 · Galleries & forms'],['day8','Day 8 · Model-driven']]},
     {p:'phase3',  file:'phase3.html',   t:'Automation', gk:'Phase 3', days:[['day9','Day 9 · First flow'],['day10','Day 10 · Logic'],['day11','Day 11 · Approvals & data']]},

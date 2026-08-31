@@ -71,8 +71,8 @@ ready-made bridges to Outlook, Teams, Dataverse, and hundreds more.</p>
 <ul class="tasks">
 <li><span class="box"></span><span class="txt">Go to <code>make.powerautomate.com</code>; confirm the environment is <strong>Learning</strong>.</span></li>
 <li><span class="box"></span><span class="txt"><strong>Create → Instant cloud flow</strong>, trigger <strong>Manually trigger a flow</strong>; add <strong>Send me an email notification</strong>. Save → <strong>Test → Manually → Run</strong>. Check your inbox.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Create → Automated cloud flow</strong>, trigger <strong>When a row is added (Dataverse)</strong> → table Book → action <strong>Send me an email notification</strong>.</span></li>
-<li><span class="box"></span><span class="txt">Add a Book; within a minute the flow emails you. Open <strong>Run history</strong> to see the green ticks.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Create → Automated cloud flow</strong> named <code>Loan confirmation</code>, trigger <strong>When a row is added (Dataverse)</strong> → table <strong>Loan</strong> → action <strong>Send me an email notification</strong> (in a real library this would email the member — here it emails you). Use <strong>dynamic content</strong> to include the Book and Due date.</span></li>
+<li><span class="box"></span><span class="txt">Lend a book in your <strong>Library Manager</strong> app (or add a Loan row); within a minute the flow emails you. Open <strong>Run history</strong> to see the green ticks. <em>Your app and your automation are now connected.</em></span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — "dynamic content" is data from earlier steps</span>
@@ -107,11 +107,11 @@ Adding a book now emails you automatically. If not, <strong>Run history</strong>
 
 <div class="card c-do"><span class="lab">Do this — a flow that thinks</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Instant flow</strong> → add <strong>List rows (Dataverse)</strong> → table Book (fetches all books).</span></li>
-<li><span class="box"></span><span class="txt"><strong>Initialize variable</strong> <code>bigBooks</code> (String, empty).</span></li>
-<li><span class="box"></span><span class="txt"><strong>Apply to each</strong> over the rows; inside, a <strong>Condition</strong>: <em>Pages &gt; 300</em>.</span></li>
-<li><span class="box"></span><span class="txt">In "If yes", <strong>Append to string variable</strong> the book's Title + a comma.</span></li>
-<li><span class="box"></span><span class="txt">After the loop, email yourself the <code>bigBooks</code> variable. Test. Change 300 to 100 and re-test.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Instant flow</strong> named <code>Overdue check</code> → add <strong>List rows (Dataverse)</strong> → table <strong>Loan</strong> (fetches all loans).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Initialize variable</strong> <code>overdue</code> (String, empty).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Apply to each</strong> over the loans; inside, a <strong>Condition</strong>: <em>Returned is No</em> <strong>AND</strong> <em>Due date is before <code>utcNow()</code></em>.</span></li>
+<li><span class="box"></span><span class="txt">In "If yes", <strong>Append to string variable</strong> <code>overdue</code> with the loan's Book + " · " + Member.</span></li>
+<li><span class="box"></span><span class="txt">After the loop, email yourself the <code>overdue</code> list. Test — you built a real overdue-loans report. (Later you'd make this a <em>scheduled</em> flow that runs every morning.)</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — you don't memorise expressions</span>
@@ -126,7 +126,7 @@ descriptions. Start typing (e.g. <code>format</code>) to find what you need. Lea
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-Your flow emails a list of books over 300 pages, and you proved you understand the condition by changing the number.</div>
+Your flow emails a list of overdue loans (not returned, past their due date) — a real overdue-loans report built from your own data with a condition and a loop.</div>
 </section>
 
 <!-- DAY 11 (merged: approvals + adaptive cards + data changes + error handling) -->
@@ -154,10 +154,10 @@ try/catch.</p>
 
 <div class="card c-do"><span class="lab">Do this — approval, Teams card, and a safe data-change flow</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Automated flow</strong>, trigger <em>When a row is added</em> (Book) → <strong>Start and wait for an approval</strong> (Approve/Reject, assigned to yourself).</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Condition</strong> on <em>Outcome = Approve</em>; email "Approved" vs "Rejected" in each branch. Add a book and approve it from the email or the <strong>Approvals</strong> page.</span></li>
-<li><span class="box"></span><span class="txt"><em>Teams card:</em> a new flow with <strong>Post adaptive card and wait for a response</strong> (Teams) → post to yourself → sample Approve/Reject card → capture the response.</span></li>
-<li><span class="box"></span><span class="txt"><em>Data change + errors:</em> instant flow with text inputs → <strong>Add a new row</strong> (Book) → <strong>Update a row</strong> (set In stock = Yes). Wrap actions in a <strong>Scope "Try"</strong>; add a <strong>Scope "Catch"</strong> set to run after <em>has failed</em>, emailing you the error.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Automated flow</strong> named <code>New member approval</code>, trigger <em>When a row is added</em> (<strong>Member</strong>) → <strong>Start and wait for an approval</strong> (Approve/Reject, assigned to yourself).</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Condition</strong> on <em>Outcome = Approve</em>; email a "Welcome to the library" vs "Rejected" note in each branch. Add a Member and approve it from the email or the <strong>Approvals</strong> page.</span></li>
+<li><span class="box"></span><span class="txt"><em>Teams card:</em> a new flow with <strong>Post adaptive card and wait for a response</strong> (Teams) → post to yourself → sample Approve/Reject card → capture the response (this is how the approval could happen inside Teams).</span></li>
+<li><span class="box"></span><span class="txt"><em>Data change + errors:</em> instant flow that marks a loan returned — <strong>Update a row</strong> (Loan → set Returned = Yes, Status = Returned). Wrap it in a <strong>Scope "Try"</strong>; add a <strong>Scope "Catch"</strong> set to run after <em>has failed</em>, emailing you the error.</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — break it on purpose</span>
