@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference — Power Platform in 20 Days</title>
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="reference">
+<button id="menu" aria-label="Menu">☰</button>
+<aside id="rail">
+  <div class="brand"><a href="index.html">
+    <div class="t">Power Platform in 20 Days</div>
+    <div class="s">A Beginner's Course</div></a>
+    <div class="prog"><i id="pfill"></i></div>
+    <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
+  </div>
+  <nav id="nav"></nav>
+</aside>
+
+<main>
+<div class="crumb"><a href="index.html">Home</a> / Reference</div>
+<header class="hero">
+  <span class="pill">Reference</span>
+  <h1>Glossary &amp; troubleshooting</h1>
+  <p>Every word from the course in one place, plus what to do when something doesn't behave.</p>
+</header>
+
+<section class="day" id="glossary">
+<div class="dhead"><span class="dnum">Ref</span></div>
+<h2>Master glossary</h2>
+<table>
+<tr><th>Word</th><th>Plain meaning</th></tr>
+<tr><td>Cloud</td><td>Computers you use over the internet through a browser.</td></tr>
+<tr><td>Incognito / private window</td><td>A browser window that forgets sign-ins when closed.</td></tr>
+<tr><td>Tenant</td><td>Your organisation's whole space in Microsoft's cloud.</td></tr>
+<tr><td>Environment</td><td>A container/room inside the tenant for apps and data.</td></tr>
+<tr><td>Maker portal</td><td><code>make.powerapps.com</code> — where you build.</td></tr>
+<tr><td>Dataverse</td><td>The Power Platform's built-in database.</td></tr>
+<tr><td>Table / column / row</td><td>A kind of thing / a field about it / one actual thing.</td></tr>
+<tr><td>Data type</td><td>The kind of value a column holds (text, number, date…).</td></tr>
+<tr><td>Choice / lookup</td><td>A fixed pick-list / a pointer to a row in another table.</td></tr>
+<tr><td>Relationship (1:N)</td><td>A link between tables; one relates to many.</td></tr>
+<tr><td>Solution / publisher / prefix</td><td>A movable box of components / its owner / its name tag.</td></tr>
+<tr><td>Security role</td><td>A set of permissions (who can do what).</td></tr>
+<tr><td>Managed / unmanaged</td><td>Locked (shipped) vs editable (in-progress) solution.</td></tr>
+<tr><td>Canvas app</td><td>An app you design by dragging controls onto a screen.</td></tr>
+<tr><td>Model-driven app</td><td>An app auto-generated from your tables.</td></tr>
+<tr><td>Control / property</td><td>An element on a screen / a setting on it.</td></tr>
+<tr><td>Power Fx</td><td>The Excel-like formula language of canvas apps.</td></tr>
+<tr><td>Variable</td><td>A labelled box that remembers a value.</td></tr>
+<tr><td>Gallery / form</td><td>A list of rows / an editor for one row.</td></tr>
+<tr><td>Delegation</td><td>Letting the database do heavy work (matters at scale).</td></tr>
+<tr><td>View / business rule</td><td>A saved filtered list / no-code if-then logic on a table.</td></tr>
+<tr><td>Flow</td><td>An automated "when… do…" recipe.</td></tr>
+<tr><td>Trigger / action / connector</td><td>The "when" / a "do" step / a bridge to a service.</td></tr>
+<tr><td>Condition / Apply to each</td><td>An if-else branch / a loop over a list.</td></tr>
+<tr><td>Approval</td><td>A built-in "ask a human, then wait" step.</td></tr>
+<tr><td>Adaptive Card</td><td>An interactive panel with buttons, shown in Teams.</td></tr>
+<tr><td>CRUD</td><td>Create, Read, Update, Delete (data operations).</td></tr>
+<tr><td>Scope / Configure run after</td><td>A group of actions / control whether a step runs on failure.</td></tr>
+<tr><td>SharePoint / list / library</td><td>M365 team sites / a simple table / file storage.</td></tr>
+<tr><td>Dataflow / Power Query / M</td><td>Bulk import+clean tool / its visual editor / its language.</td></tr>
+<tr><td>Key column (upsert)</td><td>The match column so re-imports update instead of duplicating.</td></tr>
+<tr><td>API / REST / GET / POST / JSON</td><td>Programs' ordering window / web rules / fetch / send / reply format.</td></tr>
+<tr><td>Connector / custom connector</td><td>A ready-made bridge / one you build to any web API.</td></tr>
+<tr><td>Office Script</td><td>A TypeScript automation in Excel-on-web, callable from flows.</td></tr>
+<tr><td>Copilot Studio / agent</td><td>Tool to build chatbots / the chatbot itself.</td></tr>
+<tr><td>Topic / knowledge source</td><td>A scripted path / content the AI answers from.</td></tr>
+<tr><td>Governance / DLP</td><td>Rules to keep a growing platform safe / connector-combination rules.</td></tr>
+<tr><td>ALM</td><td>Dev → Test → Production, moving solutions between them.</td></tr>
+<tr><td>Azure</td><td>Microsoft's big cloud of rentable building blocks.</td></tr>
+<tr><td>Resource group / resource</td><td>A folder of Azure things / one Azure thing.</td></tr>
+<tr><td>Key Vault / secret</td><td>A safe for passwords and keys.</td></tr>
+<tr><td>Microsoft Entra ID</td><td>The identity/users system (was "Azure AD").</td></tr>
+<tr><td>Power BI</td><td>Microsoft's tool for turning data into charts and dashboards.</td></tr>
+<tr><td>Power BI Service / Desktop</td><td>The browser version / the free Windows app for rich modelling &amp; DAX.</td></tr>
+<tr><td>Dataset / semantic model</td><td>The prepared, linked data a report reads from.</td></tr>
+<tr><td>Report / dashboard</td><td>Pages of charts / a one-screen summary of pinned visuals.</td></tr>
+<tr><td>Visual / slicer / matrix</td><td>A chart/table/card / an on-screen filter / a pivot-table visual.</td></tr>
+<tr><td>Cross-filtering</td><td>Clicking one visual filters the others.</td></tr>
+<tr><td>Star schema (fact / dimension)</td><td>Central "numbers" table surrounded by "describe-by" tables.</td></tr>
+<tr><td>DAX / measure / calculated column</td><td>Power BI's formula language / a total that respects filters / a per-row value.</td></tr>
+<tr><td>Import vs DirectQuery</td><td>Copy data into Power BI vs query it live in place.</td></tr>
+<tr><td>Row-level security (RLS)</td><td>Showing different rows to different viewers.</td></tr>
+<tr><td>PL-900 / PL-300</td><td>The Power Platform Fundamentals / Power BI Data Analyst certifications.</td></tr>
+</table>
+</section>
+
+<section class="day" id="help">
+<div class="dhead"><span class="dnum">Ref</span></div>
+<h2>When something goes wrong</h2>
+<table>
+<tr><th>Problem</th><th>Try this</th></tr>
+<tr><td>"It signed me in as the wrong account."</td><td>Close everything, open a fresh <strong>incognito</strong> window, sign in again with the learning account.</td></tr>
+<tr><td>"I can't see my table / app."</td><td>Check the <strong>environment picker</strong> (top-right) says <strong>Learning</strong>. Things live per-environment.</td></tr>
+<tr><td>"My flow didn't run."</td><td>Open the flow's <strong>Run history</strong>. A red step tells you exactly what failed; click it to read the message.</td></tr>
+<tr><td>"A formula has a red underline."</td><td>Read the tooltip — usually a missing bracket/quote, or a name typed wrong. Quotes must be straight <code>"</code>.</td></tr>
+<tr><td>"The chatbot won't answer from my document."</td><td>Knowledge sources take a minute or two to index after upload. Wait, then retry in the Test panel.</td></tr>
+<tr><td>"Azure is asking about payment / I'm worried about cost."</td><td>Stop. Don't create virtual machines. Delete <code>rg-learning</code>. Do Azure with the account owner.</td></tr>
+<tr><td>"A blue 'delegation' warning appeared."</td><td>Harmless for your small practice data. It only matters with thousands of rows — a topic for later.</td></tr>
+<tr><td>"Power BI won't let me model / write DAX easily."</td><td>The browser Service is limited; install free <strong>Power BI Desktop</strong> (Windows) when you have a laptop for full modelling and DAX.</td></tr>
+<tr><td>"My progress ticks disappeared."</td><td>Ticks are saved per browser/computer and per page. A different device or clearing browser data resets them — that's expected.</td></tr>
+</table>
+<div class="card c-tip"><span class="lab">Tip — the single best habit</span>
+When stuck, slow down and read the message on screen. Power Platform is unusually good at telling you
+what's wrong in plain-ish English. Nine times out of ten the fix is in the words you skipped.</div>
+
+<div class="card c-check"><span class="lab">That's the whole course</span>
+Revisit any phase anytime — your ticks are saved. Next stops: <strong>PL-900</strong> and
+<strong>PL-300</strong> on <code>learn.microsoft.com</code>. Happy building. 🌱</div>
+</section>
+
+<div class="pn">
+<a href="phase6.html"><div class="d">← Previous</div><div class="tt">Phase 6 · Power BI</div></a>
+<a class="nx" href="index.html"><div class="d">Back to →</div><div class="tt">Home</div></a>
+</div>
+</main>
+<button class="top" id="top" aria-label="Back to top">↑</button>
+<script src="assets/course.js"></script>
+</body>
+</html>

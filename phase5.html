@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 5 · AI &amp; governance — Power Platform in 20 Days</title>
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="phase5">
+<button id="menu" aria-label="Menu">☰</button>
+<aside id="rail">
+  <div class="brand"><a href="index.html">
+    <div class="t">Power Platform in 20 Days</div>
+    <div class="s">A Beginner's Course</div></a>
+    <div class="prog"><i id="pfill"></i></div>
+    <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
+  </div>
+  <nav id="nav"></nav>
+</aside>
+
+<main>
+<div class="crumb"><a href="index.html">Home</a> / Phase 5 · AI &amp; governance</div>
+<header class="hero">
+  <span class="pill">Phase 5 · Days 15–16</span>
+  <h1>AI &amp; governance</h1>
+  <p>Build an AI chatbot with Copilot Studio, then learn how organisations keep a growing platform safe
+  and tidy — governance, DLP, and moving solutions from build to live — plus a first, cost-safe look at
+  Azure.</p>
+</header>
+
+<!-- DAY 15 -->
+<section class="day" id="day15">
+<div class="dhead"><span class="dnum">Day 15</span></div>
+<h2>AI you can build: Copilot Studio chatbots</h2>
+<p class="meta">~110 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — what is a Copilot Studio "agent"?</span>
+<p><strong>Copilot Studio</strong> lets you build a <strong>chatbot</strong> (now often called an
+<strong>agent</strong>) — a helper people chat with. You give it a personality, some knowledge to answer
+from, and optional "skills" (actions it can take, like looking something up in your data).</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — the building blocks</span>
+<ul>
+<li><strong>Instructions</strong> — the agent's personality and rules (its "job description").</li>
+<li><strong>Topics</strong> — set conversation paths triggered by phrases (e.g. "opening hours").</li>
+<li><strong>Knowledge sources</strong> — documents/sites it reads to answer questions ("generative answers").</li>
+<li><strong>Actions</strong> — things it can <em>do</em> by calling a flow.</li>
+<li><strong>Channels</strong> — where it's published (a website, Teams…).</li>
+</ul></div>
+
+<div class="card c-do"><span class="lab">Do this — build and publish a simple chatbot</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><code>copilotstudio.microsoft.com</code> (Learning environment); start the trial if asked. <strong>Create → New agent</strong> = <code>Library Helper</code>.</span></li>
+<li><span class="box"></span><span class="txt">Set <strong>Instructions</strong>: "You are a friendly library assistant. Answer questions about books politely and briefly."</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Knowledge source</strong>: upload a one-page FAQ you write (opening hours, how to borrow — made up).</span></li>
+<li><span class="box"></span><span class="txt">Create a <strong>Topic</strong> with trigger phrases like "opening hours" + a message answer.</span></li>
+<li><span class="box"></span><span class="txt">Use the <strong>Test</strong> panel to chat with it (wait a minute if knowledge is still indexing). Then <strong>Publish</strong> → <strong>Demo website</strong> and chat with it in a normal tab.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — topics vs generative answers</span>
+A <strong>topic</strong> is a scripted path you control exactly. <strong>Generative answers</strong> let the
+AI answer freely from your knowledge when no topic matches. Good agents use both.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Agent / chatbot</b> — a helper people chat with.</li>
+<li><b>Instructions / topic / trigger phrase</b> — its rules / a scripted path / the words that start it.</li>
+<li><b>Knowledge source / action / channel</b> — what it answers from / what it can do / where it's published.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+A published chatbot that answers from your FAQ and a scripted topic. You're now building with AI. 🤖</div>
+</section>
+
+<!-- DAY 16 (merged: governance/DLP/ALM + Azure tour) -->
+<section class="day" id="day16">
+<div class="dhead"><span class="dnum">Day 16</span></div>
+<h2>Governance, DLP, ALM — and a first look at Azure</h2>
+<p class="meta">~120 minutes · this day covers governance and a short Azure tour</p>
+
+<div class="card c-concept"><span class="lab">Concept — governance and DLP</span>
+<p>When hundreds of people build across a company, you need <strong>rules and oversight</strong> so
+nothing leaks or breaks — that's <strong>governance</strong>, managed in the <strong>Power Platform admin
+center</strong>. A key tool is <strong>DLP</strong> (Data Loss Prevention): a rule about which connectors
+may be used <em>together</em>. Connectors sit in groups — <strong>Business</strong>,
+<strong>Non-business</strong>, <strong>Blocked</strong> — and a flow can't mix Business with Non-business,
+so company data can't be wired straight to a personal service.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 130" role="img" aria-label="DLP groups: business, non-business, blocked; a flow cannot cross groups">
+<rect x="16" y="34" width="160" height="80" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="96" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Business</text>
+<text x="96" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">Dataverse, Teams,</text>
+<text x="96" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">SharePoint</text>
+<rect x="196" y="34" width="160" height="80" rx="9" fill="#fff8e9" stroke="#e0a020"/>
+<text x="276" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Non-business</text>
+<text x="276" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">personal</text>
+<text x="276" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">connectors</text>
+<rect x="376" y="34" width="160" height="80" rx="9" fill="#fdefee" stroke="#e0483b"/>
+<text x="456" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Blocked</text>
+<text x="456" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">not allowed</text>
+<text x="456" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">at all</text>
+<text x="276" y="126" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#c23b2f">a single flow may not combine Business + Non-business</text>
+</svg>
+<figcaption>DLP sorts connectors into groups; flows can't cross from Business to Non-business</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — ALM (build → test → live)</span>
+<p><strong>ALM</strong> (Application Lifecycle Management) means building in one environment (Dev), testing
+in another (Test), and running for real in a third (Production) — moving your <strong>solution</strong>
+(the "box" from Day 4) between them safely.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 96" role="img" aria-label="ALM: solution moves Dev to Test to Production">
+<defs><marker id="a6" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="30" y="30" width="130" height="40" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="95" y="55" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Dev (build)</text>
+<line x1="160" y1="50" x2="205" y2="50" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a6)"/>
+<rect x="207" y="30" width="130" height="40" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="272" y="55" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Test</text>
+<line x1="337" y1="50" x2="382" y2="50" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a6)"/>
+<rect x="384" y="30" width="146" height="40" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/><text x="457" y="55" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Production (live)</text>
+</svg>
+<figcaption>The same solution is promoted Dev → Test → Production</figcaption>
+</figure>
+
+<div class="card c-do"><span class="lab">Do this — look, export, and take a tiny Azure tour</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><code>admin.powerplatform.microsoft.com</code>: tour <strong>Environments</strong> and <strong>Resources → Capacity</strong>. Open <strong>Policies → Data policies</strong> and look at how connectors drag between Business / Non-business / Blocked.</span></li>
+<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Solutions</strong> → <strong>My Learning Solution</strong> → <strong>Export → Unmanaged</strong> → download the <code>.zip</code>. That zip is your whole solution as a movable file.</span></li>
+<li><span class="box"></span><span class="txt"><em>Azure tour (with the account owner):</em> open <code>portal.azure.com</code>; read the home page; create a <strong>Resource group</strong> <code>rg-learning</code> (a free "folder").</span></li>
+<li><span class="box"></span><span class="txt">Create a <strong>Key Vault</strong> in it (a safe for secrets); add a made-up secret <code>DemoSecret = not-a-real-password</code>. Look at <strong>Microsoft Entra ID → Users</strong> (the identity system).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Clean up:</strong> <strong>Resource groups → rg-learning → Delete resource group</strong> (type the name). This removes everything so nothing bills.</span></li>
+</ul></div>
+
+<div class="card c-warn"><span class="lab">Careful — the Azure rule</span>
+Do the Azure part <strong>with the account owner</strong>, never create a "virtual machine", and always
+<strong>delete <code>rg-learning</code></strong> at the end. Azure can bill by the hour; the rest of this
+course cannot.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Governance / admin center</b> — rules &amp; oversight / where admins manage them.</li>
+<li><b>DLP</b> — rules about which connectors can be combined (Business/Non-business/Blocked).</li>
+<li><b>ALM / managed / unmanaged</b> — Dev→Test→Prod / locked (shipped) vs editable solution.</li>
+<li><b>Azure / resource group / Key Vault / Entra ID</b> — Microsoft's big cloud / a folder of resources / a safe for secrets / the identity system.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+You can explain DLP and Dev/Test/Prod simply, you exported a portable solution, and you created — then
+<strong>deleted</strong> — Azure resources. Cleaning up is as important as creating. ✅</div>
+</section>
+
+<div class="pn">
+<a href="phase4.html"><div class="d">← Previous</div><div class="tt">Phase 4 · Data &amp; integration</div></a>
+<a class="nx" href="phase6.html"><div class="d">Next phase →</div><div class="tt">Phase 6 · Power BI</div></a>
+</div>
+</main>
+<button class="top" id="top" aria-label="Back to top">↑</button>
+<script src="assets/course.js"></script>
+</body>
+</html>

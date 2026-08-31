@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 3 · Automation — Power Platform in 20 Days</title>
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="phase3">
+<button id="menu" aria-label="Menu">☰</button>
+<aside id="rail">
+  <div class="brand"><a href="index.html">
+    <div class="t">Power Platform in 20 Days</div>
+    <div class="s">A Beginner's Course</div></a>
+    <div class="prog"><i id="pfill"></i></div>
+    <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
+  </div>
+  <nav id="nav"></nav>
+</aside>
+
+<main>
+<div class="crumb"><a href="index.html">Home</a> / Phase 3 · Automation</div>
+<header class="hero">
+  <span class="pill">Phase 3 · Days 9–11</span>
+  <h1>Automation</h1>
+  <p>Make the computer do repetitive work by itself. You'll build flows that react to events, add logic,
+  ask a human to approve, post interactive cards to Teams, and change data safely.</p>
+</header>
+
+<!-- DAY 9 -->
+<section class="day" id="day9">
+<div class="dhead"><span class="dnum">Day 9</span></div>
+<h2>Automation begins: your first flow</h2>
+<p class="meta">~100 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — what is a "flow"?</span>
+<p>A <strong>flow</strong> is a little recipe that runs by itself: "<em>when</em> something happens,
+<em>do</em> these steps." For example: <em>when</em> a new book is added, <em>send</em> me an email. The
+two building blocks are a <strong>trigger</strong> (the "when" — exactly one per flow) and one or more
+<strong>actions</strong> (the "do this"). Steps reach services through <strong>connectors</strong> —
+ready-made bridges to Outlook, Teams, Dataverse, and hundreds more.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 580 120" role="img" aria-label="A flow: trigger then actions connected by arrows">
+<defs><marker id="a3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="16" y="40" width="150" height="44" rx="9" fill="#fff8e9" stroke="#e0a020"/>
+<text x="91" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">TRIGGER</text>
+<text x="91" y="76" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">when a Book is added</text>
+<line x1="166" y1="62" x2="206" y2="62" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a3)"/>
+<rect x="208" y="40" width="150" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="283" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ACTION</text>
+<text x="283" y="76" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">send an email</text>
+<line x1="358" y1="62" x2="398" y2="62" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a3)"/>
+<rect x="400" y="40" width="164" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="482" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ACTION</text>
+<text x="482" y="76" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">update a row</text>
+<text x="290" y="24" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">one trigger  →  one or more actions</text>
+</svg>
+<figcaption>Every flow is one trigger (the "when") followed by actions (the "do this")</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — three ways a flow can start</span>
+<ul>
+<li><strong>Instant</strong> — you press a button to start it.</li>
+<li><strong>Automated</strong> — it starts on an event (a row added, an email arrives).</li>
+<li><strong>Scheduled</strong> — it starts on a timer (every morning at 9).</li>
+</ul></div>
+
+<div class="card c-do"><span class="lab">Do this — build two simple flows</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Go to <code>make.powerautomate.com</code>; confirm the environment is <strong>Learning</strong>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Create → Instant cloud flow</strong>, trigger <strong>Manually trigger a flow</strong>; add <strong>Send me an email notification</strong>. Save → <strong>Test → Manually → Run</strong>. Check your inbox.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Create → Automated cloud flow</strong>, trigger <strong>When a row is added (Dataverse)</strong> → table Book → action <strong>Send me an email notification</strong>.</span></li>
+<li><span class="box"></span><span class="txt">Add a Book; within a minute the flow emails you. Open <strong>Run history</strong> to see the green ticks.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — "dynamic content" is data from earlier steps</span>
+When filling an action, insert <strong>dynamic content</strong> — tokens like <em>Book Title</em> that
+carry a value from the trigger. That's how the email can say <em>which</em> book was added.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Flow</b> — an automated "when… do…" recipe.</li>
+<li><b>Trigger / action / connector</b> — the "when" / a "do" step / a bridge to a service.</li>
+<li><b>Instant / Automated / Scheduled</b> — the three ways a flow can start.</li>
+<li><b>Run history</b> — the log of past runs (to see success or errors).</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+Adding a book now emails you automatically. If not, <strong>Run history</strong> tells you which step needs attention.</div>
+</section>
+
+<!-- DAY 10 -->
+<section class="day" id="day10">
+<div class="dhead"><span class="dnum">Day 10</span></div>
+<h2>Smarter flows: conditions, loops, variables, expressions</h2>
+<p class="meta">~110 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — the four ideas behind every automation</span>
+<ul>
+<li><strong>Condition</strong> — an "if / else" fork.</li>
+<li><strong>Apply to each</strong> — a <em>loop</em>: repeat steps for every item in a list.</li>
+<li><strong>Variable</strong> — a labelled box to store/update a value while the flow runs (<em>Initialize</em> then <em>Set/Append</em>).</li>
+<li><strong>Expression</strong> — a small function you type, e.g. <code>formatDateTime(...)</code> or <code>concat(a,b)</code>.</li>
+</ul></div>
+
+<div class="card c-do"><span class="lab">Do this — a flow that thinks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Instant flow</strong> → add <strong>List rows (Dataverse)</strong> → table Book (fetches all books).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Initialize variable</strong> <code>bigBooks</code> (String, empty).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Apply to each</strong> over the rows; inside, a <strong>Condition</strong>: <em>Pages &gt; 300</em>.</span></li>
+<li><span class="box"></span><span class="txt">In "If yes", <strong>Append to string variable</strong> the book's Title + a comma.</span></li>
+<li><span class="box"></span><span class="txt">After the loop, email yourself the <code>bigBooks</code> variable. Test. Change 300 to 100 and re-test.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — you don't memorise expressions</span>
+Click into a field and the <strong>Expression</strong> tab shows a searchable list of functions with
+descriptions. Start typing (e.g. <code>format</code>) to find what you need. Learn by browsing.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Condition / Apply to each</b> — an if/else branch / a loop over a list.</li>
+<li><b>Variable</b> — a value the flow stores and updates.</li>
+<li><b>Expression / dynamic content</b> — a typed function / values from earlier steps.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+Your flow emails a list of books over 300 pages, and you proved you understand the condition by changing the number.</div>
+</section>
+
+<!-- DAY 11 (merged: approvals + adaptive cards + data changes + error handling) -->
+<section class="day" id="day11">
+<div class="dhead"><span class="dnum">Day 11</span></div>
+<h2>People, cards, data changes &amp; error handling</h2>
+<p class="meta">~120 minutes · this day covers several tightly-linked topics</p>
+
+<div class="card c-concept"><span class="lab">Concept — approvals and Adaptive Cards</span>
+<p>Often an automation needs a human to say "yes". Power Automate's <strong>approval</strong> action sends
+a request and <em>waits</em> for Approve/Reject, then continues based on the answer. An
+<strong>Adaptive Card</strong> is a small interactive panel — text plus buttons — that appears inside a
+Microsoft <strong>Teams</strong> chat, so you can capture a decision right there. (A card is described in
+<strong>JSON</strong>, but a flow action builds it for you.)</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — changing data (CRUD) and handling failures</span>
+<p>Flows can <em>change</em> your database too. The four operations are <strong>CRUD</strong>: Create,
+Read, Update, Delete — Dataverse has an action for each. And because steps sometimes fail (a service is
+down, a value is missing), you add <strong>error handling</strong>: each action's
+<strong>"Configure run after"</strong> can make a step run <em>only if the previous one failed</em>.
+Grouping steps in a <strong>Scope</strong> and adding a "run after failure" scope gives a simple
+try/catch.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — approval, Teams card, and a safe data-change flow</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Automated flow</strong>, trigger <em>When a row is added</em> (Book) → <strong>Start and wait for an approval</strong> (Approve/Reject, assigned to yourself).</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Condition</strong> on <em>Outcome = Approve</em>; email "Approved" vs "Rejected" in each branch. Add a book and approve it from the email or the <strong>Approvals</strong> page.</span></li>
+<li><span class="box"></span><span class="txt"><em>Teams card:</em> a new flow with <strong>Post adaptive card and wait for a response</strong> (Teams) → post to yourself → sample Approve/Reject card → capture the response.</span></li>
+<li><span class="box"></span><span class="txt"><em>Data change + errors:</em> instant flow with text inputs → <strong>Add a new row</strong> (Book) → <strong>Update a row</strong> (set In stock = Yes). Wrap actions in a <strong>Scope "Try"</strong>; add a <strong>Scope "Catch"</strong> set to run after <em>has failed</em>, emailing you the error.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — break it on purpose</span>
+Temporarily leave a required field blank, run the flow, and watch the Catch scope email you. Then fix it.
+Deliberately (safely) breaking things is one of the fastest ways to learn.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Approval / outcome</b> — an "ask a human and wait" step / their answer you branch on.</li>
+<li><b>Adaptive Card / JSON</b> — an interactive Teams panel / the structured text describing it.</li>
+<li><b>CRUD</b> — Create, Read, Update, Delete.</li>
+<li><b>Scope / Configure run after</b> — a group of actions / control whether a step runs on failure.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+Adding a book triggers an approval and branches on the answer; you posted a Teams card; and you built a
+flow that changes data and emails you if a step fails. That's the shape of most real automations.</div>
+</section>
+
+<div class="pn">
+<a href="phase2.html"><div class="d">← Previous</div><div class="tt">Phase 2 · Building apps</div></a>
+<a class="nx" href="phase4.html"><div class="d">Next phase →</div><div class="tt">Phase 4 · Data &amp; integration</div></a>
+</div>
+</main>
+<button class="top" id="top" aria-label="Back to top">↑</button>
+<script src="assets/course.js"></script>
+</body>
+</html>

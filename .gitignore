@@ -1,0 +1,5 @@
+# OS / editor / OneDrive noise
+Thumbs.db
+.DS_Store
+desktop.ini
+.claude/

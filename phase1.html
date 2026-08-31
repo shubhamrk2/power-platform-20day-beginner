@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 1 · Foundations — Power Platform in 20 Days</title>
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="phase1">
+<button id="menu" aria-label="Menu">☰</button>
+<aside id="rail">
+  <div class="brand"><a href="index.html">
+    <div class="t">Power Platform in 20 Days</div>
+    <div class="s">A Beginner's Course</div></a>
+    <div class="prog"><i id="pfill"></i></div>
+    <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
+  </div>
+  <nav id="nav"></nav>
+</aside>
+
+<main>
+<div class="crumb"><a href="index.html">Home</a> / Phase 1 · Foundations</div>
+<header class="hero">
+  <span class="pill">Phase 1 · Days 1–4</span>
+  <h1>Foundations</h1>
+  <p>Before you build anything, get comfortable with the cloud, and learn how data is stored and shaped.
+  These four days are the ground everything else stands on.</p>
+</header>
+
+<!-- DAY 1 -->
+<section class="day" id="day1">
+<div class="dhead"><span class="dnum">Day 1</span></div>
+<h2>Getting your bearings: the cloud, Microsoft 365, Power Platform</h2>
+<p class="meta">~75 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — what is "the cloud"?</span>
+<p><strong>Plain English:</strong> "the cloud" means <em>powerful computers in a data centre somewhere
+that you use through your web browser</em>. You don't install anything — you open a website, sign in,
+and the work happens on Microsoft's computers, not yours. That's why any computer with a browser works.</p>
+<p><strong>A bit more technical:</strong> the tools are <em>web applications</em>. Your browser sends
+requests over the internet to Microsoft's servers, which do the work and send back the screen you see.
+Your creations are saved on those servers, so you can sign in from any device and find them again.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — the words: browser, tab, URL, sign-in</span>
+<ul>
+<li><strong>Browser</strong> — the program for visiting websites (Microsoft <em>Edge</em>, Google <em>Chrome</em>). It came with your computer.</li>
+<li><strong>Tab</strong> — one website open inside the browser, like a page in a book.</li>
+<li><strong>URL / address</strong> — a website's address you type at the top, e.g. <code>make.powerapps.com</code>.</li>
+<li><strong>Sign in</strong> — proving who you are with email + password, so the site shows <em>your</em> stuff.</li>
+</ul></div>
+
+<div class="card c-concept"><span class="lab">Concept — what is the Power Platform?</span>
+<p><strong>Plain English:</strong> a family of Microsoft tools for building useful things — apps,
+automations, chatbots, reports — mostly by clicking and dragging, with little or no traditional coding
+(called <em>"low-code"</em>).</p>
+<ul>
+<li><strong>Power Apps</strong> — build apps. <em>Phase 2.</em></li>
+<li><strong>Power Automate</strong> — build automations. <em>Phase 3.</em></li>
+<li><strong>Copilot Studio</strong> — build AI chatbots. <em>Phase 5.</em></li>
+<li><strong>Power BI</strong> — build charts and dashboards. <em>Phase 6.</em></li>
+<li><strong>Dataverse</strong> — the shared <em>database</em> underneath it all. <em>Day 2.</em></li>
+</ul></div>
+
+<div class="card c-do"><span class="lab">Do this — open incognito, sign in, find your room</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Open a <strong>private / incognito window</strong>: Edge or Chrome, press <span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">N</span> (Mac: <span class="kbd">Cmd</span>+<span class="kbd">Shift</span>+<span class="kbd">N</span>).</span></li>
+<li><span class="box"></span><span class="txt">Type <code>make.powerapps.com</code> and press <span class="kbd">Enter</span>. Sign in with the learning account from Day 0.</span></li>
+<li><span class="box"></span><span class="txt">Top-right: click the <strong>environment picker</strong> and choose <strong>Learning</strong>. Do this every time you start.</span></li>
+<li><span class="box"></span><span class="txt">Explore the left menu (Home, Apps, Tables, Flows…) — this is the <strong>maker portal</strong>, your workshop. Don't create anything yet.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — why incognito matters</span>
+A private window forgets sign-ins when closed and ignores accounts used elsewhere. That prevents the
+common headache of the site silently logging you in as the wrong account.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Cloud</b> — computers you use over the internet through a browser.</li>
+<li><b>Browser / tab / URL</b> — the program for websites / one open site / a site's address.</li>
+<li><b>Incognito window</b> — a browser window that forgets everything when closed.</li>
+<li><b>Power Platform</b> — Microsoft's low-code family (Apps, Automate, Copilot Studio, BI, Dataverse).</li>
+<li><b>Tenant / environment</b> — your whole cloud space / one room inside it ("Learning").</li>
+<li><b>Maker portal</b> — <code>make.powerapps.com</code>, where you build.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+Can you (1) open an incognito window, (2) sign in at <code>make.powerapps.com</code>, and (3) switch to
+the <strong>Learning</strong> environment? If yes, you're ready for Day 2.</div>
+</section>
+
+<!-- DAY 2 -->
+<section class="day" id="day2">
+<div class="dhead"><span class="dnum">Day 2</span></div>
+<h2>Dataverse: tables, columns, and rows</h2>
+<p class="meta">~90 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — a database is a spreadsheet on steroids</span>
+<p>If you've seen an Excel spreadsheet, you already understand most of this:</p>
+<ul>
+<li>A <strong>table</strong> is like one <em>sheet</em> — it holds one kind of thing (e.g. all your Books).</li>
+<li>A <strong>column</strong> (a <em>field</em>) is one piece of information about it (Title, Author, Pages).</li>
+<li>A <strong>row</strong> (a <em>record</em>) is one actual thing (the book "Matilda").</li>
+</ul>
+<p><strong>Dataverse</strong> is the Power Platform's database — stricter and more powerful than a
+spreadsheet: each column has a fixed <em>type</em>, tables can link, and access is controlled.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 600 190" role="img" aria-label="A table with columns across the top and rows down the side">
+<text x="20" y="24" font-family="monospace" font-size="12" fill="#7b8798">TABLE: Book  — columns across the top, one row per book</text>
+<rect x="20" y="36" width="560" height="30" fill="#eef4ff" stroke="#2f6fed"/>
+<line x1="180" y1="36" x2="180" y2="170" stroke="#cbd3de"/><line x1="320" y1="36" x2="320" y2="170" stroke="#cbd3de"/><line x1="440" y1="36" x2="440" y2="170" stroke="#cbd3de"/>
+<g font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">
+<text x="30" y="56">Title (text)</text><text x="190" y="56">Author (lookup)</text><text x="330" y="56">Pages (number)</text><text x="450" y="56">In stock (yes/no)</text></g>
+<g font-family="sans-serif" font-size="12" fill="#4a5567">
+<rect x="20" y="66" width="560" height="34" fill="#fff" stroke="#e4e8ee"/><text x="30" y="88">Matilda</text><text x="190" y="88">R. Dahl</text><text x="330" y="88">240</text><text x="450" y="88">Yes</text>
+<rect x="20" y="100" width="560" height="34" fill="#f8fafc" stroke="#e4e8ee"/><text x="30" y="122">Dune</text><text x="190" y="122">F. Herbert</text><text x="330" y="122">412</text><text x="450" y="122">No</text>
+<rect x="20" y="134" width="560" height="34" fill="#fff" stroke="#e4e8ee"/><text x="30" y="156">Emma</text><text x="190" y="156">J. Austen</text><text x="330" y="156">474</text><text x="450" y="156">Yes</text></g>
+<rect x="14" y="66" width="8" height="102" fill="#0e9f6e"/>
+<text x="590" y="120" font-family="monospace" font-size="10" fill="#7b8798" transform="rotate(90 590 120)">← rows (records)</text>
+</svg>
+<figcaption>A Dataverse table: columns describe the thing, each row is one thing</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — data "types"</span>
+<p>Every column stores <em>one kind</em> of value so the computer knows how to treat it: <strong>Text</strong>
+(short words), <strong>Whole number</strong> (counts), <strong>Decimal/Currency</strong> (money),
+<strong>Date</strong>, <strong>Choice</strong> (pick from a fixed list), <strong>Yes/No</strong> (a
+switch). If <em>Pages</em> is a number, the computer can total it; as text it couldn't.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — build a "Book" table</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Left menu → <strong>Tables → New table</strong>. Display name = <code>Book</code>. Create.</span></li>
+<li><span class="box"></span><span class="txt">Rename the existing <strong>primary column</strong> (the main label) to <code>Title</code>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>+ New column</strong> for each, picking the right type: <code>Author</code> (Text — for now), <code>Pages</code> (Whole number), <code>Published</code> (Date only), <code>Genre</code> (Choice: Fiction, Non-fiction, Textbook), <code>In stock</code> (Yes/No).</span></li>
+<li><span class="box"></span><span class="txt">Open the table's data grid and add <strong>3 made-up rows</strong>.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — friendly names vs logical names</span>
+Behind your friendly <strong>Display name</strong> (what people read), Dataverse keeps a
+<strong>logical name</strong> with a prefix like <code>cr123_title</code> (what the system uses). You
+don't need to worry about it yet.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Database / Dataverse</b> — an organised store of info / the Power Platform's database.</li>
+<li><b>Table / column / row</b> — a kind of thing / a field about it / one actual thing.</li>
+<li><b>Data type</b> — the kind of value a column holds.</li>
+<li><b>Primary column</b> — the main label column for each row.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+You have a <strong>Book</strong> table with 5+ columns and 3 rows. Which type for a phone number —
+number or text? (<em>Text</em> — phone numbers can start with 0 and you never do maths on them.)</div>
+</section>
+
+<!-- DAY 3 -->
+<section class="day" id="day3">
+<div class="dhead"><span class="dnum">Day 3</span></div>
+<h2>Linking data: choices, lookups, and relationships</h2>
+<p class="meta">~90 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — why not put everything in one table?</span>
+<p>Imagine every book also stored the author's country and birth year. If an author wrote 10 books,
+you'd type their details 10 times — and fix 10 rows if they changed. Instead we keep <em>Authors</em> in
+their own table once, and <em>point</em> each book to its author. That pointing is a
+<strong>relationship</strong> — the core idea of good data design: store each fact once, then link.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 180" role="img" aria-label="One Author relates to many Books (one-to-many)">
+<rect x="30" y="60" width="150" height="70" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="105" y="88" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f2733">Author</text>
+<text x="105" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#4a5567">Full name, Country</text>
+<line x1="180" y1="95" x2="360" y2="45" stroke="#9fb0c8" stroke-width="1.6"/>
+<line x1="180" y1="95" x2="360" y2="95" stroke="#9fb0c8" stroke-width="1.6"/>
+<line x1="180" y1="95" x2="360" y2="145" stroke="#9fb0c8" stroke-width="1.6"/>
+<text x="250" y="80" font-family="monospace" font-size="11" fill="#2f6fed">1  →  many</text>
+<g>
+<rect x="360" y="22" width="170" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="49" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "Matilda"</text>
+<rect x="360" y="73" width="170" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="100" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "The BFG"</text>
+<rect x="360" y="124" width="170" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="151" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "Danny…"</text>
+</g>
+</svg>
+<figcaption>One-to-many (1:N): one Author, many Books — the lookup lives on the "many" side</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — choice vs lookup</span>
+<ul>
+<li>A <strong>choice</strong> is a pick-list of <em>fixed words you decide in advance</em> (Genre:
+Fiction / Non-fiction / Textbook). The options are part of the column's design.</li>
+<li>A <strong>lookup</strong> points to <em>a row in another table</em> (Author points to a row in the
+Author table). The options are <em>live data</em> that grows as you add rows.</li>
+</ul>
+<p>Rule of thumb: short, unchanging list → <strong>choice</strong>; a pointer to a "thing" with its own
+details → <strong>lookup</strong>.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — add an Author table and link it</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Tables → New table</strong> = <code>Author</code>. Rename its primary column to <code>Full name</code>; add <code>Country</code> (Text), <code>Born</code> (Date). Add 2–3 authors.</span></li>
+<li><span class="box"></span><span class="txt">Open <strong>Book</strong> → delete the old text <code>Author</code> column → <strong>+ New column</strong> → type <strong>Lookup</strong> → Related table = <strong>Author</strong>. Name it <code>Author</code>.</span></li>
+<li><span class="box"></span><span class="txt">In the Book grid, set each book's Author by <em>picking</em> from your Author rows. You can only pick authors that exist — that's the lookup's power.</span></li>
+</ul></div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Relationship</b> — a link between two tables.</li>
+<li><b>Choice (option set)</b> — a fixed pick-list defined in the column.</li>
+<li><b>Lookup</b> — a column that points to a row in another table.</li>
+<li><b>One-to-many (1:N)</b> — one row relates to many rows on the other side.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+Book rows now link to real Author rows. Is "Marital status: Single / Married / Other" better as a choice
+or a lookup? (<em>Choice</em> — a short fixed list with no extra details behind each option.)</div>
+</section>
+
+<!-- DAY 4 -->
+<section class="day" id="day4">
+<div class="dhead"><span class="dnum">Day 4</span></div>
+<h2>Keeping it tidy: environments, solutions, security</h2>
+<p class="meta">~75 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — a "solution" is a moving box</span>
+<p>As you build tables, apps and flows, they can scatter. A <strong>solution</strong> is a labelled box
+you put related things into, so you can find them and later <em>move the whole box</em> between
+environments (e.g. from a testing room to a live one). Professionals build inside solutions from day one.
+A solution has a <strong>publisher</strong> with a short <strong>prefix</strong> — a name tag added to
+everything you create.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — security roles</span>
+<p>A <strong>security role</strong> is a set of permissions — can this person read, create, edit, delete
+rows? In your Learning environment you're the admin, so you can do everything. In a real company, most
+people get limited roles so they only touch what they should.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — create a solution and adopt your tables</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Solutions → New solution</strong> = <code>My Learning Solution</code>. New publisher: name <code>Learner</code>, prefix <code>learn</code>.</span></li>
+<li><span class="box"></span><span class="txt">Open it → <strong>Add existing → Table</strong> → add <strong>Book</strong> and <strong>Author</strong>.</span></li>
+<li><span class="box"></span><span class="txt">From now on, build <em>inside</em> this solution so everything stays together.</span></li>
+<li><span class="box"></span><span class="txt">Peek: <code>admin.powerplatform.microsoft.com</code> → <strong>Environments → Learning</strong>. Just look at its settings, users and capacity.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — "managed" vs "unmanaged" (you'll meet this on Day 16)</span>
+While you build, your solution is <strong>unmanaged</strong> (editable). When you ship it to a live
+environment it's usually exported as <strong>managed</strong> (locked). More on that in Phase 5.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Solution</b> — a box grouping related components so you can manage and move them.</li>
+<li><b>Publisher / prefix</b> — the name tag added to what you create (e.g. <code>learn_</code>).</li>
+<li><b>Security role</b> — a set of permissions (who can do what).</li>
+<li><b>Managed / unmanaged</b> — locked (shipped) vs editable (in-progress) solution.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+You have <strong>My Learning Solution</strong> containing your two tables. Foundations complete — now
+you get to build apps. 🎉</div>
+</section>
+
+<div class="pn">
+<a href="index.html"><div class="d">← Back</div><div class="tt">Home &amp; setup</div></a>
+<a class="nx" href="phase2.html"><div class="d">Next phase →</div><div class="tt">Phase 2 · Building apps</div></a>
+</div>
+</main>
+<button class="top" id="top" aria-label="Back to top">↑</button>
+<script src="assets/course.js"></script>
+</body>
+</html>

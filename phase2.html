@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 2 · Building apps — Power Platform in 20 Days</title>
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="phase2">
+<button id="menu" aria-label="Menu">☰</button>
+<aside id="rail">
+  <div class="brand"><a href="index.html">
+    <div class="t">Power Platform in 20 Days</div>
+    <div class="s">A Beginner's Course</div></a>
+    <div class="prog"><i id="pfill"></i></div>
+    <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
+  </div>
+  <nav id="nav"></nav>
+</aside>
+
+<main>
+<div class="crumb"><a href="index.html">Home</a> / Phase 2 · Building apps</div>
+<header class="hero">
+  <span class="pill">Phase 2 · Days 5–8</span>
+  <h1>Building apps</h1>
+  <p>Now you turn your data into something people can use. You'll build a hand-designed
+  <em>canvas</em> app, learn the Power Fx formula language, connect to data, and then meet the
+  auto-generated <em>model-driven</em> app.</p>
+</header>
+
+<!-- DAY 5 -->
+<section class="day" id="day5">
+<div class="dhead"><span class="dnum">Day 5</span></div>
+<h2>Your first app: canvas apps</h2>
+<p class="meta">~100 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — what is an app, and a canvas app?</span>
+<p>An <strong>app</strong> is a set of screens people tap or click to get something done. A
+<strong>canvas app</strong> lets you design those screens by <em>dragging things onto a blank canvas</em>
+— like building a PowerPoint slide, but the things you drag can show data and react to taps.</p>
+<p>Technically: a canvas app is a set of <strong>screens</strong>, each holding <strong>controls</strong>
+(buttons, labels, text boxes, galleries). Every control has <strong>properties</strong> (text, colour,
+position…) you can set, sometimes with a formula.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 210" role="img" aria-label="Anatomy of the canvas app editor: tree, canvas, properties">
+<rect x="14" y="30" width="120" height="164" rx="8" fill="#f4f6f9" stroke="#cbd3de"/>
+<text x="74" y="50" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Tree view</text>
+<text x="74" y="70" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">every screen</text>
+<text x="74" y="84" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">&amp; control</text>
+<rect x="146" y="30" width="250" height="164" rx="8" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="271" y="50" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Canvas (the screen)</text>
+<rect x="176" y="66" width="190" height="26" rx="5" fill="#fff" stroke="#9fb0c8"/><text x="186" y="84" font-family="sans-serif" font-size="10" fill="#4a5567">Label: title</text>
+<rect x="176" y="100" width="190" height="26" rx="5" fill="#fff" stroke="#9fb0c8"/><text x="186" y="118" font-family="sans-serif" font-size="10" fill="#4a5567">Text input</text>
+<rect x="176" y="134" width="90" height="30" rx="6" fill="#2f6fed"/><text x="221" y="154" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#fff">Button</text>
+<rect x="408" y="30" width="138" height="164" rx="8" fill="#f4f6f9" stroke="#cbd3de"/>
+<text x="477" y="50" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Properties</text>
+<text x="477" y="72" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">Text, Fill,</text>
+<text x="477" y="86" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">OnSelect…</text>
+<text x="280" y="20" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">the canvas app editor ("Studio")</text>
+</svg>
+<figcaption>Studio: pick a control on the canvas, set its properties on the right</figcaption>
+</figure>
+
+<div class="card c-do"><span class="lab">Do this — build a one-screen app</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Open <strong>My Learning Solution → New → App → Canvas app</strong>. Choose <strong>Tablet</strong> layout. Name it <code>Book Explorer</code>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Insert</strong> a <strong>Label</strong>; set its Text to <code>My Book Explorer</code>. Make it big/bold.</span></li>
+<li><span class="box"></span><span class="txt">Insert a <strong>Text input</strong> and a <strong>Button</strong>; move them around.</span></li>
+<li><span class="box"></span><span class="txt">Select the button; change its <strong>Text</strong> to <code>Say hello</code> and its <strong>Fill</strong> colour.</span></li>
+<li><span class="box"></span><span class="txt">Press <strong>Play ▶</strong> to preview; <span class="kbd">Esc</span> to stop; <span class="kbd">Ctrl</span>+<span class="kbd">S</span> to save.</span></li>
+</ul></div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>App / canvas app</b> — screens people use / an app you design by dragging controls.</li>
+<li><b>Screen / control / property</b> — one page / an element on it / a setting on the element.</li>
+<li><b>Studio</b> — the canvas app editor. <b>Play ▶</b> previews it.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+A saved app with a title, a text input, and a styled button. It won't <em>do</em> anything yet — that's Day 6.</div>
+</section>
+
+<!-- DAY 6 -->
+<section class="day" id="day6">
+<div class="dhead"><span class="dnum">Day 6</span></div>
+<h2>Making things happen: Power Fx formulas</h2>
+<p class="meta">~100 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — Power Fx is "Excel for apps"</span>
+<p>In Excel you type <code>=A1+B1</code> and it calculates. In canvas apps you type <strong>Power Fx</strong>
+into a control's <em>property</em> and it reacts. Some properties are <strong>events</strong> — they run
+when something happens, like a button's <code>OnSelect</code> (runs when clicked).</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — essential functions</span>
+<ul>
+<li><code>Notify("text")</code> — pop a message on screen.</li>
+<li><code>Set(varName, value)</code> — remember a value in a <strong>variable</strong> for later.</li>
+<li><code>If(condition, thenValue, elseValue)</code> — choose between options.</li>
+<li><code>&amp;</code> — glue text: <code>"Hello " &amp; NameInput.Text</code>.</li>
+<li><code>Navigate(Screen2)</code> — go to another screen.</li>
+</ul>
+<p>Refer to a control's value by <em>name + dot + property</em>: <code>NameInput.Text</code> = "the text
+typed in the box named NameInput".</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — make the button react</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">In <strong>Book Explorer</strong>, rename the text input to <code>NameInput</code> in the tree view.</span></li>
+<li><span class="box"></span><span class="txt">Select the <strong>button</strong>; in the property dropdown choose <strong>OnSelect</strong>; type <code>Notify("Hello " &amp; NameInput.Text)</code>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Play ▶</strong>, type a name, click the button — a greeting appears.</span></li>
+<li><span class="box"></span><span class="txt">Now a variable: set OnSelect to <code>Set(gGreeting, "Hi " &amp; NameInput.Text)</code>. Add a <strong>Label</strong> whose Text = <code>gGreeting</code>. Play again — the label updates on click. Save.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — red squiggles are your friend</span>
+If Power Fx dislikes a formula it underlines it and explains why — usually a missing bracket or quote.
+Use <em>straight</em> quotes <code>"</code>, not curly ones.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Power Fx</b> — the Excel-like formula language of canvas apps.</li>
+<li><b>Event</b> — a property that runs when something happens (<code>OnSelect</code>).</li>
+<li><b>Function / variable</b> — a built-in command / a labelled box that remembers a value.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+Can you make a button that reads a box and shows it back? Then you've written your first working logic. 🎉</div>
+</section>
+
+<!-- DAY 7 -->
+<section class="day" id="day7">
+<div class="dhead"><span class="dnum">Day 7</span></div>
+<h2>Showing and editing data: galleries and forms</h2>
+<p class="meta">~110 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — connecting an app to data</span>
+<p>So far the app is decoration. Now we <em>connect</em> it to your <strong>Book</strong> table so it can
+show and change real rows. A connection to a table is a <strong>data source</strong>.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — gallery vs form</span>
+<ul>
+<li>A <strong>gallery</strong> shows a <em>list</em> of rows (its <code>Items</code> property says which).</li>
+<li>A <strong>form</strong> shows <em>one</em> row to view or edit; you save changes with <code>SubmitForm</code>.</li>
+</ul>
+<p>A <strong>blue "delegation" warning</strong> may appear on a formula — it means some work is best done
+by the database at large scale. For your tiny practice data it never matters.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — list books and add new ones</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Insert → Gallery → Vertical</strong>; choose the <strong>Book</strong> table. Set the layout to show <code>Title</code> and <code>Author</code>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Insert → Edit form</strong>; Data source = Book; Fields = Title, Author, Pages, Genre, In stock.</span></li>
+<li><span class="box"></span><span class="txt">Add a "New" button: OnSelect = <code>NewForm(EditForm1)</code>. Add a "Save" button: OnSelect = <code>SubmitForm(EditForm1)</code>.</span></li>
+<li><span class="box"></span><span class="txt">Set the form's <strong>Item</strong> = <code>Gallery1.Selected</code>. Play, click a book, edit, Save — confirm it changes. Save the app.</span></li>
+</ul></div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Data source</b> — a table your app is connected to.</li>
+<li><b>Gallery / form</b> — a list of rows / an editor for one row.</li>
+<li><b>SubmitForm / NewForm / EditForm</b> — save / start-new / edit with a form.</li>
+<li><b>Delegation</b> — letting the database do heavy work (matters at large scale).</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+Your app lists books, lets you edit one, and add new ones — a real <strong>CRUD</strong> app (Create,
+Read, Update, Delete).</div>
+</section>
+
+<!-- DAY 8 (merged: model-driven + views + rules) -->
+<section class="day" id="day8">
+<div class="dhead"><span class="dnum">Day 8</span></div>
+<h2>The other kind of app: model-driven apps (with views &amp; rules)</h2>
+<p class="meta">~110 minutes · this day covers two topics</p>
+
+<div class="card c-concept"><span class="lab">Concept — canvas vs model-driven</span>
+<p>A <strong>canvas app</strong> is like designing each screen yourself (total control of the look). A
+<strong>model-driven app</strong> is the opposite: you point it at your <em>tables</em> and Microsoft
+builds a tidy, professional, mobile-friendly app automatically. You design the <em>data</em>; the look
+comes free. Canvas → custom, pixel-perfect; model-driven → fast, data-heavy business apps.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 150" role="img" aria-label="Canvas app is pixel-first, model-driven app is data-first">
+<rect x="20" y="24" width="250" height="104" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="145" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Canvas app</text>
+<text x="145" y="72" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a5567">You design each screen</text>
+<text x="145" y="90" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a5567">(pixel-first, custom look)</text>
+<text x="145" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">→ tailored experiences</text>
+<rect x="290" y="24" width="250" height="104" rx="10" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="415" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Model-driven app</text>
+<text x="415" y="72" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a5567">Built from your tables</text>
+<text x="415" y="90" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a5567">(data-first, auto look)</text>
+<text x="415" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">→ fast business apps</text>
+</svg>
+<figcaption>Choose canvas for a custom look; model-driven for a quick, standard data app</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — views, forms, and business rules</span>
+<ul>
+<li>A <strong>view</strong> is a saved, filtered, sorted list (e.g. "Books in stock").</li>
+<li>A <strong>form</strong> is the field layout for one row (with sections and tabs).</li>
+<li>A <strong>business rule</strong> adds simple "if this, then that" logic to a table with
+<em>no code</em> — e.g. "If Genre = Textbook, make Pages required" — and it applies in every app.</li>
+</ul></div>
+
+<div class="card c-do"><span class="lab">Do this — build a model-driven app, then shape it</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>My Learning Solution → New → App → Model-driven app</strong> = <code>Library Manager</code>. Add pages for <strong>Book</strong> and <strong>Author</strong>. <strong>Save → Publish → Play</strong>.</span></li>
+<li><span class="box"></span><span class="txt">Explore the auto-generated left menu, grids, and forms. Add a new book here and notice how fast it felt vs the canvas app.</span></li>
+<li><span class="box"></span><span class="txt">In the solution, open <strong>Book → Views → New view</strong> = <code>In stock</code>; filter <em>In stock = Yes</em>. Save &amp; Publish.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Book → Business rules → New</strong>: if <em>Genre = Textbook</em> then set <em>Pages</em> as Business Required. Activate.</span></li>
+<li><span class="box"></span><span class="txt">In <strong>Library Manager</strong>, try adding a Textbook without Pages — the rule blocks you. Switch to the "In stock" view.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — same data, two apps</span>
+Both your canvas app and this model-driven app read/write the <em>same</em> Book table. Data lives in
+Dataverse once; many apps share it. Separating "data" from "app" is a big professional idea.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Model-driven app</b> — an app auto-generated from your tables.</li>
+<li><b>Site map / command bar</b> — its navigation menu / the standard New/Save/Delete buttons.</li>
+<li><b>View</b> — a saved filtered/sorted list of rows.</li>
+<li><b>Business rule</b> — no-code "if/then" logic attached to a table.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+Two apps over the same data, plus a view and a business rule. Could you say when you'd pick canvas vs
+model-driven? (Custom look → canvas. Fast, data-first → model-driven.)</div>
+</section>
+
+<div class="pn">
+<a href="phase1.html"><div class="d">← Previous</div><div class="tt">Phase 1 · Foundations</div></a>
+<a class="nx" href="phase3.html"><div class="d">Next phase →</div><div class="tt">Phase 3 · Automation</div></a>
+</div>
+</main>
+<button class="top" id="top" aria-label="Back to top">↑</button>
+<script src="assets/course.js"></script>
+</body>
+</html>

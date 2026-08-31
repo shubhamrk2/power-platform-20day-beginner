@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase 4 · Data &amp; integration — Power Platform in 20 Days</title>
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="phase4">
+<button id="menu" aria-label="Menu">☰</button>
+<aside id="rail">
+  <div class="brand"><a href="index.html">
+    <div class="t">Power Platform in 20 Days</div>
+    <div class="s">A Beginner's Course</div></a>
+    <div class="prog"><i id="pfill"></i></div>
+    <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
+  </div>
+  <nav id="nav"></nav>
+</aside>
+
+<main>
+<div class="crumb"><a href="index.html">Home</a> / Phase 4 · Data &amp; integration</div>
+<header class="hero">
+  <span class="pill">Phase 4 · Days 12–14</span>
+  <h1>Data &amp; integration</h1>
+  <p>Real solutions pull data from many places. You'll use SharePoint, import and clean data with
+  dataflows and Power Query, and learn how systems talk to each other through connectors and APIs.</p>
+</header>
+
+<!-- DAY 12 -->
+<section class="day" id="day12">
+<div class="dhead"><span class="dnum">Day 12</span></div>
+<h2>SharePoint: lists and document libraries</h2>
+<p class="meta">~90 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — what is SharePoint?</span>
+<p><strong>SharePoint</strong> is the part of Microsoft 365 for team sites, shared file storage, and
+simple lists. A <strong>list</strong> is a simple table (columns and rows), lighter than Dataverse. A
+<strong>document library</strong> stores files (Word, PDF, images), where each file can also have columns
+of information ("metadata").</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 150" role="img" aria-label="When to choose a SharePoint list vs a Dataverse table">
+<rect x="18" y="24" width="256" height="106" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="146" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">SharePoint list</text>
+<text x="146" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">simple &amp; document-centric</text>
+<text x="146" y="86" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">data already in M365</text>
+<text x="146" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">tasks, contacts, files</text>
+<rect x="286" y="24" width="256" height="106" rx="10" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="414" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Dataverse table</text>
+<text x="414" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">relationships &amp; security</text>
+<text x="414" y="86" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">business rules &amp; scale</text>
+<text x="414" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">serious business apps</text>
+</svg>
+<figcaption>SharePoint list for light/document work; Dataverse for relational, secure, scaled data</figcaption>
+</figure>
+
+<div class="card c-do"><span class="lab">Do this — make a list and automate it</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><code>microsoft365.com</code> (app launcher ▦) → <strong>SharePoint → Create site → Team site</strong> = <code>Learning Site</code>.</span></li>
+<li><span class="box"></span><span class="txt">On the site: <strong>+ New → List</strong> = <code>Tasks</code>; columns <code>Owner</code> (Text), <code>Due</code> (Date), <code>Done</code> (Yes/No). Add a few items.</span></li>
+<li><span class="box"></span><span class="txt"><strong>+ New → Document library</strong> = <code>Files</code>; upload a harmless sample file.</span></li>
+<li><span class="box"></span><span class="txt">Power Automate: automated flow, trigger <strong>When an item is created (SharePoint)</strong> → your site → Tasks → email yourself the new task's Title.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — the "5,000 item" number</span>
+SharePoint lists work great for hundreds/low thousands of items. Past ~<strong>5,000</strong>, some views
+need special handling. You'll never hit it here, but mentioning it shows you know the boundary.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>SharePoint</b> — M365's team sites, lists, and file storage.</li>
+<li><b>List / library / item</b> — a simple table / file storage with columns / one row.</li>
+<li><b>Metadata</b> — the columns of info attached to a file.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+A SharePoint site with a list and library, and a flow that reacts to new items. Could you say when you'd
+pick a list over a Dataverse table?</div>
+</section>
+
+<!-- DAY 13 -->
+<section class="day" id="day13">
+<div class="dhead"><span class="dnum">Day 13</span></div>
+<h2>Importing and cleaning data: dataflows &amp; Power Query</h2>
+<p class="meta">~110 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — getting outside data <em>in</em></span>
+<p>Often the data you want already lives in a spreadsheet. A <strong>dataflow</strong> <em>pulls</em> it
+in, <em>cleans</em> it, and <em>loads</em> it into a Dataverse table — on a schedule if you want. Like a
+conveyor belt from a messy source to a tidy table. The visual cleaning tool inside is
+<strong>Power Query</strong>; behind your clicks it writes a language called <strong>M</strong>.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 580 110" role="img" aria-label="Dataflow pipeline: source, clean with Power Query, load to Dataverse">
+<defs><marker id="a4" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="16" y="36" width="140" height="46" rx="9" fill="#f4f6f9" stroke="#cbd3de"/>
+<text x="86" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Source</text>
+<text x="86" y="72" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">CSV / Excel</text>
+<line x1="156" y1="59" x2="196" y2="59" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a4)"/>
+<rect x="198" y="36" width="180" height="46" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="288" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Power Query (clean)</text>
+<text x="288" y="72" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#4a5567">headers, types, filter…</text>
+<line x1="378" y1="59" x2="418" y2="59" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a4)"/>
+<rect x="420" y="36" width="144" height="46" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="492" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Dataverse table</text>
+<text x="492" y="72" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">loaded &amp; refreshable</text>
+<text x="290" y="24" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">a dataflow = pull → clean → load</text>
+</svg>
+<figcaption>A dataflow moves data from a messy source, through Power Query, into a clean table</figcaption>
+</figure>
+
+<div class="card c-do"><span class="lab">Do this — import a spreadsheet into Dataverse</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Make a tiny CSV (Notepad → <code>people.csv</code>): header row <code>FirstName,LastName,Department,Status</code> + ~6 made-up rows.</span></li>
+<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Dataflows → New dataflow → Text/CSV</strong> → upload.</span></li>
+<li><span class="box"></span><span class="txt">In Power Query: <strong>Use first row as headers</strong>; set column <strong>types</strong>; <strong>filter</strong> Status = Active; add a <strong>custom column</strong> <code>FullName = FirstName &amp; " " &amp; LastName</code>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Load to a new table</strong>, set a <strong>key column</strong> (so re-runs update, not duplicate), <strong>Publish</strong>, then check the table.</span></li>
+<li><span class="box"></span><span class="txt">Open <strong>Advanced editor</strong> to read the M your clicks produced (just read it).</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — dataflow vs flow (they sound alike)</span>
+A <strong>dataflow</strong> is for <em>bulk</em> loading/cleaning on a schedule. A <strong>cloud flow</strong>
+(Power Automate) is for <em>event-driven</em>, per-record automation. Using a cloud flow to bulk-import
+thousands of rows is a classic beginner mistake — use a dataflow.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Dataflow</b> — a scheduled pull-clean-load into Dataverse.</li>
+<li><b>Power Query / M</b> — the visual cleaning editor / the language behind it.</li>
+<li><b>Key column (upsert)</b> — the match column so re-imports update instead of duplicating.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+You turned a raw CSV into a clean Dataverse table. Re-run it and confirm it <em>updates</em> rather than
+duplicating — that's the key column working.</div>
+</section>
+
+<!-- DAY 14 -->
+<section class="day" id="day14">
+<div class="dhead"><span class="dnum">Day 14</span></div>
+<h2>Talking to other systems: connectors, APIs, Office Scripts</h2>
+<p class="meta">~110 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — connectors and the idea of an API</span>
+<p>A <strong>connector</strong> is a ready-made bridge to a service. To connect to something without a
+ready-made bridge, you build a <strong>custom connector</strong>. It helps to know what an
+<strong>API</strong> is: a way for one program to ask another for information or to do something — like a
+waiter taking your order to the kitchen. On the web, programs talk using <strong>REST</strong>: you send
+a request to a <strong>URL</strong> with a verb like <strong>GET</strong> (fetch data) or
+<strong>POST</strong> (send data), and get back a reply, usually in <strong>JSON</strong> (structured
+text).</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 130" role="img" aria-label="An app asks an API with GET or POST and gets JSON back">
+<defs><marker id="a5" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2f6fed"/></marker><marker id="a5b" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0e9f6e"/></marker></defs>
+<rect x="24" y="44" width="130" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="89" y="70" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Your app / flow</text>
+<line x1="156" y1="52" x2="404" y2="52" stroke="#2f6fed" stroke-width="1.8" marker-end="url(#a5)"/>
+<text x="280" y="44" text-anchor="middle" font-family="monospace" font-size="10" fill="#2f6fed">GET / POST  (request)</text>
+<line x1="404" y1="80" x2="156" y2="80" stroke="#0e9f6e" stroke-width="1.8" marker-end="url(#a5b)"/>
+<text x="280" y="98" text-anchor="middle" font-family="monospace" font-size="10" fill="#0e9f6e">JSON  (reply)</text>
+<rect x="406" y="44" width="130" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="471" y="70" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">A service (API)</text>
+<text x="280" y="22" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">how programs talk over the web (REST)</text>
+</svg>
+<figcaption>An API call: your app sends GET/POST to a URL and receives JSON back</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — Office Scripts</span>
+<p><strong>Office Scripts</strong> let you record or write little automations <em>inside Excel on the
+web</em> — format a sheet, read a table — then run them from a Power Automate flow. They're written in
+<strong>TypeScript</strong>, but you can start by recording your actions and reading what it wrote.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — an Office Script, then peek at connectors</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Open <strong>Excel on the web</strong> (via <code>microsoft365.com</code> → Excel → blank). Type a few values.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Automate → Record Actions</strong>; format a cell, type a value, <strong>Stop</strong>. Open the script and read the TypeScript it generated.</span></li>
+<li><span class="box"></span><span class="txt">Edit the script to <em>return</em> a value (see the README sample). Save.</span></li>
+<li><span class="box"></span><span class="txt">In Power Automate: add <strong>Run script (Excel Online)</strong> → pick your workbook &amp; script → run and watch the sheet change.</span></li>
+<li><span class="box"></span><span class="txt"><em>Optional peek:</em> Power Automate → <strong>Custom connectors → New → Create from blank</strong>; just look at the General / Security / Definition tabs to see how you'd wrap a web API.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — you don't need to master APIs today</span>
+Carry away the vocabulary: <em>API</em> (a program's ordering window), <em>REST/HTTP</em> (how web programs
+talk), <em>GET/POST</em> (fetch vs send), <em>JSON</em> (the reply format), <em>custom connector</em> (your
+own bridge). That's plenty.</div>
+
+<div class="card c-gloss"><span class="lab">Words you learned today</span>
+<ul class="terms">
+<li><b>Connector / custom connector</b> — a ready-made bridge / a bridge you build to any web API.</li>
+<li><b>API / REST / GET / POST / JSON</b> — a program's ordering window / web rules / fetch / send / reply format.</li>
+<li><b>Office Script</b> — a TypeScript automation in Excel-on-web, callable from a flow.</li>
+</ul></div>
+
+<div class="card c-check"><span class="lab">Check yourself</span>
+You ran an Office Script from a flow and can explain in one sentence what an API is. Big step in seeing
+how systems connect.</div>
+</section>
+
+<div class="pn">
+<a href="phase3.html"><div class="d">← Previous</div><div class="tt">Phase 3 · Automation</div></a>
+<a class="nx" href="phase5.html"><div class="d">Next phase →</div><div class="tt">Phase 5 · AI &amp; governance</div></a>
+</div>
+</main>
+<button class="top" id="top" aria-label="Back to top">↑</button>
+<script src="assets/course.js"></script>
+</body>
+</html>

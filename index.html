@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power Platform in 20 Days — A Beginner's Course</title>
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="index">
+<button id="menu" aria-label="Menu">☰</button>
+<aside id="rail">
+  <div class="brand"><a href="index.html">
+    <div class="t">Power Platform in 20 Days</div>
+    <div class="s">A Beginner's Course</div></a>
+    <div class="prog"><i id="pfill"></i></div>
+    <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
+  </div>
+  <nav id="nav"></nav>
+</aside>
+
+<main>
+<header class="hero" id="welcome">
+  <span class="pill">Start here</span>
+  <h1>Learn Microsoft Power Platform &amp; Power BI, from zero.</h1>
+  <p>Twenty days. Everything in your web browser — no software to install, nothing that needs a
+  powerful laptop. Each day explains the <em>why</em> in plain English and the <em>how</em>
+  click-by-click, with diagrams. The last four days are a full <strong>Power BI</strong> track.
+  Take your time; there is no rush.</p>
+</header>
+
+<section id="how">
+<h2>How to use this course</h2>
+<p>Do <strong>one day at a time</strong>. A "day" is roughly <strong>60–120 minutes</strong> — split
+it across a morning and evening if you like. You don't have to finish in 20 calendar days; the number
+just means there are 20 lessons, grouped into six phases (use the menu on the left).</p>
+
+<div class="card c-concept"><span class="lab">The kinds of boxes you'll see</span>
+<ul>
+<li><strong>Concept</strong> (blue) — the idea explained simply, then a little more technically, often with a diagram.</li>
+<li><strong>Do this</strong> (green) — the exact clicks, with checkboxes that remember your progress.</li>
+<li><strong>Tip</strong> (yellow) — something handy or a shortcut.</li>
+<li><strong>Careful</strong> (red) — something that could cost money or cause a mistake. Read these.</li>
+<li><strong>Words you learned</strong> (purple) — a mini-dictionary for the day.</li>
+<li><strong>Check yourself</strong> (teal) — a tiny quiz to confirm it stuck.</li>
+</ul>
+</div>
+
+<div class="card c-tip"><span class="lab">Tip — your progress is saved</span>
+When you tick a checkbox, this page remembers it on <em>this</em> computer and browser (even after you
+close it). The bar in the top-left fills as you go. Progress is saved <em>per page</em>, so each phase
+keeps its own ticks. A different computer won't have your ticks — that's normal.</div>
+
+<div class="card c-warn"><span class="lab">Careful — two golden rules for the whole course</span>
+<ol>
+<li><strong>Only ever use made-up ("fake") data.</strong> Names, emails, numbers — invent them all.
+Never type in real personal or work information from anyone.</li>
+<li><strong>Only build in the environment called "Learning"</strong> (set up on Day 0). This keeps your
+practice cleanly separate from anything else in the account.</li>
+</ol></div>
+</section>
+
+<section class="day" id="setup">
+<div class="dhead"><span class="dnum">Day 0</span></div>
+<h2>Setup — done once, by the account owner</h2>
+<p class="meta">For the person who owns the Microsoft 365 &amp; Azure trials · ~20 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — what you're setting up and why</span>
+<p><strong>Plain English:</strong> the trials belong to one person (the "account owner"). Before the
+learner starts, the owner makes the learner their own <em>sign-in</em> and their own private
+<em>room</em> to build in, so the learner can't accidentally disturb anything else.</p>
+<p><strong>A bit more technical:</strong> in Microsoft's cloud, one company/trial is a
+<strong>tenant</strong>. Inside a tenant you create <strong>users</strong> (people who can sign in) and
+<strong>environments</strong> (separate containers that each hold their own apps and database). We give
+the learner a user account and a dedicated environment called <em>Learning</em>.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 620 210" role="img" aria-label="Diagram: a tenant contains users and a Learning environment">
+<rect x="12" y="12" width="596" height="186" rx="12" fill="#f7f9fc" stroke="#cbd3de"/>
+<text x="28" y="36" font-family="monospace" font-size="12" fill="#7b8798">TENANT — your whole space in the cloud (yourname.onmicrosoft.com)</text>
+<rect x="34" y="54" width="150" height="120" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="109" y="82" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f2733">Users</text>
+<text x="109" y="104" text-anchor="middle" font-family="monospace" font-size="10" fill="#4a5567">owner@…</text>
+<text x="109" y="122" text-anchor="middle" font-family="monospace" font-size="10" fill="#4a5567">learner@…</text>
+<text x="109" y="150" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#7b8798">who can sign in</text>
+<rect x="214" y="54" width="360" height="120" rx="10" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="394" y="82" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f2733">Environment: "Learning"</text>
+<rect x="238" y="98" width="100" height="56" rx="7" fill="#fff" stroke="#cbd3de"/>
+<text x="288" y="122" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Apps</text>
+<text x="288" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">&amp; flows</text>
+<rect x="350" y="98" width="100" height="56" rx="7" fill="#fff" stroke="#cbd3de"/>
+<text x="400" y="122" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Dataverse</text>
+<text x="400" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">(database)</text>
+<rect x="462" y="98" width="100" height="56" rx="7" fill="#fff" stroke="#cbd3de"/>
+<text x="512" y="122" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Reports</text>
+<text x="512" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">(Power BI)</text>
+</svg>
+<figcaption>One tenant holds users and environments — the learner builds only in "Learning"</figcaption>
+</figure>
+
+<div class="card c-do"><span class="lab">Do this — owner sets up the learner</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Go to <code>admin.microsoft.com</code> → <strong>Users → Active users → Add a user</strong>. Create <code>learner@YOURTENANT.onmicrosoft.com</code>, set a password, assign a <strong>Microsoft 365 / Office 365 E5</strong> licence (Power Platform &amp; Power BI included).</span></li>
+<li><span class="box"></span><span class="txt">Go to <code>admin.powerplatform.microsoft.com</code> → <strong>Environments → New</strong>. Name it <strong>Learning</strong>, pick your region, set <strong>Add a Dataverse data store = Yes</strong>.</span></li>
+<li><span class="box"></span><span class="txt">Open <strong>Learning</strong> → <strong>Settings → Users + permissions</strong>, add the learner, give them <strong>System Administrator</strong> for this environment only (it's an isolated practice room).</span></li>
+<li><span class="box"></span><span class="txt">Share the sign-in with the learner; tell them to always use a <strong>private / incognito</strong> window.</span></li>
+<li><span class="box"></span><span class="txt"><em>Azure (only for Day 16's short tour):</em> plan to sit with the learner using the owner's Azure sign-in, or add the learner as a limited user. Keep Azure supervised — it can cost money.</span></li>
+</ul></div>
+
+<div class="card c-warn"><span class="lab">Careful — money lives in Azure, not in Power Platform</span>
+Days 1–15 and the Power BI track are covered by the trial and create <strong>no surprise charges</strong>.
+The short Azure tour on Day 16 is the only place that <em>can</em> bill — we keep it tiny, never create a
+"virtual machine", and delete everything at the end.</div>
+</section>
+
+<section id="roadmap">
+<h2>The roadmap</h2>
+<p>Six phases, twenty days. Click any phase to jump in. Beginners should go in order — each phase builds
+on the last.</p>
+
+<figure class="fig">
+<svg viewBox="0 0 640 120" role="img" aria-label="The six phases from foundations to Power BI">
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<line x1="86" y1="60" x2="120" y2="60" stroke="#9fb0c8" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="196" y1="60" x2="230" y2="60" stroke="#9fb0c8" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="306" y1="60" x2="340" y2="60" stroke="#9fb0c8" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="416" y1="60" x2="450" y2="60" stroke="#9fb0c8" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="526" y1="60" x2="560" y2="60" stroke="#9fb0c8" stroke-width="2" marker-end="url(#ar)"/>
+<g font-family="sans-serif" font-size="10.5" text-anchor="middle">
+<rect x="12" y="38" width="74" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="49" y="56" fill="#1f2733" font-weight="bold">Found-</text><text x="49" y="70" fill="#1f2733" font-weight="bold">ations</text>
+<rect x="122" y="38" width="74" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="159" y="63" fill="#1f2733" font-weight="bold">Apps</text>
+<rect x="232" y="38" width="74" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="269" y="63" fill="#1f2733" font-weight="bold">Automation</text>
+<rect x="342" y="38" width="74" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="379" y="63" fill="#1f2733" font-weight="bold">Data</text>
+<rect x="452" y="38" width="74" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="489" y="56" fill="#1f2733" font-weight="bold">AI &amp;</text><text x="489" y="70" fill="#1f2733" font-weight="bold">govern.</text>
+<rect x="562" y="38" width="66" height="44" rx="9" fill="#f4f2fb" stroke="#7a5cd6"/><text x="595" y="56" fill="#1f2733" font-weight="bold">Power</text><text x="595" y="70" fill="#1f2733" font-weight="bold">BI</text>
+</g>
+</svg>
+<figcaption>Your journey: foundations → apps → automation → data → AI &amp; governance → Power BI</figcaption>
+</figure>
+
+<div class="cards">
+<a class="rc" href="phase1.html"><div class="k">Phase 1 · Days 1–4</div><h3>Foundations</h3><p>The cloud, Dataverse tables, relationships, solutions &amp; security.</p></a>
+<a class="rc" href="phase2.html"><div class="k">Phase 2 · Days 5–8</div><h3>Building apps</h3><p>Canvas apps, Power Fx formulas, galleries &amp; forms, model-driven apps.</p></a>
+<a class="rc" href="phase3.html"><div class="k">Phase 3 · Days 9–11</div><h3>Automation</h3><p>Power Automate flows, logic, approvals, Adaptive Cards, changing data safely.</p></a>
+<a class="rc" href="phase4.html"><div class="k">Phase 4 · Days 12–14</div><h3>Data &amp; integration</h3><p>SharePoint, dataflows &amp; Power Query (M), connectors, APIs, Office Scripts.</p></a>
+<a class="rc" href="phase5.html"><div class="k">Phase 5 · Days 15–16</div><h3>AI &amp; governance</h3><p>Copilot Studio chatbots; governance, DLP, ALM, and a first look at Azure.</p></a>
+<a class="rc" href="phase6.html"><div class="k">Phase 6 · Days 17–20</div><h3>Power BI</h3><p>Datasets, visuals &amp; reports, modelling &amp; DAX, dashboards, RLS, and a capstone.</p></a>
+</div>
+
+<div class="card c-concept"><span class="lab">Where this leads — your certifications</span>
+<p>After Day 20 you'll be ready to study for <strong>PL-900 (Power Platform Fundamentals)</strong> and,
+thanks to the Power BI phase, <strong>PL-300 (Power BI Data Analyst)</strong> — both have free study
+paths on <code>learn.microsoft.com</code>. Everything here is browser-first; <strong>Power BI
+Desktop</strong> (a free Windows app) is the "when you have a laptop" step that PL-300 assumes.</p>
+</div>
+
+<div class="card c-check"><span class="lab">Ready?</span>
+Make sure Day 0 (above) is done, then open <a href="phase1.html"><strong>Phase 1 · Foundations</strong></a>
+and begin Day 1. See you in there. 🌱</div>
+</section>
+
+<div class="pn">
+<span class="sp"></span>
+<a class="nx" href="phase1.html"><div class="d">Next phase →</div><div class="tt">Phase 1 · Foundations</div></a>
+</div>
+</main>
+<button class="top" id="top" aria-label="Back to top">↑</button>
+<script src="assets/course.js"></script>
+</body>
+</html>
