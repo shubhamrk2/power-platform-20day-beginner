@@ -7,7 +7,7 @@
     {p:'phase3',  file:'phase3.html',   t:'Automation', gk:'Phase 3', days:[['day9','Day 9 · First flow'],['day10','Day 10 · Logic'],['day11','Day 11 · Approvals & data']]},
     {p:'phase4',  file:'phase4.html',   t:'Data & integration', gk:'Phase 4', days:[['day12','Day 12 · SharePoint'],['day13','Day 13 · Dataflows & M'],['day14','Day 14 · Connectors & APIs']]},
     {p:'phase5',  file:'phase5.html',   t:'AI & governance', gk:'Phase 5', days:[['day15','Day 15 · Copilot Studio'],['day16','Day 16 · Governance & Azure']]},
-    {p:'phase6',  file:'phase6.html',   t:'Power BI', gk:'Phase 6 · Bonus', days:[['day17','Day 17 · Power BI intro'],['day18','Day 18 · Visuals & reports'],['day19','Day 19 · Modelling & DAX'],['day20','Day 20 · Dashboards & capstone']]},
+    {p:'phase6',  file:'phase6.html',   t:'Power BI', gk:'Phase 6', days:[['setup-bi','Setup guide'],['day17','Day 17 · Get started & data'],['day18','Day 18 · Visuals & reports'],['day19','Day 19 · Prepare & model'],['day20','Day 20 · Share & capstone']]},
     {p:'reference',file:'reference.html',t:'Reference', days:[['glossary','Glossary'],['help','Troubleshooting']]}
   ];
   var current=document.body.getAttribute('data-page')||'index';
@@ -78,4 +78,20 @@
   }
   addEventListener('scroll',onscroll,{passive:true}); addEventListener('resize',onscroll); onscroll();
   if(top)top.onclick=function(){scrollTo({top:0,behavior:'smooth'})};
+
+  // ---- dark / light theme toggle (top-right) ----
+  var THKEY='pp20-theme';
+  var savedTheme; try{savedTheme=localStorage.getItem(THKEY)}catch(e){}
+  if(savedTheme==='dark') document.documentElement.classList.add('dark');
+  var tbtn=document.createElement('button');
+  tbtn.className='themebtn'; tbtn.type='button'; tbtn.setAttribute('aria-label','Toggle dark mode');
+  function setIcon(){ tbtn.textContent = document.documentElement.classList.contains('dark') ? '☀' : '☾'; }
+  setIcon();
+  tbtn.onclick=function(){
+    document.documentElement.classList.toggle('dark');
+    var dark=document.documentElement.classList.contains('dark');
+    try{localStorage.setItem(THKEY, dark?'dark':'light')}catch(e){}
+    setIcon();
+  };
+  document.body.appendChild(tbtn);
 })();

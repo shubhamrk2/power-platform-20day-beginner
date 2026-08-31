@@ -22,22 +22,87 @@
 <div class="crumb"><a href="index.html">Home</a> / Phase 6 · Power BI</div>
 <header class="hero">
   <span class="pill">Phase 6 · Days 17–20</span>
-  <h1>Power BI</h1>
-  <p>Turn data into charts and dashboards that help people decide. This four-day track is browser-first
-  (Power BI <em>Service</em>) and sets you up for the <strong>PL-300</strong> certification. Great news:
-  you already learned two of the four Power BI steps in earlier phases.</p>
+  <h1>Power BI — in depth</h1>
+  <p>Turn data into charts and dashboards that help people decide. This is the biggest phase, mapped to
+  Microsoft's official Power BI learning paths and the <strong>PL-300</strong> certification. It's
+  browser-first, with a proper Desktop setup guide below. You already learned two of Power BI's four
+  steps in earlier phases — now we go deep on all four.</p>
 </header>
 
-<!-- DAY 17 (merged: intro + datasets) -->
+<!-- SETUP GUIDE -->
+<section class="day" id="setup-bi">
+<div class="dhead"><span class="dnum p6">Setup</span></div>
+<h2>Power BI setup guide — read this first</h2>
+<p class="meta">Do this before Day 17 · ~30 minutes</p>
+
+<div class="card c-concept"><span class="lab">Concept — the two Power BI tools, and which to use</span>
+<p>Power BI comes in two parts that work together:</p>
+<ul>
+<li><strong>Power BI Service</strong> — the website <code>app.powerbi.com</code>. Runs in your
+<strong>browser</strong> (so you can use it now). Where you <em>share</em> reports, make
+<em>dashboards</em>, and manage <em>workspaces</em>. You can also build simple reports here.</li>
+<li><strong>Power BI Desktop</strong> — a <strong>free Windows app</strong> you install. Where
+professionals <em>get data</em>, <em>clean</em> it with Power Query, <em>model</em> it, and write
+<strong>DAX</strong>. It has the full toolset. The <strong>PL-300 exam assumes Desktop</strong>.</li>
+</ul>
+<p><strong>Plan for a beginner with no personal laptop:</strong> do everything you can in the
+<strong>Service</strong> (browser), and treat <strong>Desktop</strong> as the "when you have a Windows
+laptop" tool. Where a step is Desktop-only, this course says so and gives the browser alternative.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 150" role="img" aria-label="Power BI Desktop authors, the Service shares">
+<defs><marker id="s1" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="18" y="34" width="230" height="84" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="133" y="58" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Power BI Desktop (app)</text>
+<text x="133" y="80" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">get data · clean · model · DAX</text>
+<text x="133" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">the authoring tool</text>
+<line x1="248" y1="76" x2="300" y2="76" stroke="#9fb0c8" stroke-width="2" marker-end="url(#s1)"/>
+<text x="274" y="66" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">Publish</text>
+<rect x="302" y="34" width="240" height="84" rx="10" fill="#f4f2fb" stroke="#7a5cd6"/>
+<text x="422" y="58" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Power BI Service (browser)</text>
+<text x="422" y="80" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">workspaces · dashboards · share</text>
+<text x="422" y="100" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">app.powerbi.com</text>
+</svg>
+<figcaption>You author in Desktop and publish to the Service to share — or build lightly in the browser</figcaption>
+</figure>
+
+<div class="card c-do"><span class="lab">Do this — get set up</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">In an incognito window, go to <code>app.powerbi.com</code> and sign in with the learning account. If prompted, <strong>start the free Power BI trial</strong> (usually no card).</span></li>
+<li><span class="box"></span><span class="txt">Look for <strong>Workspaces</strong> (left) and <strong>My workspace</strong> — your personal area. This is where your datasets, reports and dashboards will live.</span></li>
+<li><span class="box"></span><span class="txt"><em>If you have a Windows laptop (optional but recommended for PL-300):</em> install <strong>Power BI Desktop</strong> free from the <strong>Microsoft Store</strong> (search "Power BI Desktop") or <code>powerbi.microsoft.com/desktop</code>. Open it and sign in with the same account.</span></li>
+<li><span class="box"></span><span class="txt">Bookmark Microsoft's free training (links in the box below). You'll follow this course, and dip into those modules for extra depth.</span></li>
+</ul></div>
+
+<div class="card c-concept"><span class="lab">Reference — the official Microsoft learning paths (free)</span>
+<p>This phase mirrors Microsoft's own Power BI training. Use these for extra detail and practice; they're
+free and map straight onto PL-300:</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/training/powerplatform/power-bi">Power BI training hub</a> — the top-level page.</li>
+<li><a href="https://learn.microsoft.com/en-us/training/paths/get-started-power-bi/">Get started with Power BI</a> — the gentle intro (pairs with our <em>Setup</em> + Day 17).</li>
+<li><a href="https://learn.microsoft.com/en-us/training/paths/data-analytics-microsoft/">Get started with Microsoft data analytics</a> — get, clean, transform with Power Query (pairs with Day 19).</li>
+<li><a href="https://learn.microsoft.com/en-us/training/paths/model-data-power-bi/">Model data with Power BI</a> — relationships, calculations, DAX (pairs with Day 19).</li>
+<li><a href="https://learn.microsoft.com/en-us/training/paths/build-power-bi-visuals-reports/">Build Power BI visuals and reports</a> — visualise &amp; analyse (pairs with Days 18 &amp; 20).</li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — how to combine this course and Microsoft Learn</span>
+Do a <em>day</em> here first (it explains the ideas simply and gives you a task), then open the matching
+Microsoft Learn module for extra depth and its own hands-on. Two passes over the same idea — plain then
+official — is how it really sticks.</div>
+</section>
+
+<!-- DAY 17 -->
 <section class="day" id="day17">
 <div class="dhead"><span class="dnum p6">Day 17</span></div>
-<h2>Power BI: what it is, Service vs Desktop, and datasets</h2>
-<p class="meta">~100 minutes</p>
+<h2>Get started &amp; get data</h2>
+<p class="meta">~110 minutes · Learn path: <a href="https://learn.microsoft.com/en-us/training/paths/get-started-power-bi/">Get started with Power BI</a></p>
 
-<div class="card c-concept"><span class="lab">Concept — what is Business Intelligence (BI)?</span>
-<p><strong>Power BI</strong> turns raw data into <em>charts, tables and dashboards</em> that help people
-<em>see</em> what's going on. If a spreadsheet answers "what are the numbers?", Power BI answers "what do
-they <em>mean</em>, at a glance?" Every Power BI project has four steps — and you already know the first two:</p>
+<div class="card c-concept"><span class="lab">Concept — what Power BI is for</span>
+<p><strong>Power BI</strong> connects to your data, lets you <em>clean and model</em> it without changing
+the source, helps you <em>visualise</em> what matters, and lets you <em>share</em> it. If a spreadsheet
+answers "what are the numbers?", Power BI answers "what do they <em>mean</em>, at a glance?" Every project
+follows four steps — and you already know the first two:</p>
 </div>
 
 <figure class="fig">
@@ -51,24 +116,21 @@ they <em>mean</em>, at a glance?" Every Power BI project has four steps — and 
 <line x1="438" y1="52" x2="464" y2="52" stroke="#9fb0c8" stroke-width="2" marker-end="url(#b1)"/>
 <rect x="466" y="30" width="122" height="44" rx="9" fill="#f4f2fb" stroke="#7a5cd6"/><text x="527" y="50" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">4 · Share</text><text x="527" y="66" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">(Day 20)</text>
 </svg>
-<figcaption>The four steps of every Power BI project — you already learned steps 1 &amp; 2</figcaption>
+<figcaption>The four steps of every Power BI project — steps 1 &amp; 2 you already met</figcaption>
 </figure>
 
-<div class="card c-concept"><span class="lab">Concept — Service (browser) vs Desktop (app)</span>
-<ul>
-<li><strong>Power BI Service</strong> — the website <code>app.powerbi.com</code>. Runs in your browser,
-so you can use it now: bring in data, build reports, make dashboards, share.</li>
-<li><strong>Power BI Desktop</strong> — a <em>free</em> Windows app (needs installing). Where pros do the
-richest modelling and write <strong>DAX</strong>. Almost everything here works in the Service; when you
-get a laptop, Desktop will feel familiar (and PL-300 assumes it).</li>
-</ul></div>
+<div class="card c-concept"><span class="lab">Concept — where data comes from (connectors)</span>
+<p>Power BI can connect to hundreds of <strong>data sources</strong> through the <strong>Get data</strong>
+button: files (<strong>Excel</strong>, <strong>CSV</strong>), databases (SQL Server), online services, the
+<strong>web</strong>, and — importantly for you — <strong>Dataverse</strong> and <strong>SharePoint</strong>
+(the data you built earlier!). You pick a source, sign in if needed, and choose the tables you want.</p>
+</div>
 
 <div class="card c-concept"><span class="lab">Concept — dataset, report, dashboard</span>
-<p>Three similar-sounding, different things:</p>
 <ul>
 <li>A <strong>dataset</strong> (or <strong>semantic model</strong>) is the <em>prepared, linked data</em> a report reads from.</li>
 <li>A <strong>report</strong> is one or more <em>pages of charts</em> built on a dataset.</li>
-<li>A <strong>dashboard</strong> is a single screen pinning the <em>most important</em> visuals — an at-a-glance summary.</li>
+<li>A <strong>dashboard</strong> (Service only) is a single screen pinning the <em>most important</em> visuals.</li>
 </ul></div>
 
 <figure class="fig">
@@ -83,82 +145,149 @@ get a laptop, Desktop will feel familiar (and PL-300 assumes it).</li>
 <figcaption>One dataset can feed many reports; a dashboard pins the highlights</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — get in, and bring your own data</span>
+<div class="card c-do"><span class="lab">Do this — get data into Power BI</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Incognito → <code>app.powerbi.com</code>; start the free Power BI trial if asked. Find <strong>Workspaces</strong> and <strong>My workspace</strong>.</span></li>
-<li><span class="box"></span><span class="txt">Try a built-in <strong>Sample</strong> report; click a bar and watch other charts react ("everything filters everything").</span></li>
-<li><span class="box"></span><span class="txt">Make a small Excel file: sheet <code>Sales</code> with <code>Date, Product, Region, Amount</code> and ~15 made-up rows.</span></li>
-<li><span class="box"></span><span class="txt"><strong>My workspace → New / Get data → Files → Local file</strong> → upload → <strong>Import</strong>. A <strong>dataset</strong> appears.</span></li>
+<li><span class="box"></span><span class="txt">Make a small Excel file: sheet <code>Sales</code> with columns <code>Date, Product, Region, Amount</code> and ~15 made-up rows.</span></li>
+<li><span class="box"></span><span class="txt"><strong>In the Service:</strong> <code>app.powerbi.com</code> → <strong>My workspace → New / Get data → Files → Local file</strong> → upload → <strong>Import</strong>. A <strong>dataset</strong> appears.</span></li>
+<li><span class="box"></span><span class="txt"><strong>If you have Desktop:</strong> open Power BI Desktop → <strong>Get data → Excel</strong> → pick the sheet → <strong>Load</strong>. (Try <strong>Get data → Dataverse</strong> too, and connect to your Learning tables from earlier phases.)</span></li>
+<li><span class="box"></span><span class="txt">Open the built-in <strong>Sample</strong> report in the Service; click a bar and watch other charts react ("everything filters everything").</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — Import vs DirectQuery</span>
-<strong>Import</strong> copies data into Power BI (fast, most common). <strong>DirectQuery</strong> leaves
-it in the source and queries live (for very large or always-fresh data). For learning, pick Import.</div>
+When you connect, you often choose a <strong>storage mode</strong>: <strong>Import</strong> copies a
+snapshot into Power BI (fast, most common, refreshed on a schedule); <strong>DirectQuery</strong> leaves
+data in the source and queries it live (for very large or always-fresh data, with some limits). For
+learning, choose <strong>Import</strong>.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Power BI / BI</b> — turning data into charts &amp; dashboards / using data to understand at a glance.</li>
-<li><b>Service / Desktop</b> — browser version / free Windows app for rich modelling &amp; DAX.</li>
+<li><b>Data source / Get data</b> — where data comes from / the button to connect.</li>
 <li><b>Dataset / report / dashboard</b> — prepared data / pages of charts / a one-screen summary.</li>
-<li><b>Import vs DirectQuery</b> — copy data in vs query live in place.</li>
+<li><b>Storage mode: Import vs DirectQuery</b> — copy a snapshot in vs query live in place.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-Name the four steps of a Power BI project (Get &amp; clean → Model → Visualise → Share) and confirm your
-<strong>Sales</strong> dataset is in My workspace.</div>
+Name the four steps, and confirm your <strong>Sales</strong> dataset is in My workspace. Bonus: which
+storage mode would you pick for a 2-billion-row always-live database? (<em>DirectQuery.</em>)</div>
 </section>
 
 <!-- DAY 18 -->
 <section class="day" id="day18">
 <div class="dhead"><span class="dnum p6">Day 18</span></div>
-<h2>Your first report: visuals</h2>
-<p class="meta">~110 minutes</p>
+<h2>Build visuals &amp; reports</h2>
+<p class="meta">~120 minutes · Learn path: <a href="https://learn.microsoft.com/en-us/training/paths/build-power-bi-visuals-reports/">Build Power BI visuals and reports</a></p>
 
-<div class="card c-concept"><span class="lab">Concept — visuals, fields, cross-filtering</span>
-<p>A <strong>visual</strong> is a chart, table, or number-box. You build one by dragging
-<strong>fields</strong> (columns) into it; Power BI groups and totals automatically. The magic: click part
-of one visual and <em>every other visual filters to match</em> — called <strong>cross-filtering</strong>.</p>
-<p>The visuals you'll use most: <strong>Card</strong> (one big number), <strong>bar/column</strong> (compare
-categories), <strong>line</strong> (a trend over time), <strong>table/matrix</strong> (detail; matrix = a
-pivot table), and <strong>slicer</strong> (an on-screen filter people click).</p>
+<div class="card c-concept"><span class="lab">Concept — the report canvas and its three panes</span>
+<p>A <strong>report</strong> is built on a canvas with three panes on the right: <strong>Data</strong> (your
+tables and fields), <strong>Visualizations</strong> (chart types and where to drop fields), and
+<strong>Filters</strong>. You add a visual, then drag <strong>fields</strong> onto it; Power BI groups and
+totals automatically.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — build a one-page report</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt">Open the <strong>Sales</strong> dataset → <strong>Create report</strong>. The canvas opens in the browser.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Card</strong>; drag <code>Amount</code> in → Total sales.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Clustered column chart</strong>: <code>Region</code> on the axis, <code>Amount</code> as value.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Line chart</strong>: <code>Date</code> on the axis, <code>Amount</code> as value.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Slicer</strong> on <code>Product</code>; click a product and watch every visual react. <strong>Save</strong> the report as <code>Sales Overview</code>.</span></li>
+<figure class="fig">
+<svg viewBox="0 0 560 190" role="img" aria-label="Report canvas with Visualizations, Fields and Filters panes">
+<rect x="14" y="30" width="330" height="150" rx="8" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="179" y="50" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Report canvas</text>
+<rect x="34" y="64" width="140" height="46" rx="6" fill="#fff" stroke="#9fb0c8"/><text x="104" y="91" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">column chart</text>
+<rect x="188" y="64" width="140" height="46" rx="6" fill="#fff" stroke="#9fb0c8"/><text x="258" y="91" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">card</text>
+<rect x="34" y="120" width="294" height="46" rx="6" fill="#fff" stroke="#9fb0c8"/><text x="181" y="147" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">line chart + slicer</text>
+<rect x="352" y="30" width="90" height="150" rx="8" fill="#f4f6f9" stroke="#cbd3de"/><text x="397" y="50" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1f2733">Visuals</text><text x="397" y="70" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">chart types</text><text x="397" y="92" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">+ field wells</text>
+<rect x="448" y="30" width="98" height="150" rx="8" fill="#f4f6f9" stroke="#cbd3de"/><text x="497" y="50" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1f2733">Data</text><text x="497" y="70" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">Sales</text><text x="497" y="86" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">· Amount</text><text x="497" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">· Region…</text><text x="497" y="126" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#1f2733">Filters</text></svg>
+<figcaption>The report editor: canvas on the left, Visualizations / Data / Filters panes on the right</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — the visuals you'll use most</span>
+<ul>
+<li><strong>Card</strong> — one big number (Total Sales). <strong>KPI</strong> — a number vs a target.</li>
+<li><strong>Bar / column chart</strong> — compare categories.</li>
+<li><strong>Line chart</strong> — a trend over time.</li>
+<li><strong>Table / matrix</strong> — detail rows; a matrix groups rows <em>and</em> columns (a pivot table).</li>
+<li><strong>Slicer</strong> — an on-screen filter people click (e.g. pick a Region).</li>
+<li><strong>Map, pie/donut, treemap, gauge</strong> — use thoughtfully; bars and lines are usually clearest.</li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — ask in plain English</span>
-Add a <strong>Q&amp;A</strong> visual and type <em>"total amount by region"</em> — Power BI builds the
-chart for you. Great for exploring and for showing people.</div>
+<div class="card c-concept"><span class="lab">Concept — three levels of filter, and interactions</span>
+<p>Filters apply at three scopes: <strong>visual</strong> (this chart only), <strong>page</strong> (every
+visual on the page), and <strong>report</strong> (every page). Separately, <strong>cross-filtering</strong>
+means clicking part of one visual filters the others — you can even change how visuals interact
+(<em>Format → Edit interactions</em>). <strong>Drill-down</strong> lets you click into a hierarchy (Year →
+Quarter → Month), and <strong>drill-through</strong> jumps to a detail page for the thing you clicked.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — build a polished report page</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Open the <strong>Sales</strong> dataset → <strong>Create report</strong> (Service) or build in Desktop.</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Card</strong> = <code>Amount</code> (Total sales); a <strong>column chart</strong> (<code>Region</code> × <code>Amount</code>); a <strong>line chart</strong> (<code>Date</code> × <code>Amount</code>).</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Slicer</strong> on <code>Product</code>. Click a product — watch cross-filtering.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Format</strong> a visual: give it a title, data labels, and colours (the paint-roller icon). Add a <strong>page-level filter</strong> (e.g. only one Region).</span></li>
+<li><span class="box"></span><span class="txt">Try the <strong>Q&amp;A</strong> visual: type <em>"total amount by region"</em> and let Power BI build the chart. <strong>Save</strong> the report as <code>Sales Overview</code>.</span></li>
+</ul></div>
+
+<div class="card c-tip"><span class="lab">Tip — good charts, not fancy charts</span>
+Reach for a <strong>bar/column</strong> to compare and a <strong>line</strong> for time. Pies are hard to
+read past a few slices. Clarity beats decoration — that's a genuine PL-300 theme.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Visual / field</b> — a chart/table/card / a column you drag into it.</li>
-<li><b>Cross-filtering</b> — clicking one visual filters the others.</li>
-<li><b>Slicer / matrix</b> — an on-screen filter / a pivot-table-style visual.</li>
+<li><b>Visual / field / field well</b> — a chart / a column you drag / the slots you drop fields into.</li>
+<li><b>Filter (visual / page / report)</b> — a filter at three scopes.</li>
+<li><b>Cross-filtering / drill-down / drill-through</b> — click-to-filter / dig into a hierarchy / jump to detail.</li>
+<li><b>Formatting / Q&amp;A</b> — styling a visual / ask for a chart in plain English.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-A report with a card, bar chart, line chart, and slicer — and cross-filtering works. That's a real,
-interactive report.</div>
+A report with a card, bar, line and slicer, styled, with a page filter, and you used Q&amp;A. That's an
+interactive, presentable report.</div>
 </section>
 
-<!-- DAY 19 (merged: modelling + Power Query + DAX) -->
+<!-- DAY 19 -->
 <section class="day" id="day19">
 <div class="dhead"><span class="dnum p6">Day 19</span></div>
-<h2>Modelling, Power Query &amp; DAX</h2>
-<p class="meta">~120 minutes · this day covers modelling and calculations</p>
+<h2>Prepare &amp; model: Power Query, relationships &amp; DAX</h2>
+<p class="meta">~140 minutes (the deepest day) · Learn paths: <a href="https://learn.microsoft.com/en-us/training/paths/data-analytics-microsoft/">Data analytics</a> + <a href="https://learn.microsoft.com/en-us/training/paths/model-data-power-bi/">Model data</a></p>
 
-<div class="card c-concept"><span class="lab">Concept — the star schema</span>
-<p>Real reports use several linked tables (the relationships from Day 3). BI's favourite shape is the
-<strong>star schema</strong>: a central <strong>fact table</strong> (the events/numbers — each Sale) with
-surrounding <strong>dimension tables</strong> (the things you slice by — Product, Region, Date). It makes
-reports faster and formulas simpler.</p>
+<div class="card c-concept"><span class="lab">Concept — prepare data with Power Query (it returns!)</span>
+<p>On Day 13 you cleaned a CSV with <strong>Power Query</strong>. Power BI uses the same tool in
+<strong>Transform data</strong>. Each thing you click becomes an <strong>Applied step</strong> you can
+re-order or delete — a recipe you can re-run any time the source changes.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 168" role="img" aria-label="Power Query applied steps: source, headers, types, filter, custom column">
+<rect x="14" y="26" width="180" height="128" rx="9" fill="#f4f6f9" stroke="#cbd3de"/>
+<text x="104" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Applied steps</text>
+<g font-family="monospace" font-size="10" fill="#4a5567">
+<text x="28" y="70">1 · Source</text>
+<text x="28" y="90">2 · Promote headers</text>
+<text x="28" y="110">3 · Change types</text>
+<text x="28" y="130">4 · Filter rows</text>
+<text x="28" y="148">5 · Add custom column</text></g>
+<rect x="214" y="26" width="332" height="128" rx="9" fill="#fff" stroke="#e4e8ee"/>
+<text x="380" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Preview (updates each step)</text>
+<line x1="230" y1="58" x2="530" y2="58" stroke="#eef1f6"/>
+<g font-family="monospace" font-size="9.5" fill="#7b8798">
+<text x="230" y="80">FirstName | LastName | Dept | Status</text>
+<text x="230" y="100">Ada       | Byron    | R&amp;D  | Active</text>
+<text x="230" y="118">Alan      | Turing   | R&amp;D  | Active</text>
+<text x="230" y="140">…filtered to Active, FullName added…</text></g>
+</svg>
+<figcaption>Power Query records your clicks as re-runnable "Applied steps"</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — the transforms that matter, and query folding</span>
+<p>Common steps: <strong>promote headers</strong>, <strong>change type</strong>, <strong>filter rows</strong>,
+<strong>remove/rename columns</strong>, <strong>split/merge columns</strong>, <strong>group by</strong>,
+<strong>merge queries</strong> (join two sources), <strong>append queries</strong> (stack two tables).
+Advanced: <strong>query folding</strong> — where possible, Power Query pushes work back to the source as a
+native query (fast); certain steps break folding, after which work happens locally.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — modelling: relationships, cardinality, star schema</span>
+<p>Real reports use several linked tables (the relationships from Day 3). A <strong>relationship</strong>
+has a <strong>cardinality</strong> — usually <em>one-to-many</em> (one Product, many Sales) — and a
+<strong>filter direction</strong>. BI's favourite shape is the <strong>star schema</strong>: a central
+<strong>fact table</strong> (the numbers/events) surrounded by <strong>dimension tables</strong> (the
+things you slice by). Add a dedicated <strong>Date table</strong> so time features work.</p>
 </div>
 
 <figure class="fig">
@@ -173,18 +302,19 @@ reports faster and formulas simpler.</p>
 <rect x="360" y="186" width="130" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="425" y="206" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Dim: Customer</text><text x="425" y="221" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">name, segment</text>
 <rect x="190" y="102" width="140" height="56" rx="9" fill="#f3fbf6" stroke="#0e9f6e" stroke-width="1.5"/><text x="260" y="126" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">FACT: Sales</text><text x="260" y="144" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">Amount, Qty + keys</text>
 </svg>
-<figcaption>Star schema — the measurable facts in the middle, "slice-by" dimensions around it</figcaption>
+<figcaption>Star schema — measurable facts in the middle, "slice-by" dimensions around it</figcaption>
 </figure>
 
-<div class="card c-concept"><span class="lab">Concept — Power Query returns, and DAX arrives</span>
-<p><strong>Power Query</strong> (from Day 13) cleans data here too — promote headers, change types, filter.
-Then comes <strong>DAX</strong> (Data Analysis Expressions), Power BI's formula language — "Excel formulas
-for whole tables and totals." You make:</p>
-<ul>
-<li>A <strong>measure</strong> — a calculation that <em>recomputes for whatever you're looking at</em>
-(e.g. Total Sales changes when you click a Region). The important one.</li>
-<li>A <strong>calculated column</strong> — a new column worked out row-by-row.</li>
-</ul>
+<div class="card c-concept"><span class="lab">Concept — DAX: measures, columns, and context</span>
+<p><strong>DAX</strong> (Data Analysis Expressions) is Power BI's formula language — "Excel formulas for
+whole tables and totals." A <strong>measure</strong> recomputes for <em>whatever you're looking at</em>
+(the <em>filter context</em>); a <strong>calculated column</strong> is worked out row-by-row and stored.
+The powerful function is <strong>CALCULATE</strong>, which changes the filter context; and
+<strong>time-intelligence</strong> functions (like <code>TOTALYTD</code>) need that Date table.</p>
+<pre><code>Total Sales   = SUM(Sales[Amount])
+Order Count   = COUNTROWS(Sales)
+Sales (North) = CALCULATE([Total Sales], Region[Area] = "North")
+Sales YTD     = TOTALYTD([Total Sales], 'Date'[Date])</code></pre>
 </div>
 
 <figure class="fig">
@@ -203,86 +333,110 @@ for whole tables and totals." You make:</p>
 <figcaption>Totals that must react to filters → measure; a per-row value → calculated column</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — model, then write measures</span>
+<div class="card c-do"><span class="lab">Do this — clean, model, and calculate</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Add a second table <code>Products</code> (<code>Product, Category</code>) matching your Sales product names. In <strong>Model</strong> view, drag <code>Product</code> from Sales to Products to create a <strong>relationship</strong>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Transform data</strong> (Power Query): open your data, <strong>promote headers</strong>, set <strong>types</strong>, <strong>filter</strong> a column, add a <strong>custom column</strong> (e.g. FullName). Read the Applied steps.</span></li>
+<li><span class="box"></span><span class="txt">Add a second table <code>Products</code> (<code>Product, Category</code>). In <strong>Model</strong> view, create a <strong>relationship</strong> from Sales[Product] to Products[Product] (one-to-many).</span></li>
 <li><span class="box"></span><span class="txt">Build a chart of <code>Amount</code> by <code>Category</code> — only possible because the tables are linked.</span></li>
-<li><span class="box"></span><span class="txt"><strong>New measure</strong>: <code>Total Sales = SUM(Sales[Amount])</code> → put it in a Card.</span></li>
-<li><span class="box"></span><span class="txt"><code>Order Count = COUNTROWS(Sales)</code> and <code>Avg Sale = AVERAGE(Sales[Amount])</code>; click a slicer and watch them recompute.</span></li>
-<li><span class="box"></span><span class="txt"><em>Optional:</em> a calculated column <code>Big Order = IF(Sales[Amount] &gt; 100, "Yes", "No")</code>; use it as a slicer.</span></li>
+<li><span class="box"></span><span class="txt"><strong>New measure</strong>: <code>Total Sales = SUM(Sales[Amount])</code>; add <code>Order Count</code> and <code>Avg Sale</code>. Click a slicer — watch them recompute.</span></li>
+<li><span class="box"></span><span class="txt"><em>Stretch (Desktop):</em> add a Date table, then a <code>Sales YTD</code> measure with <code>TOTALYTD</code>, and a <code>CALCULATE</code> measure for one region.</span></li>
 </ul></div>
 
-<div class="card c-warn"><span class="lab">Careful — modelling &amp; DAX are richest in Desktop</span>
-The browser Service does basic modelling, but relationships, the star schema, and DAX are far smoother in
-<strong>Power BI Desktop</strong> (free, Windows). When you have a laptop, redo this day in Desktop — it's
-what PL-300 assumes.</div>
+<div class="card c-warn"><span class="lab">Careful — this day is much richer in Desktop</span>
+Power Query, the model view, relationships, the star schema, and DAX are all far smoother in
+<strong>Power BI Desktop</strong> (free, Windows). The browser Service can do basics. When a laptop is
+available, redo Day 19 in Desktop — it's exactly what PL-300 tests.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Model / star schema</b> — tables + relationships / fact in the middle, dimensions around.</li>
-<li><b>Fact / dimension table</b> — the numbers/events / the things you slice by.</li>
-<li><b>DAX</b> — Power BI's formula language.</li>
-<li><b>Measure / calculated column</b> — a total that respects filters / a per-row value.</li>
-<li><b>SUM / AVERAGE / COUNTROWS / IF</b> — starter DAX functions.</li>
+<li><b>Applied steps / query folding</b> — the recorded transform recipe / pushing work to the source.</li>
+<li><b>Merge / append</b> — join two sources / stack two similar tables.</li>
+<li><b>Relationship / cardinality / star schema</b> — a table link / how many-to-how-many / fact + dimensions shape.</li>
+<li><b>DAX / measure / calculated column</b> — the formula language / a filter-aware total / a per-row value.</li>
+<li><b>CALCULATE / time intelligence</b> — change the filter context / date-based measures (YTD, last year).</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-You linked two tables and wrote measures that react to a slicer. You understand the key idea: a
-<em>measure</em> is a total that respects context.</div>
+You shaped data in Power Query, linked two tables, and wrote measures that react to slicers. Key idea: a
+<em>measure</em> is a total that respects context — and <code>CALCULATE</code> is how you bend that context.</div>
 </section>
 
-<!-- DAY 20 (merged: dashboards/sharing/RLS + capstone + next steps) -->
+<!-- DAY 20 -->
 <section class="day" id="day20">
 <div class="dhead"><span class="dnum p6">Day 20</span></div>
-<h2>Dashboards, sharing, RLS — capstone &amp; what's next</h2>
-<p class="meta">~120 minutes · the finish line</p>
+<h2>Share, secure &amp; maintain — plus your capstone</h2>
+<p class="meta">~130 minutes · the finish line · Learn path: <a href="https://learn.microsoft.com/en-us/training/paths/build-power-bi-visuals-reports/">Build visuals &amp; reports</a></p>
 
-<div class="card c-concept"><span class="lab">Concept — dashboards, sharing, and row-level security</span>
-<p>You <strong>pin</strong> the best visuals onto a <strong>dashboard</strong> (a one-screen summary),
-publish into a <strong>workspace</strong>, and share (often as a Power BI <strong>app</strong>; sharing
-needs a <strong>Pro</strong> licence or Premium capacity). <strong>Row-Level Security (RLS)</strong> shows
+<div class="card c-concept"><span class="lab">Concept — publish, workspaces, apps, and dashboards</span>
+<p>From Desktop you <strong>Publish</strong> a report to a <strong>workspace</strong> in the Service. You
+<strong>pin</strong> the best visuals onto a <strong>dashboard</strong> (a one-screen summary), and you
+package a workspace's content as a Power BI <strong>app</strong> for consumers. Sharing needs a licence:
+<strong>Pro</strong> per-user, or <strong>Premium / Fabric</strong> capacity for large audiences.</p>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 560 120" role="img" aria-label="Publish from Desktop to a workspace, share as an app, secure with RLS">
+<defs><marker id="p1" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="14" y="40" width="120" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="74" y="60" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Desktop</text><text x="74" y="76" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">author</text>
+<line x1="134" y1="62" x2="168" y2="62" stroke="#9fb0c8" stroke-width="2" marker-end="url(#p1)"/><text x="151" y="54" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">Publish</text>
+<rect x="170" y="40" width="130" height="44" rx="9" fill="#f4f2fb" stroke="#7a5cd6"/><text x="235" y="60" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Workspace</text><text x="235" y="76" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">report + dataset</text>
+<line x1="300" y1="62" x2="334" y2="62" stroke="#9fb0c8" stroke-width="2" marker-end="url(#p1)"/>
+<rect x="336" y="24" width="130" height="34" rx="8" fill="#f3fbf6" stroke="#0e9f6e"/><text x="401" y="45" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#1f2733">App / Share</text>
+<rect x="336" y="66" width="130" height="34" rx="8" fill="#fdefee" stroke="#e0483b"/><text x="401" y="87" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#1f2733">RLS (secure rows)</text>
+<rect x="478" y="40" width="70" height="44" rx="9" fill="#f4f6f9" stroke="#cbd3de"/><text x="513" y="60" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1f2733">Viewers</text><text x="513" y="76" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">people</text>
+<line x1="466" y1="41" x2="478" y2="52" stroke="#9fb0c8" stroke-width="1.5"/><line x1="466" y1="83" x2="478" y2="72" stroke="#9fb0c8" stroke-width="1.5"/>
+</svg>
+<figcaption>Author in Desktop → publish to a workspace → share as an app, secured with RLS</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — refresh, and row-level security (RLS)</span>
+<p>Imported data goes stale, so you set a <strong>scheduled refresh</strong> (an on-premises
+<strong>gateway</strong> is needed for some sources). <strong>Row-Level Security (RLS)</strong> shows
 <em>different rows to different people</em> — e.g. each regional manager sees only their region — by
-defining a <em>role</em> with a rule and assigning people to it. It's the same least-privilege instinct as
-Dataverse security (Day 4) and DLP (Day 16).</p>
+defining a <em>role</em> with a DAX rule and assigning people to it. Same least-privilege idea as
+Dataverse security (Day 4) and DLP (Day 16). You may also see <strong>sensitivity labels</strong> and
+<strong>endorsement</strong> (Promoted / Certified datasets) for governance.</p>
 </div>
 
 <div class="card c-do"><span class="lab">Do this — publish, pin, and glance at RLS</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Make sure <strong>Sales Overview</strong> is saved in a workspace.</span></li>
-<li><span class="box"></span><span class="txt">On a visual, click <strong>pin</strong> → <strong>New dashboard</strong> = <code>Sales Dashboard</code>; pin two or three visuals.</span></li>
-<li><span class="box"></span><span class="txt">Open the dashboard; click a tile and see it jump to the report.</span></li>
-<li><span class="box"></span><span class="txt">Explore <strong>Share</strong> / <strong>Manage permissions</strong> to understand access (don't share anything real). Find where <strong>Row-level security</strong> is set (on the dataset's Security) and read it.</span></li>
+<li><span class="box"></span><span class="txt">Make sure <strong>Sales Overview</strong> is saved in a workspace (publish from Desktop if you built it there).</span></li>
+<li><span class="box"></span><span class="txt">On a visual, click <strong>pin</strong> → <strong>New dashboard</strong> = <code>Sales Dashboard</code>; pin two or three visuals. Open the dashboard; click a tile → it jumps to the report.</span></li>
+<li><span class="box"></span><span class="txt">Explore <strong>Share</strong> / <strong>Manage permissions</strong> and the dataset's <strong>Security</strong> (where RLS roles live) — read to understand; don't share anything real.</span></li>
+<li><span class="box"></span><span class="txt">Find <strong>Settings → Scheduled refresh</strong> on the dataset and read the options.</span></li>
 </ul></div>
 
 <div class="card c-do"><span class="lab">Do this — your capstone (ties the whole course together)</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Data:</strong> in <strong>My Learning Solution</strong>, add a table <code>Request</code> (Requester, Book, Status choice New/Approved/Rejected, Requested-on date) with 2 rows.</span></li>
-<li><span class="box"></span><span class="txt"><strong>App:</strong> a small canvas app to submit a request (form + Submit) and list requests (gallery).</span></li>
-<li><span class="box"></span><span class="txt"><strong>Automation:</strong> a flow — when a Request is added, start an approval; on approve set Status = Approved and email the requester; on reject set Rejected.</span></li>
-<li><span class="box"></span><span class="txt"><strong>AI (optional):</strong> point <strong>Library Helper</strong> at a short FAQ about requests and publish.</span></li>
-<li><span class="box"></span><span class="txt"><strong>BI:</strong> upload/refresh a small requests dataset in <code>app.powerbi.com</code> and build a report of requests by Status. Pin it to a dashboard.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Data:</strong> in <strong>My Learning Solution</strong>, add a <code>Request</code> table (Requester, Book, Status choice, Requested-on) with 2 rows.</span></li>
+<li><span class="box"></span><span class="txt"><strong>App:</strong> a small canvas app to submit a request and list requests.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Automation:</strong> a flow — when a Request is added, start an approval; on approve set Status = Approved and email the requester.</span></li>
+<li><span class="box"></span><span class="txt"><strong>AI (optional):</strong> point <strong>Library Helper</strong> at a short requests FAQ and publish.</span></li>
+<li><span class="box"></span><span class="txt"><strong>BI:</strong> build a Power BI report of requests by Status (connect to Dataverse in Desktop, or upload a requests Excel in the Service), add a <code>Total Requests</code> measure, and pin it to a dashboard.</span></li>
 </ul></div>
 
 <div class="card c-concept"><span class="lab">Concept — your certification path</span>
 <p><strong>PL-900 (Power Platform Fundamentals)</strong> covers Days 1–16; <strong>PL-300 (Power BI Data
-Analyst)</strong> covers this phase. Both have free study paths on <code>learn.microsoft.com</code>. For
-PL-300's hands-on parts, install <strong>Power BI Desktop</strong> (free) when you have a laptop.
-<strong>When the trial ends</strong>, keep practising free on the <strong>Power Apps Developer Plan</strong>
-(<code>powerapps.microsoft.com/developerplan</code>) — a personal environment, no card, no expiry.</p>
+Analyst)</strong> covers this whole phase. Free study on <code>learn.microsoft.com</code>: the
+<a href="https://learn.microsoft.com/en-us/training/powerplatform/power-bi">Power BI training hub</a> lists
+every path, and there's a <strong>practice assessment</strong> for PL-300. For the hands-on exam skills,
+use <strong>Power BI Desktop</strong> (free) when you have a laptop. When the trial ends, keep practising
+free on the <strong>Power Apps Developer Plan</strong> (<code>powerapps.microsoft.com/developerplan</code>).</p>
 </div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Dashboard / pin / workspace / app</b> — a summary screen / add a visual to it / where content lives / a shareable bundle.</li>
-<li><b>Power BI Pro</b> — the licence usually needed to share.</li>
-<li><b>Row-level security (RLS)</b> — showing different rows to different viewers.</li>
+<li><b>Publish / workspace / app</b> — send a report to the Service / where content lives / a shareable bundle.</li>
+<li><b>Dashboard / pin</b> — a one-screen summary / adding a visual to it.</li>
+<li><b>Scheduled refresh / gateway</b> — keeping imported data current / the bridge to some sources.</li>
+<li><b>Row-level security (RLS)</b> — different rows for different viewers.</li>
 <li><b>PL-900 / PL-300</b> — the Fundamentals / Power BI Data Analyst certifications.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself — you did it 🎉</span>
-You built tables, two kinds of apps, automations with approvals, a SharePoint list, a dataflow, an Office
-Script, a chatbot, touched Azure, and built Power BI reports, measures and a dashboard — all in the
-browser. That's a real, job-relevant foundation. Now go earn <strong>PL-900</strong> and
+Across 20 days you built tables, two kinds of apps, automations with approvals, a SharePoint list, a
+dataflow, an Office Script, a chatbot, touched Azure, and — in depth — prepared, modelled, visualised and
+shared data in Power BI. That's a real, job-relevant foundation. Now go earn <strong>PL-900</strong> and
 <strong>PL-300</strong>. Be proud. 🌱</div>
 </section>
 
