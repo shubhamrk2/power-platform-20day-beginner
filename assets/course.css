@@ -44,7 +44,7 @@ nav::-webkit-scrollbar{width:7px}nav::-webkit-scrollbar-thumb{background:var(--l
 .subs a.on{color:var(--accent);border-left-color:var(--accent);font-weight:600}
 
 /* ---- main ---- */
-main{margin-left:var(--rail);max-width:920px;padding:0 3rem 6rem}
+main{margin-left:var(--rail);padding:0 3rem 6rem}
 .wrap{padding-top:1.6rem}
 .crumb{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);
   padding-top:1.6rem}
