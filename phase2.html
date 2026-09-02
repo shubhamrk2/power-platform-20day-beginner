@@ -28,6 +28,128 @@
   <em>model-driven</em> back-office app that runs on the same data.</p>
 </header>
 
+<!-- POWER FX KNOWLEDGE BASE -->
+<section class="day" id="powerfx-basics">
+<div class="dhead"><span class="dnum">Read First</span></div>
+<h2>Power Fx — the formula language you will use every day</h2>
+<p class="meta">~30 minutes · Read this entire section before starting Day 5</p>
+<p>Canvas apps are controlled entirely by formulas you type in a thing called the <strong>formula bar</strong>. These formulas are called <strong>Power Fx</strong>. You don't need to be a programmer — Power Fx was designed to feel like <strong>Excel formulas</strong>. If you've ever typed <code>=SUM(A1:A5)</code> in Excel, you already know the idea.</p>
+<p>This section teaches you everything you need to read and write the formulas you'll encounter in Days 5–8. Read it once, try the practice at the end, and you'll be ready.</p>
+
+<div class="card c-concept"><span class="lab">Concept — what the formula bar is and how to use it</span>
+<p>When you open a canvas app in the Studio (editor), you will see a bar at the very top of the screen — just above the canvas where you design your app. That is the <strong>formula bar</strong>.</p>
+<ul>
+<li>On the left side of the formula bar, there is a <strong>property dropdown</strong> — a list of every setting a control has. For example, a Label has a "Text" property, a "Color" property, a "Visible" property, and dozens more.</li>
+<li>On the right side, there is a text box where you type the formula for the selected property.</li>
+</ul>
+<p><strong>How to use it, step by step:</strong></p>
+<ol>
+<li>Click on any control on the canvas — for example, click a Label.</li>
+<li>Look at the property dropdown on the left of the formula bar. It probably says <strong>Text</strong>.</li>
+<li>Look at the formula box on the right. It might say <code>"Label1"</code>.</li>
+<li>Click inside the formula box. Delete the text and type <code>"Hello World"</code>. Press <kbd>Enter</kbd>.</li>
+<li>The Label now shows "Hello World" on the canvas.</li>
+</ol>
+<p>That's it. That's the formula bar. You click a control → choose a property → type a formula. Everything in a canvas app works this way.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — the three rules of Power Fx syntax</span>
+<p>Power Fx has three basic rules. Learn these three and you can read any formula.</p>
+<p><strong>Rule 1: Text must be in double quotes.</strong><br>
+Anything that is plain text must be wrapped in double quotes: <code>"Hello"</code>, <code>"Save"</code>, <code>"Library Manager"</code>. Numbers and formulas do NOT go in quotes. Write <code>22</code> not <code>"22"</code> for a font size. Write <code>RGBA(47,111,237,1)</code> not <code>"RGBA(47,111,237,1)"</code> for a colour.</p>
+<p><strong>Rule 2: To get a control's value, write ControlName.PropertyName.</strong><br>
+The dot ( <code>.</code> ) is how you read a value from something:<br>
+<code>SearchInput.Text</code> → "whatever text the user typed in the SearchInput box right now"<br>
+<code>BookForm.Mode</code> → "which mode the form is in right now (View, Edit, or New)"<br>
+<code>BookGallery.Selected</code> → "which row the user last clicked in the gallery"<br>
+<code>App.Width</code> → "the total width of the screen in pixels"</p>
+<p><strong>Rule 3: Functions are written with a capital letter and brackets.</strong><br>
+<code>If(condition, valueIfTrue, valueIfFalse)</code><br>
+<code>Navigate(ScreenName, ScreenTransition.Fade)</code><br>
+<code>Search(TableName, textToSearch, "columnLogicalName")</code><br>
+You will be given the exact formula to type in each step. You don't need to memorise them — you need to understand what each part means.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — operators (the symbols in formulas)</span>
+<table>
+<tr><th>Symbol</th><th>What it does</th><th>Example</th><th>Reads as</th></tr>
+<tr><td><code>&amp;</code></td><td>Join two pieces of text together</td><td><code>"Pages: " &amp; Text(50)</code></td><td>"Pages: 50"</td></tr>
+<tr><td><code>=</code></td><td>Check if two things are equal</td><td><code>Returned = true</code></td><td>Is Returned equal to true?</td></tr>
+<tr><td><code>&lt;&gt;</code></td><td>Check if two things are NOT equal</td><td><code>Status &lt;&gt; "Overdue"</code></td><td>Is Status not equal to "Overdue"?</td></tr>
+<tr><td><code>&lt;</code> / <code>&gt;</code></td><td>Less than / greater than</td><td><code>Pages &gt; 300</code></td><td>Are there more than 300 pages?</td></tr>
+<tr><td><code>&amp;&amp;</code> or <code>And()</code></td><td>Both conditions must be true</td><td><code>Pages &gt; 100 &amp;&amp; Rating = 5</code></td><td>More than 100 pages AND rated 5</td></tr>
+<tr><td><code>||</code> or <code>Or()</code></td><td>At least one condition is true</td><td><code>Genre = "Fiction" || Genre = "Children"</code></td><td>Fiction OR Children genre</td></tr>
+<tr><td><code>!</code> or <code>Not()</code></td><td>Reverses true/false</td><td><code>!IsBlank(Title)</code></td><td>Title is NOT blank</td></tr>
+</table>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — the 10 most important Power Fx functions</span>
+<p>You will use these in Days 5–8. Each one is explained here so you are not confused when you see it.</p>
+<table>
+<tr><th>Function</th><th>What it does</th><th>Simple example</th></tr>
+<tr><td><code>If(condition, yes, no)</code></td><td>If the condition is true, give the first value; otherwise the second.</td><td><code>If(Pages &gt; 300, "Long book", "Short book")</code></td></tr>
+<tr><td><code>Switch(value, case1, result1, case2, result2, ...)</code></td><td>Like If but for many possible values. Cleaner than nesting many Ifs.</td><td><code>Switch(Status, "Active", "✓", "Overdue", "⚠", "Returned", "✔")</code></td></tr>
+<tr><td><code>IsBlank(value)</code></td><td>Returns true if the value is empty or not set.</td><td><code>IsBlank(SearchInput.Text)</code> → true when nothing typed</td></tr>
+<tr><td><code>Text(number)</code></td><td>Converts a number to text so you can join it with &amp;.</td><td><code>"Pages: " &amp; Text(ThisItem.Pages)</code></td></tr>
+<tr><td><code>Filter(table, condition)</code></td><td>Returns only the rows where condition is true.</td><td><code>Filter(Books, 'In stock' = true)</code></td></tr>
+<tr><td><code>Search(table, text, "column")</code></td><td>Returns rows where the column contains the text.</td><td><code>Search(Books, SearchInput.Text, "learn_title")</code></td></tr>
+<tr><td><code>CountRows(table)</code></td><td>Counts how many rows are in a table or gallery.</td><td><code>CountRows(BookGallery.AllItems)</code></td></tr>
+<tr><td><code>Navigate(screen, transition)</code></td><td>Takes the user to a different screen.</td><td><code>Navigate(BooksScreen, ScreenTransition.Fade)</code></td></tr>
+<tr><td><code>Remove(table, record)</code></td><td>Deletes a row from a table.</td><td><code>Remove(Books, BookGallery.Selected)</code></td></tr>
+<tr><td><code>Now()</code> / <code>Today()</code></td><td>The current date and time / just the current date.</td><td><code>Now()</code> → 2026-09-03 14:35:00</td></tr>
+</table>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — form-specific functions (you need these in Day 7)</span>
+<p>These four functions only work with Form controls. A Form is the control you use to view, edit, or create one row of data.</p>
+<table>
+<tr><th>Function</th><th>What it does</th></tr>
+<tr><td><code>SubmitForm(FormName)</code></td><td>Saves the form to Dataverse. Creates a new row if in New mode, updates if in Edit mode.</td></tr>
+<tr><td><code>NewForm(FormName)</code></td><td>Switches the form to New mode — all fields go blank, ready to create a new row.</td></tr>
+<tr><td><code>EditForm(FormName)</code></td><td>Switches the form to Edit mode — fields become editable.</td></tr>
+<tr><td><code>ResetForm(FormName)</code></td><td>Cancels all unsaved changes and returns to View mode.</td></tr>
+</table>
+<p>A Form always has a <strong>Mode</strong> property that tells you what mode it's currently in: <code>FormMode.View</code>, <code>FormMode.Edit</code>, or <code>FormMode.New</code>. You'll use this to show/hide buttons.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — how to read errors (red squiggles)</span>
+<p>When a formula has a mistake, Power Fx underlines it in red. Here's how to diagnose and fix errors:</p>
+<ol>
+<li><strong>Hover over the red underline</strong> — a tooltip shows the error message in plain English. For example: "Name isn't valid. 'BookGallery' isn't recognized."</li>
+<li><strong>Check the name of the control.</strong> The most common beginner mistake is a typo in a control name. If you named your gallery "BooksList" but the formula says "BookGallery", it won't work. Open the Tree view, check the exact name, and fix the typo.</li>
+<li><strong>Check your quotes.</strong> Text must be in straight double quotes: <code>"text"</code>. If you copied a formula from a document and it has curly quotes like <code>"text"</code>, Power Fx will not understand it. Delete and retype the quotes inside the studio.</li>
+<li><strong>Check semicolons vs commas.</strong> If your computer's regional settings use a semicolon as the list separator (common in India and Europe), Power Fx may want <code>If(condition; yes; no)</code> instead of <code>If(condition, yes, no)</code>. Power Apps will usually fix this automatically — if it does, let it.</li>
+<li><strong>Warnings (yellow) vs errors (red).</strong> A yellow squiggle is a warning — the formula will still work, but Power Fx is flagging something to be aware of. A red squiggle is an error — the formula will not work until fixed.</li>
+</ol>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — RGBA colours explained</span>
+<p>In canvas apps, colours are written as <code>RGBA(red, green, blue, alpha)</code> where:</p>
+<ul>
+<li><strong>Red, Green, Blue</strong> — numbers from 0 to 255 for how much of each colour to mix.</li>
+<li><strong>Alpha</strong> — transparency from 0 (fully transparent) to 1 (fully opaque). You'll almost always use 1.</li>
+</ul>
+<p>Examples: <code>RGBA(47, 111, 237, 1)</code> → the blue accent colour used in this course. <code>RGBA(255, 255, 255, 1)</code> → pure white. <code>RGBA(0, 0, 0, 1)</code> → pure black. <code>RGBA(220, 53, 69, 1)</code> → red (for delete buttons).</p>
+<p>You don't need to memorise these. The colour picker in the Properties pane generates RGBA values for you — just pick a colour visually and the formula appears automatically. But you need to recognise it when you see it.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — 6 warm-up formulas before Day 5</span>
+<p>Do this now: go to <code>make.powerapps.com</code> → Solutions → My Learning Solution → Library Manager → Edit. Try these 6 formulas on the BooksScreen. You already have the Label control with the "Library Manager" title — use that.</p>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Formula 1 — plain text:</strong> Click the "Library Manager" Label. In the formula bar, confirm the property shows <strong>Text</strong>. The formula should say <code>"Library Manager"</code>. Change it to <code>"My App"</code>. Press Enter. The label changes. Change it back to <code>"Library Manager"</code>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Formula 2 — joining text with &amp;:</strong> Keep the same Label selected. Change its Text to <code>"Library Manager — " &amp; "Community Edition"</code>. Press Enter. The label now shows both words joined. Change it back. <em>Key lesson: &amp; joins pieces of text.</em></span></li>
+<li><span class="box"></span><span class="txt"><strong>Formula 3 — using a property:</strong> Add a new Label (Insert → Label). Set its Text property to <code>App.Width</code>. Press Enter. The label shows a number (the app's width in pixels). This shows you how to read a property value. Delete this label when done.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Formula 4 — If():</strong> Add another Label. Set its Text to <code>If(1 = 1, "Condition is true", "Condition is false")</code>. Press Enter. It shows "Condition is true" because 1 = 1 is always true. Now change it to <code>If(1 = 2, "Condition is true", "Condition is false")</code> — it switches to "Condition is false". Delete the label when done.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Formula 5 — RGBA colour:</strong> Click the Rectangle that makes your blue header bar. In the formula bar, select the Fill property. The formula is <code>RGBA(47, 111, 237, 1)</code>. Change 237 to 100: <code>RGBA(47, 111, 100, 1)</code>. The header turns greenish. Change it back to <code>RGBA(47, 111, 237, 1)</code>. <em>Key lesson: you can edit any property this way.</em></span></li>
+<li><span class="box"></span><span class="txt"><strong>Formula 6 — Visible:</strong> Click the "Library Manager" Label. Change the property dropdown (left of formula bar) to <strong>Visible</strong>. It currently says <code>true</code>. Change it to <code>false</code>. The label disappears on the canvas. Change it back to <code>true</code>. <em>Key lesson: Visible = true/false shows or hides any control.</em></span></li>
+</ul>
+<p style="margin-top:.5rem">If all 6 worked, you are ready for Day 5. You now know how to use the formula bar, type formulas, and read RGBA colours.</p>
+</div>
+
+<div class="card c-tip"><span class="lab">Tip — you will always be given the formula to type</span>
+In Days 5–8, every step that needs a formula tells you exactly what to type. You do not need to write formulas from scratch yet — you're learning to <em>read, understand, and type</em> them. Writing them from scratch comes with practice over weeks and months. For now, focus on understanding what each part of the formula does — that understanding is more valuable than memorisation.</div>
+</section>
+
 <!-- DAY 5 -->
 <section class="day" id="day5">
 <div class="dhead"><span class="dnum">Day 5</span></div>
@@ -112,7 +234,11 @@
 <li><span class="box"></span><span class="txt">In the <strong>Tree view</strong>, right-click <strong>Screen1</strong> → Rename → type <code>BooksScreen</code>. This will be the main browse screen.</span></li>
 <li><span class="box"></span><span class="txt">Click <strong>+ New screen</strong> (the button at the bottom of the Tree view or from Insert menu) → Blank. Rename it <code>BookFormScreen</code>. Repeat once more → Rename to <code>LoanFormScreen</code>. You now have 3 screens in the tree view.</span></li>
 <li><span class="box"></span><span class="txt">Open the <strong>Data panel</strong> (cylinder icon). Click <strong>Add data</strong>. Search for <strong>Dataverse</strong>. Select it. Search for and add: <code>Books</code>, <code>Authors</code>, <code>Members</code>, <code>Loans</code>. All four tables are now available as data sources throughout the app.</span></li>
-<li><span class="box"></span><span class="txt">Click on <strong>BooksScreen</strong> in the tree view. Insert a <strong>Rectangle</strong> (Insert → Rectangle). Set its Width = <code>App.Width</code>, Height = <code>60</code>, X = <code>0</code>, Y = <code>0</code>, Fill = <code>RGBA(47, 111, 237, 1)</code>. This is your header bar.</span></li>
+<li><span class="box"></span><span class="txt">Click on <strong>BooksScreen</strong> in the tree view. Insert a <strong>Rectangle</strong> (Insert → Rectangle). Set its properties one at a time in the Properties pane on the right:<br>
+Width = <code>App.Width</code> → <em>means "match the width of the whole app screen" — this makes the header span the full width on any device.</em><br>
+Height = <code>60</code> → 60 pixels tall.<br>
+X = <code>0</code>, Y = <code>0</code> → position it at the very top-left corner.<br>
+Fill = <code>RGBA(47, 111, 237, 1)</code> → the blue colour (47 red, 111 green, 237 blue, fully opaque). This is your header bar.</span></li>
 <li><span class="box"></span><span class="txt">Insert a <strong>Label</strong>. Set Text = <code>"Library Manager"</code>, Color = <code>White</code>, Font size = <code>22</code>, FontWeight = <code>Bold</code>, X = <code>20</code>, Y = <code>0</code>, Height = <code>60</code>. This is the app title in the header.</span></li>
 <li><span class="box"></span><span class="txt">Press <strong>Play ▶</strong> to see your header bar. Press <kbd>Esc</kbd> to return. Press <kbd>Ctrl</kbd>+<kbd>S</kbd> to save.</span></li>
 </ul></div>
@@ -204,8 +330,8 @@ You have a saved app with 3 screens, a blue header bar, a title label, and all 4
 <li><span class="box"></span><span class="txt">Press <kbd>Esc</kbd> to exit the gallery template. Now add a <strong>Text input</strong> for search: <strong>Insert → Input → Text input</strong>. Position it above the gallery. Rename it to <code>SearchInput</code>. In the Properties pane, set <strong>HintText</strong> = <code>"Search by title…"</code>.</span></li>
 <li><span class="box"></span><span class="txt">Click <strong>BookGallery</strong>. Change its <strong>Items</strong> property in the formula bar to:
 <br><code>Search(Books, SearchInput.Text, "cr_title")</code>
-<br>The string <code>"cr_title"</code> is the <em>logical name</em> of the Title column. To find it: go to Dataverse → Book table → Title column → Advanced options → copy the logical name. If your prefix is <code>learn</code>, it might be <code>"learn_title"</code>. Replace accordingly.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Button</strong> for adding new books: <strong>Insert → Button</strong>. Rename to <code>NewBookBtn</code>. Set Text = <code>"+ New Book"</code>. Set <strong>OnSelect</strong> = <code>NewForm(BookForm); Navigate(BookFormScreen, ScreenTransition.Fade)</code>. (BookForm doesn't exist yet — you'll add it on Day 7. The formula is correct; Power Fx just shows a warning for now.)</span></li>
+<br><strong>Breaking this down:</strong> <code>Search(</code> is the function. <code>Books</code> is the table to search through. <code>SearchInput.Text</code> is "whatever the user typed in the SearchInput box" — it updates live as they type. <code>"cr_title"</code> is the logical column name to search in. To find your logical name: go to Dataverse → Book table → Title column → Advanced options → copy the Logical name field. If your prefix is <code>learn</code>, it will be <code>"learn_title"</code>. If it starts with <code>cr</code>, use <code>"cr_title"</code>. Replace accordingly.</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Button</strong> for adding new books: <strong>Insert → Button</strong>. Rename to <code>NewBookBtn</code>. Set Text = <code>"+ New Book"</code>. Set <strong>OnSelect</strong> = <code>NewForm(BookForm); Navigate(BookFormScreen, ScreenTransition.Fade)</code>.<br><strong>Breaking this down:</strong> The OnSelect property runs when the button is clicked. The semicolon ( <code>;</code> ) separates two actions that happen one after the other. <code>NewForm(BookForm)</code> tells the form to go into "New/blank" mode. <code>Navigate(BookFormScreen, ScreenTransition.Fade)</code> takes the user to the BookFormScreen with a fade animation. (BookForm doesn't exist yet — you'll add it on Day 7. Power Fx shows a yellow warning but it's fine.)</span></li>
 <li><span class="box"></span><span class="txt">Select <strong>BookGallery</strong>. Set its <strong>OnSelect</strong> property = <code>Navigate(BookFormScreen, ScreenTransition.Fade)</code>. Now clicking any book row will navigate to the form screen.</span></li>
 <li><span class="box"></span><span class="txt">Play ▶ — type in the search box and watch the gallery filter in real time. Click a book row — you go to BookFormScreen (blank for now). Press <kbd>Esc</kbd>. Save.</span></li>
 </ul></div>
@@ -305,12 +431,18 @@ BooksScreen shows all 5 books. Typing in SearchInput filters the list. Clicking 
 <li><span class="box"></span><span class="txt">Insert → Forms → <strong>Edit form</strong>. Resize it to fill most of the screen below the header. In the Tree view, rename it to <code>BookForm</code>.</span></li>
 <li><span class="box"></span><span class="txt">With <strong>BookForm</strong> selected: in Properties pane, set <strong>Data source</strong> = <code>Books</code>. Click <strong>Edit fields</strong> → add all fields: Title, ISBN, Genre, Pages, Published year, Description, Available copies, Total copies, In stock, Author. Remove any fields you don't want.</span></li>
 <li><span class="box"></span><span class="txt">Set BookForm's <strong>Item</strong> property = <code>BookGallery.Selected</code>. This links the form to whichever book was clicked in the gallery.</span></li>
-<li><span class="box"></span><span class="txt">Set BookForm's <strong>DefaultMode</strong> = <code>If(IsBlank(BookGallery.Selected), FormMode.New, FormMode.View)</code>. When arriving via the New button, BookGallery.Selected is blank, so the form opens in New mode. When clicking an existing row, it opens in View mode.</span></li>
+<li><span class="box"></span><span class="txt">Set BookForm's <strong>DefaultMode</strong> = <code>If(IsBlank(BookGallery.Selected), FormMode.New, FormMode.View)</code>.<br><strong>Breaking this down word by word:</strong><br>
+<code>If(</code> — start of the If function. It has three parts: condition, value-if-true, value-if-false.<br>
+<code>IsBlank(BookGallery.Selected)</code> — is the gallery's selected row empty? When a user presses "+ New Book" (not clicking any existing row), there is no selected row, so this is true.<br>
+<code>, FormMode.New</code> — if true (nothing selected), open the form in New mode (all blank).<br>
+<code>, FormMode.View</code> — if false (a row is selected), open the form in View mode showing that row's data.<br>
+<code>)</code> — closes the If function.<br>
+<em>In plain English: "If nothing is selected in the gallery, open the form blank for a new entry. If something IS selected, open the form showing that book's details."</em></span></li>
 <li><span class="box"></span><span class="txt">Set BookForm's <strong>OnSuccess</strong> = <code>Navigate(BooksScreen, ScreenTransition.Fade)</code>. After saving, the app returns to the books list automatically.</span></li>
 <li><span class="box"></span><span class="txt">Add an <strong>Edit button</strong>: Insert → Button, rename to <code>EditBtn</code>. Text = <code>"Edit"</code>. OnSelect = <code>EditForm(BookForm)</code>.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Save button</strong>: rename to <code>SaveBtn</code>. Text = <code>"Save"</code>. OnSelect = <code>SubmitForm(BookForm)</code>. Make it visible only in Edit/New mode: Visible = <code>BookForm.Mode = FormMode.Edit || BookForm.Mode = FormMode.New</code>.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Cancel button</strong>: rename to <code>CancelBtn</code>. Text = <code>"Cancel"</code>. OnSelect = <code>ResetForm(BookForm); Navigate(BooksScreen, ScreenTransition.Fade)</code>. Same Visible rule as Save.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Delete button</strong>: rename to <code>DeleteBtn</code>. Text = <code>"Delete"</code>. Fill = <code>RGBA(220,53,69,1)</code>. OnSelect = <code>Remove(Books, BookGallery.Selected); Navigate(BooksScreen, ScreenTransition.Fade)</code>. Visible = <code>BookForm.Mode = FormMode.View</code> (only show delete button in View mode).</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Save button</strong>: rename to <code>SaveBtn</code>. Text = <code>"Save"</code>. OnSelect = <code>SubmitForm(BookForm)</code>. Make it visible only when editing: Visible = <code>BookForm.Mode = FormMode.Edit || BookForm.Mode = FormMode.New</code>.<br><strong>Breaking down the Visible formula:</strong> <code>BookForm.Mode</code> is the form's current mode. <code>= FormMode.Edit</code> checks if it's in Edit mode. <code>||</code> means OR. <code>= FormMode.New</code> checks if it's in New mode. So the full formula means: "Show this button ONLY if the form is currently in Edit mode OR New mode." When the form is in View mode (just looking at a book), the Save button hides automatically.</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Cancel button</strong>: rename to <code>CancelBtn</code>. Text = <code>"Cancel"</code>. OnSelect = <code>ResetForm(BookForm); Navigate(BooksScreen, ScreenTransition.Fade)</code>. Visible = <code>BookForm.Mode = FormMode.Edit || BookForm.Mode = FormMode.New</code> (same rule as Save — only visible during editing).<br><strong>Breaking down OnSelect:</strong> <code>ResetForm(BookForm)</code> throws away any changes the user made (cancels the edit). <code>Navigate(BooksScreen, ScreenTransition.Fade)</code> takes the user back to the books list. The semicolon separates the two actions — they happen in order.</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Delete button</strong>: rename to <code>DeleteBtn</code>. Text = <code>"Delete"</code>. Fill = <code>RGBA(220,53,69,1)</code> (red colour). OnSelect = <code>Remove(Books, BookGallery.Selected); Navigate(BooksScreen, ScreenTransition.Fade)</code>. Visible = <code>BookForm.Mode = FormMode.View</code>.<br><strong>Breaking down OnSelect:</strong> <code>Remove(Books, BookGallery.Selected)</code> — <code>Remove</code> deletes a row. <code>Books</code> is the table. <code>BookGallery.Selected</code> is whichever book row was clicked. Then <code>Navigate</code> takes the user back. <strong>Breaking down Visible:</strong> <code>BookForm.Mode = FormMode.View</code> — only show the Delete button when in View mode. You don't want a Delete button appearing while someone is mid-edit.</span></li>
 <li><span class="box"></span><span class="txt">Add a <strong>Lend button</strong> on BookFormScreen: Text = <code>"Lend this book"</code>. OnSelect = <code>Navigate(LoanFormScreen, ScreenTransition.Fade)</code>. Visible = <code>BookGallery.Selected.In stock = true</code> (only show when book is in stock).</span></li>
 <li><span class="box"></span><span class="txt">Play ▶. Click a book on BooksScreen → see it in BookFormScreen in View mode. Click Edit → fields become editable. Change something → Save → you're back at BooksScreen and the change is saved. Click New Book → form is blank → fill in → Save → new row appears. Test Delete too. Press <kbd>Esc</kbd>. Save the app.</span></li>
 </ul></div>
