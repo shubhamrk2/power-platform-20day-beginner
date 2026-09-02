@@ -124,20 +124,76 @@ build gets thrown away — each day plugs into what came before.</div>
 <p>All the realistic data you need for every day of the course is ready-made. Download these files once,
 keep them somewhere easy to find, and you'll always have data to import, analyse, and practise with.</p>
 
-<div class="card c-do"><span class="lab">Download all 9 files now</span>
-<table>
-<tr><th>File</th><th>What it contains</th><th>Used on</th></tr>
-<tr><td><a href="sample-data/books.csv">books.csv</a></td><td>50 real books — title, author, ISBN, genre, pages, year, rating, copies</td><td>Day 2</td></tr>
-<tr><td><a href="sample-data/authors.csv">authors.csv</a></td><td>46 authors — full name, country, birth date, biography</td><td>Day 3</td></tr>
-<tr><td><a href="sample-data/members.csv">members.csv</a></td><td>30 library members — name, email, phone, membership type, dates</td><td>Day 3</td></tr>
-<tr><td><a href="sample-data/loans.csv">loans.csv</a></td><td>100 loan records spanning Jan 2025–Aug 2026 — loan dates, due dates, status, late fees</td><td>Day 17</td></tr>
-<tr><td><a href="sample-data/new-members.csv">new-members.csv</a></td><td>15 new members (different names) — for bulk import practice</td><td>Day 13</td></tr>
-<tr><td><a href="sample-data/library-events.csv">library-events.csv</a></td><td>20 library events — workshops, book clubs, author talks, dates, capacity</td><td>Day 12</td></tr>
-<tr><td><a href="sample-data/library-faq.txt">library-faq.txt</a></td><td>Detailed FAQ covering membership, borrowing, returning, events, and the chatbot</td><td>Day 15</td></tr>
-<tr><td><a href="sample-data/borrowing-policy.txt">borrowing-policy.txt</a></td><td>Full library borrowing policy — loan limits, renewals, reservations, lost books</td><td>Day 15</td></tr>
-<tr><td><a href="sample-data/late-return-policy.txt">late-return-policy.txt</a></td><td>Late return and fines policy — fee schedule, grace periods, dispute process</td><td>Day 15</td></tr>
-</table>
-<p style="margin-top:.8rem">Right-click any link → <strong>Save link as</strong> to download. Or click to open and then save.</p>
+<div class="card c-do"><span class="lab">Download all 9 files — and open each one correctly</span>
+<p style="margin:.4rem 0 .9rem">Right-click any link below → <strong>Save link as</strong> → save to a folder called <code>CommunityLibrary</code> on your Desktop. Follow the "How to open" steps under each file so Excel does not mangle dates or numbers.</p>
+
+<!-- books.csv -->
+<p><strong>📥 <a href="sample-data/books.csv" download>books.csv</a></strong> — 50 real books: title, author, ISBN, genre, pages, year, rating, copies. <em>Used on Day 2.</em></p>
+<ol style="margin:.3rem 0 1rem 1.4rem">
+<li>Open Excel → click the <strong>Data</strong> tab → <strong>Get Data → From Text/CSV</strong> → select <code>books.csv</code> → click <strong>Import</strong>.</li>
+<li>A preview window opens. Click <strong>Transform Data</strong> (do not click Load yet).</li>
+<li>In the Power Query editor, click the <strong>ISBN</strong> column header to select it.</li>
+<li>Go to the <strong>Transform</strong> tab → click <strong>Data Type</strong> → choose <strong>Text</strong>. Click <strong>Replace current</strong> when asked.</li>
+<li>Click <strong>Close &amp; Load</strong> (top-left). Excel loads all 50 rows with ISBN shown correctly.</li>
+</ol>
+
+<!-- authors.csv -->
+<p><strong>📥 <a href="sample-data/authors.csv" download>authors.csv</a></strong> — 46 real authors: full name, country, birth date, biography. <em>Used on Day 3.</em></p>
+<ol style="margin:.3rem 0 1rem 1.4rem">
+<li>Excel → <strong>Data → Get Data → From Text/CSV</strong> → select <code>authors.csv</code> → <strong>Import</strong>.</li>
+<li>Click <strong>Transform Data</strong>.</li>
+<li>Click the <strong>Born</strong> column → <strong>Transform → Data Type → Date</strong> → <strong>Replace current</strong>.</li>
+<li><strong>Close &amp; Load</strong>.</li>
+</ol>
+
+<!-- members.csv -->
+<p><strong>📥 <a href="sample-data/members.csv" download>members.csv</a></strong> — 30 library members: name, email, phone, membership type, join date, expiry, active. <em>Used on Day 3.</em></p>
+<ol style="margin:.3rem 0 1rem 1.4rem">
+<li>Excel → <strong>Data → Get Data → From Text/CSV</strong> → select <code>members.csv</code> → <strong>Import</strong>.</li>
+<li>Click <strong>Transform Data</strong>.</li>
+<li>Click the <strong>Phone</strong> column → <strong>Transform → Data Type → Text</strong> → <strong>Replace current</strong>. (Phone numbers start with + so must be text.)</li>
+<li>Click the <strong>Join_date</strong> column → <strong>Data Type → Date</strong> → <strong>Replace current</strong>.</li>
+<li>Click the <strong>Membership_expiry</strong> column → <strong>Data Type → Date</strong> → <strong>Replace current</strong>.</li>
+<li><strong>Close &amp; Load</strong>.</li>
+</ol>
+
+<!-- new-members.csv -->
+<p><strong>📥 <a href="sample-data/new-members.csv" download>new-members.csv</a></strong> — 15 new members for bulk import. <em>Used on Day 13 (Dataflow).</em></p>
+<ol style="margin:.3rem 0 1rem 1.4rem">
+<li>Excel → <strong>Data → Get Data → From Text/CSV</strong> → select <code>new-members.csv</code> → <strong>Import</strong>.</li>
+<li>Click <strong>Transform Data</strong>.</li>
+<li>Click <strong>Phone</strong> → <strong>Data Type → Text</strong> → <strong>Replace current</strong>.</li>
+<li>Click <strong>Join_date</strong> → <strong>Data Type → Date</strong> → <strong>Replace current</strong>.</li>
+<li>Click <strong>Membership_expiry</strong> → <strong>Data Type → Date</strong> → <strong>Replace current</strong>.</li>
+<li><strong>Close &amp; Load</strong>. (This file is also uploaded directly into the Dataverse Dataflow on Day 13 — you don't have to open it in Excel at all, but it helps to check the data first.)</li>
+</ol>
+
+<!-- loans.csv -->
+<p><strong>📥 <a href="sample-data/loans.csv" download>loans.csv</a></strong> — 100 loan records (Jan 2025–Aug 2026): book, member, dates, status, late fees. <em>Used on Day 17 (Power BI).</em></p>
+<ol style="margin:.3rem 0 1rem 1.4rem">
+<li>Excel → <strong>Data → Get Data → From Text/CSV</strong> → select <code>loans.csv</code> → <strong>Import</strong>.</li>
+<li>Click <strong>Transform Data</strong>.</li>
+<li>Click <strong>Loan_date</strong> → <strong>Transform → Data Type → Date</strong> → <strong>Replace current</strong>.</li>
+<li>Click <strong>Due_date</strong> → <strong>Data Type → Date</strong> → <strong>Replace current</strong>.</li>
+<li>Click <strong>Return_date</strong> → <strong>Data Type → Date</strong> → <strong>Replace current</strong>. (Some rows are blank here — that is correct, it means the book has not been returned yet.)</li>
+<li>Click <strong>Late_fee</strong> → <strong>Data Type → Decimal Number</strong> → <strong>Replace current</strong>.</li>
+<li><strong>Close &amp; Load</strong>.</li>
+</ol>
+
+<!-- library-events.csv -->
+<p><strong>📥 <a href="sample-data/library-events.csv" download>library-events.csv</a></strong> — 20 community events: name, date, location, capacity, description. <em>Used on Day 12 (SharePoint).</em></p>
+<ol style="margin:.3rem 0 1rem 1.4rem">
+<li>Excel → <strong>Data → Get Data → From Text/CSV</strong> → select <code>library-events.csv</code> → <strong>Import</strong>.</li>
+<li>Click <strong>Transform Data</strong>.</li>
+<li>Click <strong>Event_date</strong> → <strong>Data Type → Date</strong> → <strong>Replace current</strong>.</li>
+<li><strong>Close &amp; Load</strong>. (You will type these events into the SharePoint list manually on Day 12 — open this file in Excel just to read the data row by row as you type.)</li>
+</ol>
+
+<!-- text files -->
+<p><strong>📥 <a href="sample-data/library-faq.txt" download>library-faq.txt</a></strong> — 60+ Q&amp;A for the Copilot Studio chatbot knowledge source. <em>Used on Day 15.</em><br>
+<strong>📥 <a href="sample-data/borrowing-policy.txt" download>borrowing-policy.txt</a></strong> — Full borrowing policy (10 sections). <em>Used on Day 12 &amp; 15.</em><br>
+<strong>📥 <a href="sample-data/late-return-policy.txt" download>late-return-policy.txt</a></strong> — Late return fees, grace periods, disputes. <em>Used on Day 15.</em></p>
+<p style="margin:.2rem 0 .6rem">These are plain text files — no Excel needed. On Day 15 you upload them directly to Copilot Studio as knowledge documents. Open them in Notepad any time to read the content.</p>
 </div>
 
 <div class="card c-concept"><span class="lab">Why real data makes learning faster</span>
