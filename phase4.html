@@ -110,6 +110,46 @@ Past about 5,000 items in a list, some views and filters that don't use an index
 <li><b>Custom view</b> — a saved filter+sort+column-selection for a list.</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — SharePoint in enterprise Power Platform</span>
+<p>SharePoint is deeply embedded in enterprise Power Platform solutions:</p>
+<ul>
+<li>A law firm stores all client documents in SharePoint document libraries with metadata columns (Matter number, Document type, Confidentiality level). Power Automate flows automatically route documents for review when uploaded.</li>
+<li>A city council uses SharePoint lists as lightweight databases for public feedback submissions — Power Apps reads the list, and Power BI displays submission statistics on a dashboard.</li>
+<li>Many organisations start with SharePoint lists and migrate data to Dataverse as the solution matures — the move is worth it when complex business rules, security roles, or relationships become important.</li>
+</ul>
+<p>The rule you're learning: <strong>SharePoint = collaboration layer</strong> (documents, announcements, team tracking). <strong>Dataverse = application data layer</strong> (structured records driving apps and automations).</p>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with SharePoint lists</span>
+<ul>
+<li><strong>Using SharePoint lists for complex relational data.</strong> SharePoint's Lookup column can only look up from a list on the same site — it doesn't support multi-level lookups or referential integrity. For anything needing relationships, use Dataverse.</li>
+<li><strong>Not setting up versioning on important lists.</strong> Without versioning, an accidental edit overwrites data permanently. Turn versioning on from Day 1 on any production list — it costs minimal storage and saves you from disasters.</li>
+<li><strong>The 5,000 item threshold surprises at scale.</strong> If you don't add an index on a filtered column, SharePoint will refuse to load the view once the list exceeds 5,000 rows. Always index any column you filter or sort by in large lists.</li>
+<li><strong>Triggering a SharePoint flow on item modified when you only need item created.</strong> "When an item is modified" fires on EVERY save, including automated updates from flows. This can cause infinite loops if your flow itself modifies the item. Use "When an item is created" for first-time triggers.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 12 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the Library Events list, click the <strong>+ Add column → Person or Group</strong>. Name it <code>Event organiser</code>. Add yourself as the organiser of one event. Notice that this column shows real M365 users from your tenant — it's a live directory lookup, not a typed string.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Turn on versioning for the Library Events list (Settings → List settings → Versioning settings → Yes). Then edit one of your event rows — change the Location. Go to the row → three dots → Version history. You'll see Version 1.0 (original) and Version 2.0 (edited). Restore Version 1.0 — the original location comes back. This is enterprise data protection in 3 clicks.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Create a Power Apps canvas app that reads the <strong>Library Events</strong> SharePoint list: in the studio, add a data source → SharePoint → select the Community Library site → Library Events list. Add a Gallery with Items = LibraryEvents. Set the gallery layout to show Event name, Event date, and Location. Save as <code>Events Browser</code>. You now have a read-only events app without any Dataverse tables — proof that canvas apps work with SharePoint as the data source.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Upload 2 more documents to the Policies library. Add a column to the library: <strong>+ Add column → Choice</strong>. Name = <code>Document type</code>. Choices = "Policy", "Procedure", "Form". Set values for each uploaded file. This is "document metadata" — SharePoint libraries excel at this pattern.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> In Power Automate, find your "new event" Teams notification flow. Edit it. Before the Teams message, add a <strong>Condition</strong>: check that the new event's Confirmed column = Yes. If yes: post the Teams message. If no: do nothing (leave the "no" branch empty). Now only confirmed events trigger the notification — a common filter requirement in event-driven flows.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 12</span>
+<p><strong>Q1</strong> A SharePoint list has 8,000 rows and a custom view filtered by a column that is not indexed. What will happen?</p>
+<p><strong>Q2</strong> Should you store Book and Loan data in a SharePoint list or Dataverse? Give one reason for your answer.</p>
+<p><strong>Q3</strong> What is the difference between a SharePoint list and a document library?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> SharePoint will refuse to load that view — the 5,000-item view threshold. The fix is to add an index on the filtered column: List settings → Indexed columns → Create a new index on that column.</p>
+<p><strong>A2</strong> Dataverse. Reason: Book and Loan have a relationship (Loan points to Book), need referential integrity (can't delete a Book with open Loans), and feed a Power Apps model-driven app with business rules. SharePoint lists can't handle multi-table relationships or business rules.</p>
+<p><strong>A3</strong> A SharePoint list stores structured rows (like a table or spreadsheet) — each row is an item with columns. A document library stores files (Word, Excel, PDF) with optional metadata columns attached to each file. Use lists for data; use libraries for files.</p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 You built a SharePoint team site with a list (6 columns, custom view, versioning) and a document library, and a flow that posts to Teams when a new event is added. Could you explain in one sentence when you'd use a list instead of a Dataverse table?</div>
 </section>
@@ -221,6 +261,50 @@ A <strong>dataflow</strong> is for <em>bulk</em> loading/cleaning on a schedule.
 <li><b>Upsert / key column</b> — update existing rows matching the key column, insert the rest.</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — dataflows and Power Query in enterprise</span>
+<p>Power Query is one of the most valuable skills in the Microsoft data ecosystem because it appears in THREE products:</p>
+<ul>
+<li><strong>Power BI Desktop</strong> — transforms raw data for reports (Day 19).</li>
+<li><strong>Power Platform dataflows</strong> — bulk-loads data into Dataverse on a schedule (today).</li>
+<li><strong>Excel (Get &amp; Transform)</strong> — Power Query is built into modern Excel too.</li>
+</ul>
+<p>Real enterprise use cases:</p>
+<ul>
+<li>A retailer runs a dataflow nightly: reads the sales ERP's CSV export → cleans column names → calculates margin → upserts into Dataverse for regional managers to analyse in a model-driven app.</li>
+<li>An HR team imports payroll data weekly from a legacy system CSV. Power Query adds a "Full name" computed column (First + Last) and standardises the Membership type field (maps "Std" → "Standard", "Stu" → "Student") before loading.</li>
+<li>The <strong>upsert with key column</strong> pattern means the dataflow can run 100 times and produce exactly the same rows — idempotent loading. This is a fundamental principle of reliable data pipelines.</li>
+</ul>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with dataflows and Power Query</span>
+<ul>
+<li><strong>Not setting a key column (upsert key) — getting duplicates.</strong> If you choose "Load to existing table" without a key column, every run inserts every row again — 8 members the first time, 16 the second, 24 the third. Always set the key column (Email is usually the natural key for people records).</li>
+<li><strong>Wrong column type causing load failures.</strong> If Power Query sets a column as "number" but the Membership column contains text like "Student", the load fails. Always verify column types in the Power Query editor before publishing.</li>
+<li><strong>Using a cloud flow in a loop for bulk imports.</strong> A flow looping through 5,000 rows to insert them one by one may take hours and hit API throttle limits. Use a dataflow for bulk operations — it batches the writes efficiently.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 13 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the dataflow's Power Query editor, click the <strong>Advanced Editor</strong> button. Read through the M code. Identify: (a) which step adds the Full name column, (b) which step promotes headers. Close the editor without changes.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Add a data-cleaning step to the dataflow: in Power Query, select the Membership column. Right-click → Transform → <strong>Trim</strong> (removes leading/trailing spaces). Right-click again → Transform → <strong>Capitalize each word</strong>. Now even "  student" in the CSV becomes "Student" — cleaner data entering Dataverse.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add a <strong>filter rows</strong> step: right-click the Email column → Filter → "does not begin with" → type <code>test</code>. This removes any rows that are obviously test data. Now re-publish — Dataverse should only have real-looking email addresses. Check that your 8 members still loaded correctly (none had "test" in their email).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Edit the CSV — change one member's Membership from "Student" to "Premium". Add one entirely new member (9th row). Re-run the dataflow. In Dataverse, confirm: the changed member now shows Premium membership, the new member appears, and there are no duplicates. Total should be 9 rows.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Open <code>Dataflows</code> in the maker portal (left sidebar). Click your Import members dataflow → <strong>Settings</strong>. Enable <strong>Scheduled refresh</strong> — set daily at 7am. This would keep Dataverse in sync with an external HR system that exports a new CSV daily. Turn it off after setting it up (to avoid confusion during the course).</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 13</span>
+<p><strong>Q1</strong> What happens if you run a dataflow that loads to an existing table but set no key column?</p>
+<p><strong>Q2</strong> What is the difference between a dataflow and a Power Automate cloud flow for loading data?</p>
+<p><strong>Q3</strong> In Power Query's M language, what does each "Applied step" represent?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> Every run inserts all rows as new records — duplicates multiply with each run. After 3 runs of 8 members, you'd have 24 rows (8 original + 8 + 8). Always set a key column (like Email) for upsert behaviour.</p>
+<p><strong>A2</strong> A dataflow is designed for bulk scheduled loads: it pulls a whole dataset, transforms it in Power Query, and writes many rows at once efficiently. A cloud flow is event-driven and processes one record at a time (or small batches). Use dataflows for "import 5,000 rows every night"; use cloud flows for "send an email when one new row is added."</p>
+<p><strong>A3</strong> Each Applied step is one M transformation statement. They are chained: each step takes the output of the previous step as input. You can click any step to see the data at that point in the transformation pipeline, making debugging very visual.</p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 You imported 8 members from a CSV, added a Full name computed column, and confirmed re-running doesn't duplicate. Open the Advanced Editor — you should be able to read each step even if you can't write M from memory yet.</div>
 </section>
@@ -328,6 +412,51 @@ The goal is vocabulary: <em>API</em> (a program's ordering window), <em>REST/HTT
 <li><b>Office Script</b> — a TypeScript automation in Excel Online, callable from Power Automate flows.</li>
 <li><b>Parse JSON</b> — a Power Automate action that turns a JSON string into usable dynamic content tokens.</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — APIs and custom connectors in enterprise integration</span>
+<p>Every modern enterprise connects Power Platform to external systems via APIs:</p>
+<ul>
+<li>A logistics company's Power Automate flow calls a shipping carrier's REST API (POST /create-shipment) when a Dataverse Order row is set to "Confirmed" — the carrier's booking number returns as JSON and is saved to the order record.</li>
+<li>A financial services company has a custom connector wrapping their internal risk-scoring API. Every flow-maker in the company can use it without knowing the API's URL, headers, or auth tokens — the connector hides all that complexity.</li>
+<li>Office Scripts are used to generate formatted Excel reports with charts, pivot tables, and conditional formatting — operations that Power Automate's built-in Excel connector can't do. The script runs in the cloud (no desktop needed) and is callable from any flow.</li>
+</ul>
+<p>The vocabulary you learned today — endpoint, verb, header, body, JSON, OAuth — appears in every API documentation you'll ever read. This is the universal language of modern software integration.</p>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with APIs and custom connectors</span>
+<ul>
+<li><strong>Hardcoding API keys in flow actions.</strong> If you paste an API key directly into an HTTP action's header, it's visible to anyone who can view the flow. Store API keys in an <strong>environment variable</strong> (type = Secret, backed by Key Vault) and reference the variable in the header.</li>
+<li><strong>Ignoring the HTTP status code in the response.</strong> A status code of 200 means success; 401 means unauthorized (wrong API key); 404 means the endpoint doesn't exist; 500 means the server errored. Always check the status code in a Condition after the HTTP action and handle errors — don't assume 200.</li>
+<li><strong>Using Parse JSON without a schema.</strong> If you skip "Generate from sample" in Parse JSON, the JSON fields won't appear as dynamic content in later steps. Always generate the schema from a real API response sample.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 14 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In Power Automate, create a new Instant flow. Add the <strong>HTTP</strong> action. Method = GET. URI = <code>https://openlibrary.org/api/books?bibkeys=ISBN:9780141365466&amp;jscmd=data&amp;format=json</code>. Run the flow. In Run history, click the HTTP action → Outputs → Body. You see JSON data for Matilda (ISBN 9780141365466). This is a real API call — you got live book data with no API key.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> After the HTTP action, add <strong>Parse JSON</strong>. Content = Body (from HTTP). Click <strong>Generate from sample</strong> and paste the JSON body from the previous run's output. Click Done. Now add a <strong>Compose</strong> action — in its Inputs, click inside and use Dynamic content to browse the parsed JSON fields. Select the title of the book from the parsed fields. Run again and see the extracted title in Run history.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add a <strong>Condition</strong> after the HTTP action: Status code (from HTTP outputs) is equal to 200. In "If yes": do the Parse JSON + Compose. In "If no": add "Send me an email notification" with subject "API call failed" and body = the full HTTP output. This is the correct error-handling pattern for HTTP actions.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Go to Power Automate → <strong>Custom connectors → + New connector → Import an OpenAPI file</strong>. Download the Open Library OpenAPI spec (search "Open Library Swagger" or create a simple one). Import it. Look at the connector's Definition tab — you'll see the operations auto-populated from the spec. Delete the connector after exploring. You've seen how a Swagger/OpenAPI file becomes a ready-to-use connector.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Open the Excel workbook with your loan data (from Day 14). In Office Scripts → <strong>New script</strong>. Write this script manually (not recorded):
+<pre><code>function main(workbook: ExcelScript.Workbook): string {
+  let sheet = workbook.getActiveWorksheet();
+  let lastRow = sheet.getUsedRange().getRowCount();
+  return "Total rows: " + lastRow.toString();
+}</code></pre>
+Save as <code>Row counter</code>. Run it from a flow and receive the row count in an email. You've written your first Office Script by hand.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 14</span>
+<p><strong>Q1</strong> What is the difference between GET and POST in an HTTP request?</p>
+<p><strong>Q2</strong> After an HTTP action, the flow continues whether the call succeeded or failed. How do you detect and handle a failed API call?</p>
+<p><strong>Q3</strong> What does the Parse JSON action do, and why is it needed after an HTTP action?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> GET retrieves data from the API — it reads without changing anything (like asking "show me the book data"). POST sends data to the API to create or trigger something — it changes server state (like "create this booking"). GET requests have no body; POST requests include a JSON body.</p>
+<p><strong>A2</strong> Add a Condition after the HTTP action. Check the <code>statusCode</code> output — if it's NOT equal to 200 (or the expected success code), take the error branch. Alternatively, configure the HTTP action's Settings → "Configure run after" so subsequent steps only run on specific status outcomes.</p>
+<p><strong>A3</strong> The HTTP action returns the response body as a raw JSON text string. Parse JSON turns that string into structured tokens that appear in the Dynamic content panel — so you can access individual fields like title, author, or ISBN without writing M or expressions to parse the JSON manually.</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
 You ran an Office Script from a flow, called a real REST API with the HTTP action, and walked through every tab of a custom connector. Can you explain what an API is in one sentence, and when you'd use an HTTP action versus a connector?</div>

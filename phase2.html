@@ -127,6 +127,45 @@
 <li><b>Data source</b> — a Dataverse table (or other service) connected to the app.</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — canvas vs model-driven in enterprise</span>
+<p>Professional Power Platform architects choose app type based on the audience and use case:</p>
+<ul>
+<li><strong>Field worker apps are almost always canvas:</strong> a construction safety inspector needs a custom checklist app with large touch targets, a camera button, and GPS location capture — model-driven doesn't support that level of custom layout.</li>
+<li><strong>Back-office admin tools are almost always model-driven:</strong> the same company's office staff manage work orders through a model-driven app that auto-generates professional forms, includes activity timelines, and adapts to any screen size without extra work.</li>
+<li><strong>Many real solutions use both:</strong> the field app (canvas) writes to Dataverse; the office app (model-driven) reads and manages the same rows. One database, two apps, two audiences.</li>
+</ul>
+<p>Knowing both types — and when to choose each — is a key skill interviewers test for Power Apps roles.</p>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes in the app studio</span>
+<ul>
+<li><strong>Leaving controls named Gallery1, Button2, etc.</strong> When you have 15 controls with default names, it's impossible to read a formula like <code>Gallery2.Selected</code>. Rename every control before wiring up formulas — it takes 5 seconds and saves hours of confusion.</li>
+<li><strong>Working in the wrong screen.</strong> The tree view shows all screens. If you accidentally drop a button on BooksScreen when you meant BookFormScreen, nothing will appear where you expect. Always click the target screen in the tree view before inserting controls.</li>
+<li><strong>Pressing Play without saving first.</strong> If Power Apps crashes during Play mode, unsaved changes are lost. Save with Ctrl+S before every Play test.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 5 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the Tree view, rename Screen1 to <code>BooksScreen</code>, then add the two remaining screens and rename them correctly. Confirm the tree view shows: BooksScreen, BookFormScreen, LoanFormScreen — in that order.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> On BooksScreen, insert a Rectangle and set Fill = <code>RGBA(47, 111, 237, 1)</code>. Press Play ▶ — the header should appear blue. Then change the Fill to <code>RGBA(11, 130, 100, 1)</code> (green). Press Play again. Change it back to the blue colour. Practice reading RGBA values.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> In the Data panel, add all 4 tables (Books, Authors, Members, Loans) as data sources. Then switch to the Tree view — the data sources don't appear there. Switch to the Data panel — confirm all 4 are listed. This separation (tree = UI, data = sources) is the studio's fundamental mental model.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Select the header Label on BooksScreen. In the formula bar, click the property dropdown (currently shows "Text"). Explore every property available for a Label: Color, Fill, Font, FontSize, Bold, Visible, OnSelect, X, Y, Width, Height. Don't change anything — just read the list. Count how many properties a Label has.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Press <kbd>Ctrl</kbd>+<kbd>Z</kbd> to undo the last action. Press <kbd>Ctrl</kbd>+<kbd>Y</kbd> to redo. Practice the undo/redo cycle — it works exactly like Word or Excel and is your most important mistake-recovery tool in the studio.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 5</span>
+<p><strong>Q1</strong> In canvas apps, what is the Tree view for, and what is the Data panel for?</p>
+<p><strong>Q2</strong> You press Play ▶ and a button you added to BooksScreen doesn't appear. What are two possible causes?</p>
+<p><strong>Q3</strong> Why should you rename every control before writing formulas?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> Tree view: shows the hierarchy of all screens and controls — use it to select, rename, and organise UI elements. Data panel: manages the data sources (Dataverse tables, SharePoint lists) connected to the app.</p>
+<p><strong>A2</strong> (1) The button's Visible property is set to false or a formula that evaluates to false. (2) The button was accidentally placed on a different screen than BooksScreen — check the Tree view to see which screen it's under.</p>
+<p><strong>A3</strong> If you don't rename controls, formulas like <code>Gallery2.Selected</code> are impossible to understand a week later. Descriptive names like <code>BookGallery.Selected</code> are self-documenting and catch errors when controls get reordered.</p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 You have a saved app with 3 screens, a blue header bar, a title label, and all 4 Dataverse tables connected as data sources. The app doesn't show data yet — that's Day 6.</div>
 </section>
@@ -184,6 +223,60 @@ Go to <code>make.powerapps.com</code> → Tables → Book → click the Title co
 <li><b>OnSelect</b> — the event property that runs when a button or gallery row is clicked.</li>
 <li><b>Navigate(Screen, Transition)</b> — navigates to another screen.</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — Power Fx in production apps</span>
+<p>Power Fx is used in every Power Apps production app worldwide. Some patterns you'll see in real projects:</p>
+<ul>
+<li><strong>Search is almost always present:</strong> any gallery showing more than 10 rows gets a search box. The <code>Search(table, text, "column")</code> pattern you just learned is copy-pasted thousands of times a day by developers worldwide.</li>
+<li><strong>Filter + Search combined:</strong> real apps often combine both. For example, show only "In stock" books that match the search: <code>Search(Filter(Books, 'In stock' = true), SearchInput.Text, "learn_title")</code>. You'll add this in Exercise 3 below.</li>
+<li><strong>Navigation is the backbone:</strong> every multi-screen app is just <code>Navigate()</code> calls wired to buttons and gallery rows. Mastering navigation makes you capable of building any flow of screens a UX designer can draw.</li>
+</ul>
+
+<figure class="fig">
+<svg viewBox="0 0 560 100" role="img" aria-label="Gallery Items formula: Search filters Books by SearchInput.Text">
+<rect x="14" y="24" width="532" height="58" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="280" y="44" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">BookGallery.Items formula breakdown</text>
+<text x="28" y="64" font-family="monospace" font-size="11" fill="#2f6fed">Search(</text>
+<text x="105" y="64" font-family="monospace" font-size="11" fill="#0e9f6e">Books</text>
+<text x="148" y="64" font-family="monospace" font-size="11" fill="#2f6fed">,</text>
+<text x="162" y="64" font-family="monospace" font-size="11" fill="#7a5cd6">SearchInput.Text</text>
+<text x="330" y="64" font-family="monospace" font-size="11" fill="#2f6fed">,</text>
+<text x="344" y="64" font-family="monospace" font-size="11" fill="#e0483b">"learn_title"</text>
+<text x="465" y="64" font-family="monospace" font-size="11" fill="#2f6fed">)</text>
+<text x="28" y="76" font-family="monospace" font-size="8.5" fill="#7b8798">function   ← data source   ← user's typing   ← logical column name</text>
+</svg>
+<figcaption>Search() takes three arguments: the table, the text to match, and the column logical name in quotes</figcaption>
+</figure>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with galleries and formulas</span>
+<ul>
+<li><strong>Using display name instead of logical name in Search().</strong> <code>Search(Books, text, "Title")</code> will not work — the logical name (like <code>"learn_title"</code> or <code>"cr123_title"</code>) must go in the quotes. Copy it from the column's Advanced options.</li>
+<li><strong>Editing inside the gallery template accidentally.</strong> When you double-click a gallery, you enter the template and your edits apply to that repeating row pattern. Clicking Esc exits the template. A common mistake is placing a button inside the gallery template — it then appears on every row instead of once.</li>
+<li><strong>Using ThisItem outside a gallery.</strong> <code>ThisItem</code> only works inside a gallery's template. Outside, use <code>BookGallery.Selected</code> to refer to the selected row.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 6 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> With the gallery showing all books, open the formula bar for BookGallery's <code>Items</code> property. Change <code>Search(Books, SearchInput.Text, "learn_title")</code> to just <code>Books</code>. Press Play — the search box no longer filters. Undo the change (Ctrl+Z) to restore Search(). This shows what the formula actually does.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Inside the gallery template, click <strong>Body1</strong>. Change its Text formula to <code>"Copies: " &amp; Text(ThisItem.'Available copies') &amp; " / " &amp; Text(ThisItem.'Total copies')</code>. Press Play — each card now shows the copy count like "Copies: 2 / 3". This is a real UX pattern in library apps.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add an <strong>in-stock filter</strong>: Insert a Toggle control above the gallery. Rename it <code>InStockToggle</code>. Set its <strong>Default</strong> = <code>false</code>. Change BookGallery's Items = <code>Search(If(InStockToggle.Value, Filter(Books, 'In stock'), Books), SearchInput.Text, "learn_title")</code>. Press Play — toggle ON filters to in-stock books only. This combines Filter() and Search() — the production pattern.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a <strong>Label</strong> showing the count of filtered results. Set Text = <code>Text(CountRows(BookGallery.AllItems)) &amp; " books"</code>. Press Play and search — the count updates in real time. <code>CountRows(Gallery.AllItems)</code> counts the filtered rows, not all rows.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Select <strong>BooksScreen</strong> in the tree view. Set its <strong>OnVisible</strong> property = <code>ResetForm(BookForm)</code>. This ensures the book form clears whenever you navigate back to the books list — prevents stale data appearing if a user presses Back mid-edit.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 6</span>
+<p><strong>Q1</strong> What is the difference between <code>ThisItem</code> and <code>BookGallery.Selected</code>?</p>
+<p><strong>Q2</strong> Write the Power Fx formula to show only Loan rows where Returned = false in a gallery.</p>
+<p><strong>Q3</strong> A gallery's Items is set to <code>Books</code>. The user types "Dune" in the search box. Does the gallery filter? Why or why not?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> <code>ThisItem</code> is only valid inside a gallery template — it refers to the specific row that gallery card is rendering. <code>BookGallery.Selected</code> is used outside the gallery and refers to the row the user most recently clicked (selected).</p>
+<p><strong>A2</strong> <code>Filter(Loans, Returned = false)</code> — set this as the gallery's Items property. Only open loans appear.</p>
+<p><strong>A3</strong> No — when Items is simply <code>Books</code> (not wrapped in Search()), the search box has no connection to the gallery. Typing in it does nothing. You must wire them together with <code>Search(Books, SearchInput.Text, "learn_title")</code>.</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
 BooksScreen shows all 5 books. Typing in SearchInput filters the list. Clicking a book row navigates to BookFormScreen. That's a real search-and-browse screen — a core UI pattern in almost every business app.</div>
@@ -250,6 +343,45 @@ BooksScreen shows all 5 books. Typing in SearchInput filters the list. Clicking 
 <li><b>OnVisible</b> — runs every time a screen is navigated to.</li>
 <li><b>Remove(table, record)</b> — deletes a row from a Dataverse table.</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — forms and CRUD in enterprise apps</span>
+<p>The Edit Form pattern you built today (View → Edit → Save, with OnSuccess navigation) is the most common pattern in every data-entry app worldwide:</p>
+<ul>
+<li>A field service company uses this exact pattern for Work Order forms: technicians view an assigned job (View mode), tap Edit to fill in completion details, tap Save, and the app navigates back to their job list.</li>
+<li>An insurance company's claims app uses three form screens: ClaimsList, ClaimDetails (view/edit), and NewClaim (always New mode with DefaultMode = FormMode.New).</li>
+<li>The Delete pattern with Remove() is used cautiously in production — most real apps don't delete records; they set a Status = "Inactive" instead, so data is preserved for audits. Your Library Back Office can retire books (set In stock = No) without deleting them.</li>
+</ul>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with forms</span>
+<ul>
+<li><strong>Forgetting to set the Item property.</strong> If BookForm.Item is blank, the form has no data to display or edit — it appears empty in View mode. Always set <code>Item = BookGallery.Selected</code> (or whichever gallery feeds it).</li>
+<li><strong>Using SubmitForm in the wrong context.</strong> <code>SubmitForm(BookForm)</code> saves the form that was most recently in Edit or New mode. If the form is in View mode, SubmitForm does nothing. Use <code>EditForm(BookForm)</code> first to switch to Edit mode, then SubmitForm on the Save button.</li>
+<li><strong>Not testing OnSuccess.</strong> <code>OnSuccess</code> only fires after a <em>successful</em> save. If the form has a validation error (e.g. a Required field is blank), OnSuccess doesn't run and the navigation doesn't happen. Test by deliberately leaving a Required field blank — confirm the error appears and the user stays on the form.</li>
+<li><strong>Making Delete available in Edit/New mode.</strong> Always use <code>Visible = BookForm.Mode = FormMode.View</code> on the Delete button — deleting a record that was just created (New mode) or is mid-edit causes unexpected behaviour.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 7 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Press Play ▶. On BooksScreen, click the "+ New Book" button. In the form (New mode), leave Title blank and click Save. Confirm Dataverse shows a validation error and the app stays on the form screen. Title is Required — the form blocks empty saves automatically.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> In Play mode, click an existing book → Edit → change the Genre → Cancel. Go back and click that book again — confirm the genre is unchanged. <code>ResetForm</code> in the Cancel button discards changes without saving. This is the expected behaviour users rely on.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add a <strong>Label</strong> to BookFormScreen that shows the current form mode as a word. Set its Text = <code>Switch(BookForm.Mode, FormMode.View, "Viewing", FormMode.Edit, "Editing", FormMode.New, "Adding new")</code>. Press Play and cycle through the modes — the label updates. This is a useful developer debugging UI that you'd remove before publishing.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> On LoanFormScreen, add a <strong>Label</strong> above the form showing the pre-filled book title: Text = <code>"Lending: " &amp; BookGallery.Selected.Title</code>. This reminds the librarian which book they're creating a loan for.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Test the full workflow end to end: Add a new book → Lend that book → check the Loan table in Dataverse (or Library Back Office) to confirm the Loan row was created with the correct Book, Member, Loan date, Due date. This is your <strong>end-to-end integration test</strong> — the app, the form, and Dataverse all working together.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 7</span>
+<p><strong>Q1</strong> What is the difference between <code>SubmitForm(BookForm)</code> and <code>Patch(Books, BookGallery.Selected, {Title: "New Title"})</code>?</p>
+<p><strong>Q2</strong> You set <code>OnSuccess = Navigate(BooksScreen, ScreenTransition.Fade)</code> on BookForm. A user fills in a form with a blank Required field and clicks Save. Does the navigation happen?</p>
+<p><strong>Q3</strong> What does <code>DefaultMode = If(IsBlank(BookGallery.Selected), FormMode.New, FormMode.View)</code> achieve?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> SubmitForm uses the form control's field values (whatever is in the form's field inputs). Patch() directly writes specified values to a record without needing a form control. SubmitForm is for forms; Patch() is for inline data changes from buttons or logic.</p>
+<p><strong>A2</strong> No. OnSuccess only fires when the save completes without errors. A Required field being blank causes a validation error — the form shows the error and OnSuccess does not run, keeping the user on the form screen.</p>
+<p><strong>A3</strong> When a user presses "+ New Book", BookGallery.Selected is blank (nothing selected), so the form opens in New mode (all fields empty). When a user clicks an existing book row, BookGallery.Selected is that row, so the form opens in View mode showing that book's data.</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
 Your app has full CRUD: you can browse books, search, view details, edit, create, delete, and lend a book — all saved to Dataverse. That's a production-quality book management workflow.</div>
@@ -334,6 +466,46 @@ Both Library Manager (canvas) and Library Back Office (model-driven) read and wr
 <li><b>Sub-grid</b> — a related table shown inside a record (e.g. all Loans for a Member).</li>
 <li><b>Business rule</b> — visual if-then logic attached to a table; runs in all apps without code.</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — model-driven apps and business rules in enterprise</span>
+<p>Model-driven apps power some of the world's largest CRM and ERP systems. Dynamics 365 — used by thousands of Fortune 500 companies — is entirely model-driven Power Platform. When you built Library Back Office today, you built something architecturally identical to a Dynamics 365 module:</p>
+<ul>
+<li>The <strong>site map</strong> you configured is the same left-navigation structure Dynamics 365 users see every day.</li>
+<li><strong>Business rules</strong> in enterprise apps automate compliance: an insurance company's business rule says "if ClaimAmount &gt; 50000, set Approval required = Yes" — exactly the same as your Loan Overdue rule, but for a financial process.</li>
+<li><strong>Sub-grids</strong> are ubiquitous in enterprise forms: every customer record in a CRM shows a sub-grid of their purchases, their support tickets, and their contacts — the same pattern as your Loan History sub-grid in the Member form.</li>
+</ul>
+<p>You are not just learning Power Platform — you are learning how Dynamics 365, and enterprise data platforms in general, are built.</p>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with model-driven apps and business rules</span>
+<ul>
+<li><strong>Not publishing after changes.</strong> Changes to views, forms, or business rules in the App Designer don't take effect until you click <strong>Publish</strong>. A common mistake is testing before publishing and wondering why nothing changed.</li>
+<li><strong>Business rules don't run in flows.</strong> A business rule runs when a record is opened or saved in an app — it does NOT run when a Power Automate flow updates a record via the API. For flow-triggered data changes, you need flow logic (conditions + update row actions).</li>
+<li><strong>Forgetting to Activate a business rule.</strong> After saving a business rule, its status is Draft. It won't run until you click <strong>Activate</strong>. Check the status icon on the business rules list.</li>
+<li><strong>Adding too many fields to views.</strong> A view with 15 columns becomes unreadable on screen. Stick to 5-7 of the most important columns. More detail belongs in the form (which you see when you click a row).</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 8 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In Library Back Office, open the Loan table view. Create an <strong>Overdue Loans</strong> view if you haven't already: filter Status = Overdue, columns = Loan name, Book, Member, Loan date, Due date, Late fee. Sort by Due date ascending. Save and publish. Open the app and switch to this view — it becomes library staff's daily morning screen.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Open a Loan record in Library Back Office. Set Returned = Yes and save. Confirm the business rule fires and sets Return date = today. Open that Loan record again — Return date should be filled. This proves the business rule is active and working.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> In the Member form designer, add a <strong>3rd tab</strong> called "Membership info". Inside that tab, add a 2-column section: left = Membership type, right = Membership expiry. Left = Join date, right = Active. Save and publish. The Member form now has a dedicated membership section — cleaner for admin staff.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a third business rule to the Loan table: <strong>name = "Warn about late fee"</strong>. Condition: Status = Overdue. Action: Set field value → Late fee = 5 (₹5 per day). Note: this sets a fixed fee, not a calculated one — you'd calculate days in a flow. Save and activate. Test by opening an Overdue loan in Library Back Office.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5 (end-to-end test):</strong> Open Library Manager (canvas app) in one tab. Open Library Back Office (model-driven) in another. Add a new Loan in Library Manager. Without refreshing the model-driven app, go to its Loan table view — refresh and confirm the new Loan row appears. Then set Returned = Yes in Library Back Office. Go back to Library Manager — the data is the same. Both apps, one Dataverse.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 8</span>
+<p><strong>Q1</strong> A business rule sets Status = Overdue when Due date is in the past. A Power Automate flow updates a Loan row directly via the Dataverse connector. Does the business rule run?</p>
+<p><strong>Q2</strong> You publish a new view in the App Designer, but the view doesn't appear in the model-driven app. What is the most likely cause?</p>
+<p><strong>Q3</strong> What is the advantage of a sub-grid over a separate table view for showing related records?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> No. Business rules run in the app form context (when a user opens or saves a record in the UI). When Power Automate writes directly via the API, business rules are not triggered. Use flow conditions and Update row actions for flow-based logic.</p>
+<p><strong>A2</strong> You may have saved but not published. In the App Designer, Save stores the draft; Publish pushes it live. Always click Publish after changes, then hard-refresh the app (Ctrl+Shift+R).</p>
+<p><strong>A3</strong> A sub-grid shows related records inline inside the parent record — no navigation needed. A user viewing a Member record sees all their Loans without leaving the Member screen. This is faster and more efficient for staff who need context about both the member and their loans at the same time.</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
 You have two complete apps over the same data. Can you explain when you'd choose canvas vs model-driven in a real project? (Custom consumer or field app → canvas. Fast internal data management or operations tool → model-driven.) Both exist in the real world — great Power Platform developers use both.</div>

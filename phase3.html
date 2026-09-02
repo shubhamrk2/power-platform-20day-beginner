@@ -111,6 +111,63 @@ Lookup columns appear twice in the dynamic content panel: an <strong>ID version<
 <li><b>Run history</b> — the log of every past run with full input/output details for debugging.</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — flows in enterprise automation</span>
+<p>Power Automate runs over 50 billion actions per month across Microsoft's cloud. Real enterprise flows you'll find at companies:</p>
+<ul>
+<li>A bank's loan application triggers a flow that sends confirmation to the customer (Outlook), creates a CRM record (Dataverse), and posts to a Teams channel for the review team — three parallel actions from one trigger.</li>
+<li>A manufacturing company triggers a flow when a safety incident row is added to Dataverse — automatically notifying supervisors in under 30 seconds, no manual handoffs.</li>
+<li>A logistics company runs a <em>scheduled</em> flow at 6am every day that reads delayed shipment rows, emails each customer individually, and updates a SharePoint list for customer service staff.</li>
+</ul>
+<p>The Loan confirmation flow you just built is the same trigger → email action pattern used in every one of these examples. Scale is the only difference.</p>
+
+<figure class="fig">
+<svg viewBox="0 0 560 100" role="img" aria-label="Flow trigger types: automated, instant, scheduled">
+<rect x="14" y="24" width="160" height="58" rx="9" fill="#fff8e9" stroke="#e0a020"/>
+<text x="94" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Automated</text>
+<text x="94" y="62" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">row added/changed</text>
+<text x="94" y="74" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">email arrives, file uploaded</text>
+<rect x="196" y="24" width="160" height="58" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="276" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Instant (manual)</text>
+<text x="276" y="62" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">button in app</text>
+<text x="276" y="74" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">or "Run" on flow page</text>
+<rect x="378" y="24" width="168" height="58" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="462" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Scheduled</text>
+<text x="462" y="62" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">recurrence: daily, weekly</text>
+<text x="462" y="74" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">overnight reports</text>
+</svg>
+<figcaption>Three trigger types — automated (event), instant (button), scheduled (timer) — each for different use cases</figcaption>
+</figure>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes on Day 9</span>
+<ul>
+<li><strong>Using "Send an email (V2)" instead of Outlook connector without a licence.</strong> The full Outlook Send Email action requires an Exchange mailbox. "Send me an email notification" sends to the flow owner's address and works with any licence. Use the notification action while learning.</li>
+<li><strong>Wrong dynamic content for lookup display names.</strong> When you pick "Book" from the Dataverse trigger's dynamic content, you may get the GUID (a long code like 3e7b…). Always look for the version labelled "(Value)" or with the FormattedValue suffix — that's the human-readable name.</li>
+<li><strong>Building flows outside the solution.</strong> Always create flows via Solutions → My Learning Solution → New → Cloud flow. Flows created directly from the Power Automate portal aren't automatically tracked in the solution and can't be exported with it.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 9 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> After the flow sends the loan confirmation email, open <strong>Run history</strong> on the flow page. Click the latest successful run. Click the "Send me an email notification" action — read its <strong>Inputs</strong> (the Subject and Body you configured) and its <strong>Outputs</strong> (status code 200 means success). This is the primary debugging view for every flow you ever write.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Edit the flow. In the email body, add a new line using Dynamic content: add <strong>Late fee</strong> from the trigger and <strong>Status</strong> (the FormattedValue version). Save and test again. You've extended the email with more useful information — a common real-world requirement.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Intentionally break the flow — edit it and delete the trigger's Table name (leave it blank). Click Save — the Flow checker should show a red error badge. Read the error message. Then undo the break and save again. Reading Flow checker errors is the first skill in flow debugging.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a second action to the existing Loan confirmation flow: after the email, add <strong>Post message in a chat or channel (Teams)</strong>. Post as = Flow bot. Post in = Chat with Flow bot. Message = Expression: <code>concat('New loan created: ', triggerOutputs()?['body/learn_book@OData.Community.Display.V1.FormattedValue'])</code>. Save and test. Now both an email AND a Teams message are sent on each loan.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Find the logical names of three columns from the Loan table trigger that you'll need for the Overdue check flow tomorrow: the Loan date column, the Due date column, and the Returned column. You can find them by looking at the dynamic content panel in the flow designer or by checking the column's advanced options in the table editor.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 9</span>
+<p><strong>Q1</strong> You add a new Loan row and the confirmation email doesn't arrive within 2 minutes. What are the first two things you check?</p>
+<p><strong>Q2</strong> What is the difference between "Scope: Organization" and "Scope: User" on a Dataverse trigger?</p>
+<p><strong>Q3</strong> Dynamic content shows two versions for the "Book" column: one is a GUID and one says "Book (Value)". Which do you use in an email body, and why?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> (1) Check the flow's Run history — is there a failed run? Click it to see which action failed and what the error message says. (2) Check that the flow is turned On — a flow that is off never runs.</p>
+<p><strong>A2</strong> Scope Organization: the trigger fires for rows added by any user in the environment. Scope User: the trigger only fires for rows added by the flow's owner. For a shared library system, always use Organization.</p>
+<p><strong>A3</strong> Use "Book (Value)" — that's the human-readable display name (e.g. "Matilda"). The GUID version (e.g. 3e7b1234-...) is the database ID, which is meaningless to an email recipient.</p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 Lending a book in Library Manager automatically sends you an email. If it didn't arrive, check Run history for the failed step and read its error message — that's the skill you need for all debugging.</div>
 </section>
@@ -169,6 +226,62 @@ When Dataverse returns rows, lookup columns come as GUIDs (useless) and Choice c
 <li><b>Parallel branch</b> — two sets of actions that run simultaneously.</li>
 <li><b>Recurrence trigger</b> — starts a flow on a timer (daily, weekly, monthly).</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — loops, conditions, and variables in enterprise flows</span>
+<p>The Apply to each + Condition + Variable pattern you built today is the backbone of all report-generation flows in real companies:</p>
+<ul>
+<li>A bank's end-of-day flow loops through all flagged transactions, checks each one's amount, and builds a report string of transactions over the limit — exactly like your overdue list string.</li>
+<li>A supply chain company's flow runs each morning: Loop through open Purchase Orders → if delivery is overdue → append to delay string → mark PO as Delayed → after loop, email the procurement team. Same exact structure as your Overdue check flow.</li>
+<li>The <strong>parallel branch</strong> pattern (update the record AND build the string simultaneously) saves time in high-volume flows — instead of 1000 sequential steps, two parallel branches finish in half the time.</li>
+</ul>
+
+<figure class="fig">
+<svg viewBox="0 0 560 160" role="img" aria-label="Overdue check flow: list rows, loop each, condition, parallel: append string AND update row, then email">
+<defs><marker id="f10" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="14" y="10" width="130" height="36" rx="7" fill="#fff8e9" stroke="#e0a020"/><text x="79" y="33" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1f2733">Manual trigger</text>
+<line x1="79" y1="46" x2="79" y2="60" stroke="#9fb0c8" stroke-width="1.5" marker-end="url(#f10)"/>
+<rect x="14" y="60" width="130" height="36" rx="7" fill="#eef4ff" stroke="#2f6fed"/><text x="79" y="83" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1f2733">List rows (Loan)</text>
+<line x1="79" y1="96" x2="79" y2="110" stroke="#9fb0c8" stroke-width="1.5" marker-end="url(#f10)"/>
+<rect x="14" y="110" width="130" height="36" rx="7" fill="#f4f2fb" stroke="#7a5cd6"/><text x="79" y="133" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1f2733">Apply to each row</text>
+<line x1="144" y1="128" x2="180" y2="128" stroke="#9fb0c8" stroke-width="1.5" marker-end="url(#f10)"/>
+<rect x="182" y="110" width="130" height="36" rx="7" fill="#f4f6f9" stroke="#cbd3de"/><text x="247" y="128" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1f2733">Condition</text><text x="247" y="140" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">overdue?</text>
+<line x1="312" y1="118" x2="346" y2="106" stroke="#0e9f6e" stroke-width="1.3" marker-end="url(#f10)"/>
+<line x1="312" y1="138" x2="346" y2="150" stroke="#0e9f6e" stroke-width="1.3" marker-end="url(#f10)"/>
+<rect x="348" y="92" width="130" height="28" rx="6" fill="#f3fbf6" stroke="#0e9f6e"/><text x="413" y="111" text-anchor="middle" font-family="monospace" font-size="9" fill="#1f2733">Append string</text>
+<rect x="348" y="136" width="130" height="28" rx="6" fill="#f3fbf6" stroke="#0e9f6e"/><text x="413" y="155" text-anchor="middle" font-family="monospace" font-size="9" fill="#1f2733">Update row → Overdue</text>
+</svg>
+<figcaption>Overdue check: list all loans → loop → check due date → parallel: build email string AND mark as Overdue</figcaption>
+</figure>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with loops and variables</span>
+<ul>
+<li><strong>Placing Initialize variable inside Apply to each.</strong> A variable must be initialized BEFORE the loop (outside Apply to each). If you initialize inside, it resets to blank on every iteration — your accumulated string becomes empty each loop.</li>
+<li><strong>Using the wrong "value" in Apply to each.</strong> When you configure Apply to each, you must select the <strong>value</strong> output from the List rows action — this is the array of rows. If you accidentally select something else, the loop body doesn't have the individual row columns available.</li>
+<li><strong>Forgetting the OData FormattedValue suffix for display names in loops.</strong> Inside Apply to each, lookup and choice columns need the <code>@OData.Community.Display.V1.FormattedValue</code> suffix to get human-readable text. The exact logical name + suffix appears in the Expression tab's dynamic content when you're inside the loop.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 10 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Run the Overdue check flow. In Run history, click the run → expand Apply to each → click on one iteration. You can see that specific row's inputs and the condition result (Yes or No). This per-iteration visibility is the most powerful debugging tool for loops.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Edit the flow. Inside the "If yes" branch, add a <strong>Compose</strong> action before the Append to string variable. Name it <code>OverdueSummary</code>. Value = Expression: <code>concat('OVERDUE: ', items('Apply_to_each')?['learn_book@OData.Community.Display.V1.FormattedValue'], ' | Member: ', items('Apply_to_each')?['learn_member@OData.Community.Display.V1.FormattedValue'], ' | Due: ', items('Apply_to_each')?['learn_duedate'])</code>. Then change the Append to string variable to use Dynamic content → Outputs of Compose. This makes each string segment reusable via the Compose output token.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add a <strong>Filter array</strong> data operation AFTER the List rows action and BEFORE the Apply to each. Filter: <code>@item()['learn_returned']</code> is equal to <code>false</code>. This pre-filters the array before the loop — so Apply to each only processes non-returned loans, making the loop faster. Update Apply to each to use the filtered array (Outputs of Filter array).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a condition AFTER the Apply to each loop (outside it): if <code>length(variables('overdueList'))</code> is greater than 0, send the email. If false (no overdue loans), send a different email: "Good news — no overdue loans today!" This way staff aren't confused by a blank email on days with no overdue loans.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Change the flow from Instant to <strong>Scheduled</strong>: edit the trigger → change to Recurrence → set Interval = 1, Frequency = Day, Start time = 08:00. Save. Turn the flow off for now (to avoid daily emails during learning) — but you've seen how a production overnight report is configured.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 10</span>
+<p><strong>Q1</strong> Where must you place the "Initialize variable" action relative to an Apply to each loop?</p>
+<p><strong>Q2</strong> You have a flow that loops through 500 rows and takes 10 minutes. A colleague suggests adding a parallel branch inside the loop. Will this make it faster?</p>
+<p><strong>Q3</strong> What does <code>formatDateTime(utcNow(), 'yyyy-MM-dd')</code> return, and when would you use it?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> Before (outside) the Apply to each loop. If placed inside, it resets to its initial value at the start of every iteration — losing all accumulated data from previous iterations.</p>
+<p><strong>A2</strong> Yes — parallel branches inside a loop run simultaneously. If each iteration previously took 1 second for two sequential actions, adding a parallel branch for those two actions can halve the per-iteration time. However, Power Automate has throttling limits per connector — very high volumes may still be slow due to API limits.</p>
+<p><strong>A3</strong> It returns today's date as a string like <code>2025-09-15</code>. Use it in email subjects, filenames, or as the date portion of a log entry — any place where you need today's date formatted as readable text rather than an ISO timestamp.</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
 Running the flow emails you all overdue loans AND marks each one as Overdue in Dataverse — a real overdue management report. If the email is blank, check that you have Loan rows with Returned = No and Due date in the past.</div>
@@ -255,6 +368,45 @@ Running the flow emails you all overdue loans AND marks each one as Overdue in D
 <li><b>Try/Catch scope</b> — a Try scope containing the main work, a Catch scope that runs only on failure.</li>
 <li><b>result('ScopeName')</b> — expression returning the output/error of a scope, used in Catch for diagnostics.</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — approvals and error handling in enterprise</span>
+<p>Approval flows are one of the highest-value Power Automate features in enterprise:</p>
+<ul>
+<li>A multinational uses approval flows for expense reports: when a manager's expense exceeds ₹50,000, the flow pauses and waits for the CFO's approval — which they give from their phone in the Teams Approvals app, without opening a separate system.</li>
+<li>A healthcare provider's new patient onboarding flow waits for the records team to verify ID — the flow has been running (paused, waiting) for up to 30 days. Power Automate supports long-running paused flows.</li>
+<li>Try/Catch scopes are standard practice in production: without them, a failed action silently kills the flow. With Catch, you always know what broke and can alert the right person. The expression <code>string(result('Try'))</code> is copy-pasted across thousands of enterprise flows worldwide.</li>
+</ul>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with approvals and error handling</span>
+<ul>
+<li><strong>Using "First to respond" when all approvers must agree.</strong> If you have 3 approvers and use "First to respond", the first person to click Approve ends the approval — even if the other two would have rejected. Use "Everyone must approve" when consensus is required.</li>
+<li><strong>Not checking the Outcome before branching.</strong> The Approval action outputs "Approve" or "Reject" (exact strings, case-sensitive). If your Condition checks for "approve" (lowercase), it will never match. Always check by clicking the run and reading the exact Outcome string in Run history.</li>
+<li><strong>Putting the Catch scope inside the Try scope.</strong> Catch must be AFTER Try (outside it), not inside. An inner scope doesn't have access to the Try scope's result. Configure run after → has failed on the Catch scope.</li>
+<li><strong>Forgetting to set "run after" on the Catch scope.</strong> Without configuring "has failed", the Catch scope runs after every run (success AND failure). Always click the Catch scope's Settings → Configure run after → tick "has failed", untick "is successful".</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 11 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Add a new Member row in Library Back Office to trigger the "New member approval" flow. Check your email within 60 seconds for the approval notification. Click Reject (not Approve). Confirm you receive the rejection email. Then add another Member and Approve — confirm the welcome email and that Active = Yes in Dataverse.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Edit the approval flow. Inside the "If yes" (Approve) branch, add a <strong>Compose</strong> action. Value = Expression: <code>concat('Approved by: ', outputs('Start_and_wait_for_an_approval')?['body/approver/email'], ' at ', formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm'))</code>. Add a note to the welcome email body that includes this Compose output — so the welcome email shows who approved it and when.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Test the Try/Catch error handling: temporarily break the flow by editing the "Update a row" action inside Try and deleting the Row ID (leave it blank). Add a new Member row — the flow should fail on that action. Check your error email — it should contain the <code>string(result('Try'))</code> JSON with the error details. Fix the broken step and test the approval again.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a <strong>data operation: Join</strong> after the approval step. Inputs = <code>["Approved", "Pending", "Rejected"]</code> (type this as an expression). Join with = <code>", "</code>. Output = a single string "Approved, Pending, Rejected". This previews how you'd turn an array of values into a readable list for an email — used frequently in real report flows.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5 (Adaptive Card stretch):</strong> If you have Microsoft Teams available, paste the Adaptive Card JSON from the course into the "Post adaptive card and wait for a response" action. Open Teams and look for the Flow bot message — you should see a formatted card with Approve/Reject buttons. Clicking Approve in Teams should complete the approval and trigger the success branch.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 11</span>
+<p><strong>Q1</strong> A flow has a Try scope and a Catch scope. Under what condition does the Catch scope run?</p>
+<p><strong>Q2</strong> An approval flow uses "Approve/Reject — Everyone must approve" with 3 approvers. Two approve, one rejects. What is the Outcome?</p>
+<p><strong>Q3</strong> You receive a blank error email from the Catch scope. What does this tell you, and what should you check?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> Only when the Try scope has a failed status — because you configured the Catch scope's "run after" setting to "has failed" only. If Try succeeds, Catch is skipped.</p>
+<p><strong>A2</strong> Reject — with "Everyone must approve", a single Reject from any approver rejects the entire approval. The flow takes the "If no" branch.</p>
+<p><strong>A3</strong> A blank error email usually means <code>result('Try')</code> returned empty — possibly because the Try scope name was changed or misspelled in the expression. Check that the Catch scope's expression exactly says <code>string(result('Try'))</code> where 'Try' matches the exact name of the Try scope (case-sensitive, spaces replaced with underscores).</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
 You have three production-grade flows: (1) Loan confirmation — auto-email when a loan is created. (2) Overdue check — loops, marks records, emails a report. (3) Member approval — waits for a human, branches on outcome, catches errors. That's the shape of real enterprise automation.</div>

@@ -123,6 +123,45 @@ A private window forgets all sign-ins when closed. This prevents the browser fro
 <li><b>Environment picker</b> — the top-right selector that tells Power Apps which room you're working in.</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — how enterprises use this</span>
+<p>Large organisations use this exact cloud setup to build hundreds of internal tools:</p>
+<ul>
+<li>A hospital system uses a canvas app (built by nurses, not IT) to capture patient intake data — replacing paper forms. The data flows into a Power BI dashboard for administrators in another environment.</li>
+<li>A retail chain keeps separate environments per country — <strong>Dev</strong> (building), <strong>UAT</strong> (user testing), <strong>Production</strong> (live). One tenant; data isolated per environment.</li>
+<li>A manufacturing company triggers a safety alert flow whenever a sensor reading exceeds a threshold — no code, just Power Automate checking an API on a schedule.</li>
+</ul>
+<p>The tenant → environment → solution hierarchy you just learned is exactly what enterprise solution architects draw in whiteboard sessions. You already think like one.</p>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes on Day 1</span>
+<ul>
+<li><strong>Building in the wrong environment.</strong> The picker defaults to the company default environment — often a shared production space. Always switch to Learning first. Creating tables in the wrong environment can break live apps others are using.</li>
+<li><strong>Signing in with a personal Microsoft account.</strong> If a personal @outlook.com account is saved in the browser, Power Apps may use that. Always use incognito, and double-check the account shown in the top-right corner.</li>
+<li><strong>Confusing tenant with environment.</strong> "Our tenant" = the whole company's cloud space. "Our environment" = one isolated container inside it. A single tenant can have hundreds of environments.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 1 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Close and reopen the incognito window. Navigate to <code>make.powerapps.com</code> from memory (no search — type the URL). Sign in and switch to the Learning environment. Time yourself — it should take under 60 seconds.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Without looking at notes, write every left-nav item of the maker portal from memory. Then open the portal and score yourself.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> In the admin center → Environments → click your Learning environment. Write down: (a) its exact URL, (b) the region, (c) how much Dataverse storage it has. Keep this note — you'll need the URL in later phases.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Open Microsoft Teams in a new tab. Confirm the same email appears in Teams as in Power Apps — proof they share one Entra ID identity.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> In the maker portal, click <strong>Connections → + New connection</strong> → search "Microsoft Teams" → click it → read what information it needs → click Cancel. You've previewed how flows authenticate to external services — you'll use this in Phase 3.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 1</span>
+<p><strong>Q1</strong> Your colleague says "I can't find the app I built." What is the single most likely cause?</p>
+<p><strong>Q2</strong> What is the URL of the Power Platform admin center?</p>
+<p><strong>Q3</strong> Name two things shared across all environments in a tenant, and one thing that is different per environment.</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> They built in a different environment than they are now looking in. Always check the top-right environment picker first when debugging missing apps or tables.</p>
+<p><strong>A2</strong> <code>admin.powerplatform.microsoft.com</code></p>
+<p><strong>A3</strong> Same across all environments: user accounts (Entra ID identities), the tenant domain. Different per environment: the Dataverse database, apps, flows, solutions, and security roles.</p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 Can you (1) open incognito, (2) sign in at <code>make.powerapps.com</code>, (3) switch to the Learning environment, and (4) explain in one sentence what an environment is? If yes, you're ready for Day 2.</div>
 </section>
@@ -223,6 +262,46 @@ Behind your friendly <strong>Display name</strong> (what people read), Dataverse
 <li><b>Logical name</b> — the system name used in formulas and filter expressions.</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — how companies design Dataverse data models</span>
+<p>When professional Power Platform developers join a project, the first thing they do is <strong>model the data</strong>. A well-designed data model can support an app for 10 years; a bad one requires constant rework. Real patterns you'll see:</p>
+<ul>
+<li>A field service company has a <strong>Work Order</strong> table (one per job), linking to <strong>Customer</strong>, <strong>Technician</strong>, <strong>Asset</strong>, and <strong>Parts Used</strong> tables. The Work Order is their "Loan" equivalent — the event table linking everything else.</li>
+<li>A bank has a <strong>Case</strong> table with a Choice column for Status (Open / In Review / Resolved / Closed) — exactly like your Loan Status column.</li>
+<li>An HR system stores employees in a <strong>Contact</strong> table with a Yes/No column called <strong>Active</strong> and a Choice column for <strong>Employment type</strong> — exactly like your Member table's Active and Membership fields.</li>
+</ul>
+<p>The patterns are universal. Your Community Library data model IS how real enterprise apps are built.</p>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes when designing tables</span>
+<ul>
+<li><strong>Using Text for everything.</strong> If you store "240" as text instead of Whole number, you can't sort it numerically (10, 100, 2 will sort before 240 alphabetically) and can't do maths on it in flows.</li>
+<li><strong>Not setting Required on primary columns.</strong> Without Required on Title, someone can save a blank book row — your gallery will then show empty cards with no text.</li>
+<li><strong>Using Whole Number for phone numbers.</strong> Phone numbers start with 0 (e.g. 0812...). Integers drop leading zeros. Always use Text for phone, ISBN, and postal codes.</li>
+<li><strong>Creating a new table when a column is enough.</strong> If "Genre" only needs a label (Fiction, Science), use a Choice column. A whole Genre table is overkill unless genres have their own properties (description, icon, policy rules).</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 2 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the Book table data grid, try to save a row with Title left blank. What happens? (Dataverse should block it because Title is Required.)</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Click the <strong>Genre</strong> column → Column settings → Edit. Add a new choice option: <strong>Reference</strong>. Save. Open a Book row and confirm "Reference" appears in the Genre dropdown.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Find the <strong>logical name</strong> of the Title column: click the column → Advanced options → note the logical name (e.g. <code>learn_title</code>). Write it down — you'll need this exact string in the Power Fx Search() formula on Day 6.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Create a new view called <code>Science books</code>: filter Genre = Science, sort by Title ascending. Save and publish. In the data grid, use the view dropdown to switch between "Active Books" and "Science books." Watch the list filter.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Try entering ISBN = <code>abc</code> (letters) for a Book row. Does Dataverse allow it? (Yes — ISBN is Text type, so any text is valid. Real validation would need a business rule or Power Fx formula. You'll add this in Day 8.)</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 2</span>
+<p><strong>Q1</strong> A column stores values like "Open", "Closed", "Pending" and the list will never change. Should it be a Choice or a Lookup?</p>
+<p><strong>Q2</strong> You want to store a monetary amount (e.g. library late fees in ₹). Which data type should you use?</p>
+<p><strong>Q3</strong> What is the purpose of a Default value on a column?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> Choice — the list is fixed and the options have no extra properties. A Lookup would be overkill and requires a second table.</p>
+<p><strong>A2</strong> Currency — it stores value + currency symbol and handles multi-currency correctly. Not Decimal Number, because Currency gives you the ₹ symbol and proper accounting display.</p>
+<p><strong>A3</strong> A Default value fills in a field automatically when a new row is created. For example, "Available copies" defaults to 1 so every new book starts with 1 copy without manual entry. It saves data-entry time and reduces human error.</p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 You have a <strong>Book</strong> table with 9 columns and 5 rows. Quick quiz: which data type for a phone number — Whole number or Text? (<em>Text — phone numbers start with 0 and you never do maths on them.</em>) Which type for "Is the book currently lent out?" (<em>Yes/No.</em>)</div>
 </section>
@@ -315,6 +394,57 @@ The <strong>Loan</strong> table points to <em>two</em> other tables — Book and
 <li><b>Restrict / Cascade</b> — two delete behaviors: block delete if children exist / delete children automatically.</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — data modelling in practice</span>
+<p>Your four-table model (Author → Book ← Loan → Member) is a classic pattern called a <strong>transactional data model</strong>. It appears everywhere:</p>
+<ul>
+<li><strong>E-commerce:</strong> Customer → Order → OrderLine ← Product. OrderLine is the Loan equivalent — the linking event table.</li>
+<li><strong>Healthcare:</strong> Patient → Appointment ← Doctor. Appointment links two "dimension" tables to one event.</li>
+<li><strong>Banking:</strong> Account → Transaction ← MerchantCategory. Every transaction links an account to a category.</li>
+</ul>
+<p>Understanding the difference between <em>dimension tables</em> (Author, Book, Member — the "what") and <em>event/fact tables</em> (Loan — the "what happened") is a skill that transfers from Dataverse to SQL to Power BI to any data platform. You are building the mental model now, at Day 3 of 20.</p>
+
+<figure class="fig">
+<svg viewBox="0 0 560 110" role="img" aria-label="Loan links Book and Member — one loan is one borrowing event">
+<defs><marker id="d3a" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="14" y="34" width="120" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="74" y="54" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Book</text><text x="74" y="70" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">dimension</text>
+<line x1="134" y1="56" x2="198" y2="56" stroke="#9fb0c8" stroke-width="1.8" marker-end="url(#d3a)"/>
+<rect x="200" y="24" width="160" height="62" rx="9" fill="#f3fbf6" stroke="#0e9f6e" stroke-width="1.8"/><text x="280" y="49" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Loan (event)</text><text x="280" y="65" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#4a5567">Book ← + → Member</text><text x="280" y="78" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">loan date, due date, status</text>
+<line x1="362" y1="56" x2="426" y2="56" stroke="#9fb0c8" stroke-width="1.8" marker-end="url(#d3a)"/>
+<rect x="428" y="34" width="118" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="487" y="54" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Member</text><text x="487" y="70" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">dimension</text>
+</svg>
+<figcaption>Loan is the event table — it records WHO borrowed WHAT and WHEN</figcaption>
+</figure>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with relationships</span>
+<ul>
+<li><strong>Putting the Lookup on the wrong side.</strong> The Lookup always goes on the "many" side (Book has a Lookup to Author, not Author has a Lookup to Book). If Author had a Lookup to Book, each author could only have one book.</li>
+<li><strong>Using a text field for related data.</strong> Typing "Roald Dahl" as text in a Book row isn't a relationship — it's just a string. If Roald Dahl's name changes in the Author table, the book's text field doesn't update. A Lookup column is the only true link.</li>
+<li><strong>Forgetting to add rows to the Loan table for testing.</strong> If Loan has no rows, your Power BI report (Phase 6) will be blank and all DAX measures return 0. Add at least 10 diverse loan rows now — overdue, returned, and open — so your reports are meaningful.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 3 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the Loan data grid, try to save a row without selecting a Book. Confirm that Dataverse blocks you (Book is Required). Then select a Book and save — note that the dropdown shows real Book rows by their Title.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Open one of your Author rows. Look at the Related items panel (or a sub-grid if available) — can you see which Books are linked to this author? This is the "one side" seeing its "many" related rows.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add 5 more Loan rows to reach a total of at least 10. Make at least 2 rows with Status = Overdue (set Due date in the past). Make at least 2 rows with Returned = Yes. This rich test data will make Phases 3 and 6 significantly more interesting.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> In the Member table, add a column called <code>Membership expiry</code> (Type: Date only). Then in the Loan table, add a <code>Notes</code> column (Multiline text) if you haven't already. These will be used in the canvas app form on Day 7.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5 (challenge):</strong> Think about this real scenario: one Loan row has Returned = Yes but its Return date is blank. Write a business rule (without building it yet) in plain English that would fix this. Answer: "If Returned = Yes AND Return date is blank → set Return date = Today." You'll build this exact rule on Day 8.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 3</span>
+<p><strong>Q1</strong> You want to store which Member is responsible for a Loan. Should the Lookup column be on the Loan table or the Member table?</p>
+<p><strong>Q2</strong> A book can be borrowed many times. A loan belongs to exactly one book. What cardinality is this, and on which table does the Lookup column live?</p>
+<p><strong>Q3</strong> What is the difference between a Choice column and a Lookup column, and give one example of each from the Community Library?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> On the Loan table — it's the "many" side. One Member can have many Loans; each Loan belongs to one Member. The Lookup lives on the many side (Loan).</p>
+<p><strong>A2</strong> One-to-many (1:N). The Lookup column lives on the Loan table (the "many" side), pointing up to the Book table (the "one" side).</p>
+<p><strong>A3</strong> Choice: a fixed list of options defined at design time, no second table needed. Example: Loan[Status] = Open / Returned / Overdue. Lookup: a live pointer to a row in another table; the options are rows. Example: Loan[Book] → a dropdown showing real Book rows.</p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 Book rows now link to real Author rows; Loan rows link to real Book and Member rows. Question: is "Country of publication" for a book better as a Choice or Text? (<em>Text — there are 200 countries, it can change, and each country has no extra properties to store.</em>)</div>
 </section>
@@ -373,6 +503,44 @@ While you build, your solution is <strong>unmanaged</strong> — you can edit ev
 <li><b>Environment variable</b> — a named, typed setting stored at environment level; read by flows and apps.</li>
 <li><b>Default value / current value</b> — the design-time fallback / the per-environment override.</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — solutions in enterprise Power Platform</span>
+<p>In enterprise deployments, solutions are the <em>unit of work</em> — every change is tracked inside a solution and moved between environments as a managed package. Real examples:</p>
+<ul>
+<li>A global bank maintains 12 separate solutions in one environment — each for a different business domain (HR, Finance, Compliance). Teams don't interfere with each other's components because each solution uses a different publisher prefix.</li>
+<li>A retailer's "ALM pipeline" automatically exports the Dev solution as managed every night, imports it into Test, runs automated tests, and deploys to Production on Friday — no human steps after the initial setup.</li>
+<li><strong>Environment variables</strong> are the mechanism that makes this possible: the database connection string, the email address for alerts, and the API endpoint are all environment variables. Dev, Test, and Production each have their own <em>current values</em> for those variables, but the flow code never changes.</li>
+</ul>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with solutions</span>
+<ul>
+<li><strong>Building outside the solution.</strong> If you create an app from the <em>Apps</em> menu instead of from <em>Solutions → My Learning Solution → New</em>, that app won't be in the solution. You'll be unable to export it as part of the solution package. The fix: add existing components to the solution after the fact — but this is easy to forget. Build from inside the solution from now on.</li>
+<li><strong>Skipping environment variables for config.</strong> Hardcoding a value like "14" for loan days directly in a flow means you must edit the flow to change it. Always store configurable values in environment variables.</li>
+<li><strong>Exporting unmanaged to production.</strong> An unmanaged solution can be edited in the target environment — removing the separation between Dev and Prod. Always export managed for Test and Production deployments.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 4 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Inside <strong>My Learning Solution</strong>, look at the <strong>Objects</strong> tab. Confirm all 4 tables are listed. Click <strong>Book</strong> — notice it shows the table's views, forms, and columns tracked inside the solution.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Add a second environment variable: name = <code>LibraryName</code>, Type = Text, Default value = <code>Community Library</code>. In Phase 3, a flow will use this as the "from" name in confirmation emails — changing it here will update all flows at once.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Export the solution (unmanaged) right now: Solutions → My Learning Solution → <strong>Export solution</strong> → Version 1.0.0.1 → Unmanaged → Export. Save the ZIP file to your Desktop. This is your first backup. Open the zip — inside you'll see XML files describing your tables and metadata.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> In the admin center (<code>admin.powerplatform.microsoft.com</code>), navigate to Environments → Learning → Settings → Users + Permissions → Users. Confirm the learning account has the <strong>System Administrator</strong> security role. If not, click Manage security roles and add it.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5 (forward preview):</strong> In the solution, click <strong>New → App → Model-driven app</strong>. Name it <code>Test app</code> → Create → immediately close without saving (click Cancel or Discard). Go back to the solution Objects list — the discarded app should NOT appear. This confirms that cancelled operations don't clutter your solution.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 4</span>
+<p><strong>Q1</strong> A colleague creates a new flow from the Power Automate portal directly (not from inside a solution). Is it in your solution?</p>
+<p><strong>Q2</strong> You have an environment variable called <code>MaxLoanDays</code> with default value = 14. In Production, the library wants 21 days. What do you change without editing any flow?</p>
+<p><strong>Q3</strong> What is the difference between a managed and an unmanaged solution export?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> No — flows created outside the solution aren't automatically tracked in it. You must add them using "Add existing → Automation → Cloud flow." Always create from inside the solution to avoid this.</p>
+<p><strong>A2</strong> In the Production environment, open the environment variable and set the <strong>Current value</strong> = 21. The default value stays 14 (used in Dev). The flow reads the current value in each environment and never needs editing.</p>
+<p><strong>A3</strong> Unmanaged: all components are fully editable in the target environment — good for backups. Managed: components are locked (makers can't edit them in the target) — required for Test and Production to prevent accidental changes to live systems.</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
 <strong>My Learning Solution</strong> contains all four tables and the <code>LoanPeriodDays</code> variable. Foundations are complete. 🎉 From Day 5 you build on top of this — every new component goes inside the solution.</div>

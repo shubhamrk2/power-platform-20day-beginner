@@ -182,6 +182,45 @@ learning, choose <strong>Import</strong>.</div>
 <li><b>Storage mode: Import vs DirectQuery</b> — copy a snapshot in vs query live in place.</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — Power BI in enterprises</span>
+<p>Power BI is the most widely deployed business intelligence tool in Microsoft's ecosystem. Real examples:</p>
+<ul>
+<li>A global retailer has a Power BI dashboard showing live sales by store, region, and product category via DirectQuery — 50 million rows, always current, refreshed per user click.</li>
+<li>A hospital imports daily patient data into Power BI (Import mode) refreshed at midnight. Every morning, executives see yesterday's occupancy rate, average stay, and readmission numbers on a Teams pinned dashboard.</li>
+<li>A bank's compliance team uses Row-Level Security: each regional officer sees ONLY their region's flagged transactions — the same report, different data, secured with USERPRINCIPALNAME(). You'll build this on Day 20.</li>
+</ul>
+<p>The four steps — get, clean, model, visualise, share — are the same whether your dataset has 10 rows or 10 billion. You're learning the pattern that scales.</p>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes on Day 17</span>
+<ul>
+<li><strong>Using DirectQuery when Import is enough.</strong> DirectQuery queries the source on every visual interaction — slow for complex models. Use Import unless you genuinely need live data. For most reports, a nightly refresh is fine.</li>
+<li><strong>Loading data to My workspace for sharing.</strong> My workspace is personal — others can't see it. Create a dedicated team workspace for shared reports.</li>
+<li><strong>Confusing dataset, report, and dashboard.</strong> Dataset = prepared data + DAX. Report = visual pages on a dataset. Dashboard = pinned highlights. Three separate objects — deleting a report does not delete the dataset.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 17 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the Power BI Service, add the <strong>Retail Analysis Sample</strong> (Get data → Samples). Click any bar in a chart and watch all other visuals react — this cross-filtering is Power BI's most valuable interactive feature. Then click the slicer and select one store manager — all charts now show that manager's data only.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Download the Retail Analysis Sample report as a .pbix (File → Download). If you have Power BI Desktop, open it. Click Model view — you'll see the star schema with dimension tables around a fact table. This is identical to your library model (Loan = fact, Book/Member = dimensions).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Connect your library data: Desktop → Get data → Dataverse → Learning environment → select Loan, Book, Member. Or upload Excel exports to the Service. Confirm all three tables appear in the Data pane before proceeding to Day 18.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> In the Data pane, examine the raw Loan table. Which columns are date type? Which lookup columns appear as GUIDs? Note the GUID columns — these are what you'll replace with readable names by creating relationships on Day 19.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> In My workspace, create a new workspace (Workspaces → + New workspace). Name it <code>Library Reports</code>. This is where you'll move your finished report on Day 20. Keeping reports in a named workspace is how organisations manage shared content — My workspace is only for personal draft work.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 17</span>
+<p><strong>Q1</strong> What is the difference between a Power BI dataset and a Power BI report?</p>
+<p><strong>Q2</strong> You need a report that always shows real-time data from a 500GB SQL database. Which storage mode?</p>
+<p><strong>Q3</strong> You delete a Power BI report. Does the underlying dataset also get deleted?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> A dataset is the prepared data — tables, relationships, and DAX measures. A report is visual pages built on top of a dataset. One dataset can feed many reports; deleting a report doesn't delete the dataset.</p>
+<p><strong>A2</strong> DirectQuery — it passes queries to the source in real time. Import would require a refresh every few seconds for a 500GB database, which isn't practical.</p>
+<p><strong>A3</strong> No. The dataset remains as a separate object. You can build a new report on the same dataset without re-importing the data.</p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 Name the four steps, and confirm your <strong>Loan</strong> (and Book, Member) data is loaded into Power BI.
 Bonus: which storage mode would you pick for a 2-billion-row always-live database? (<em>DirectQuery.</em>)</div>
@@ -257,6 +296,45 @@ read past a few slices. Clarity beats decoration — that's a genuine PL-300 the
 <li><b>Cross-filtering / drill-down / drill-through</b> — click-to-filter / dig into a hierarchy / jump to detail.</li>
 <li><b>Formatting / Q&amp;A</b> — styling a visual / ask for a chart in plain English.</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — reports and visuals in enterprise Power BI</span>
+<p>Professional Power BI report design follows patterns used in thousands of companies:</p>
+<ul>
+<li><strong>One page = one audience.</strong> A sales report has a "Director view" page (KPIs and totals), a "Regional Manager view" page (breakdown by region), and a "Detail" page (individual transactions). Your Loan Overview and Member Analysis pages follow this same two-audience split.</li>
+<li><strong>Cards for the numbers that matter most.</strong> Every executive dashboard starts with 3-5 KPI cards at the top — Total Loans, Open Loans, Overdue Loans — then supporting charts below. The viewer sees the headline numbers immediately, then drills into details.</li>
+<li><strong>Slicers as self-service filters.</strong> A Membership slicer lets a librarian director see "only Student loans" without knowing how to filter in Power BI. This "self-service" filtering is why Power BI reports replace Excel-based manual reporting.</li>
+</ul>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes when building visuals</span>
+<ul>
+<li><strong>Dragging a numeric column to "Axis" instead of "Values".</strong> If you drag Pages (a number) to the X-axis of a bar chart, Power BI plots one bar per page count. Drag numeric measures to Values (aggregation area) and categorical columns to Axis. If a chart looks wrong, check what's in each field well.</li>
+<li><strong>Using pie charts for more than 5 categories.</strong> A pie with 8 slices is unreadable. Power BI won't stop you. Use a bar chart instead — always clearer when comparing more than 5 items.</li>
+<li><strong>Not turning on data labels.</strong> A bar chart without data labels makes viewers estimate heights. Always turn on data labels (Format → Data labels → On) for charts where the exact number matters.</li>
+<li><strong>Not saving the report.</strong> Power BI Desktop auto-saves the model but not the report layout unless you explicitly save (Ctrl+S). Always save before closing Desktop.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 18 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> On the Loan Overview page, select the Loans by Genre column chart. Hold Ctrl and select the Slicer control. In the Format tab → Edit interactions. Set the Slicer → Genre chart interaction to "None" (the no-filter icon). Now clicking the pie chart does NOT filter the column chart — but clicking the slicer still filters everything. This is custom cross-filter control — a real-world requirement when some charts are summary views.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Add a <strong>Matrix</strong> visual to the Member Analysis page. Rows = Member[Membership], Columns = Loan[Status] (or Dates[Month if you have the date table]). Values = Count of Loans. The matrix shows how many Open/Returned/Overdue loans each membership type has — a pivot table in Power BI. Expand the matrix rows using the drill-down arrows.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Click any bar in the Loans by Genre chart. Right-click → <strong>Drill through →</strong> (if you have a Detail page) see the drill-through option. If not, add a new page called <code>Loan Detail</code>. Add a Table visual showing all Loan columns. Right-click the page name → <strong>Add drill-through → add Loan[Status] as a drill-through field</strong>. Now right-clicking a status value in any chart on any page offers "Drill through → Loan Detail" — showing all loans of that status on the detail page.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Format the report theme: Format menu → Themes → Browse for themes → download the "Colorblind safe" theme from the Power BI community gallery. Apply it. Notice how all chart colours update at once. Using an accessible colour theme is a professional standard — many enterprise reports are read by people with colour vision deficiencies.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Add a <strong>Bookmark</strong> to capture a filtered state: apply the Slicer filter to "Student" → open View → Bookmarks panel → + Add → name it "Student view". Add another bookmark with the filter cleared → name it "All members". Add a Button to each page and set its Action → Bookmark to switch between views. This is how professional reports give users pre-set views without slicers.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 18</span>
+<p><strong>Q1</strong> A stakeholder asks for a visual showing "the trend of loans per month over the past year." Which visual type should you use?</p>
+<p><strong>Q2</strong> What is the difference between a page-level filter and a visual-level filter?</p>
+<p><strong>Q3</strong> A slicer is set to filter by Member[Membership]. You want clicking a bar in the Genre chart to NOT affect the slicer. How do you achieve this?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> A Line chart — it shows continuous change over time with the X-axis as months. A bar chart is for comparing categories, not showing trend over time.</p>
+<p><strong>A2</strong> A visual-level filter applies only to the specific visual it's set on — other visuals on the page are unaffected. A page-level filter applies to every visual on the page simultaneously. Report-level filter applies to every page.</p>
+<p><strong>A3</strong> In Format → Edit interactions: select the Genre chart, then click the slicer and set its interaction icon to "None" (the no-filter circle). This disables the cross-filter from the Genre chart to the slicer — clicking a genre bar won't change the slicer selection.</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
 A report with a card, bar, line and slicer, styled, with a page filter, and you used Q&amp;A. That's an
@@ -394,6 +472,49 @@ available, redo Day 19 in Desktop — it's exactly what PL-300 tests.</div>
 <li><b>CALCULATE / time intelligence</b> — change the filter context / date-based measures (YTD, last year).</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — DAX and data modelling in enterprise Power BI</span>
+<p>DAX is what separates a basic Power BI user from a Power BI analyst. Real examples of enterprise DAX:</p>
+<ul>
+<li>A retail company has a measure <code>Same Period Last Year Sales = CALCULATE([Total Sales], SAMEPERIODLASTYEAR(Dates[Date]))</code> — a time-intelligence measure that compares this year's sales to last year's automatically, reacting to any date slicer the user applies.</li>
+<li>A telecom company has <code>Churn Rate = DIVIDE(CALCULATE(COUNTROWS(Customers), Customers[Status] = "Churned"), COUNTROWS(Customers), 0)</code> — a rate measure using DIVIDE() to safely handle division by zero, and CALCULATE() to change the filter to "churned only."</li>
+<li>Every enterprise Power BI model includes a <strong>Date table</strong>. Without one, TOTALYTD, SAMEPERIODLASTYEAR, and other time-intelligence functions simply don't work. CALENDARAUTO() is the fastest way to build one.</li>
+</ul>
+<p>The 8 measures you built today are the foundation of every library analytics report. The same DAX patterns appear in every industry — only the table and column names change.</p>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with DAX and data modelling</span>
+<ul>
+<li><strong>Calculated column instead of measure for totals.</strong> If you add a calculated column called "Count" = COUNTROWS(Loan), you get the same number on every row (the total row count), not a per-category count. Aggregations that must react to filters must be measures, not columns.</li>
+<li><strong>Forgetting to mark the Date table.</strong> After creating <code>Dates = CALENDARAUTO()</code>, you must right-click the table → Mark as date table → Date column = Date. Without this, time-intelligence functions like TOTALYTD don't recognise the table as a date table and return errors.</li>
+<li><strong>Relationship filter direction creating unexpected results.</strong> By default, relationships filter one direction (Book filters Loan, not Loan → Book). If a visual on the Book side doesn't show loan data, check the filter direction in Model view — you may need to enable bidirectional filtering, but do so carefully as it can cause circular dependencies.</li>
+<li><strong>Dividing without DIVIDE().</strong> <code>[Returned Loans] / [Total Loans]</code> returns an error when Total Loans = 0 (blank dataset). Always use <code>DIVIDE([Returned Loans], [Total Loans], 0)</code> — the third argument is the fallback value when dividing by zero.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 19 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> After creating all 8 DAX measures, select each one in the Data pane and look at its format: open Modeling → Format → set <strong>Total Loans</strong> to "Whole number, 0 decimals", <strong>Late Return Rate</strong> to "Percentage, 1 decimal", <strong>Avg Loan Days</strong> to "Decimal number, 1 decimal". Well-formatted measures display cleanly in cards and tables without extra work on the visual.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> In Model view, verify your relationships look correct: Loan[Book] → Book (many-to-one, Book filters Loan), Loan[Member] → Member (many-to-one), Dates[Date] → Loan[Loan date] (one-to-many, Dates filters Loan). Click each relationship line and read the properties panel — confirm cardinality and filter direction. A wrong direction here is a very common cause of incorrect report numbers.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add two more DAX measures:
+<br><code>% Returned = DIVIDE([Returned Loans], [Total Loans], 0)</code>
+<br><code>Loans Last 30 Days = CALCULATE([Total Loans], DATESINPERIOD('Dates'[Date], TODAY(), -30, DAY))</code>
+<br>Place both in new Cards on the Loan Overview page. The 30-day measure shows recent activity — a common KPI in operational dashboards.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Build a <strong>What-if parameter</strong> (Desktop only): Modeling → New parameter → Numeric range. Name = <code>Late fee per day</code>, min = 1, max = 20, increment = 1, default = 5. Add a new measure: <code>Projected Late Fee = [Overdue Loans] * [Late fee per day Value]</code>. Place a Card for this measure and the parameter slicer on the page. Drag the slicer — the projected fee updates. This "what-if" analysis is a genuine Power BI feature used by financial teams.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5 — DAX challenge:</strong> Write a measure called <code>Books Never Borrowed</code> that counts Books that have no corresponding Loan rows. Hint: use CALCULATE(COUNTROWS(Book), NOT(Book[BookID] IN VALUES(Loan[Book]))). Place it in a Card. Compare it to Total Loans to understand what fraction of your catalogue is actually being borrowed.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 19</span>
+<p><strong>Q1</strong> What is the difference between a DAX measure and a calculated column? Give one example of each for the library data.</p>
+<p><strong>Q2</strong> Why is a dedicated Date table necessary for time intelligence functions like TOTALYTD?</p>
+<p><strong>Q3</strong> Write a DAX measure that counts loans where Late fee is greater than 0 (loans that have been charged a fee).</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> A measure recomputes dynamically based on filter context — it produces different values in different visuals and slicers. Example: <code>Total Loans = COUNTROWS(Loan)</code> shows 10 for all genres, 3 for Fiction when filtered by genre. A calculated column is computed row-by-row and stored statically. Example: <code>Loan days = DATEDIFF(Loan[Loan date], Loan[Due date], DAY)</code> — a fixed number stored on each Loan row.</p>
+<p><strong>A2</strong> Time intelligence functions need a continuous, complete date sequence to navigate: "previous year", "year-to-date", "last quarter". CALENDARAUTO() generates a contiguous date range spanning all dates in all date columns. Without marking it as the Date table, DAX doesn't know which table to use for date navigation.</p>
+<p><strong>A3</strong> <code>Loans With Fee = CALCULATE(COUNTROWS(Loan), Loan[Late fee] &gt; 0)</code></p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 You shaped data in Power Query, linked two tables, and wrote measures that react to slicers. Key idea: a
 <em>measure</em> is a total that respects context — and <code>CALCULATE</code> is how you bend that context.</div>
@@ -473,6 +594,44 @@ free on the <strong>Power Apps Developer Plan</strong> (<code>powerapps.microsof
 <li><b>Row-level security (RLS)</b> — different rows for different viewers.</li>
 <li><b>PL-900 / PL-300</b> — the Fundamentals / Power BI Data Analyst certifications.</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — publishing, sharing, and RLS in enterprise Power BI</span>
+<p>The sharing and security patterns you built today are standard enterprise practice:</p>
+<ul>
+<li>A multinational bank's Power BI workspace has 200 reports shared with 3,000 employees. RLS on the Transactions dataset ensures each branch manager sees only their branch's data — one dataset, 200 branches, all secured by USERPRINCIPALNAME(). Without RLS, they'd need 200 separate datasets.</li>
+<li>A retail chain schedules refresh at 2am daily from their on-premises SQL server via the on-premises data gateway. By 7am when store managers open Power BI, last night's sales are already there — no manual exports, no waiting for IT.</li>
+<li>Power BI apps are used to give business users a clean, curated experience: instead of seeing the whole workspace with draft reports and test datasets, they see only the published, approved visuals in the app. The workspace is for analysts; the app is for consumers.</li>
+</ul>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with sharing and security</span>
+<ul>
+<li><strong>Testing RLS without "View as role."</strong> After creating an RLS role, many beginners try to share the report and ask someone else to test it — a slow feedback loop. Use the built-in "Test as role → LibraryStaff" button in the Service to see exactly what a role member would see, in seconds.</li>
+<li><strong>Sharing from Desktop instead of the Service.</strong> You cannot share a Power BI report directly from Desktop — you must first publish to the Service, then share from there. Desktop is for authoring; Service is for sharing.</li>
+<li><strong>Scheduled refresh without checking the gateway.</strong> Refresh works automatically for cloud sources (Dataverse, SharePoint). For on-premises sources (SQL Server, local Excel), you need an on-premises gateway installed on a machine that runs 24/7. Always check the data source type before setting up refresh.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 20 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Publish your Library Loans report to the Service. Then add it to the Library Reports workspace you created on Day 17. Open the workspace — confirm the report and dataset both appear there. Note: the dataset is a separate object from the report. Go to the dataset's Settings — find the Gateway connection section. Read whether a gateway is needed for your data source.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Test RLS thoroughly: In the Service, open the dataset → Security → LibraryStaff role → Test as role. The report should now show ONLY the Member row matching your email address. Try the Q&amp;A visual — ask "count of loans" in the role view — confirm it shows the filtered count, not the total. Click "Now viewing as LibraryStaff → Stop viewing" to exit test mode.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Pin 3 visuals to the Library Dashboard: Total Loans card, Loans by Genre chart, and Loans Over Time line chart. Open the dashboard. Click the Total Loans tile — it navigates back to the report page at the Loan Overview section. This "tile click → full report" navigation is standard enterprise dashboard behaviour.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Create a Power BI <strong>app</strong> from the Library Reports workspace: in the workspace → Create app. Name = <code>Library Analytics</code>. Add the Library Loans report to the app navigation. Audience: add the learning account email. Publish the app. Open the app URL from the email invite — you see only the curated report, not the raw workspace. This is the "consumer vs analyst" separation.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5 — Capstone:</strong> Review your complete 20-day build. In the solution, count all components. Export the solution (managed). Open the library dashboard. Open Library Helper (demo website). Open Library Manager (canvas app). Open Library Back Office (model-driven). You have: 4 Dataverse tables + 2 apps + 3 flows + 1 chatbot + 1 Power BI report + 1 SharePoint site. Write a 5-sentence summary of what each component does — this is your portfolio elevator pitch.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 20</span>
+<p><strong>Q1</strong> What is Row-Level Security, and at what layer does it apply (visual, dataset, or workspace)?</p>
+<p><strong>Q2</strong> You set up a scheduled refresh for a Power BI dataset connected to a local Excel file on your PC. The refresh fails every night. Why?</p>
+<p><strong>Q3</strong> What is the difference between sharing a report and publishing a Power BI app?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> Row-Level Security is a filter applied at the dataset level that restricts which rows a user can see based on their identity (USERPRINCIPALNAME()). It applies at the dataset layer — not the visual — so it cannot be bypassed by changing visuals or filters in the report.</p>
+<p><strong>A2</strong> The Excel file is on a local PC that is not running or accessible at the time of refresh. Cloud-based refresh can't reach local files — you need the <strong>on-premises data gateway</strong> installed on that PC to bridge the connection. Alternatively, move the file to OneDrive or SharePoint (cloud) and refresh works without a gateway.</p>
+<p><strong>A3</strong> Sharing a report gives specific people access to that report via a link — they see the report in their workspace. Publishing a Power BI app creates a curated, navigation-friendly package (app) that can include multiple reports and dashboards — consumers open the app URL and see only what you've chosen to include, not the raw workspace. Apps are better for large audiences; sharing is better for one-to-one collaboration.</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself — you did it 🎉</span>
 Across 20 days you built tables, two kinds of apps, automations with approvals, a SharePoint list, a

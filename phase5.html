@@ -92,6 +92,62 @@ Variables defined in a topic are <strong>topic-scoped</strong> by default — th
 <li><b>Channel / demo website</b> — where the agent is published / a shareable test URL.</li>
 </ul></div>
 
+<div class="card c-concept"><span class="lab">Real world — Copilot Studio agents in enterprise</span>
+<p>Copilot Studio powers thousands of enterprise chatbots across industries:</p>
+<ul>
+<li>A bank's "Account Helper" agent handles 40% of all customer queries — balance enquiries, transaction history, card blocking — through scripted topics that call real APIs and Dataverse data. Human agents only see the 60% that are too complex.</li>
+<li>An HR department built an "HR Assistant" agent: employees ask about leave policy (generative answers from the HR policy PDF), submit leave requests (an action calls a flow that creates a Dataverse row), and check their leave balance (action queries the HR system API). Three capabilities, zero phone calls.</li>
+<li>A manufacturing company's "Equipment Assistant" knows every machine's maintenance schedule via Dataverse lookups. A technician types "When is Machine 45B next serviced?" and gets a live answer — the agent calls a flow that queries the Equipment table and returns the date.</li>
+</ul>
+<p>The three-part stack you built today — scripted topics, generative answers, and live data actions — is the same architecture all these enterprise agents use.</p>
+
+<figure class="fig">
+<svg viewBox="0 0 560 120" role="img" aria-label="Copilot Studio: topic triggers scripted path, knowledge source for generative, action calls flow for live data">
+<defs><marker id="cs1" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="14" y="40" width="130" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="79" y="60" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">User message</text><text x="79" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">"Is Dune available?"</text>
+<line x1="144" y1="62" x2="176" y2="40" stroke="#9fb0c8" stroke-width="1.3" marker-end="url(#cs1)"/>
+<line x1="144" y1="62" x2="176" y2="62" stroke="#9fb0c8" stroke-width="1.3" marker-end="url(#cs1)"/>
+<line x1="144" y1="62" x2="176" y2="84" stroke="#9fb0c8" stroke-width="1.3" marker-end="url(#cs1)"/>
+<rect x="178" y="22" width="130" height="28" rx="7" fill="#fff8e9" stroke="#e0a020"/><text x="243" y="41" text-anchor="middle" font-family="monospace" font-size="9" fill="#1f2733">Topic match?</text>
+<rect x="178" y="54" width="130" height="28" rx="7" fill="#f3fbf6" stroke="#0e9f6e"/><text x="243" y="73" text-anchor="middle" font-family="monospace" font-size="9" fill="#1f2733">Knowledge (generative)</text>
+<rect x="178" y="86" width="130" height="28" rx="7" fill="#f4f2fb" stroke="#7a5cd6"/><text x="243" y="105" text-anchor="middle" font-family="monospace" font-size="9" fill="#1f2733">Action → Flow → Data</text>
+<line x1="308" y1="100" x2="342" y2="100" stroke="#9fb0c8" stroke-width="1.3" marker-end="url(#cs1)"/>
+<rect x="344" y="84" width="130" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/><text x="409" y="104" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Dataverse lookup</text><text x="409" y="118" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">live result returned</text>
+</svg>
+<figcaption>Library Helper's decision path: topic → scripted, no match → generative, action keyword → live data via flow</figcaption>
+</figure>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with Copilot Studio</span>
+<ul>
+<li><strong>Flow trigger type must be "Manually trigger a flow".</strong> The flow called by a Copilot Studio action must have a <em>manual trigger</em> with input parameters — not an automated (Dataverse) trigger. If you use the wrong trigger, the action won't be able to pass the BookTitle input to the flow.</li>
+<li><strong>Topic trigger phrases must be varied and realistic.</strong> If you only add "opening hours" as a trigger phrase, a user who types "what time do you open?" won't match the topic. Add 5-8 natural variations including slang and abbreviations.</li>
+<li><strong>Testing in the studio vs published demo site.</strong> The studio test panel is faster but may behave slightly differently from the published demo website — especially with action calls. Always test on the demo website before presenting.</li>
+<li><strong>Not waiting for knowledge source indexing.</strong> After uploading a file to Knowledge, it takes 1-3 minutes to index. If you test immediately, generative answers will say "I don't know." Wait for the indexing status to show "Indexed" before testing.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 15 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the test panel, type 10 different ways to ask about opening hours: "open?", "hours", "what time", "closing time", "when open", "library open", "can I come Saturday", "Sunday hours", "weekday hours", "are you open now". Note which phrases trigger the scripted topic and which fall through to generative. Add the unmatched phrases as additional trigger phrases to the Opening hours topic.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Add a <strong>Topic 4 — Late fee calculator</strong>. Triggers: "how much is my late fee", "fine calculator", "overdue fee". Add a Question node: "How many days overdue?" → Save to variable <code>DaysOverdue</code> (Number type). Add a Message node: Text = <code>Power Fx: "Your late fee is ₹" &amp; Text(DaysOverdue * 5) &amp; ". Pay at the counter to return your book."</code>. Save and test — the bot now calculates fines without any flow or Dataverse call.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add a second knowledge source: instead of a file, add a <strong>SharePoint page</strong>. Go to your Community Library SharePoint site → create a new page titled "About us" with 3 paragraphs about the library. Copy its URL. In Copilot Studio → Knowledge → + Add → Public website or SharePoint. Paste the URL. Wait for indexing. Test: type "tell me about the library" — the agent should answer from the SharePoint page content.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Create a <strong>Global variable</strong>: in the Book availability topic, change the BookTitle variable's scope from Topic to Global. Then in a new topic (Topic 5 — Recent search), add trigger "what did I just search for?" and a Message node: <code>"You searched for: "</code> + the Global BookTitle variable. Test: first search for a book, then ask "what did I just search for?" — the agent remembers across topics.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Publish Library Helper. Go to Channels → Demo website → open the link. Test all three topics (Opening hours, How to borrow, Book availability). Share the demo link with a family member and ask them to try it — collecting real user feedback is how professional agents are improved.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 15</span>
+<p><strong>Q1</strong> What is the difference between a Topic and a Knowledge source in Copilot Studio?</p>
+<p><strong>Q2</strong> The Book availability action calls a Power Automate flow. What trigger type must that flow use?</p>
+<p><strong>Q3</strong> A user types "fine" and the Late fee topic doesn't trigger. What is the likely cause and how do you fix it?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> A Topic is a scripted conversation path — you control the exact messages, questions, and branches. A Knowledge source is content the AI reads to answer free-form questions not covered by topics (generative answers). Topics are for predictable, controlled flows; knowledge is the safety net for everything else.</p>
+<p><strong>A2</strong> "Manually trigger a flow" (the instant/manual trigger). It must also have a text input parameter (BookTitle) that the agent passes when calling the action. Automated triggers (like "when a row is added") cannot be called by Copilot Studio actions.</p>
+<p><strong>A3</strong> "fine" is not in the Late fee topic's trigger phrases list. The agent didn't recognise the word. Fix: open the topic → add "fine", "fine amount", "my fine" as additional trigger phrases. Save and test again.</p>
+</details>
+</div>
+
 <div class="card c-check"><span class="lab">Check yourself</span>
 Library Helper answers scripted questions, generates answers from the FAQ, AND looks up real Dataverse book data. That's the full Copilot Studio stack: scripted + generative + live data. If the availability check didn't work, recheck the flow trigger type (it must be "Manually trigger a flow" with a text input) and the Run history.</div>
 </section>
@@ -219,6 +275,45 @@ Azure charges by the hour for many services. Some services start free but accrue
 <li><b>Analytics</b> — usage dashboards in the admin center (who runs what, how often, with what errors).</li>
 <li><b>Azure / resource group / Key Vault / Entra ID / Logic Apps</b> — Microsoft's cloud / a billing folder / a secrets safe / the identity system / the enterprise flow-builder.</li>
 </ul></div>
+
+<div class="card c-concept"><span class="lab">Real world — governance, DLP, and ALM in enterprise</span>
+<p>These are not just exam topics — they are the daily reality of enterprise Power Platform admins:</p>
+<ul>
+<li>A financial services firm has a DLP policy that blocks ALL connectors except Dataverse, SharePoint, Teams, and Outlook. This prevents any data leaving the Microsoft cloud. A maker who tries to add a Twitter connector to a flow gets an error — the DLP policy stops the flow from saving.</li>
+<li>A pharmaceutical company runs their Power Platform solutions through a fully automated ALM pipeline: every commit to the Dev solution triggers a GitHub Actions workflow that exports the managed solution, imports it to Test, runs automated tests with Power Automate Desktop, and on approval, imports to Production — all in under 20 minutes.</li>
+<li>Azure Key Vault stores the API key for their drug database integration. The Power Platform environment variable references the Key Vault secret — no human ever sees the API key value. If it needs rotating, the security team updates it in Key Vault and the flows automatically use the new value.</li>
+</ul>
+</div>
+
+<div class="card c-warn"><span class="lab">Common mistakes with governance and DLP</span>
+<ul>
+<li><strong>Creating a DLP policy that breaks existing flows.</strong> If you add a DLP policy to an environment where flows already combine Business and Non-business connectors, those flows immediately fail. Always check what connectors existing flows use before creating a new policy. Use the "Check impact" feature when available.</li>
+<li><strong>Exporting an unmanaged solution to Production.</strong> An unmanaged solution lets makers edit its components in Production — breaking the Dev/Test/Prod separation. Always export managed for Test and Production. Keep the unmanaged export as a developer backup only.</li>
+<li><strong>Forgetting connection references when importing.</strong> A solution's flows use connection references that point to specific connections. When you import to a new environment, those connections don't exist yet — you must create them in the target environment during import. Skipping this causes flows to be disabled immediately after import.</li>
+<li><strong>Leaving Azure resources running.</strong> Azure charges for resources by the hour. After every Azure learning session, always delete the resource group. A Key Vault left running for a month costs money. The habit: open Azure, delete the resource group, close the tab.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Practice — Day 16 hands-on checks</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the admin center → Policies → Data policies, click <strong>+ New policy</strong>. Name it <code>Test DLP — delete after exercise</code>. Scope = your Learning environment only. Move the <strong>HTTP</strong> connector to <strong>Blocked</strong>. Save the policy. Now go to your Instant flow that uses the HTTP action (from Day 14) → try to run it. What error do you get? Then delete the DLP policy and run the flow again — it works. This proves DLP affects live flows immediately.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Export your solution as <strong>managed</strong> (version 1.0.0.2). Create a completely new environment in the admin center (if you have capacity) — or just inspect the managed ZIP. Open the ZIP with any zip tool — compare the file structure to the unmanaged ZIP. Notice the managed version has an <code>ImportConfig.xml</code> and different component files that indicate managed state.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> In the admin center → Analytics → Power Apps. Read the charts: how many app launches occurred this month? Which app was launched most? Which environment has the most activity? This is what a Power Platform admin monitors weekly to understand usage patterns and capacity needs.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> In Azure → create a Key Vault secret. Then in the maker portal → Solutions → My Learning Solution → New → More → Environment variable. Type = Secret. Click the Key Vault secret picker — navigate to your Key Vault and select the <code>DemoSecret</code>. Save. Now the environment variable is backed by Key Vault — no human reads the secret value, the platform fetches it at runtime. Delete the Key Vault and resource group before finishing.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Exercise 5 (review and consolidate):</strong> Open your solution. Count how many components it now has (tables, apps, flows, chatbots, environment variables). Write down the list. This is your "system inventory." In a real project, this inventory plus the solution export ZIP is what you'd hand to the next developer or a deployment pipeline. You've built a real solution with all five Power Platform pillars.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">Mini-quiz — Day 16</span>
+<p><strong>Q1</strong> A DLP policy places Dataverse in the Business bucket and Twitter in the Non-business bucket. A flow uses both connectors. What happens?</p>
+<p><strong>Q2</strong> You import a managed solution into a Test environment. A tester tries to edit a canvas app inside it. Can they?</p>
+<p><strong>Q3</strong> What is a connection reference, and why does it matter in ALM?</p>
+<details><summary>Show answers</summary>
+<p><strong>A1</strong> The flow is immediately suspended/blocked — it cannot run while the DLP policy is active, because it mixes Business and Non-business connectors. The maker is notified and must remove one connector or request a policy exception from the admin.</p>
+<p><strong>A2</strong> No. A managed solution's components are locked in the target environment — makers can view but not edit them. Edits must be made in the Dev environment, re-exported as managed, and re-imported. This is intentional — it prevents direct edits to Production/Test that would diverge from the Dev source of truth.</p>
+<p><strong>A3</strong> A connection reference is a placeholder in a solution that points to a specific connector connection. When you export the solution, the connection reference moves with it but not the actual credentials. When importing to a new environment, you map the reference to a new connection in that environment. This means the same solution works in Dev (connecting to the Dev Dataverse) and Production (connecting to the Prod Dataverse) without code changes.</p>
+</details>
+</div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
 You created and deleted a DLP policy, exported both managed and unmanaged solution zips, backed up your data rows, toured Key Vault and Entra ID in Azure, and deleted rg-learning. DLP: can you explain in one sentence why a flow can't mix Business and Non-business connectors? ALM: can you explain why managed solutions are used in Production?</div>
