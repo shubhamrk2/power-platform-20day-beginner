@@ -126,7 +126,7 @@ The RLS role <code>LibraryStaff</code> uses this DAX on the Member table: <code>
 <table>
 <tr><th>Problem</th><th>Try this</th></tr>
 <tr><td>"It signed me in as the wrong account."</td><td>Close everything, open a fresh <strong>incognito</strong> window, sign in again with the learning account.</td></tr>
-<tr><td>"I can't see my table / app / flow."</td><td>Check the <strong>environment picker</strong> (top-right) says <strong>Learning</strong>. Everything lives per-environment.</td></tr>
+<tr><td>"I can't see my table / app / flow."</td><td>Check the <strong>environment picker</strong> (top-right) shows your building environment. If you used the Developer Plan it is named after you — e.g. <strong>"Ashwini Pandey's Environment"</strong>. If an admin created it, it is called <strong>"Learning"</strong>. Everything lives per-environment — the wrong picker is the #1 cause of "missing" components.</td></tr>
 <tr><td>"My flow didn't run."</td><td>Open the flow's <strong>Run history</strong>. A red step shows exactly what failed. Click it to read the error message — it's almost always a missing required field or a wrong expression.</td></tr>
 <tr><td>"Dynamic content I expected isn't showing."</td><td>Dynamic content only shows outputs from steps <em>above</em> the current step. If a token is missing, check whether the step that produces it ran before the step that consumes it.</td></tr>
 <tr><td>"The flow runs but the email body is blank."</td><td>The variable or expression you used is empty. Check that Apply to each ran over a non-empty array, and that Append to string ran at least once before the email step.</td></tr>

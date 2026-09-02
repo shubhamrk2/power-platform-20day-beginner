@@ -55,8 +55,10 @@ keeps its own ticks. A different computer won't have your ticks — that's norma
 <ol>
 <li><strong>Only ever use made-up ("fake") data.</strong> Names, emails, numbers — invent them all.
 Never type in real personal or work information from anyone.</li>
-<li><strong>Only build in the environment called "Learning"</strong> (set up on Day 0). This keeps your
-practice cleanly separate from anything else in the account.</li>
+<li><strong>Only build in your dedicated learning environment</strong> (set up on Day 0). If you used the
+<strong>Power Apps Developer Plan</strong>, your environment is named after you — e.g. <em>"Ashwini
+Pandey's Environment"</em>. If an admin created it for you, it may be called <em>"Learning"</em>.
+Either way, always confirm the environment picker (top-right) shows the right one before building anything.</li>
 </ol></div>
 </section>
 
@@ -156,13 +158,22 @@ the learner a user account and a dedicated environment called <em>Learning</em>.
 <figcaption>One tenant holds users and environments — the learner builds only in "Learning"</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — owner sets up the learner</span>
+<div class="card c-do"><span class="lab">Do this — set up the learner's environment (two paths)</span>
+<p style="margin:.6rem 0 .4rem"><strong>Path A — Power Apps Developer Plan (recommended, free &amp; instant)</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Go to <code>admin.microsoft.com</code> → <strong>Users → Active users → Add a user</strong>. Create <code>learner@YOURTENANT.onmicrosoft.com</code>, set a password, assign a <strong>Microsoft 365 / Office 365 E5</strong> licence (Power Platform &amp; Power BI included).</span></li>
-<li><span class="box"></span><span class="txt">Go to <code>admin.powerplatform.microsoft.com</code> → <strong>Environments → New</strong>. Name it <strong>Learning</strong>, pick your region, set <strong>Add a Dataverse data store = Yes</strong>.</span></li>
-<li><span class="box"></span><span class="txt">Open <strong>Learning</strong> → <strong>Settings → Users + permissions</strong>, add the learner, give them <strong>System Administrator</strong> for this environment only (it's an isolated practice room).</span></li>
+<li><span class="box"></span><span class="txt">The learner goes to <code>powerapps.microsoft.com/developerplan</code> and signs in with their Microsoft account (a personal Outlook/Hotmail, or the E5 learner account). Click <strong>Get started free</strong>. Microsoft creates a personal environment automatically — it will be named <em>"[Learner's Name]'s Environment"</em> (e.g. "Ashwini Pandey's Environment").</span></li>
+<li><span class="box"></span><span class="txt">The learner opens <code>make.powerapps.com</code> in an incognito window, signs in, and confirms the environment picker (top-right) shows <em>their</em> Developer Plan environment. That's their building room for all 20 days.</span></li>
+</ul>
+<p style="margin:.8rem 0 .4rem"><strong>Path B — Admin creates a shared "Learning" environment (requires M365 admin)</strong></p>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Go to <code>admin.microsoft.com</code> → <strong>Users → Active users → Add a user</strong>. Create <code>learner@YOURTENANT.onmicrosoft.com</code>, set a password, assign a <strong>Microsoft 365 / Office 365 E5</strong> licence.</span></li>
+<li><span class="box"></span><span class="txt">Go to <code>admin.powerplatform.microsoft.com</code> → <strong>Environments → New</strong>. Name it <strong>Learning</strong>, pick your region, set <strong>Add a Dataverse data store = Yes</strong>. (If you see a capacity error, activate the Power Apps Premium trial in the M365 admin centre first — Billing → Purchase services → Power Apps Premium → free trial.)</span></li>
+<li><span class="box"></span><span class="txt">Open <strong>Learning</strong> → <strong>Settings → Users + permissions → Users</strong>, add the learner, give them <strong>System Administrator</strong> for this environment only.</span></li>
+</ul>
+<p style="margin:.8rem 0 .4rem"><strong>Both paths:</strong></p>
+<ul class="tasks">
 <li><span class="box"></span><span class="txt">Share the sign-in with the learner; tell them to always use a <strong>private / incognito</strong> window.</span></li>
-<li><span class="box"></span><span class="txt"><em>Azure (only for Day 16's short tour):</em> plan to sit with the learner using the owner's Azure sign-in, or add the learner as a limited user. Keep Azure supervised — it can cost money.</span></li>
+<li><span class="box"></span><span class="txt"><em>Azure (only for Day 16's short tour):</em> plan to sit with the learner using the owner's Azure sign-in. Keep Azure supervised — it can cost money.</span></li>
 </ul></div>
 
 <div class="card c-warn"><span class="lab">Careful — money lives in Azure, not in Power Platform</span>
