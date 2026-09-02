@@ -119,6 +119,40 @@ Notice the <strong>Loan</strong> table is special: it records each borrowing eve
 build gets thrown away — each day plugs into what came before.</div>
 </section>
 
+<section id="sample-data">
+<h2>Sample data — download before you start</h2>
+<p>All the realistic data you need for every day of the course is ready-made. Download these files once,
+keep them somewhere easy to find, and you'll always have data to import, analyse, and practise with.</p>
+
+<div class="card c-do"><span class="lab">Download all 9 files now</span>
+<table>
+<tr><th>File</th><th>What it contains</th><th>Used on</th></tr>
+<tr><td><a href="sample-data/books.csv">books.csv</a></td><td>50 real books — title, author, ISBN, genre, pages, year, rating, copies</td><td>Day 2</td></tr>
+<tr><td><a href="sample-data/authors.csv">authors.csv</a></td><td>46 authors — full name, country, birth date, biography</td><td>Day 3</td></tr>
+<tr><td><a href="sample-data/members.csv">members.csv</a></td><td>30 library members — name, email, phone, membership type, dates</td><td>Day 3</td></tr>
+<tr><td><a href="sample-data/loans.csv">loans.csv</a></td><td>100 loan records spanning Jan 2025–Aug 2026 — loan dates, due dates, status, late fees</td><td>Day 17</td></tr>
+<tr><td><a href="sample-data/new-members.csv">new-members.csv</a></td><td>15 new members (different names) — for bulk import practice</td><td>Day 13</td></tr>
+<tr><td><a href="sample-data/library-events.csv">library-events.csv</a></td><td>20 library events — workshops, book clubs, author talks, dates, capacity</td><td>Day 12</td></tr>
+<tr><td><a href="sample-data/library-faq.txt">library-faq.txt</a></td><td>Detailed FAQ covering membership, borrowing, returning, events, and the chatbot</td><td>Day 15</td></tr>
+<tr><td><a href="sample-data/borrowing-policy.txt">borrowing-policy.txt</a></td><td>Full library borrowing policy — loan limits, renewals, reservations, lost books</td><td>Day 15</td></tr>
+<tr><td><a href="sample-data/late-return-policy.txt">late-return-policy.txt</a></td><td>Late return and fines policy — fee schedule, grace periods, dispute process</td><td>Day 15</td></tr>
+</table>
+<p style="margin-top:.8rem">Right-click any link → <strong>Save link as</strong> to download. Or click to open and then save.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Why real data makes learning faster</span>
+<p>Fake data ("Book 1", "Member A") hides real problems — awkward characters in names, dates that span
+months, books with 0 copies, members who expired. This dataset has all of that baked in deliberately:
+books with <code>In_stock = No</code>, members with <code>Active = No</code>, loans that are overdue,
+late fees that vary. When you import it and something looks wrong, <em>that's the exercise</em>.</p>
+<ul>
+<li>50 books across 6 genres — fiction, non-fiction, science, biography, textbook, children — enough variety to test filters and charts.</li>
+<li>100 loan records spanning 18 months — enough for time-series charts, overdue counts, and meaningful DAX measures.</li>
+<li>Policy documents that your Copilot Studio chatbot will actually read and quote from.</li>
+</ul>
+</div>
+</section>
+
 <section class="day" id="setup">
 <div class="dhead"><span class="dnum">Day 0</span></div>
 <h2>Setup — done once, by the account owner</h2>

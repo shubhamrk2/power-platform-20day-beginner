@@ -1,0 +1,51 @@
+Title,Author,ISBN,Genre,Pages,Published_year,Description,Available_copies,Total_copies,In_stock,Rating,Language
+Pride and Prejudice,Jane Austen,9780141439518,Fiction,432,1813,"A witty story of love and social class in Regency England.",2,2,Yes,5,English
+To Kill a Mockingbird,Harper Lee,9780061935466,Fiction,281,1960,"A young girl's account of racial injustice in the American South.",1,2,Yes,5,English
+1984,George Orwell,9780451524935,Fiction,328,1949,"A dystopian vision of a totalitarian surveillance state.",2,3,Yes,5,English
+Animal Farm,George Orwell,9780451526342,Fiction,112,1945,"A satirical allegory of Soviet totalitarianism using farm animals.",3,3,Yes,4,English
+The Great Gatsby,F. Scott Fitzgerald,9780743273565,Fiction,180,1925,"The story of the mysterious Jay Gatsby and the American Dream.",1,2,Yes,4,English
+Brave New World,Aldous Huxley,9780060850524,Fiction,311,1932,"A futuristic society controlled by pleasure and conditioning.",1,2,Yes,4,English
+The Catcher in the Rye,J.D. Salinger,9780316769174,Fiction,277,1951,"A teenager's alienated journey through New York City.",2,2,Yes,4,English
+Lord of the Flies,William Golding,9780571295715,Fiction,224,1954,"Boys stranded on an island descend into savage tribalism.",1,2,Yes,4,English
+The Hobbit,J.R.R. Tolkien,9780547928227,Fiction,310,1937,"A hobbit's unexpected adventure with dwarves and a dragon.",2,3,Yes,5,English
+Dune,Frank Herbert,9780441013593,Fiction,412,1965,"An epic science-fiction saga set on a desert planet.",0,2,No,5,English
+Harry Potter and the Philosopher's Stone,J.K. Rowling,9780747532743,Children,223,1997,"A young boy discovers he is a wizard and enters Hogwarts school.",3,4,Yes,5,English
+Matilda,Roald Dahl,9780142410370,Children,240,1988,"A gifted girl outwits her horrible parents and a tyrannical headmistress.",2,3,Yes,5,English
+Charlie and the Chocolate Factory,Roald Dahl,9780142410318,Children,176,1964,"A poor boy wins a golden ticket to visit Willy Wonka's magical factory.",3,3,Yes,5,English
+The BFG,Roald Dahl,9780142410381,Children,208,1982,"A Big Friendly Giant kidnaps a girl to save her from man-eating giants.",2,2,Yes,4,English
+The Little Prince,Antoine de Saint-Exupery,9780156012195,Children,96,1943,"A pilot meets a little prince from another planet with profound wisdom.",2,2,Yes,5,English
+The Alchemist,Paulo Coelho,9780062315007,Fiction,197,1988,"A shepherd's journey to find treasure teaches him about destiny.",3,4,Yes,5,English
+Of Mice and Men,John Steinbeck,9780140177398,Fiction,112,1937,"Two migrant workers dream of owning land in Great Depression America.",1,2,Yes,4,English
+The Old Man and the Sea,Ernest Hemingway,9780684801223,Fiction,132,1952,"An aging fisherman battles a giant marlin in the Gulf Stream.",2,2,Yes,4,English
+A Tale of Two Cities,Charles Dickens,9780141439600,Fiction,489,1859,"Love and heroism during the French Revolution in London and Paris.",1,2,Yes,4,English
+Great Expectations,Charles Dickens,9780141439563,Fiction,544,1861,"An orphan's rise to wealth and his search for identity in Victorian England.",1,2,Yes,4,English
+Sapiens: A Brief History of Humankind,Yuval Noah Harari,9780062316097,Non-fiction,443,2011,"A sweeping history of the human species from stone age to present.",2,3,Yes,5,English
+A Brief History of Time,Stephen Hawking,9780553380163,Science,212,1988,"Hawking explains cosmology from the Big Bang to black holes.",1,2,Yes,5,English
+Thinking Fast and Slow,Daniel Kahneman,9780374533557,Non-fiction,499,2011,"Two systems of thinking that shape our judgements and decisions.",2,2,Yes,5,English
+Atomic Habits,James Clear,9780735211292,Non-fiction,320,2018,"A proven framework for building good habits and breaking bad ones.",3,4,Yes,5,English
+Man's Search for Meaning,Viktor Frankl,9780807014271,Biography,165,1946,"A psychiatrist's account of surviving Nazi concentration camps.",2,3,Yes,5,English
+The Selfish Gene,Richard Dawkins,9780198788607,Science,544,1976,"Dawkins argues that evolution is driven by genes not organisms.",1,1,Yes,4,English
+Cosmos,Carl Sagan,9780345539434,Science,365,1980,"A journey through the universe exploring the origin of life and intelligence.",1,2,Yes,5,English
+The Gene: An Intimate History,Siddhartha Mukherjee,9781476733500,Science,592,2016,"A biography of the gene from Mendel's peas to CRISPR.",1,1,Yes,4,English
+The God of Small Things,Arundhati Roy,9780812979657,Fiction,321,1997,"Twin children in Kerala navigate caste love and tragedy.",2,2,Yes,5,English
+The White Tiger,Aravind Adiga,9781416562597,Fiction,321,2008,"A poor boy from rural India claws his way to wealth in Delhi.",2,3,Yes,4,English
+Wings of Fire,A.P.J. Abdul Kalam,9788173711466,Biography,197,1999,"The autobiography of India's missile scientist and former President.",4,5,Yes,5,English
+Malgudi Days,R.K. Narayan,9780140118834,Fiction,256,1943,"Short stories from the fictional South Indian town of Malgudi.",2,2,Yes,4,English
+Midnight's Children,Salman Rushdie,9780812976533,Fiction,647,1981,"Children born at Indian independence discover magical powers.",1,2,Yes,4,English
+My Experiments with Truth,Mahatma Gandhi,9780486245935,Biography,480,1927,"Gandhi's autobiography covering his life from childhood to 1921.",3,3,Yes,5,English
+The Discovery of India,Jawaharlal Nehru,9780195623598,Non-fiction,572,1946,"India's first PM reflects on Indian civilization and history.",1,2,Yes,4,English
+Long Walk to Freedom,Nelson Mandela,9780316548182,Biography,656,1994,"Mandela's autobiography from childhood to South African presidency.",1,2,Yes,5,English
+Steve Jobs,Walter Isaacson,9781451648539,Biography,656,2011,"The authorized biography of Apple's visionary co-founder.",2,3,Yes,4,English
+Born a Crime,Trevor Noah,9780399588174,Biography,304,2016,"Trevor Noah's memoir growing up mixed-race in apartheid South Africa.",2,2,Yes,5,English
+Zero to One,Peter Thiel,9780804139021,Non-fiction,224,2014,"Notes on startups and how to build companies that create new things.",2,3,Yes,4,English
+Freakonomics,Steven Levitt,9780060731335,Non-fiction,315,2005,"Economists explore the hidden side of everything using data.",1,2,Yes,4,English
+The Lean Startup,Eric Ries,9780307887894,Non-fiction,336,2011,"How entrepreneurs use continuous innovation to create businesses.",2,2,Yes,4,English
+Clean Code,Robert C. Martin,9780132350884,Textbook,431,2008,"A handbook of agile software craftsmanship and clean coding practices.",1,2,Yes,4,English
+The Pragmatic Programmer,David Thomas,9780135957059,Textbook,352,1999,"Timeless advice on becoming a better programmer.",1,1,Yes,5,English
+Introduction to Algorithms,Thomas Cormen,9780262033848,Textbook,1292,1990,"The definitive textbook on algorithms and data structures.",1,2,Yes,4,English
+Power of Habit,Charles Duhigg,9780812981605,Non-fiction,371,2012,"Why we do what we do and how to change our habits.",2,3,Yes,4,English
+Ikigai,Hector Garcia,9780143130727,Non-fiction,208,2016,"The Japanese secret to a long and happy life.",3,4,Yes,4,English
+Rich Dad Poor Dad,Robert Kiyosaki,9781612680194,Non-fiction,336,1997,"What the rich teach their kids about money that the poor do not.",2,3,Yes,4,English
+The 7 Habits of Highly Effective People,Stephen Covey,9781982137274,Non-fiction,464,1989,"A principle-centred approach for solving personal and professional problems.",2,2,Yes,4,English
+Sherlock Holmes: The Complete Novels,Arthur Conan Doyle,9781607109198,Fiction,736,1890,"All four Sherlock Holmes novels in one volume.",1,2,Yes,5,English
+The Diary of a Young Girl,Anne Frank,9780553296983,Biography,283,1947,"Anne Frank's diary written while in hiding from the Nazis.",2,3,Yes,5,English

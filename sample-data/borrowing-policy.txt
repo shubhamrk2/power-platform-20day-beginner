@@ -1,0 +1,98 @@
+CITY COMMUNITY LIBRARY — BORROWING POLICY
+==========================================
+Effective Date: 1 January 2025
+Approved by: Library Management Committee
+
+1. ELIGIBILITY
+--------------
+1.1 Only active members with a valid and current membership may borrow books from the library.
+1.2 Membership must be renewed before the expiry date to maintain borrowing privileges without interruption.
+1.3 Members with overdue books or outstanding fines of more than Rs 100 may not borrow additional books until dues are cleared.
+1.4 Members whose accounts have been suspended due to policy violations may not borrow until the suspension is lifted by the Library Manager.
+
+2. LOAN LIMITS
+--------------
+2.1 The number of books a member may borrow at one time depends on their membership plan:
+    - Student Membership: up to 3 books
+    - Standard Membership: up to 5 books
+    - Senior Membership: up to 5 books
+    - Premium Membership: unlimited (subject to availability)
+2.2 Loan limits apply to physical books only. E-book borrowing for Premium members is managed through the library app and has separate limits.
+2.3 Reference books, rare editions, and books marked "Library Use Only" may not be borrowed and must be used within the library premises.
+
+3. LOAN PERIOD
+--------------
+3.1 The standard loan period is 14 calendar days from the date of borrowing.
+3.2 Premium members may request an extended loan period of 21 calendar days at the time of borrowing by informing the front desk staff.
+3.3 The loan period begins on the date the book is issued, regardless of when the member starts reading it.
+3.4 Due dates that fall on a day when the library is closed (public holiday or Sunday after 5 PM) are extended to the next working day.
+
+4. RENEWALS
+-----------
+4.1 Members may renew a borrowed book once, provided:
+    (a) The book has not been reserved by another member.
+    (b) The book is not overdue at the time of renewal request.
+    (c) The renewal is requested before the due date.
+4.2 Renewal extends the due date by 7 calendar days from the original due date, not from the date of renewal.
+4.3 Renewals may be requested at the front desk, via the library website, through the Library Helper chatbot, or by phone during opening hours.
+4.4 A second renewal is not permitted. Members who need more time must return the book and re-borrow it if no reservation is pending.
+
+5. RESERVATIONS
+---------------
+5.1 Members may place a reservation on a book that is currently on loan to another member.
+5.2 Reservations are processed in the order they are received.
+5.3 When the reserved book becomes available, the member is notified by email and/or SMS.
+5.4 The reserved book is held at the front desk for 3 calendar days after notification. If not collected within 3 days, the reservation is cancelled and the book is made available to the next person in the queue.
+5.5 Premium members may reserve up to 5 books at a time. Standard, Student, and Senior members may reserve up to 2 books at a time.
+5.6 Reservations are not permitted for books that are available on the shelf.
+
+6. RETURNING BOOKS
+------------------
+6.1 Books must be returned to the library front desk or placed in the 24-hour book drop slot outside the main entrance.
+6.2 Books placed in the book drop slot are processed on the next working day. The return date recorded will be the date the book was placed in the drop slot, confirmed by the date stamp on the return receipt (if applicable).
+6.3 Books must be returned in the same condition in which they were borrowed, allowing for normal wear and handling.
+6.4 Members must not leave books with third parties, other library staff, or in unauthorised locations.
+6.5 Returning a book on behalf of another member is permitted, but all responsibility for condition and timeliness remains with the borrowing member.
+
+7. CONDITION OF BOOKS
+---------------------
+7.1 Members are responsible for the condition of books while they are on loan.
+7.2 Books should be returned free of new damage. Normal wear (minor cover fading, slight creasing of spine) is acceptable.
+7.3 The following constitute damage and will attract a fee:
+    (a) Torn or detached pages
+    (b) Water damage, staining, or mould
+    (c) Writing, highlighting, or underlining in the text
+    (d) Missing pages
+    (e) Broken or damaged binding
+7.4 Damage fees are assessed by the librarian on duty and are based on the extent of damage and the replacement cost of the book. Fees range from Rs 50 for minor damage to the full replacement cost for severe damage or books rendered unusable.
+
+8. LOST BOOKS
+-------------
+8.1 Members must report lost books to the front desk as soon as possible.
+8.2 A lost book will attract a replacement charge equal to the current market price of the book, plus a processing fee of Rs 50.
+8.3 If a member finds and returns a book previously declared lost, and the replacement charge has already been paid, no refund will be issued if more than 30 days have passed since payment. Within 30 days, a refund minus the processing fee will be issued.
+8.4 A book not returned within 45 days of its due date will be classified as lost and the replacement charge will be applied automatically to the member's account.
+
+9. INTER-LIBRARY LOANS
+-----------------------
+9.1 The library participates in an inter-library loan network with partner libraries across the city.
+9.2 Members may request books not in our collection through the inter-library loan service. Requests take 5-10 working days to fulfil.
+9.3 Inter-library loan books are subject to the lending library's terms and conditions in addition to our standard borrowing policy.
+9.4 Inter-library loans are available to Premium and Standard members only.
+
+10. BREACH OF BORROWING POLICY
+-------------------------------
+10.1 Persistent late returns, accumulated fines, damage to books, or misuse of borrowing privileges may result in:
+     (a) Suspension of borrowing privileges for up to 90 days
+     (b) Requirement to pay all outstanding fines before borrowing again
+     (c) Membership cancellation in extreme cases
+10.2 The Library Manager has the authority to make decisions on policy breaches and may use discretion in exceptional circumstances.
+10.3 Members may appeal decisions in writing to the Library Management Committee within 14 days of the decision.
+
+11. POLICY REVIEW
+-----------------
+11.1 This policy will be reviewed annually by the Library Management Committee.
+11.2 Members will be notified of significant changes to this policy via email and the library notice board.
+11.3 The most current version of this policy is always available at the front desk and on our website.
+
+For any queries about this policy, contact: library@citylib.in or visit the front desk during opening hours.

@@ -1,0 +1,93 @@
+CITY COMMUNITY LIBRARY — LATE RETURN AND FINES POLICY
+======================================================
+Effective Date: 1 January 2025
+Approved by: Library Management Committee
+
+1. PURPOSE
+----------
+This policy sets out the rules, fees, and procedures for books that are returned after their due date. The purpose of late fees is to encourage timely returns so that books are available to all members fairly.
+
+2. LATE FEES
+------------
+2.1 A late fee of Rs 5 per day per book applies for each calendar day a book is overdue, beginning the day after the due date.
+2.2 The maximum late fee per book is Rs 200. Once a book reaches the Rs 200 cap, the daily fee stops accumulating, but the book must still be returned.
+2.3 If a book is not returned within 45 days of the due date, it is classified as lost. The full replacement charge applies in addition to the capped late fee of Rs 200 (see Section 5).
+2.4 Late fees apply to all membership types including Premium.
+2.5 Late fees are calculated automatically by the library management system and displayed in the member's account dashboard.
+
+3. GRACE PERIOD
+---------------
+3.1 There is no grace period. Late fees begin the day after the due date.
+3.2 Exception: if the library is closed on the due date (public holiday or emergency closure), the due date is automatically extended to the next working day, and no late fee is charged for the period of closure.
+
+4. NOTIFICATION OF OVERDUE BOOKS
+---------------------------------
+4.1 The library will send reminder notifications as follows:
+    - 3 days before due date: gentle reminder by email
+    - On the due date: final reminder by email and SMS
+    - 1 day after due date: overdue notice by email
+    - 7 days after due date: second overdue notice by email and SMS
+    - 14 days after due date: urgent overdue notice with accumulated fee statement
+    - 30 days after due date: final notice warning of lost-book classification
+4.2 Failure to receive a notification does not exempt a member from late fees. Members are responsible for tracking their own due dates via the member portal or the Library Helper chatbot.
+
+5. LOST BOOKS
+-------------
+5.1 A book not returned within 45 days of the due date is classified as lost.
+5.2 The member will be charged:
+    (a) Late fee of Rs 200 (maximum cap)
+    (b) Replacement cost: the current market price of the book
+    (c) Processing fee: Rs 50
+5.3 Replacement cost is determined by the library at the time of charging, based on the current retail price of the same or equivalent edition. The library's assessment of replacement cost is final.
+5.4 If a member returns a book classified as lost after the replacement charge has been paid, no refund will be issued.
+
+6. PAYMENT OF FINES
+--------------------
+6.1 Fines and replacement charges may be paid:
+    (a) At the front desk by cash or card
+    (b) Online via the member portal using UPI, credit card, or debit card
+    (c) Via the Library Helper chatbot (for amounts up to Rs 500)
+6.2 Payment receipts are issued for all transactions. Members should retain receipts in case of disputes.
+6.3 All outstanding fines must be settled before a member can borrow new books.
+6.4 Members with outstanding fines of more than Rs 200 may have their borrowing privileges suspended automatically until fines are paid.
+
+7. DISPUTES AND WAIVERS
+------------------------
+7.1 Members who believe a fine has been applied in error may dispute it at the front desk within 14 days of the fine being applied.
+7.2 Evidence of timely return (such as a drop-slot return receipt, email confirmation, or witness) should be provided with the dispute.
+7.3 The Library Manager may waive or reduce a fine in exceptional circumstances, such as:
+    (a) Medical emergency documented by a doctor's certificate
+    (b) Natural disaster or significant personal hardship
+    (c) Library system error that caused incorrect due date recording
+7.4 First-time offences may be eligible for a goodwill waiver at the Library Manager's discretion, for fines of Rs 50 or less. This waiver may only be applied once per membership.
+7.5 Disputes must be submitted in writing (email or physical letter). Verbal disputes at the front desk will be recorded and a formal response provided within 5 working days.
+
+8. IMPACT ON MEMBERSHIP
+------------------------
+8.1 Members with accumulated unpaid fines exceeding Rs 500 will have their membership suspended.
+8.2 Suspended members cannot borrow books, make reservations, or register for paid events until dues are cleared.
+8.3 Habitual late returns (3 or more late returns in a 12-month period) will be noted on the member's record and may result in a formal warning letter.
+8.4 Persistent non-compliance after a formal warning may result in membership cancellation. Cancelled memberships are not eligible for a refund of membership fees.
+
+9. STAFF AND VOLUNTEER BORROWING
+----------------------------------
+9.1 Library staff and registered volunteers who borrow books for official library purposes are subject to the same late return policy as regular members.
+9.2 Books borrowed for library programmes (story hours, workshops, displays) must be returned to the main collection within 7 days of the programme ending.
+
+10. ANNUAL REVIEW
+-----------------
+10.1 Late fee amounts will be reviewed annually and adjusted for inflation if necessary.
+10.2 Any changes to fee amounts will be communicated to members at least 30 days in advance via email and the library website.
+10.3 Fee changes apply to new loans made after the effective date. Existing loans retain the fee rate applicable at the time of borrowing.
+
+QUICK REFERENCE — LATE FEE SUMMARY
+-------------------------------------
+| Days Overdue | Fee per Book |
+|--------------|--------------|
+| 1-10 days    | Rs 5/day     |
+| 11-20 days   | Rs 5/day     |
+| 21-40 days   | Rs 5/day     |
+| 40+ days     | Rs 200 (cap) |
+| 45+ days     | Lost book: Rs 200 + replacement cost + Rs 50 processing fee |
+
+For any queries about this policy, contact: library@citylib.in or speak to the Library Manager at the front desk.

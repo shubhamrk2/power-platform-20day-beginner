@@ -227,26 +227,15 @@ in
 </div>
 
 <div class="card c-do"><span class="lab">Do this — bulk-import members with a dataflow</span>
+<p>Download <a href="../sample-data/new-members.csv"><strong>new-members.csv</strong></a> from the course home page (Sample Data section). This file contains <strong>15 new members</strong> (completely different names from your existing 30 members) — ready to import. It has the full columns the Member table expects: Full_name, Email, Phone, Membership, Join_date, Membership_expiry, Active.</p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Create <code>new-members.csv</code> in Notepad with this exact content (8 rows + header):</span></li>
-</ul>
-<pre><code>First name,Last name,Email,Membership
-Priya,Sharma,priya.sharma@example.com,Student
-Rahul,Gupta,rahul.gupta@example.com,Standard
-Aisha,Khan,aisha.khan@example.com,Premium
-David,Okafor,david.okafor@example.com,Senior
-Sophie,Laurent,sophie.laurent@example.com,Student
-Carlos,Mendez,carlos.mendez@example.com,Standard
-Yuki,Tanaka,yuki.tanaka@example.com,Student
-Emma,Johansson,emma.johansson@example.com,Premium</code></pre>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Dataflows → New dataflow</strong>. Name = <code>Import members</code>. Click Create. In the connector list, choose <strong>Text/CSV</strong>. Click Browse → upload <code>new-members.csv</code>. Click Next.</span></li>
-<li><span class="box"></span><span class="txt">In Power Query editor: click <strong>Use first row as headers</strong> (if not already). Select all four columns → right-click → <strong>Change type → Text</strong>.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>Add column → Custom column</strong>. Name = <code>Full name</code>. Formula = <code>[#"First name"] &amp; " " &amp; [#"Last name"]</code>. OK.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>Advanced editor</strong> — read the M steps. Confirm the Added Custom Column step. Close.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>Next</strong>. Under "Load settings", choose <strong>Load to existing table</strong> → select the <strong>Member</strong> table. Map columns: Full name → Full name, Email → Email, Membership → Membership. Set Key column = <strong>Email</strong>. Click <strong>Publish</strong>.</span></li>
-<li><span class="box"></span><span class="txt">The dataflow runs automatically. Check your <strong>Member</strong> table — 8 new rows. Change one row in the CSV and re-publish the dataflow → confirm it <em>updates</em> the changed row rather than inserting a duplicate.</span></li>
-<li><span class="box"></span><span class="txt"><em>Optional — schedule it:</em> open the dataflow → <strong>Settings → Scheduled refresh</strong>. Set to run daily at 7am. This would keep Dataverse in sync with an external system that updates the CSV.</span></li>
+<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Dataflows → New dataflow</strong>. Name = <code>Import new members</code>. Click Create. In the connector list, choose <strong>Text/CSV</strong>. Click Browse → upload <code>new-members.csv</code>. Click Next.</span></li>
+<li><span class="box"></span><span class="txt">In Power Query editor: confirm <strong>First row as headers</strong> is on. The columns Full_name, Email, Phone, Membership, Join_date, Membership_expiry, Active will all appear. Select the Join_date and Membership_expiry columns → right-click → <strong>Change type → Date</strong>. Leave others as Text.</span></li>
+<li><span class="box"></span><span class="txt">The CSV already has Full_name as one column, so no custom column formula is needed. Click <strong>Advanced Editor</strong> — read the M code. Notice: every Power Query click created an Applied Step. Close the editor.</span></li>
+<li><span class="box"></span><span class="txt">Click <strong>Next</strong>. Under "Load settings", choose <strong>Load to existing table</strong> → select the <strong>Member</strong> table. Map columns: Full_name → Full name, Email → Email, Phone → Phone, Membership → Membership, Join_date → Join date, Membership_expiry → Membership expiry, Active → Active. Set Key column = <strong>Email</strong>. Click <strong>Publish</strong>.</span></li>
+<li><span class="box"></span><span class="txt">The dataflow runs. Check your <strong>Member</strong> table — you should now have 15 new rows (the 15 new-members.csv names) in addition to your existing members. Total ≈ 45 members.</span></li>
+<li><span class="box"></span><span class="txt">Test upsert: open new-members.csv, change Ishaan Tripathi's Membership from "Standard" to "Premium". Re-publish the dataflow. In Dataverse, confirm Ishaan now shows Premium — the email key matched and updated the row rather than inserting a second one.</span></li>
+<li><span class="box"></span><span class="txt"><em>Optional — schedule it:</em> open the dataflow → <strong>Settings → Scheduled refresh</strong>. Set to run daily at 7am. This would keep Dataverse in sync with an external system that exports a new CSV daily. Disable after testing.</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — dataflow vs cloud flow</span>
