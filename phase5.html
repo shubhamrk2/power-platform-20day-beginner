@@ -23,135 +23,205 @@
 <header class="hero">
   <span class="pill">Phase 5 · Days 15–16</span>
   <h1>AI &amp; governance</h1>
-  <p>Build an AI chatbot with Copilot Studio, then learn how organisations keep a growing platform safe
-  and tidy — governance, DLP, and moving solutions from build to live — plus a first, cost-safe look at
-  Azure.</p>
+  <p>Build a Library Helper chatbot in Copilot Studio — with scripted topics, knowledge-based answers, and a live Dataverse lookup — then learn how organisations keep Power Platform safe: DLP policies, Application Lifecycle Management (Dev → Test → Production), and a cost-safe Azure tour covering Key Vault, Entra ID, and Logic Apps.</p>
 </header>
 
 <!-- DAY 15 -->
 <section class="day" id="day15">
 <div class="dhead"><span class="dnum">Day 15</span></div>
-<h2>AI you can build: Copilot Studio chatbots</h2>
-<p class="meta">~110 minutes</p>
+<h2>Copilot Studio: building a real library chatbot</h2>
+<p class="meta">~130 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — what is a Copilot Studio "agent"?</span>
-<p><strong>Copilot Studio</strong> lets you build a <strong>chatbot</strong> (now often called an
-<strong>agent</strong>) — a helper people chat with. You give it a personality, some knowledge to answer
-from, and optional "skills" (actions it can take, like looking something up in your data).</p>
+<div class="card c-concept"><span class="lab">Concept — what is Copilot Studio?</span>
+<p><strong>Copilot Studio</strong> is Microsoft's low-code platform for building <strong>agents</strong> (chatbots that can converse, look things up, and take actions). You can build one without writing code. The major building blocks:</p>
+<ul>
+<li><strong>Instructions</strong> — a plain-English "job description" for the agent: its personality, tone, and scope rules.</li>
+<li><strong>Topics</strong> — scripted conversation paths that activate when a user says certain phrases. You control the exact flow: ask a question, branch on the answer, send a message.</li>
+<li><strong>Knowledge sources</strong> — documents, SharePoint pages, or websites the AI reads to answer questions outside of scripted topics. Called <strong>generative answers</strong>.</li>
+<li><strong>Actions</strong> — things the agent can <em>do</em> by calling a Power Automate flow or Dataverse query. This is how it looks up live data.</li>
+<li><strong>Variables</strong> — values the agent stores during a conversation (e.g. what book the user asked about). Types: text, number, boolean, table.</li>
+<li><strong>Entities</strong> — things Copilot Studio recognises automatically (dates, numbers, email addresses, currencies) or that you train (e.g. a list of book genres).</li>
+<li><strong>Channels</strong> — where the agent is published: Teams, a demo website, a canvas app widget, or a website via embed code.</li>
+</ul>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — the building blocks</span>
+<div class="card c-concept"><span class="lab">Concept — topics vs generative answers</span>
+<p>These two modes work together:</p>
 <ul>
-<li><strong>Instructions</strong> — the agent's personality and rules (its "job description").</li>
-<li><strong>Topics</strong> — set conversation paths triggered by phrases (e.g. "opening hours").</li>
-<li><strong>Knowledge sources</strong> — documents/sites it reads to answer questions ("generative answers").</li>
-<li><strong>Actions</strong> — things it can <em>do</em> by calling a flow.</li>
-<li><strong>Channels</strong> — where it's published (a website, Teams…).</li>
-</ul></div>
+<li><strong>Topic</strong> — scripted. You define the exact phrases that trigger it and the exact messages/questions the bot sends. Perfect when you need predictability (compliance, safety, brand).</li>
+<li><strong>Generative answers</strong> — AI-powered. When no topic matches, the agent searches your knowledge sources and generates a natural answer. Adds a lot of capability with minimal authoring effort.</li>
+</ul>
+<p>Good agents use both: scripted topics for key workflows, generative answers as a safety net for everything else.</p>
+</div>
 
-<div class="card c-do"><span class="lab">Do this — build and publish a simple chatbot</span>
+<div class="card c-do"><span class="lab">Do this — build Library Helper step by step</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><code>copilotstudio.microsoft.com</code> (Learning environment); start the trial if asked. <strong>Create → New agent</strong> = <code>Library Helper</code>.</span></li>
-<li><span class="box"></span><span class="txt">Set <strong>Instructions</strong>: "You are a friendly library assistant. Answer questions about books politely and briefly."</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Knowledge source</strong>: upload a one-page FAQ you write (opening hours, how to borrow — made up).</span></li>
-<li><span class="box"></span><span class="txt">Create a <strong>Topic</strong> with trigger phrases like "opening hours" + a message answer.</span></li>
-<li><span class="box"></span><span class="txt"><em>Connect it to your project (stretch):</em> add an <strong>Action</strong> that calls a small Power Automate flow which looks up a title in your <strong>Book</strong> table and returns whether it's in stock. Now the bot can answer "Is <em>Dune</em> available?" from your real data — the bot, a flow, and Dataverse working together.</span></li>
-<li><span class="box"></span><span class="txt">Use the <strong>Test</strong> panel to chat with it (wait a minute if knowledge is still indexing). Then <strong>Publish</strong> → <strong>Demo website</strong> and chat with it in a normal tab.</span></li>
+<li><span class="box"></span><span class="txt">Go to <code>copilotstudio.microsoft.com</code>. Confirm environment = <strong>Learning</strong> (top right). Start the Copilot Studio trial if prompted. <strong>Create → New agent</strong>. Name = <code>Library Helper</code>. Click Create.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Set Instructions:</strong> "You are a friendly and brief assistant for the Community Library. Answer questions about opening hours, borrowing, and book availability. If a question is off-topic, politely redirect to library topics. Do not make up information."</span></li>
+<li><span class="box"></span><span class="txt"><strong>Knowledge source — FAQ document:</strong> create a text file called <code>library-faq.txt</code> with content like:
+<br>"Opening hours: Mon-Sat 9am-7pm, Sun 11am-5pm. Standard loan period: 14 days. Students: free membership. Late fee: ₹5 per day overdue. How to borrow: visit any librarian with your membership card."
+<br>In Copilot Studio → Knowledge → + Add → <strong>Upload a file</strong> → upload library-faq.txt. Wait ~1 minute for indexing.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Topic 1 — Opening hours:</strong> Topics → + New topic → <strong>From blank</strong>. Name = <code>Opening hours</code>. In trigger phrases: add 3 variations: <code>when are you open</code>, <code>opening hours</code>, <code>what time do you close</code>. Add a <strong>Message</strong> node: "We're open Mon–Sat 9am–7pm and Sunday 11am–5pm. Is there anything else I can help you with?" Save topic.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Topic 2 — How to borrow:</strong> + New topic → From blank. Name = <code>How to borrow</code>. Triggers: <code>how do I borrow</code>, <code>borrow a book</code>, <code>checkout</code>. Message: "To borrow a book: bring your membership card to any librarian. Standard loan period is 14 days. Need to check if a book is available first?" Add a <strong>Question</strong> node: "Which book are you looking for?" Save the answer to a variable — name it <code>BookTitle</code> (type = text). Save topic.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Topic 3 — Book availability (with live Dataverse lookup):</strong>
+<br>First, build the Power Automate flow: <strong>make.powerautomate.com → Solutions → My Learning Solution → New → Cloud flow → Instant</strong>. Trigger = <strong>Manually trigger a flow</strong>. Add an input: <code>BookTitle</code> (text).
+<br>Add <strong>List rows (Dataverse)</strong>. Table = Book. Filter rows = <code>contains(learn_title, '@{triggerBody()?['text']}')</code>. Top count = 1.
+<br>Add <strong>Condition</strong>: Expression: <code>length(outputs('List_rows')?['body/value'])</code> is greater than 0.
+<br>If yes: add <strong>Respond to a Power Apps or flow</strong> action → Output name: <code>Result</code>, value = Expression: <code>concat(first(outputs('List_rows')?['body/value'])?['learn_title'], ' is available. Copies: ', string(first(outputs('List_rows')?['body/value'])?['learn_availablecopies']))</code>.
+<br>If no: <strong>Respond to a Power Apps or flow</strong> → Result = Expression: <code>concat(triggerBody()?['text'], ' was not found in our catalogue.')</code>.
+<br>Save the flow as <code>Library - Check book availability</code>.</span></li>
+<li><span class="box"></span><span class="txt">Back in Copilot Studio → + New topic. Name = <code>Book availability</code>. Triggers: <code>is X available</code>, <code>do you have</code>, <code>check book</code>. Add a <strong>Question</strong> node: "Which book would you like to check?" Variable = <code>BookTitle</code>.
+<br>Add <strong>Action</strong> → <strong>Run a flow</strong> → find <code>Library - Check book availability</code>. Map input BookTitle → variable <code>BookTitle</code>. Output variable = <code>AvailabilityResult</code>.
+<br>Add a <strong>Message</strong> node: text = variable <code>AvailabilityResult</code>. Save.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Test:</strong> click <strong>Test your agent</strong> (right panel). Type <code>when are you open</code> — verify the scripted response. Type <code>what is the late fee</code> — verify generative answer from the FAQ. Type <code>is Dune available</code> — verify the flow runs and returns a result. If the flow doesn't respond, check Run history in Power Automate.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Publish:</strong> click <strong>Publish</strong> → Publish. Then <strong>Channels → Demo website</strong> → Copy the link → open in a new tab → chat with your bot as a real user would.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — topics vs generative answers</span>
-A <strong>topic</strong> is a scripted path you control exactly. <strong>Generative answers</strong> let the
-AI answer freely from your knowledge when no topic matches. Good agents use both.</div>
+<div class="card c-tip"><span class="lab">Tip — variable scope in topics</span>
+Variables defined in a topic are <strong>topic-scoped</strong> by default — they exist only within that conversation branch. To pass a value between topics, change the variable type to <strong>Global</strong> in its properties. The bot's overall session state lives in Global variables.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Agent / chatbot</b> — a helper people chat with.</li>
-<li><b>Instructions / topic / trigger phrase</b> — its rules / a scripted path / the words that start it.</li>
-<li><b>Knowledge source / action / channel</b> — what it answers from / what it can do / where it's published.</li>
+<li><b>Agent / chatbot</b> — an AI-powered conversational helper people type questions to.</li>
+<li><b>Instructions</b> — the plain-English rules and personality the agent follows.</li>
+<li><b>Topic / trigger phrases</b> — a scripted conversation path / the words that activate it.</li>
+<li><b>Knowledge source / generative answers</b> — content the AI reads to answer free-form questions.</li>
+<li><b>Action</b> — a Power Automate flow the agent can call to look up or change data.</li>
+<li><b>Variable</b> — a named value stored during the conversation (text, number, boolean, table).</li>
+<li><b>Entity</b> — something Copilot Studio recognises automatically (date, email, custom list).</li>
+<li><b>Channel / demo website</b> — where the agent is published / a shareable test URL.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-A published chatbot that answers from your FAQ and a scripted topic. You're now building with AI. 🤖</div>
+Library Helper answers scripted questions, generates answers from the FAQ, AND looks up real Dataverse book data. That's the full Copilot Studio stack: scripted + generative + live data. If the availability check didn't work, recheck the flow trigger type (it must be "Manually trigger a flow" with a text input) and the Run history.</div>
 </section>
 
-<!-- DAY 16 (merged: governance/DLP/ALM + Azure tour) -->
+<!-- DAY 16 -->
 <section class="day" id="day16">
 <div class="dhead"><span class="dnum">Day 16</span></div>
-<h2>Governance, DLP, ALM — and a first look at Azure</h2>
-<p class="meta">~120 minutes · this day covers governance and a short Azure tour</p>
+<h2>Governance, DLP, ALM, analytics — and a cost-safe Azure tour</h2>
+<p class="meta">~130 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — governance and DLP</span>
-<p>When hundreds of people build across a company, you need <strong>rules and oversight</strong> so
-nothing leaks or breaks — that's <strong>governance</strong>, managed in the <strong>Power Platform admin
-center</strong>. A key tool is <strong>DLP</strong> (Data Loss Prevention): a rule about which connectors
-may be used <em>together</em>. Connectors sit in groups — <strong>Business</strong>,
-<strong>Non-business</strong>, <strong>Blocked</strong> — and a flow can't mix Business with Non-business,
-so company data can't be wired straight to a personal service.</p>
+<div class="card c-concept"><span class="lab">Concept — governance: why it matters</span>
+<p>When thousands of employees build flows and apps across an organisation, you need:</p>
+<ul>
+<li>Rules about what they can connect to (DLP).</li>
+<li>Visibility into what's been built (analytics and inventory).</li>
+<li>A safe process to move tested solutions to production (ALM).</li>
+<li>Identity and access controls (Entra ID / security roles).</li>
+</ul>
+<p>All of this is managed in the <strong>Power Platform admin center</strong> (<code>admin.powerplatform.microsoft.com</code>). An admin governs; makers build. The same admin center is where you approved environments and checked capacity.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — DLP policies in detail</span>
+<p>A <strong>Data Loss Prevention (DLP)</strong> policy controls which connectors can be used <em>together</em> in a single flow or app. Every connector is placed in one of three buckets:</p>
+<ul>
+<li><strong>Business</strong> — trusted, company-approved connectors. Dataverse, SharePoint, Teams, Outlook, Azure AD. Flows can freely combine connectors within this group.</li>
+<li><strong>Non-business</strong> — personal or consumer connectors. Twitter/X, Dropbox, personal Gmail, Instagram. A flow <em>cannot</em> combine a Business connector with a Non-business connector — this stops someone wiring Dataverse → Twitter.</li>
+<li><strong>Blocked</strong> — completely disallowed in the environment. Any flow that tries to use a blocked connector won't run.</li>
+</ul>
+<p>A policy can apply to <strong>all environments</strong>, <strong>selected environments</strong>, or be an environment-admin policy scoped to just one. For your Learning environment, you're both maker and admin, so you can create and delete test policies freely.</p>
 </div>
 
 <figure class="fig">
-<svg viewBox="0 0 560 130" role="img" aria-label="DLP groups: business, non-business, blocked; a flow cannot cross groups">
-<rect x="16" y="34" width="160" height="80" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<svg viewBox="0 0 560 140" role="img" aria-label="DLP groups: business, non-business, blocked; flows cannot cross groups">
+<rect x="16" y="34" width="160" height="90" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
 <text x="96" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Business</text>
 <text x="96" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">Dataverse, Teams,</text>
-<text x="96" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">SharePoint</text>
-<rect x="196" y="34" width="160" height="80" rx="9" fill="#fff8e9" stroke="#e0a020"/>
+<text x="96" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">SharePoint, Outlook</text>
+<text x="96" y="110" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#0e9f6e">✓ combine freely</text>
+<rect x="196" y="34" width="160" height="90" rx="9" fill="#fff8e9" stroke="#e0a020"/>
 <text x="276" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Non-business</text>
-<text x="276" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">personal</text>
-<text x="276" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">connectors</text>
-<rect x="376" y="34" width="160" height="80" rx="9" fill="#fdefee" stroke="#e0483b"/>
+<text x="276" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">Twitter/X, Dropbox,</text>
+<text x="276" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">personal Gmail</text>
+<text x="276" y="110" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#e0a020">✗ cannot mix with Business</text>
+<rect x="376" y="34" width="160" height="90" rx="9" fill="#fdefee" stroke="#e0483b"/>
 <text x="456" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Blocked</text>
-<text x="456" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">not allowed</text>
-<text x="456" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">at all</text>
-<text x="276" y="126" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#c23b2f">a single flow may not combine Business + Non-business</text>
+<text x="456" y="76" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">connectors admin</text>
+<text x="456" y="90" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">has banned</text>
+<text x="456" y="110" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#e0483b">✗ flows won't run at all</text>
+<text x="276" y="136" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#c23b2f">one flow cannot combine Business + Non-business connectors</text>
 </svg>
-<figcaption>DLP sorts connectors into groups; flows can't cross from Business to Non-business</figcaption>
+<figcaption>DLP buckets: flows can mix connectors within a bucket but not across Business ↔ Non-business</figcaption>
 </figure>
 
-<div class="card c-concept"><span class="lab">Concept — ALM (build → test → live)</span>
-<p><strong>ALM</strong> (Application Lifecycle Management) means building in one environment (Dev), testing
-in another (Test), and running for real in a third (Production) — moving your <strong>solution</strong>
-(the "box" from Day 4) between them safely.</p>
+<div class="card c-concept"><span class="lab">Concept — ALM: Dev → Test → Production</span>
+<p><strong>Application Lifecycle Management (ALM)</strong> is the practice of keeping different stages of a solution separate:</p>
+<ul>
+<li><strong>Dev environment</strong> — where makers build and experiment freely. Your Learning environment has been Dev.</li>
+<li><strong>Test environment</strong> — where the solution is imported as <strong>managed</strong> and tested by users. Makers can't edit managed components directly.</li>
+<li><strong>Production environment</strong> — where live users run the real system. Only managed solutions are deployed here.</li>
+</ul>
+<p>The movement: export <strong>managed</strong> from Dev → import into Test → test → import same managed solution into Production. <strong>Connection references</strong> let each environment's connections (e.g. which Dataverse environment the flows point to) differ without changing the solution itself.</p>
 </div>
 
 <figure class="fig">
-<svg viewBox="0 0 560 96" role="img" aria-label="ALM: solution moves Dev to Test to Production">
+<svg viewBox="0 0 560 96" role="img" aria-label="ALM: managed solution moves Dev to Test to Production">
 <defs><marker id="a6" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
-<rect x="30" y="30" width="130" height="40" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="95" y="55" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Dev (build)</text>
-<line x1="160" y1="50" x2="205" y2="50" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a6)"/>
-<rect x="207" y="30" width="130" height="40" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="272" y="55" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Test</text>
-<line x1="337" y1="50" x2="382" y2="50" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a6)"/>
-<rect x="384" y="30" width="146" height="40" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/><text x="457" y="55" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Production (live)</text>
+<rect x="14" y="28" width="140" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="84" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Dev (build)</text><text x="84" y="64" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">unmanaged · editable</text>
+<line x1="154" y1="50" x2="196" y2="50" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a6)"/>
+<rect x="198" y="28" width="140" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="268" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Test</text><text x="268" y="64" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">managed · locked</text>
+<line x1="338" y1="50" x2="380" y2="50" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a6)"/>
+<rect x="382" y="28" width="164" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/><text x="464" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Production</text><text x="464" y="64" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">managed · live users</text>
 </svg>
-<figcaption>The same solution is promoted Dev → Test → Production</figcaption>
+<figcaption>Solutions move as managed (locked) packages — makers author in Dev, users run in Production</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — look, export, and take a tiny Azure tour</span>
+<div class="card c-concept"><span class="lab">Concept — Power Platform analytics</span>
+<p>The admin center's <strong>Analytics</strong> section shows usage data across the tenant:</p>
+<ul>
+<li><strong>Power Apps analytics</strong> — which apps were launched, by whom, from which environment, on what device.</li>
+<li><strong>Power Automate analytics</strong> — flow run counts, error rates, which connectors are used most.</li>
+<li><strong>Dataverse analytics</strong> — API call counts, storage consumption, active users.</li>
+</ul>
+<p>This data helps admins identify unused solutions to clean up, popular flows to protect, and environments that are consuming too much capacity.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — Azure: the cloud behind the cloud</span>
+<p><strong>Azure</strong> is Microsoft's cloud platform of infrastructure and platform services. Power Platform sits <em>on top of</em> Azure — so knowing Azure's basics helps you understand the foundations. Key services:</p>
+<ul>
+<li><strong>Resource group</strong> — a logical folder that holds related Azure resources. Billing and permissions roll up to the group. Delete the group → everything inside is deleted.</li>
+<li><strong>Key Vault</strong> — a safe for secrets (API keys, passwords, certificates). Power Platform can reference Key Vault secrets so credentials aren't hardcoded anywhere.</li>
+<li><strong>Microsoft Entra ID (formerly Azure AD)</strong> — the identity system. Every Microsoft 365 and Azure user is an Entra ID user. This is where you manage users, groups, and app registrations (OAuth apps).</li>
+<li><strong>Logic Apps</strong> — Azure's own flow-builder, similar to Power Automate but deployed and managed as an Azure resource. Used by IT teams who need advanced network isolation or enterprise SLA guarantees. Power Automate and Logic Apps share many connectors.</li>
+<li><strong>Azure DevOps</strong> — source control (Git repos), pipelines (CI/CD), and work item tracking for enterprise teams. Power Platform pipelines (for ALM) can integrate with Azure DevOps for automated deployments.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — DLP tour, export managed solution, Azure walkthrough</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><code>admin.powerplatform.microsoft.com</code>: tour <strong>Environments</strong> and <strong>Resources → Capacity</strong>. Open <strong>Policies → Data policies</strong> and look at how connectors drag between Business / Non-business / Blocked.</span></li>
-<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Solutions</strong> → <strong>My Learning Solution</strong> → <strong>Export → Unmanaged</strong> → download the <code>.zip</code>. That zip is your <strong>whole project</strong> (tables, apps, flows) as one movable file — <em>this is also your backup</em> (see "Keep it forever" on the home page).</span></li>
-<li><span class="box"></span><span class="txt"><strong>Back up the data too:</strong> open your <strong>Loan</strong> and <strong>Member</strong> tables → <strong>Export → Export to Excel</strong>, and save the files. (The solution keeps the <em>design</em>; these keep the <em>rows</em>.)</span></li>
-<li><span class="box"></span><span class="txt"><em>Azure tour (with the account owner):</em> open <code>portal.azure.com</code>; read the home page; create a <strong>Resource group</strong> <code>rg-learning</code> (a free "folder").</span></li>
-<li><span class="box"></span><span class="txt">Create a <strong>Key Vault</strong> in it (a safe for secrets); add a made-up secret <code>DemoSecret = not-a-real-password</code>. Look at <strong>Microsoft Entra ID → Users</strong> (the identity system).</span></li>
-<li><span class="box"></span><span class="txt"><strong>Clean up:</strong> <strong>Resource groups → rg-learning → Delete resource group</strong> (type the name). This removes everything so nothing bills.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Admin center tour:</strong> <code>admin.powerplatform.microsoft.com</code> → Environments → click your Learning environment → view the Resources panel (apps, flows). Go to <strong>Analytics → Power Apps</strong> and read the usage charts.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Create a test DLP policy:</strong> admin center → <strong>Policies → Data policies → + New policy</strong>. Name = <code>Test policy — delete me</code>. Scope = this environment only. Find <strong>Twitter</strong> connector → drag it to <strong>Blocked</strong>. Find <strong>Dataverse</strong> → confirm it's in Business. Next → Create policy.</span></li>
+<li><span class="box"></span><span class="txt">Try to create a flow that uses both Dataverse and Twitter — verify it's blocked by the policy. Then delete the test policy: Policies → Data policies → select the policy → Delete. (Real environments have permanent policies — you just learned how they work.)</span></li>
+<li><span class="box"></span><span class="txt"><strong>Export managed solution:</strong> <code>make.powerapps.com</code> → Solutions → My Learning Solution → <strong>Export solution</strong>. Version = 1.0.0.1. Select <strong>Managed</strong>. Export. Download the zip — this is what you'd deploy to Test/Production. It's locked: nobody can edit the components inside after import.</span></li>
+<li><span class="box"></span><span class="txt">Also export <strong>Unmanaged</strong> — save both zips. The unmanaged zip is your development backup. Keep both permanently: they are your entire project in two files.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Back up your data:</strong> open Loan table → <strong>Export → Export to Excel</strong>. Do the same for Member. These files keep your rows; the solution zips keep the schema and logic.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Azure tour (do this with the account owner — read the warning card first):</strong>
+<br>Open <code>portal.azure.com</code>. Sign in with the same learning account (it's the same Microsoft account). Read the home page: note the top menu (All resources, Resource groups, Marketplace, Cost Management).
+<br>Click <strong>Resource groups → + Create</strong>. Subscription = (the trial or free tier). Region = any near you. Name = <code>rg-learning</code>. Click <strong>Review + create → Create</strong>. A resource group costs nothing — it's a free folder.
+<br>Inside rg-learning: click <strong>+ Create → search "Key Vault"</strong>. Click Key Vault → Create. Name = <code>kv-library-learning</code> (must be globally unique — add random digits if needed). Region = same as resource group. Pricing tier = Standard. Review + create → Create. Wait ~1 minute.
+<br>Open the Key Vault → Secrets → <strong>+ Generate/Import</strong>. Upload options = Manual. Name = <code>DemoSecret</code>. Secret value = <code>not-a-real-password</code>. Create.
+<br>Now browse: portal home → <strong>Microsoft Entra ID</strong> (in the left menu or search). Click Users → All users — every M365 user appears here. This is the identity backbone of every Microsoft cloud service.
+<br>Search "Logic Apps" in the portal — click it, read the overview page. Note how similar it is to Power Automate: triggers, actions, connectors. This is the enterprise-grade version used by IT teams.
+<br>Briefly note: <strong>Azure DevOps</strong> (<code>dev.azure.com</code>) — where enterprise teams store Git repos and run CI/CD pipelines that can deploy Power Platform solutions automatically.</span></li>
 </ul></div>
 
-<div class="card c-warn"><span class="lab">Careful — the Azure rule</span>
-Do the Azure part <strong>with the account owner</strong>, never create a "virtual machine", and always
-<strong>delete <code>rg-learning</code></strong> at the end. Azure can bill by the hour; the rest of this
-course cannot.</div>
+<div class="card c-warn"><span class="lab">CRITICAL — always delete rg-learning before leaving Azure</span>
+Azure charges by the hour for many services. Some services start free but accrue cost after a period. The safe exit is always: <strong>Resource groups → rg-learning → Delete resource group</strong> (type <code>rg-learning</code> to confirm). This deletes the Key Vault and everything else inside. Do this before you close the Azure portal. Never create Virtual Machines (VMs) in this learning tour. Never leave Azure without deleting rg-learning.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Governance / admin center</b> — rules &amp; oversight / where admins manage them.</li>
-<li><b>DLP</b> — rules about which connectors can be combined (Business/Non-business/Blocked).</li>
-<li><b>ALM / managed / unmanaged</b> — Dev→Test→Prod / locked (shipped) vs editable solution.</li>
-<li><b>Azure / resource group / Key Vault / Entra ID</b> — Microsoft's big cloud / a folder of resources / a safe for secrets / the identity system.</li>
+<li><b>Governance / admin center</b> — rules and oversight for the platform / the portal where admins manage them.</li>
+<li><b>DLP / Business / Non-business / Blocked</b> — connector-combination rules / the three groups connectors live in.</li>
+<li><b>ALM / Dev / Test / Production</b> — the practice of staged solution deployment / the three standard environments.</li>
+<li><b>Managed solution</b> — a locked, deployable package; makers cannot edit its components after import.</li>
+<li><b>Connection reference</b> — a pointer in a solution that tells each environment which connection to use.</li>
+<li><b>Analytics</b> — usage dashboards in the admin center (who runs what, how often, with what errors).</li>
+<li><b>Azure / resource group / Key Vault / Entra ID / Logic Apps</b> — Microsoft's cloud / a billing folder / a secrets safe / the identity system / the enterprise flow-builder.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-You can explain DLP and Dev/Test/Prod simply, you exported a portable solution, and you created — then
-<strong>deleted</strong> — Azure resources. Cleaning up is as important as creating. ✅</div>
+You created and deleted a DLP policy, exported both managed and unmanaged solution zips, backed up your data rows, toured Key Vault and Entra ID in Azure, and deleted rg-learning. DLP: can you explain in one sentence why a flow can't mix Business and Non-business connectors? ALM: can you explain why managed solutions are used in Production?</div>
 </section>
 
 <div class="pn">

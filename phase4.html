@@ -23,74 +23,111 @@
 <header class="hero">
   <span class="pill">Phase 4 · Days 12–14</span>
   <h1>Data &amp; integration</h1>
-  <p>Real solutions pull data from many places. You'll use SharePoint, import and clean data with
-  dataflows and Power Query, and learn how systems talk to each other through connectors and APIs.</p>
+  <p>Real solutions pull data from many places. You'll set up a Community Library SharePoint team site (list + library + automation), bulk-import members with a dataflow and Power Query, then explore how Power Platform talks to the outside world through connectors, HTTP, Office Scripts, and custom connectors.</p>
 </header>
 
 <!-- DAY 12 -->
 <section class="day" id="day12">
 <div class="dhead"><span class="dnum">Day 12</span></div>
-<h2>SharePoint: lists and document libraries</h2>
-<p class="meta">~90 minutes</p>
+<h2>SharePoint: team sites, lists, libraries, views, and notifications</h2>
+<p class="meta">~100 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — what is SharePoint?</span>
-<p><strong>SharePoint</strong> is the part of Microsoft 365 for team sites, shared file storage, and
-simple lists. A <strong>list</strong> is a simple table (columns and rows), lighter than Dataverse. A
-<strong>document library</strong> stores files (Word, PDF, images), where each file can also have columns
-of information ("metadata").</p>
+<div class="card c-concept"><span class="lab">Concept — SharePoint site types</span>
+<p><strong>SharePoint</strong> is Microsoft 365's team collaboration layer. Two site types:</p>
+<ul>
+<li><strong>Team site</strong> — internal, team-first. Has a Members list (M365 group), a default document library, and a News section. Best for a team actively building together.</li>
+<li><strong>Communication site</strong> — broadcast-first. No M365 group. Designed for a wider audience to consume content (announcements, policies, portals). No editing by viewers.</li>
+</ul>
+<p>For the Community Library, use a <strong>Team site</strong> — the whole team needs to add events and upload policies.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — lists vs Dataverse tables</span>
+<p>SharePoint lists are lighter and simpler than Dataverse tables. Use a list when:</p>
+<ul>
+<li>The data is document-centric or already lives in M365.</li>
+<li>You need simple tracking without business rules or complex relationships.</li>
+<li>The audience are regular M365 users with no Power Apps licence.</li>
+</ul>
+<p>Use Dataverse when you need relationships between tables, business rules, security roles, or the data feeds a canvas / model-driven app seriously.</p>
 </div>
 
 <figure class="fig">
 <svg viewBox="0 0 560 150" role="img" aria-label="When to choose a SharePoint list vs a Dataverse table">
 <rect x="18" y="24" width="256" height="106" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
 <text x="146" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">SharePoint list</text>
-<text x="146" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">simple &amp; document-centric</text>
-<text x="146" y="86" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">data already in M365</text>
-<text x="146" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">tasks, contacts, files</text>
+<text x="146" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">simple · document-centric</text>
+<text x="146" y="86" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">anyone in M365 can edit</text>
+<text x="146" y="106" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">events · policies · announcements</text>
 <rect x="286" y="24" width="256" height="106" rx="10" fill="#f3fbf6" stroke="#0e9f6e"/>
 <text x="414" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Dataverse table</text>
-<text x="414" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">relationships &amp; security</text>
-<text x="414" y="86" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">business rules &amp; scale</text>
-<text x="414" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">serious business apps</text>
+<text x="414" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">relationships · security roles</text>
+<text x="414" y="86" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">business rules · scale</text>
+<text x="414" y="106" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">books · members · loans</text>
 </svg>
-<figcaption>SharePoint list for light/document work; Dataverse for relational, secure, scaled data</figcaption>
+<figcaption>SharePoint list for light/document work; Dataverse for relational, business-critical data</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — make a list and automate it</span>
+<div class="card c-concept"><span class="lab">Concept — list column types in SharePoint</span>
+<ul>
+<li><strong>Title</strong> — the default primary text column (rename it to match your purpose).</li>
+<li><strong>Single line / Multiple lines of text</strong> — short vs long text.</li>
+<li><strong>Date and Time</strong> — date only or date+time.</li>
+<li><strong>Number / Currency</strong> — numeric values.</li>
+<li><strong>Choice</strong> — a fixed pick-list (similar to Dataverse Choice).</li>
+<li><strong>Yes/No</strong> — a checkbox.</li>
+<li><strong>Person or Group</strong> — a pointer to a user in the tenant.</li>
+<li><strong>Lookup</strong> — a pointer to an item in another list on the same site.</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — build the Community Library SharePoint site</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><code>microsoft365.com</code> (app launcher ▦) → <strong>SharePoint → Create site → Team site</strong> = <code>Community Library</code> — your project's team site.</span></li>
-<li><span class="box"></span><span class="txt">On the site: <strong>+ New → List</strong> = <code>Library Events</code>; columns <code>Event name</code> (Title), <code>Date</code> (Date), <code>Location</code> (Text). Add a couple of made-up events (e.g. "Book club").</span></li>
-<li><span class="box"></span><span class="txt"><strong>+ New → Document library</strong> = <code>Policies</code>; upload a harmless sample file (e.g. a one-page "borrowing rules" doc).</span></li>
-<li><span class="box"></span><span class="txt">Power Automate: automated flow, trigger <strong>When an item is created (SharePoint)</strong> → your site → <strong>Library Events</strong> → email yourself the new event's name and date. (Now SharePoint is part of your ecosystem too.)</span></li>
+<li><span class="box"></span><span class="txt"><code>microsoft365.com</code> → app launcher (grid icon) → <strong>SharePoint → Create site → Team site</strong>. Site name = <code>Community Library</code>. Description = <code>Event calendar and library policies</code>. Privacy = Private. Click Next → Finish.</span></li>
+<li><span class="box"></span><span class="txt">On the site: <strong>+ New → List</strong>. Name = <code>Library Events</code>. Click Create.</span></li>
+<li><span class="box"></span><span class="txt">Add these columns to <strong>Library Events</strong>:
+<br>• <strong>Title</strong> column already exists — rename it to <code>Event name</code> (click column header → Column settings → Rename).
+<br>• <strong>+ Add column → Date and Time</strong> — Name: <code>Event date</code>, type: Date only.
+<br>• <strong>+ Add column → Single line of text</strong> — Name: <code>Location</code>.
+<br>• <strong>+ Add column → Multiple lines of text</strong> — Name: <code>Description</code>.
+<br>• <strong>+ Add column → Number</strong> — Name: <code>Capacity</code>.
+<br>• <strong>+ Add column → Yes/No</strong> — Name: <code>Confirmed</code>, default = Yes.</span></li>
+<li><span class="box"></span><span class="txt">Add 3 rows of made-up events: e.g. "Book club meeting", "Summer reading launch", "Author talk".</span></li>
+<li><span class="box"></span><span class="txt">Create a <strong>custom view</strong>: click the view dropdown (top right) → <strong>Create new view</strong>. Name = <code>Confirmed events</code>. Filter: Confirmed is equal to Yes. Sort: Event date ascending. Save. This is exactly how you'd filter a view in Dataverse (Day 3) — same concept.</span></li>
+<li><span class="box"></span><span class="txt">Turn on <strong>versioning</strong>: Settings (gear icon, top right) → <strong>List settings → Versioning settings</strong>. Set "Create a version each time you edit an item" = Yes. Save. Now every edit is tracked — you can restore an old version.</span></li>
+<li><span class="box"></span><span class="txt"><strong>+ New → Document library</strong> — Name: <code>Policies</code>. Create. Upload a text file called <code>borrowing-rules.txt</code> (write two fake sentences). The library stores the file PLUS any columns you add (that's "metadata").</span></li>
+<li><span class="box"></span><span class="txt"><strong>Power Automate notification flow</strong>: go to <code>make.powerautomate.com</code> → <strong>Solutions → My Learning Solution → New → Automation → Cloud flow → Automated</strong>. Trigger = <strong>When an item is created (SharePoint)</strong>. Site address = your Community Library site. List name = Library Events. Add step: <strong>Post message in a chat or channel (Teams)</strong>. Post in = Channel. Team and Channel = (any channel you have, or use General). Message = Expression: <code>concat('New event: ', triggerOutputs()?['body/Title'], ' on ', triggerOutputs()?['body/Event_x0020_date'])</code>. Save and test by adding a new event row.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — the "5,000 item" number</span>
-SharePoint lists work great for hundreds/low thousands of items. Past ~<strong>5,000</strong>, some views
-need special handling. You'll never hit it here, but mentioning it shows you know the boundary.</div>
+<div class="card c-tip"><span class="lab">Tip — SharePoint's "5,000 item limit"</span>
+Past about 5,000 items in a list, some views and filters that don't use an indexed column become very slow. You'll never hit this in learning. But knowing the number (and that you fix it by indexing a column or using filtered views) is useful in interviews.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>SharePoint</b> — M365's team sites, lists, and file storage.</li>
-<li><b>List / library / item</b> — a simple table / file storage with columns / one row.</li>
-<li><b>Metadata</b> — the columns of info attached to a file.</li>
+<li><b>Team site / Communication site</b> — internal team collaboration / broadcast to a wide audience.</li>
+<li><b>List / library / item</b> — a simple table / file storage with columns / one row or file.</li>
+<li><b>Metadata</b> — the columns of information attached to a document in a library.</li>
+<li><b>Versioning</b> — tracking every change so you can restore previous versions.</li>
+<li><b>Custom view</b> — a saved filter+sort+column-selection for a list.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-A SharePoint site with a list and library, and a flow that reacts to new items. Could you say when you'd
-pick a list over a Dataverse table?</div>
+You built a SharePoint team site with a list (6 columns, custom view, versioning) and a document library, and a flow that posts to Teams when a new event is added. Could you explain in one sentence when you'd use a list instead of a Dataverse table?</div>
 </section>
 
 <!-- DAY 13 -->
 <section class="day" id="day13">
 <div class="dhead"><span class="dnum">Day 13</span></div>
-<h2>Importing and cleaning data: dataflows &amp; Power Query</h2>
-<p class="meta">~110 minutes</p>
+<h2>Importing and cleaning data: dataflows, Power Query, and the M language</h2>
+<p class="meta">~120 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — getting outside data <em>in</em></span>
-<p>Often the data you want already lives in a spreadsheet. A <strong>dataflow</strong> <em>pulls</em> it
-in, <em>cleans</em> it, and <em>loads</em> it into a Dataverse table — on a schedule if you want. Like a
-conveyor belt from a messy source to a tidy table. The visual cleaning tool inside is
-<strong>Power Query</strong>; behind your clicks it writes a language called <strong>M</strong>.</p>
+<div class="card c-concept"><span class="lab">Concept — what is a dataflow?</span>
+<p>A <strong>dataflow</strong> is a pull → clean → load pipeline that runs on a schedule:</p>
+<ul>
+<li><strong>Pull</strong> — connect to a source: CSV, Excel, SharePoint list, SQL Server, web URL, or many others.</li>
+<li><strong>Clean</strong> — transform the raw data visually in <strong>Power Query</strong>.</li>
+<li><strong>Load</strong> — write the clean rows into a Dataverse table (or SharePoint list).</li>
+</ul>
+<p>The same Power Query editor appears in Power BI (Day 19) — learning it here gives you two skills at once.</p>
 </div>
 
 <figure class="fig">
@@ -98,108 +135,202 @@ conveyor belt from a messy source to a tidy table. The visual cleaning tool insi
 <defs><marker id="a4" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
 <rect x="16" y="36" width="140" height="46" rx="9" fill="#f4f6f9" stroke="#cbd3de"/>
 <text x="86" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Source</text>
-<text x="86" y="72" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">CSV / Excel</text>
+<text x="86" y="72" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">CSV / Excel / SQL…</text>
 <line x1="156" y1="59" x2="196" y2="59" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a4)"/>
 <rect x="198" y="36" width="180" height="46" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
 <text x="288" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Power Query (clean)</text>
-<text x="288" y="72" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#4a5567">headers, types, filter…</text>
+<text x="288" y="72" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#4a5567">headers · types · merge · custom cols</text>
 <line x1="378" y1="59" x2="418" y2="59" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a4)"/>
 <rect x="420" y="36" width="144" height="46" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
 <text x="492" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Dataverse table</text>
-<text x="492" y="72" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">loaded &amp; refreshable</text>
-<text x="290" y="24" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">a dataflow = pull → clean → load</text>
+<text x="492" y="72" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">loaded · upsert · scheduled</text>
+<text x="290" y="22" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">dataflow = pull → clean → load (repeatable)</text>
 </svg>
-<figcaption>A dataflow moves data from a messy source, through Power Query, into a clean table</figcaption>
+<figcaption>A dataflow pulls from a source, cleans in Power Query, and loads into Dataverse</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — bulk-import new members into your project</span>
+<div class="card c-concept"><span class="lab">Concept — Power Query transforms and the M language</span>
+<p>Every click in Power Query generates a line of <strong>M code</strong> in the Applied steps list. You never need to write M by hand, but reading it helps you understand what's happening. Common transforms:</p>
+<ul>
+<li><strong>Use first row as headers</strong> — promotes row 1 to column names.</li>
+<li><strong>Change type</strong> — sets each column to the correct data type (Text, Number, Date…).</li>
+<li><strong>Remove columns</strong> — drops columns you don't need.</li>
+<li><strong>Rename columns</strong> — gives columns cleaner names.</li>
+<li><strong>Custom column</strong> — adds a new column with a formula (M syntax, similar to Excel).</li>
+<li><strong>Filter rows</strong> — keeps only rows matching a condition.</li>
+<li><strong>Group by</strong> — aggregates rows (like a pivot table — count orders per customer).</li>
+<li><strong>Merge queries</strong> — joins two sources like a VLOOKUP/SQL JOIN.</li>
+<li><strong>Append queries</strong> — stacks two tables with the same columns.</li>
+</ul>
+<p>The <strong>Advanced Editor</strong> shows the full M code for your query. It looks like this for a simple CSV import:</p>
+<pre><code>let
+  Source = Csv.Document(File.Contents("new-members.csv"),
+             [Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+  #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+  #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",
+                     {{"First name", type text}, {"Last name", type text},
+                      {"Email", type text}, {"Membership", type text}}),
+  #"Custom Column" = Table.AddColumn(#"Changed Type", "Full name",
+                      each [#"First name"] &amp; " " &amp; [#"Last name"], type text)
+in
+  #"Custom Column"</code></pre>
+<p>Each step is: <code>StepName = Transform(PreviousStep, ...)</code>. The last step is what flows into the load.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — upsert (key column): update instead of duplicate</span>
+<p>When you load into Dataverse, you can choose a <strong>load type</strong>:</p>
+<ul>
+<li><strong>Load to new entity / create</strong> — inserts every row as new every time. Run it twice → duplicates.</li>
+<li><strong>Load to existing entity (upsert)</strong> — picks a key column (e.g. Email). For each row: if a Dataverse row already has that Email, <em>update</em> it; if not, <em>insert</em> it. Run it ten times → no duplicates.</li>
+</ul>
+<p>Always use upsert for imports that will be re-run.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — bulk-import members with a dataflow</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Make a CSV (Notepad → <code>new-members.csv</code>): header <code>FirstName,LastName,Email,Membership</code> + ~8 made-up members.</span></li>
-<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Dataflows → New dataflow → Text/CSV</strong> → upload.</span></li>
-<li><span class="box"></span><span class="txt">In Power Query: <strong>Use first row as headers</strong>; set column <strong>types</strong>; add a <strong>custom column</strong> <code>Full name = FirstName &amp; " " &amp; LastName</code>.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Load to existing table</strong> → your <strong>Member</strong> table; map Full name → Full name, Email → Email, Membership → Membership. Set <strong>Email</strong> as the <strong>key column</strong> (so re-runs update instead of duplicating). <strong>Publish</strong>.</span></li>
-<li><span class="box"></span><span class="txt">Check the Member table — your 8 members are added in bulk. Re-run the dataflow and confirm it <em>updates</em> (no duplicates). Open <strong>Advanced editor</strong> to read the M.</span></li>
+<li><span class="box"></span><span class="txt">Create <code>new-members.csv</code> in Notepad with this exact content (8 rows + header):</span></li>
+</ul>
+<pre><code>First name,Last name,Email,Membership
+Priya,Sharma,priya.sharma@example.com,Student
+Rahul,Gupta,rahul.gupta@example.com,Standard
+Aisha,Khan,aisha.khan@example.com,Premium
+David,Okafor,david.okafor@example.com,Senior
+Sophie,Laurent,sophie.laurent@example.com,Student
+Carlos,Mendez,carlos.mendez@example.com,Standard
+Yuki,Tanaka,yuki.tanaka@example.com,Student
+Emma,Johansson,emma.johansson@example.com,Premium</code></pre>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Dataflows → New dataflow</strong>. Name = <code>Import members</code>. Click Create. In the connector list, choose <strong>Text/CSV</strong>. Click Browse → upload <code>new-members.csv</code>. Click Next.</span></li>
+<li><span class="box"></span><span class="txt">In Power Query editor: click <strong>Use first row as headers</strong> (if not already). Select all four columns → right-click → <strong>Change type → Text</strong>.</span></li>
+<li><span class="box"></span><span class="txt">Click <strong>Add column → Custom column</strong>. Name = <code>Full name</code>. Formula = <code>[#"First name"] &amp; " " &amp; [#"Last name"]</code>. OK.</span></li>
+<li><span class="box"></span><span class="txt">Click <strong>Advanced editor</strong> — read the M steps. Confirm the Added Custom Column step. Close.</span></li>
+<li><span class="box"></span><span class="txt">Click <strong>Next</strong>. Under "Load settings", choose <strong>Load to existing table</strong> → select the <strong>Member</strong> table. Map columns: Full name → Full name, Email → Email, Membership → Membership. Set Key column = <strong>Email</strong>. Click <strong>Publish</strong>.</span></li>
+<li><span class="box"></span><span class="txt">The dataflow runs automatically. Check your <strong>Member</strong> table — 8 new rows. Change one row in the CSV and re-publish the dataflow → confirm it <em>updates</em> the changed row rather than inserting a duplicate.</span></li>
+<li><span class="box"></span><span class="txt"><em>Optional — schedule it:</em> open the dataflow → <strong>Settings → Scheduled refresh</strong>. Set to run daily at 7am. This would keep Dataverse in sync with an external system that updates the CSV.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — dataflow vs flow (they sound alike)</span>
-A <strong>dataflow</strong> is for <em>bulk</em> loading/cleaning on a schedule. A <strong>cloud flow</strong>
-(Power Automate) is for <em>event-driven</em>, per-record automation. Using a cloud flow to bulk-import
-thousands of rows is a classic beginner mistake — use a dataflow.</div>
+<div class="card c-tip"><span class="lab">Tip — dataflow vs cloud flow</span>
+A <strong>dataflow</strong> is for <em>bulk</em> loading/cleaning on a schedule. A <strong>cloud flow</strong> (Power Automate) is for <em>event-driven</em> per-record automation. A classic beginner mistake is using a cloud flow in a loop to import 5,000 rows — use a dataflow instead.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Dataflow</b> — a scheduled pull-clean-load into Dataverse.</li>
-<li><b>Power Query / M</b> — the visual cleaning editor / the language behind it.</li>
-<li><b>Key column (upsert)</b> — the match column so re-imports update instead of duplicating.</li>
+<li><b>Dataflow</b> — a pull-clean-load pipeline into Dataverse, runnable on a schedule.</li>
+<li><b>Power Query</b> — the visual transformation editor (shared between dataflows and Power BI).</li>
+<li><b>M</b> — the formula language Power Query writes behind every click.</li>
+<li><b>Applied steps</b> — the recorded list of transforms; each is one M statement.</li>
+<li><b>Upsert / key column</b> — update existing rows matching the key column, insert the rest.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-You turned a raw CSV into a clean Dataverse table. Re-run it and confirm it <em>updates</em> rather than
-duplicating — that's the key column working.</div>
+You imported 8 members from a CSV, added a Full name computed column, and confirmed re-running doesn't duplicate. Open the Advanced Editor — you should be able to read each step even if you can't write M from memory yet.</div>
 </section>
 
 <!-- DAY 14 -->
 <section class="day" id="day14">
 <div class="dhead"><span class="dnum">Day 14</span></div>
-<h2>Talking to other systems: connectors, APIs, Office Scripts</h2>
-<p class="meta">~110 minutes</p>
+<h2>Connectors, APIs, Office Scripts, and custom connectors</h2>
+<p class="meta">~120 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — connectors and the idea of an API</span>
-<p>A <strong>connector</strong> is a ready-made bridge to a service. To connect to something without a
-ready-made bridge, you build a <strong>custom connector</strong>. It helps to know what an
-<strong>API</strong> is: a way for one program to ask another for information or to do something — like a
-waiter taking your order to the kitchen. On the web, programs talk using <strong>REST</strong>: you send
-a request to a <strong>URL</strong> with a verb like <strong>GET</strong> (fetch data) or
-<strong>POST</strong> (send data), and get back a reply, usually in <strong>JSON</strong> (structured
-text).</p>
+<div class="card c-concept"><span class="lab">Concept — connectors: the bridges Power Platform uses</span>
+<p>Power Automate, Power Apps, and Power BI all talk to external services through <strong>connectors</strong>. A connector wraps an API into a list of ready-made <em>triggers</em> and <em>actions</em> so you don't need to write code. There are three tiers:</p>
+<ul>
+<li><strong>Standard connectors</strong> — included in base Power Automate/Apps licences. SharePoint, Outlook, Teams, OneDrive, Forms, Excel Online, Planner.</li>
+<li><strong>Premium connectors</strong> — require a premium licence (Developer Plan counts). Dataverse, HTTP, SQL Server, Salesforce, custom connectors.</li>
+<li><strong>Custom connectors</strong> — you build a wrapper around any REST API that doesn't have a Microsoft-made connector.</li>
+</ul>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — what is an API?</span>
+<p>An <strong>API</strong> (Application Programming Interface) is the "ordering window" of a program — a defined set of ways other programs can ask it to do things or return data. On the web, most APIs use <strong>REST</strong>:</p>
+<ul>
+<li>You send a request to a <strong>URL</strong> (called an <strong>endpoint</strong>) using an HTTP <strong>verb</strong>: <code>GET</code> (fetch data), <code>POST</code> (create/send data), <code>PATCH</code> (update), <code>DELETE</code> (remove).</li>
+<li>You often include an <strong>API key</strong> or <strong>OAuth token</strong> in a header to prove who you are.</li>
+<li>The response comes back as <strong>JSON</strong> — structured text that looks like nested key-value pairs.</li>
+</ul>
+<p>When Power Automate uses a connector, it's making these REST calls for you behind the scenes.</p>
 </div>
 
 <figure class="fig">
-<svg viewBox="0 0 560 130" role="img" aria-label="An app asks an API with GET or POST and gets JSON back">
+<svg viewBox="0 0 560 130" role="img" aria-label="A flow calls an API with GET or POST and gets JSON back">
 <defs><marker id="a5" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2f6fed"/></marker><marker id="a5b" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0e9f6e"/></marker></defs>
-<rect x="24" y="44" width="130" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
-<text x="89" y="70" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Your app / flow</text>
-<line x1="156" y1="52" x2="404" y2="52" stroke="#2f6fed" stroke-width="1.8" marker-end="url(#a5)"/>
-<text x="280" y="44" text-anchor="middle" font-family="monospace" font-size="10" fill="#2f6fed">GET / POST  (request)</text>
-<line x1="404" y1="80" x2="156" y2="80" stroke="#0e9f6e" stroke-width="1.8" marker-end="url(#a5b)"/>
-<text x="280" y="98" text-anchor="middle" font-family="monospace" font-size="10" fill="#0e9f6e">JSON  (reply)</text>
-<rect x="406" y="44" width="130" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="471" y="70" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">A service (API)</text>
-<text x="280" y="22" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">how programs talk over the web (REST)</text>
+<rect x="24" y="44" width="140" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="94" y="64" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Power Automate</text>
+<text x="94" y="80" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#4a5567">flow / connector</text>
+<line x1="166" y1="52" x2="394" y2="52" stroke="#2f6fed" stroke-width="1.8" marker-end="url(#a5)"/>
+<text x="280" y="44" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#2f6fed">GET /books/isbn/0451524935  + API key</text>
+<line x1="394" y1="80" x2="166" y2="80" stroke="#0e9f6e" stroke-width="1.8" marker-end="url(#a5b)"/>
+<text x="280" y="98" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0e9f6e">{"title":"1984","author":"Orwell",...}  (JSON)</text>
+<rect x="396" y="44" width="140" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="466" y="64" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">External API</text>
+<text x="466" y="80" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#4a5567">e.g. Open Library</text>
+<text x="280" y="22" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">REST API: verb + endpoint + auth → JSON reply</text>
 </svg>
-<figcaption>An API call: your app sends GET/POST to a URL and receives JSON back</figcaption>
+<figcaption>A Power Automate HTTP action calls an external API and receives JSON data back</figcaption>
 </figure>
 
-<div class="card c-concept"><span class="lab">Concept — Office Scripts</span>
-<p><strong>Office Scripts</strong> let you record or write little automations <em>inside Excel on the
-web</em> — format a sheet, read a table — then run them from a Power Automate flow. They're written in
-<strong>TypeScript</strong>, but you can start by recording your actions and reading what it wrote.</p>
+<div class="card c-concept"><span class="lab">Concept — the HTTP action: calling any API without a connector</span>
+<p>The <strong>HTTP</strong> premium action lets you call any REST API directly from a flow:</p>
+<ul>
+<li><strong>Method</strong> — GET / POST / PATCH / DELETE.</li>
+<li><strong>URI</strong> — the full URL of the endpoint.</li>
+<li><strong>Headers</strong> — key-value pairs: e.g. <code>Content-Type: application/json</code>, <code>Authorization: Bearer &lt;token&gt;</code>.</li>
+<li><strong>Body</strong> — JSON payload for POST/PATCH.</li>
+</ul>
+<p>The response body is a JSON string. Use <strong>Parse JSON</strong> action (next step) to turn it into tokens you can use in dynamic content.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — an Office Script, then peek at connectors</span>
+<div class="card c-concept"><span class="lab">Concept — Office Scripts: TypeScript inside Excel</span>
+<p><strong>Office Scripts</strong> (Excel Online only, not desktop) let you automate Excel with <strong>TypeScript</strong>. You can:</p>
+<ul>
+<li>Record actions and read the generated script.</li>
+<li>Return a value from the script — Power Automate can read that return value as an action output.</li>
+<li>Accept parameters — your flow passes values in, the script uses them.</li>
+</ul>
+<p>This bridges Power Automate ↔ Excel when the Excel Online connector's built-in actions aren't enough (e.g. complex cell formatting, reading a named range, applying a formula).</p>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — custom connectors: wrapping your own API</span>
+<p>A <strong>custom connector</strong> wraps a REST API that doesn't have a Microsoft connector, so every flow-maker in your environment can use it without knowing the raw API details. You provide:</p>
+<ul>
+<li><strong>Host URL</strong> — the base address of the API.</li>
+<li><strong>Authentication type</strong> — API key, OAuth 2.0, Basic auth, or No auth.</li>
+<li><strong>Operations (actions/triggers)</strong> — each one maps to one API endpoint with a verb.</li>
+</ul>
+<p>You can also import an <strong>OpenAPI / Swagger spec</strong> and the connector builds itself from that file.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — Office Script + HTTP action + peek at custom connectors</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Open <strong>Excel on the web</strong> (via <code>microsoft365.com</code> → Excel → blank). Paste a few rows that look like a <strong>loans export</strong> (Book, Member, Due date) so the script has something realistic to tidy.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Automate → Record Actions</strong>; bold the header row and format the dates, then <strong>Stop</strong>. Open the script and read the TypeScript it generated.</span></li>
-<li><span class="box"></span><span class="txt">Edit the script to <em>return</em> a value (see the README sample). Save.</span></li>
-<li><span class="box"></span><span class="txt">In Power Automate: add <strong>Run script (Excel Online)</strong> → pick your workbook &amp; script → run and watch the sheet change.</span></li>
-<li><span class="box"></span><span class="txt"><em>Optional peek:</em> Power Automate → <strong>Custom connectors → New → Create from blank</strong>; just look at the General / Security / Definition tabs to see how you'd wrap a web API.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Office Script:</strong> go to <code>microsoft365.com</code> → Excel → create a new blank workbook. Add headers in A1:D1: <code>Book | Member | Loan date | Due date</code>. Add 3 rows of made-up loan data.</span></li>
+<li><span class="box"></span><span class="txt">In Excel Online: <strong>Automate → Record Actions</strong>. Bold row 1 (click row 1 header → Ctrl+B). Stop recording. Open the script. You'll see TypeScript like:</span></li>
+</ul>
+<pre><code>function main(workbook: ExcelScript.Workbook) {
+  let sheet = workbook.getActiveWorksheet();
+  let range = sheet.getRange("1:1");
+  range.getFormat().getFont().setBold(true);
+}</code></pre>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt">Modify the script to <em>return a value</em>: change the last line to <code>return sheet.getUsedRange().getRowCount();</code>. Change the function signature to <code>function main(workbook: ExcelScript.Workbook): number</code>. Save the script as <code>Count rows</code>.</span></li>
+<li><span class="box"></span><span class="txt">In Power Automate: create an Instant flow. Add <strong>Run script (Excel Online)</strong>. Location = OneDrive for Business. File = your workbook. Script = Count rows. Add <strong>Send me an email notification</strong>. Body = Dynamic content → <strong>Result</strong> (the return value from Run script). Test it — you should receive an email with the row count.</span></li>
+<li><span class="box"></span><span class="txt"><strong>HTTP action (read-only):</strong> in a flow, add <strong>HTTP</strong> action. Method = GET. URI = <code>https://openlibrary.org/api/books?bibkeys=ISBN:0451524935&amp;jscmd=data&amp;format=json</code>. Run the flow. In Run history, click the HTTP action output → see the JSON response for George Orwell's 1984. This is a real public API with no API key required.</span></li>
+<li><span class="box"></span><span class="txt">After the HTTP action, add <strong>Parse JSON</strong>. Content = Body (from HTTP). Click <strong>Generate from sample</strong> and paste the JSON output. Now the fields appear as dynamic content for later steps.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Custom connector tour:</strong> Power Automate → <strong>Custom connectors → + New connector → Create from blank</strong>. Name = <code>Open Library API</code>. Look at: (1) General tab — host, base URL; (2) Security — choose "No auth" for this public API; (3) Definition tab — + New action, name it "Get book by ISBN", set verb GET, path <code>/api/books</code>, add query parameter <code>bibkeys</code> (string, required). Don't save — just click Cancel after exploring. You've seen every piece a connector has.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — you don't need to master APIs today</span>
-Carry away the vocabulary: <em>API</em> (a program's ordering window), <em>REST/HTTP</em> (how web programs
-talk), <em>GET/POST</em> (fetch vs send), <em>JSON</em> (the reply format), <em>custom connector</em> (your
-own bridge). That's plenty.</div>
+<div class="card c-tip"><span class="lab">Tip — you don't need to master all of this today</span>
+The goal is vocabulary: <em>API</em> (a program's ordering window), <em>REST/HTTP</em> (how web programs talk), <em>GET/POST</em> (fetch vs send), <em>JSON</em> (the reply format), <em>custom connector</em> (your bridge to any API). Being able to say "I've used the HTTP action and I know how custom connectors are structured" is genuinely useful in interviews.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Connector / custom connector</b> — a ready-made bridge / a bridge you build to any web API.</li>
-<li><b>API / REST / GET / POST / JSON</b> — a program's ordering window / web rules / fetch / send / reply format.</li>
-<li><b>Office Script</b> — a TypeScript automation in Excel-on-web, callable from a flow.</li>
+<li><b>Connector / custom connector</b> — a ready-made bridge / one you build to wrap any web API.</li>
+<li><b>API / REST / HTTP verb / JSON</b> — a program's ordering window / web communication standard / GET/POST/PATCH/DELETE / the reply format.</li>
+<li><b>Endpoint / header / body</b> — the URL of an API operation / metadata for the request / the request payload.</li>
+<li><b>Office Script</b> — a TypeScript automation in Excel Online, callable from Power Automate flows.</li>
+<li><b>Parse JSON</b> — a Power Automate action that turns a JSON string into usable dynamic content tokens.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-You ran an Office Script from a flow and can explain in one sentence what an API is. Big step in seeing
-how systems connect.</div>
+You ran an Office Script from a flow, called a real REST API with the HTTP action, and walked through every tab of a custom connector. Can you explain what an API is in one sentence, and when you'd use an HTTP action versus a connector?</div>
 </section>
 
 <div class="pn">

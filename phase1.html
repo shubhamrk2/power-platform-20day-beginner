@@ -23,254 +23,359 @@
 <header class="hero">
   <span class="pill">Phase 1 · Days 1–4</span>
   <h1>Foundations</h1>
-  <p>Before you build anything, get comfortable with the cloud, and learn how data is stored and shaped.
-  These four days are the ground everything else stands on.</p>
+  <p>Before you build anything, get comfortable with the cloud and learn how data is stored and shaped.
+  These four days are the ground everything else stands on. Every line of code, every flow, every chart
+  you build in Days 5–20 connects back to what you set up here.</p>
 </header>
 
 <!-- DAY 1 -->
 <section class="day" id="day1">
 <div class="dhead"><span class="dnum">Day 1</span></div>
 <h2>Getting your bearings: the cloud, Microsoft 365, Power Platform</h2>
-<p class="meta">~75 minutes</p>
+<p class="meta">~90 minutes</p>
 
 <div class="card c-concept"><span class="lab">Concept — what is "the cloud"?</span>
-<p><strong>Plain English:</strong> "the cloud" means <em>powerful computers in a data centre somewhere
-that you use through your web browser</em>. You don't install anything — you open a website, sign in,
-and the work happens on Microsoft's computers, not yours. That's why any computer with a browser works.</p>
-<p><strong>A bit more technical:</strong> the tools are <em>web applications</em>. Your browser sends
-requests over the internet to Microsoft's servers, which do the work and send back the screen you see.
-Your creations are saved on those servers, so you can sign in from any device and find them again.</p>
+<p><strong>Plain English:</strong> "the cloud" means <em>powerful computers in a data centre somewhere that you use through your web browser</em>. You don't install anything — you open a website, sign in, and the work happens on Microsoft's computers, not yours. That's why any device with a browser works.</p>
+<p><strong>A bit more technical:</strong> the tools are <em>web applications</em>. Your browser sends requests over the internet to Microsoft's servers. Those servers do the computation and send back the screen you see. Your creations (tables, apps, flows) are saved on those servers, so you can sign in from any device and find them again.</p>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — the words: browser, tab, URL, sign-in</span>
+<div class="card c-concept"><span class="lab">Concept — the words every beginner must know</span>
 <ul>
-<li><strong>Browser</strong> — the program for visiting websites (Microsoft <em>Edge</em>, Google <em>Chrome</em>). It came with your computer.</li>
-<li><strong>Tab</strong> — one website open inside the browser, like a page in a book.</li>
-<li><strong>URL / address</strong> — a website's address you type at the top, e.g. <code>make.powerapps.com</code>.</li>
-<li><strong>Sign in</strong> — proving who you are with email + password, so the site shows <em>your</em> stuff.</li>
+<li><strong>Browser</strong> — the program for visiting websites. Microsoft Edge and Google Chrome are the two you'll use. Both came with your computer.</li>
+<li><strong>Tab</strong> — one website open inside the browser window, like a page in a book. You can have many tabs open at once.</li>
+<li><strong>URL / address</strong> — the web address you type at the top bar, e.g. <code>make.powerapps.com</code>. Press <kbd>Enter</kbd> after typing it.</li>
+<li><strong>Sign in</strong> — proving who you are with an email address + password. Different accounts (work, personal) are completely separate.</li>
+<li><strong>Incognito / private window</strong> — a browser window that forgets all sign-ins when you close it. Keeps your learning account clean.</li>
 </ul></div>
 
-<div class="card c-concept"><span class="lab">Concept — what is the Power Platform?</span>
-<p><strong>Plain English:</strong> a family of Microsoft tools for building useful things — apps,
-automations, chatbots, reports — mostly by clicking and dragging, with little or no traditional coding
-(called <em>"low-code"</em>).</p>
+<div class="card c-concept"><span class="lab">Concept — Microsoft 365 and Power Platform: how they relate</span>
+<p>You signed up for <strong>Microsoft 365 E5</strong>. This gives you the familiar Office apps (Word, Excel, Teams, SharePoint, Outlook) <em>and</em> the whole <strong>Power Platform</strong>. Both share one identity system called <strong>Microsoft Entra ID</strong> (formerly "Azure Active Directory") — so the same email + password that opens Outlook opens Power Apps. There is only one user account; everything flows from it.</p>
 <ul>
 <li><strong>Power Apps</strong> — build apps. <em>Phase 2.</em></li>
-<li><strong>Power Automate</strong> — build automations. <em>Phase 3.</em></li>
+<li><strong>Power Automate</strong> — build automations ("flows"). <em>Phase 3.</em></li>
 <li><strong>Copilot Studio</strong> — build AI chatbots. <em>Phase 5.</em></li>
 <li><strong>Power BI</strong> — build charts and dashboards. <em>Phase 6.</em></li>
-<li><strong>Dataverse</strong> — the shared <em>database</em> underneath it all. <em>Day 2.</em></li>
+<li><strong>Dataverse</strong> — the shared database underneath it all. <em>Day 2 onwards.</em></li>
 </ul></div>
 
-<div class="card c-do"><span class="lab">Do this — open incognito, sign in, find your room</span>
+<div class="card c-concept"><span class="lab">Concept — tenant, environment, and solution (the three "rooms")</span>
+<p>Think of the Microsoft cloud like a building:</p>
+<ul>
+<li><strong>Tenant</strong> — the whole building. Your entire organisation's space in Microsoft's cloud. Every user, every app, every file lives inside it. The tenant has a domain like <code>yourtenant.onmicrosoft.com</code>.</li>
+<li><strong>Environment</strong> — a room inside the building. An isolated container with its own Dataverse database, its own security settings, and its own URL (like <code>org12345.crm.dynamics.com</code>). You can have many environments: one for learning, one for testing, one for production. What you build in the Learning environment cannot affect any other environment.</li>
+<li><strong>Solution</strong> — a labelled box inside a room. Groups your tables, apps, and flows so you can manage and move them together. You'll create this on Day 4.</li>
+</ul></div>
+
+<figure class="fig">
+<svg viewBox="0 0 580 210" role="img" aria-label="Hierarchy: Tenant contains Environment, which contains Solution, which contains Components">
+<defs><marker id="a1" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="14" y="14" width="552" height="182" rx="12" fill="#fef9ed" stroke="#e0a020" stroke-width="1.5"/>
+<text x="290" y="36" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#7a5000">TENANT  (your whole Microsoft cloud space)</text>
+<rect x="36" y="52" width="510" height="130" rx="10" fill="#f0f4ff" stroke="#2f6fed" stroke-width="1.5"/>
+<text x="291" y="72" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ENVIRONMENT — "Learning"  (an isolated room with its own database)</text>
+<rect x="60" y="86" width="460" height="84" rx="9" fill="#f0fbf4" stroke="#0e9f6e" stroke-width="1.5"/>
+<text x="290" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">SOLUTION — "My Learning Solution"  (a movable box)</text>
+<rect x="84" y="116" width="96" height="40" rx="7" fill="#fff" stroke="#9fb0c8"/><text x="132" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Tables</text>
+<rect x="196" y="116" width="96" height="40" rx="7" fill="#fff" stroke="#9fb0c8"/><text x="244" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Apps</text>
+<rect x="308" y="116" width="96" height="40" rx="7" fill="#fff" stroke="#9fb0c8"/><text x="356" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Flows</text>
+<rect x="420" y="116" width="96" height="40" rx="7" fill="#fff" stroke="#9fb0c8"/><text x="468" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Chatbots</text>
+</svg>
+<figcaption>Everything you build lives inside: Tenant → Environment → Solution → Components</figcaption>
+</figure>
+
+<div class="card c-concept"><span class="lab">Concept — the maker portal and every menu item explained</span>
+<p>The <strong>maker portal</strong> at <code>make.powerapps.com</code> is your main workshop. Here is what every left-nav item does:</p>
+<ul>
+<li><strong>Home</strong> — quick-start templates and recent items.</li>
+<li><strong>Apps</strong> — list of all canvas and model-driven apps you've created.</li>
+<li><strong>Tables</strong> — all Dataverse tables in the current environment. Where you build your data model.</li>
+<li><strong>Flows</strong> — shortcut to Power Automate for this environment.</li>
+<li><strong>Chatbots</strong> — shortcut to Copilot Studio.</li>
+<li><strong>Solutions</strong> — the boxes that group everything together. You'll live here from Day 4.</li>
+<li><strong>Dataflows</strong> — tools to import and clean data from files/databases into Dataverse tables.</li>
+<li><strong>Connections</strong> — the authenticated links to external services (Outlook, SharePoint, etc.) that your flows and apps use.</li>
+<li><strong>Custom connectors</strong> — bridges to external web APIs that don't have a built-in connector.</li>
+<li><strong>AI models</strong> — pre-built AI models (invoice scanning, text classification, object detection) you can call from apps and flows.</li>
+</ul>
+<p>The <strong>environment picker</strong> in the top-right corner shows which environment you are in. Always confirm it says <strong>Learning</strong> (or your Developer Plan environment) before building anything.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — open incognito, sign in, explore everything</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Open a <strong>private / incognito window</strong>: Edge or Chrome, press <span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">N</span> (Mac: <span class="kbd">Cmd</span>+<span class="kbd">Shift</span>+<span class="kbd">N</span>).</span></li>
-<li><span class="box"></span><span class="txt">Type <code>make.powerapps.com</code> and press <span class="kbd">Enter</span>. Sign in with the learning account from Day 0.</span></li>
-<li><span class="box"></span><span class="txt">Top-right: click the <strong>environment picker</strong> and choose <strong>Learning</strong>. Do this every time you start.</span></li>
-<li><span class="box"></span><span class="txt">Explore the left menu (Home, Apps, Tables, Flows…) — this is the <strong>maker portal</strong>, your workshop. Don't create anything yet.</span></li>
+<li><span class="box"></span><span class="txt">Open a <strong>private / incognito window</strong>: In Edge or Chrome press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>. (Mac: <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>.)</span></li>
+<li><span class="box"></span><span class="txt">Type <code>make.powerapps.com</code> and press <kbd>Enter</kbd>. Sign in with the <strong>learning account</strong> — the email and password you were given in Day 0.</span></li>
+<li><span class="box"></span><span class="txt">Top-right corner: click the <strong>environment picker</strong> (it shows a name like "Contoso (default)") and switch it to <strong>your Learning environment</strong> (or your Developer Plan environment if using that). Do this every single time you start — it's the most common beginner mistake to build in the wrong environment.</span></li>
+<li><span class="box"></span><span class="txt">Spend 5 minutes clicking every item in the left sidebar. Don't create anything — just look. Read the headings and subheadings on each screen. Notice that <strong>Tables</strong> is empty for now.</span></li>
+<li><span class="box"></span><span class="txt">Now open a second tab. Go to <code>admin.powerplatform.microsoft.com</code> (sign in if asked — use the same learning account). Click <strong>Environments</strong> on the left and find your Learning environment in the list. Click it to see its details: the URL (<code>org….crm.dynamics.com</code>), the region, and the capacity. This is the admin control panel for environments.</span></li>
+<li><span class="box"></span><span class="txt">Go to <code>microsoft365.com</code> in another tab and sign in. Click the app launcher (the grid of 9 dots in the top-left) to see all your M365 apps. Notice how Teams, SharePoint, and Outlook are all here — the same tenant, the same account.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — why incognito matters</span>
-A private window forgets sign-ins when closed and ignores accounts used elsewhere. That prevents the
-common headache of the site silently logging you in as the wrong account.</div>
+<div class="card c-tip"><span class="lab">Tip — why incognito matters every session</span>
+A private window forgets all sign-ins when closed. This prevents the browser from silently logging you into a wrong account (like your personal Microsoft account) when you open Power Apps. The maker portal is very sensitive to which account it sees — always start in incognito.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
 <li><b>Cloud</b> — computers you use over the internet through a browser.</li>
-<li><b>Browser / tab / URL</b> — the program for websites / one open site / a site's address.</li>
-<li><b>Incognito window</b> — a browser window that forgets everything when closed.</li>
-<li><b>Power Platform</b> — Microsoft's low-code family (Apps, Automate, Copilot Studio, BI, Dataverse).</li>
-<li><b>Tenant / environment</b> — your whole cloud space / one room inside it ("Learning").</li>
-<li><b>Maker portal</b> — <code>make.powerapps.com</code>, where you build.</li>
+<li><b>Browser / tab / URL / incognito</b> — the program / one open site / a site address / a no-memory window.</li>
+<li><b>Microsoft Entra ID</b> — the identity system that manages all users in a tenant.</li>
+<li><b>Tenant / environment / solution</b> — the whole space / a room inside it / a box of components.</li>
+<li><b>Maker portal</b> — <code>make.powerapps.com</code>, your main workshop.</li>
+<li><b>Environment picker</b> — the top-right selector that tells Power Apps which room you're working in.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-Can you (1) open an incognito window, (2) sign in at <code>make.powerapps.com</code>, and (3) switch to
-the <strong>Learning</strong> environment? If yes, you're ready for Day 2.</div>
+Can you (1) open incognito, (2) sign in at <code>make.powerapps.com</code>, (3) switch to the Learning environment, and (4) explain in one sentence what an environment is? If yes, you're ready for Day 2.</div>
 </section>
 
 <!-- DAY 2 -->
 <section class="day" id="day2">
 <div class="dhead"><span class="dnum">Day 2</span></div>
-<h2>Dataverse: tables, columns, and rows</h2>
-<p class="meta">~90 minutes</p>
+<h2>Dataverse: tables, columns, rows, and data types</h2>
+<p class="meta">~100 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — a database is a spreadsheet on steroids</span>
-<p>If you've seen an Excel spreadsheet, you already understand most of this:</p>
+<div class="card c-concept"><span class="lab">Concept — a database is like a very strict spreadsheet</span>
+<p>If you have seen an Excel spreadsheet, you already understand 80% of this:</p>
 <ul>
 <li>A <strong>table</strong> is like one <em>sheet</em> — it holds one kind of thing (e.g. all your Books).</li>
-<li>A <strong>column</strong> (a <em>field</em>) is one piece of information about it (Title, Author, Pages).</li>
-<li>A <strong>row</strong> (a <em>record</em>) is one actual thing (the book "Matilda").</li>
+<li>A <strong>column</strong> (also called a <em>field</em>) is one piece of information about that thing (Title, Pages, Genre).</li>
+<li>A <strong>row</strong> (also called a <em>record</em>) is one actual thing — the specific book called "Matilda".</li>
 </ul>
-<p><strong>Dataverse</strong> is the Power Platform's database — stricter and more powerful than a
-spreadsheet: each column has a fixed <em>type</em>, tables can link, and access is controlled.</p>
+<p>The difference from Excel: each column has a fixed <em>data type</em> (enforced), tables can link to each other, and access is controlled by security roles. <strong>Dataverse</strong> is the Power Platform's built-in database — always on, no server to manage.</p>
 </div>
 
 <figure class="fig">
-<svg viewBox="0 0 600 190" role="img" aria-label="A table with columns across the top and rows down the side">
-<text x="20" y="24" font-family="monospace" font-size="12" fill="#7b8798">TABLE: Book  — columns across the top, one row per book</text>
-<rect x="20" y="36" width="560" height="30" fill="#eef4ff" stroke="#2f6fed"/>
-<line x1="180" y1="36" x2="180" y2="170" stroke="#cbd3de"/><line x1="320" y1="36" x2="320" y2="170" stroke="#cbd3de"/><line x1="440" y1="36" x2="440" y2="170" stroke="#cbd3de"/>
-<g font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">
-<text x="30" y="56">Title (text)</text><text x="190" y="56">Author (lookup)</text><text x="330" y="56">Pages (number)</text><text x="450" y="56">In stock (yes/no)</text></g>
-<g font-family="sans-serif" font-size="12" fill="#4a5567">
-<rect x="20" y="66" width="560" height="34" fill="#fff" stroke="#e4e8ee"/><text x="30" y="88">Matilda</text><text x="190" y="88">R. Dahl</text><text x="330" y="88">240</text><text x="450" y="88">Yes</text>
-<rect x="20" y="100" width="560" height="34" fill="#f8fafc" stroke="#e4e8ee"/><text x="30" y="122">Dune</text><text x="190" y="122">F. Herbert</text><text x="330" y="122">412</text><text x="450" y="122">No</text>
-<rect x="20" y="134" width="560" height="34" fill="#fff" stroke="#e4e8ee"/><text x="30" y="156">Emma</text><text x="190" y="156">J. Austen</text><text x="330" y="156">474</text><text x="450" y="156">Yes</text></g>
-<rect x="14" y="66" width="8" height="102" fill="#0e9f6e"/>
-<text x="590" y="120" font-family="monospace" font-size="10" fill="#7b8798" transform="rotate(90 590 120)">← rows (records)</text>
+<svg viewBox="0 0 620 200" role="img" aria-label="A Book table showing columns across the top and rows down the side, with data types labelled">
+<text x="20" y="22" font-family="monospace" font-size="11" fill="#7b8798">TABLE: Book  —  columns (fields) across the top, one row (record) per book</text>
+<rect x="14" y="32" width="592" height="30" fill="#eef4ff" stroke="#2f6fed"/>
+<line x1="160" y1="32" x2="160" y2="180" stroke="#cbd3de"/><line x1="300" y1="32" x2="300" y2="180" stroke="#cbd3de"/><line x1="400" y1="32" x2="400" y2="180" stroke="#cbd3de"/><line x1="490" y1="32" x2="490" y2="180" stroke="#cbd3de"/>
+<g font-family="sans-serif" font-size="10.5" font-weight="bold" fill="#1f2733">
+<text x="22" y="52">Title (Text)</text><text x="168" y="52">Genre (Choice)</text><text x="308" y="52">Pages (Number)</text><text x="408" y="52">In stock (Yes/No)</text><text x="498" y="52">ISBN (Text)</text></g>
+<g font-family="sans-serif" font-size="11" fill="#4a5567">
+<rect x="14" y="62" width="592" height="34" fill="#fff" stroke="#e4e8ee"/>
+<text x="22" y="84">Matilda</text><text x="168" y="84">Children</text><text x="308" y="84">240</text><text x="408" y="84">Yes</text><text x="498" y="84">9780141365466</text>
+<rect x="14" y="96" width="592" height="34" fill="#f8fafc" stroke="#e4e8ee"/>
+<text x="22" y="118">Dune</text><text x="168" y="118">Science</text><text x="308" y="118">412</text><text x="408" y="118">No</text><text x="498" y="118">9780441172719</text>
+<rect x="14" y="130" width="592" height="34" fill="#fff" stroke="#e4e8ee"/>
+<text x="22" y="152">Emma</text><text x="168" y="152">Fiction</text><text x="308" y="152">474</text><text x="408" y="152">Yes</text><text x="498" y="152">9780141439587</text>
+<rect x="14" y="164" width="592" height="16" fill="#f8fafc" stroke="#e4e8ee"/>
+<text x="22" y="176" font-size="9" fill="#9fb0c8">…more rows…</text>
+</g>
+<rect x="8" y="62" width="6" height="118" fill="#0e9f6e"/>
 </svg>
-<figcaption>A Dataverse table: columns describe the thing, each row is one thing</figcaption>
+<figcaption>A Dataverse table: columns describe what you know about a book; each row is one book</figcaption>
 </figure>
 
-<div class="card c-concept"><span class="lab">Concept — data "types"</span>
-<p>Every column stores <em>one kind</em> of value so the computer knows how to treat it: <strong>Text</strong>
-(short words), <strong>Whole number</strong> (counts), <strong>Decimal/Currency</strong> (money),
-<strong>Date</strong>, <strong>Choice</strong> (pick from a fixed list), <strong>Yes/No</strong> (a
-switch). If <em>Pages</em> is a number, the computer can total it; as text it couldn't.</p>
+<div class="card c-concept"><span class="lab">Concept — every data type and when to use it</span>
+<p>When you add a column, you pick a type. Here are all the types you will use across this course:</p>
+<ul>
+<li><strong>Text</strong> — short words or sentences (names, codes, titles). Max length is settable.</li>
+<li><strong>Multiline Text</strong> — long text like descriptions, notes, or biography. Appears as a text area.</li>
+<li><strong>Whole Number</strong> — counts with no decimal (Pages, Quantity). Good for integers only.</li>
+<li><strong>Decimal Number</strong> — numbers with decimals (ratings, percentages). Use Currency instead for money.</li>
+<li><strong>Currency</strong> — money. Stores value + currency symbol. Use for Late fee, Price.</li>
+<li><strong>Date Only</strong> — just a date, no time. Use for Loan date, Due date, Born.</li>
+<li><strong>Date and Time</strong> — date plus a specific time. Use for meeting times, timestamps.</li>
+<li><strong>Choice</strong> — a fixed pick-list you define (Genre: Fiction / Science / Children…). Good for a small, stable set of options.</li>
+<li><strong>Lookup</strong> — a pointer to a row in another table. Like a dropdown showing real rows. Use for Author (lookup to Author table).</li>
+<li><strong>Yes/No</strong> — a true/false switch (In stock, Returned, Active).</li>
+<li><strong>Email</strong> — text that validates as an email address and shows as a clickable link.</li>
+<li><strong>Phone</strong> — text formatted as a phone number.</li>
+<li><strong>URL</strong> — text that validates as a web address and shows as a clickable link.</li>
+<li><strong>Image</strong> — stores a picture (e.g. book cover photo).</li>
+<li><strong>File</strong> — stores a binary file attachment.</li>
+</ul>
+<p>Also important: <strong>Required vs Optional</strong> — a Required column cannot be saved blank. Set it for essential fields like Title. <strong>Default value</strong> — fills in a value automatically (e.g. In stock defaults to Yes, Available copies defaults to 1). <strong>Description</strong> — a note on the column for other developers to read.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — build a "Book" table</span>
+<div class="card c-do"><span class="lab">Do this — build the Book table with all columns</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Left menu → <strong>Tables → New table</strong>. Display name = <code>Book</code>. Create.</span></li>
-<li><span class="box"></span><span class="txt">Rename the existing <strong>primary column</strong> (the main label) to <code>Title</code>.</span></li>
-<li><span class="box"></span><span class="txt"><strong>+ New column</strong> for each, picking the right type: <code>Author</code> (Text — for now), <code>Pages</code> (Whole number), <code>Published</code> (Date only), <code>Genre</code> (Choice: Fiction, Non-fiction, Textbook), <code>In stock</code> (Yes/No).</span></li>
-<li><span class="box"></span><span class="txt">Open the table's data grid and add <strong>3 made-up rows</strong>.</span></li>
+<li><span class="box"></span><span class="txt">In the maker portal, left menu → <strong>Tables → New table</strong>. Display name = <code>Book</code>. Dataverse creates a primary column automatically — rename it to <code>Title</code>. Set Required = Yes, Max length = 100. Click <strong>Save</strong>.</span></li>
+<li><span class="box"></span><span class="txt">Click <strong>+ New column</strong>. Create each column below, one at a time, clicking Save after each:</span></li>
+<li><span class="box"></span><span class="txt"><code>ISBN</code> → Type: Text, Max length: 13, Description: "13-digit book identifier".</span></li>
+<li><span class="box"></span><span class="txt"><code>Genre</code> → Type: Choice. In the Choices panel, add these options one by one: <strong>Fiction</strong>, <strong>Non-fiction</strong>, <strong>Science</strong>, <strong>Textbook</strong>, <strong>Biography</strong>, <strong>Children</strong>. Set a default if you like (Fiction is a safe default).</span></li>
+<li><span class="box"></span><span class="txt"><code>Pages</code> → Type: Whole number, Minimum value: 1.</span></li>
+<li><span class="box"></span><span class="txt"><code>Published year</code> → Type: Whole number.</span></li>
+<li><span class="box"></span><span class="txt"><code>Description</code> → Type: Multiline text.</span></li>
+<li><span class="box"></span><span class="txt"><code>Available copies</code> → Type: Whole number, Default value: 1.</span></li>
+<li><span class="box"></span><span class="txt"><code>Total copies</code> → Type: Whole number, Default value: 1.</span></li>
+<li><span class="box"></span><span class="txt"><code>In stock</code> → Type: Yes/No, Default value: Yes.</span></li>
+<li><span class="box"></span><span class="txt">Skip <code>Author</code> for now — you'll add it as a Lookup on Day 3 once the Author table exists. For today, you can add a temporary text column called <code>Author (temp)</code> if you want.</span></li>
+<li><span class="box"></span><span class="txt">Now open the table's <strong>data grid</strong> (click <strong>Edit</strong> in the data section). Add these 5 sample rows using made-up fake data:</span></li>
+<li><span class="box"></span><span class="txt">Row 1: Title=<code>Matilda</code>, ISBN=<code>9780141365466</code>, Genre=<code>Children</code>, Pages=<code>240</code>, Published year=<code>1988</code>, Available copies=<code>2</code>, Total copies=<code>2</code>, In stock=<code>Yes</code>.</span></li>
+<li><span class="box"></span><span class="txt">Row 2: Title=<code>Dune</code>, ISBN=<code>9780441172719</code>, Genre=<code>Science</code>, Pages=<code>412</code>, Published year=<code>1965</code>, Available copies=<code>1</code>, Total copies=<code>3</code>, In stock=<code>Yes</code>.</span></li>
+<li><span class="box"></span><span class="txt">Row 3: Title=<code>Emma</code>, ISBN=<code>9780141439587</code>, Genre=<code>Fiction</code>, Pages=<code>474</code>, Published year=<code>1815</code>, Available copies=<code>1</code>, Total copies=<code>2</code>, In stock=<code>Yes</code>.</span></li>
+<li><span class="box"></span><span class="txt">Row 4: Title=<code>A Brief History of Time</code>, ISBN=<code>9780553380163</code>, Genre=<code>Science</code>, Pages=<code>212</code>, Published year=<code>1988</code>, Available copies=<code>0</code>, Total copies=<code>1</code>, In stock=<code>No</code>.</span></li>
+<li><span class="box"></span><span class="txt">Row 5: Title=<code>The Power of Habit</code>, ISBN=<code>9780812981605</code>, Genre=<code>Non-fiction</code>, Pages=<code>371</code>, Published year=<code>2012</code>, Available copies=<code>3</code>, Total copies=<code>3</code>, In stock=<code>Yes</code>.</span></li>
+<li><span class="box"></span><span class="txt">Now look at <strong>Views</strong> (the tab on the table page). The default view is "Active Books". Click <strong>New view</strong>, name it <code>Books in stock</code>, add filter: In stock = Yes, sort by Title ascending. Save and publish. Come back to this after Day 4 when you can see it inside the model-driven app.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — friendly names vs logical names</span>
-Behind your friendly <strong>Display name</strong> (what people read), Dataverse keeps a
-<strong>logical name</strong> with a prefix like <code>cr123_title</code> (what the system uses). You
-don't need to worry about it yet.</div>
+<div class="card c-tip"><span class="lab">Tip — display name vs logical name</span>
+Behind your friendly <strong>Display name</strong> (what people read), Dataverse keeps a <strong>logical name</strong> with a publisher prefix, like <code>cr123_title</code> or <code>learn_isbn</code>. You'll need the logical name when writing Power Automate filter expressions on Day 10. To find it: open the column → scroll to <em>Advanced options</em> → the logical name appears there. Note it down for columns you'll filter on.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Database / Dataverse</b> — an organised store of info / the Power Platform's database.</li>
-<li><b>Table / column / row</b> — a kind of thing / a field about it / one actual thing.</li>
-<li><b>Data type</b> — the kind of value a column holds.</li>
-<li><b>Primary column</b> — the main label column for each row.</li>
+<li><b>Dataverse</b> — the Power Platform's built-in, always-on database.</li>
+<li><b>Table / column (field) / row (record)</b> — a kind of thing / a piece of info about it / one actual thing.</li>
+<li><b>Data type</b> — the kind of value a column holds (Text, Number, Choice, Lookup, Yes/No…).</li>
+<li><b>Primary column</b> — the main name column for each row (always required).</li>
+<li><b>Required / Default value</b> — cannot be left blank / fills in automatically.</li>
+<li><b>View</b> — a saved, filtered, sorted list of rows in a table.</li>
+<li><b>Logical name</b> — the system name used in formulas and filter expressions.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-You have a <strong>Book</strong> table with 5+ columns and 3 rows. Which type for a phone number —
-number or text? (<em>Text</em> — phone numbers can start with 0 and you never do maths on them.)</div>
+You have a <strong>Book</strong> table with 9 columns and 5 rows. Quick quiz: which data type for a phone number — Whole number or Text? (<em>Text — phone numbers start with 0 and you never do maths on them.</em>) Which type for "Is the book currently lent out?" (<em>Yes/No.</em>)</div>
 </section>
 
 <!-- DAY 3 -->
 <section class="day" id="day3">
 <div class="dhead"><span class="dnum">Day 3</span></div>
-<h2>Linking data: choices, lookups, and relationships</h2>
-<p class="meta">~90 minutes</p>
+<h2>Linking data: relationships, lookups, and the full data model</h2>
+<p class="meta">~110 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — why not put everything in one table?</span>
-<p>Imagine every book also stored the author's country and birth year. If an author wrote 10 books,
-you'd type their details 10 times — and fix 10 rows if they changed. Instead we keep <em>Authors</em> in
-their own table once, and <em>point</em> each book to its author. That pointing is a
-<strong>relationship</strong> — the core idea of good data design: store each fact once, then link.</p>
+<div class="card c-concept"><span class="lab">Concept — why relationships matter (store each fact once)</span>
+<p>Imagine every book stored the author's country and birth year. If an author wrote 10 books, you'd type their details 10 times — and have to fix 10 rows when something changed. The solution: store each author <em>once</em> in an Author table, then <em>point</em> each book to the right author. That pointing is a <strong>relationship</strong> — the core idea of good data design.</p>
+<p>The pattern: one Author can relate to <em>many</em> Books. This is called <strong>one-to-many (1:N)</strong>. The lookup column lives on the "many" side (the Book table holds a pointer to its Author). There are also many-to-many relationships — for example, a Book can have many Authors, and an Author can write many Books — but we won't need that complexity here.</p>
 </div>
 
 <figure class="fig">
-<svg viewBox="0 0 560 180" role="img" aria-label="One Author relates to many Books (one-to-many)">
-<rect x="30" y="60" width="150" height="70" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="105" y="88" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f2733">Author</text>
-<text x="105" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#4a5567">Full name, Country</text>
-<line x1="180" y1="95" x2="360" y2="45" stroke="#9fb0c8" stroke-width="1.6"/>
-<line x1="180" y1="95" x2="360" y2="95" stroke="#9fb0c8" stroke-width="1.6"/>
-<line x1="180" y1="95" x2="360" y2="145" stroke="#9fb0c8" stroke-width="1.6"/>
-<text x="250" y="80" font-family="monospace" font-size="11" fill="#2f6fed">1  →  many</text>
+<svg viewBox="0 0 560 180" role="img" aria-label="One Author points to many Books via a lookup column">
+<rect x="30" y="64" width="150" height="60" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="105" y="90" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f2733">Author</text>
+<text x="105" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#4a5567">Full name, Country, Born</text>
+<line x1="180" y1="94" x2="356" y2="44" stroke="#9fb0c8" stroke-width="1.6"/>
+<line x1="180" y1="94" x2="356" y2="94" stroke="#9fb0c8" stroke-width="1.6"/>
+<line x1="180" y1="94" x2="356" y2="144" stroke="#9fb0c8" stroke-width="1.6"/>
+<text x="255" y="76" font-family="monospace" font-size="11" fill="#2f6fed">1  →  many</text>
 <g>
-<rect x="360" y="22" width="170" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="49" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "Matilda"</text>
-<rect x="360" y="73" width="170" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="100" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "The BFG"</text>
-<rect x="360" y="124" width="170" height="44" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="151" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "Danny…"</text>
+<rect x="358" y="22" width="175" height="40" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="47" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "Matilda"</text>
+<rect x="358" y="74" width="175" height="40" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="99" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "The BFG"</text>
+<rect x="358" y="126" width="175" height="40" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="151" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "Danny…"</text>
 </g>
 </svg>
-<figcaption>One-to-many (1:N): one Author, many Books — the lookup lives on the "many" side</figcaption>
+<figcaption>One Author → many Books: the Book table has a Lookup column pointing to the Author table</figcaption>
 </figure>
 
-<div class="card c-concept"><span class="lab">Concept — choice vs lookup</span>
+<div class="card c-concept"><span class="lab">Concept — choice vs lookup (when to use which)</span>
 <ul>
-<li>A <strong>choice</strong> is a pick-list of <em>fixed words you decide in advance</em> (Genre:
-Fiction / Non-fiction / Textbook). The options are part of the column's design.</li>
-<li>A <strong>lookup</strong> points to <em>a row in another table</em> (Author points to a row in the
-Author table). The options are <em>live data</em> that grows as you add rows.</li>
+<li>A <strong>Choice</strong> is a pick-list of <em>fixed words you decide in advance</em> (Genre: Fiction / Non-fiction…). The options are part of the column design. Use for small, stable lists where each option has no extra details.</li>
+<li>A <strong>Lookup</strong> points to <em>a row in another table</em> (Author lookup shows you Author rows). The options are <em>live data</em> that grows as you add rows. Use when the options have their own properties (name, country, biography).</li>
 </ul>
-<p>Rule of thumb: short, unchanging list → <strong>choice</strong>; a pointer to a "thing" with its own
-details → <strong>lookup</strong>.</p>
+<p>Rule of thumb: short fixed list → <strong>Choice</strong>. A "thing" with its own record → <strong>Lookup</strong>.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — grow the project's data model: Author, Member, Loan</span>
+<div class="card c-concept"><span class="lab">Concept — cascading deletes: Restrict vs Cascade</span>
+<p>When you link two tables, Dataverse asks what happens if you delete the "one" side. Two options:</p>
+<ul>
+<li><strong>Restrict</strong> — refuse to delete an Author if they still have Books pointing to them. Protects data integrity. Use this for important lookups (deleting Roald Dahl should fail because Matilda still exists).</li>
+<li><strong>Cascade</strong> — delete the Author and also delete all their Books automatically. Dangerous unless you're sure. Used for cleanup scenarios (deleting a Member auto-deletes their Loans).</li>
+</ul>
+<p>For this course, use <strong>Restrict</strong> on Author→Book. Use the Dataverse default for Member→Loan (which is Restrict — safe).</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — create Author, Member, and Loan tables with exact columns</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Tables → New table</strong> = <code>Author</code>. Rename its primary column to <code>Full name</code>; add <code>Country</code> (Text), <code>Born</code> (Date). Add 2–3 authors.</span></li>
-<li><span class="box"></span><span class="txt">Open <strong>Book</strong> → delete the old text <code>Author</code> column → <strong>+ New column</strong> → type <strong>Lookup</strong> → Related table = <strong>Author</strong>. Set each book's author by picking from your Author rows.</span></li>
-<li><span class="box"></span><span class="txt">New table <code>Member</code> (rename primary column to <code>Full name</code>): add <code>Email</code> (Text), <code>Join date</code> (Date), <code>Membership</code> (Choice: Standard / Student / Senior). Add 3 members.</span></li>
-<li><span class="box"></span><span class="txt">New table <code>Loan</code> — <strong>the heart of your project</strong>. Columns: <code>Book</code> (<strong>Lookup → Book</strong>), <code>Member</code> (<strong>Lookup → Member</strong>), <code>Loan date</code> (Date), <code>Due date</code> (Date), <code>Returned</code> (Yes/No), <code>Status</code> (Choice: Open / Returned / Overdue).</span></li>
-<li><span class="box"></span><span class="txt">Add 3–4 <strong>Loan</strong> rows, each linking a real Book to a real Member with dates. (You just recorded borrowing <em>events</em>.)</span></li>
+<li><span class="box"></span><span class="txt"><strong>Tables → New table</strong> = <code>Author</code>. Rename its primary column to <code>Full name</code> (Required). Add:</span></li>
+<li><span class="box"></span><span class="txt"><code>Country</code> → Text.</span></li>
+<li><span class="box"></span><span class="txt"><code>Born</code> → Date only.</span></li>
+<li><span class="box"></span><span class="txt"><code>Biography</code> → Multiline text.</span></li>
+<li><span class="box"></span><span class="txt">Add 3 made-up Author rows: e.g. <code>Roald Dahl / United Kingdom / 1916-09-13</code>, <code>Frank Herbert / United States / 1920-10-08</code>, <code>Jane Austen / United Kingdom / 1775-12-16</code>.</span></li>
+<li><span class="box"></span><span class="txt">Now go back to the <strong>Book</strong> table. If you added a temporary "Author (temp)" text column, delete it. Add a proper <strong>Lookup</strong> column: <strong>+ New column</strong> → name <code>Author</code> → Type: <strong>Lookup</strong> → Related table: <strong>Author</strong>. Save. Now each Book can point to a real Author row.</span></li>
+<li><span class="box"></span><span class="txt">Open each of your 5 Book rows in the data grid and set the Author lookup to the correct Author name.</span></li>
+<li><span class="box"></span><span class="txt"><strong>New table</strong> = <code>Member</code>. Rename primary column to <code>Full name</code> (Required). Add:</span></li>
+<li><span class="box"></span><span class="txt"><code>Email</code> → Type: Email.</span></li>
+<li><span class="box"></span><span class="txt"><code>Phone</code> → Type: Phone.</span></li>
+<li><span class="box"></span><span class="txt"><code>Join date</code> → Type: Date only. Set Default value: today (click the calendar icon → "Today").</span></li>
+<li><span class="box"></span><span class="txt"><code>Membership expiry</code> → Type: Date only.</span></li>
+<li><span class="box"></span><span class="txt"><code>Membership</code> → Type: Choice. Options: <strong>Standard</strong>, <strong>Student</strong>, <strong>Senior</strong>, <strong>Premium</strong>. Default: Standard.</span></li>
+<li><span class="box"></span><span class="txt"><code>Active</code> → Type: Yes/No. Default: Yes.</span></li>
+<li><span class="box"></span><span class="txt">Add 4 made-up Member rows. Example: <code>Priya Sharma / priya.s@fakemail.com / +91-9876543210 / Student</code>. Use clearly fake email addresses.</span></li>
+<li><span class="box"></span><span class="txt"><strong>New table</strong> = <code>Loan</code>. Rename primary column to <code>Loan name</code>. (Users don't type this — you can leave it blank when entering rows; the system creates a name. Or enter a pattern like <code>LN-001</code>.) Add:</span></li>
+<li><span class="box"></span><span class="txt"><code>Book</code> → Type: Lookup → Related table: <strong>Book</strong>. Required: Yes.</span></li>
+<li><span class="box"></span><span class="txt"><code>Member</code> → Type: Lookup → Related table: <strong>Member</strong>. Required: Yes.</span></li>
+<li><span class="box"></span><span class="txt"><code>Loan date</code> → Type: Date only. Required: Yes.</span></li>
+<li><span class="box"></span><span class="txt"><code>Due date</code> → Type: Date only. Required: Yes. (Typically Loan date + 14 days — you'll automate this in Phase 3.)</span></li>
+<li><span class="box"></span><span class="txt"><code>Return date</code> → Type: Date only. Optional (filled when the member returns the book).</span></li>
+<li><span class="box"></span><span class="txt"><code>Returned</code> → Type: Yes/No. Default: No.</span></li>
+<li><span class="box"></span><span class="txt"><code>Status</code> → Type: Choice. Options: <strong>Open</strong>, <strong>Returned</strong>, <strong>Overdue</strong>. Default: Open.</span></li>
+<li><span class="box"></span><span class="txt"><code>Late fee</code> → Type: Currency. Default value: 0.</span></li>
+<li><span class="box"></span><span class="txt"><code>Notes</code> → Type: Multiline text.</span></li>
+<li><span class="box"></span><span class="txt">Add 5 Loan rows. For each: pick a real Book from the dropdown, a real Member, set a Loan date (any past date), Due date (Loan date + 14 days), Returned = No, Status = Open. Make one loan Overdue (set Due date in the past and Status = Overdue). The Loan table is the heart of your Power BI report in Phase 6.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — why the Loan table matters</span>
-<strong>Loan</strong> points to <em>two</em> other tables (Book and Member) — two relationships in one table.
-It records an <em>event</em> (a borrowing), which is exactly what a Power BI report measures later: in
-Phase 6, <strong>Loan</strong> becomes the "fact" table, and Book, Member and Date become the things you
-slice by. Everything connects.</div>
+<div class="card c-tip"><span class="lab">Tip — the Loan table connects everything</span>
+The <strong>Loan</strong> table points to <em>two</em> other tables — Book and Member — making it the central event record. In Phase 6 (Power BI), Loan becomes the "fact" table and Book/Member become the "dimension" tables you slice by. Every design decision you make now shows up later. Store each fact once, link with lookups.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Relationship</b> — a link between two tables.</li>
-<li><b>Choice (option set)</b> — a fixed pick-list defined in the column.</li>
-<li><b>Lookup</b> — a column that points to a row in another table.</li>
-<li><b>One-to-many (1:N)</b> — one row relates to many rows on the other side.</li>
+<li><b>Relationship</b> — a link between two tables; one side is "one", the other is "many".</li>
+<li><b>One-to-many (1:N)</b> — one Author can have many Books; the lookup lives on the "many" side.</li>
+<li><b>Lookup column</b> — a column that points to a row in another table; appears as a dropdown in forms.</li>
+<li><b>Choice (option set)</b> — a fixed pick-list defined in the column design.</li>
+<li><b>Restrict / Cascade</b> — two delete behaviors: block delete if children exist / delete children automatically.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-Book rows now link to real Author rows. Is "Marital status: Single / Married / Other" better as a choice
-or a lookup? (<em>Choice</em> — a short fixed list with no extra details behind each option.)</div>
+Book rows now link to real Author rows; Loan rows link to real Book and Member rows. Question: is "Country of publication" for a book better as a Choice or Text? (<em>Text — there are 200 countries, it can change, and each country has no extra properties to store.</em>)</div>
 </section>
 
 <!-- DAY 4 -->
 <section class="day" id="day4">
 <div class="dhead"><span class="dnum">Day 4</span></div>
-<h2>Keeping it tidy: environments, solutions, security</h2>
-<p class="meta">~75 minutes</p>
+<h2>Keeping it tidy: solutions, security roles, environment variables</h2>
+<p class="meta">~90 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — a "solution" is a moving box</span>
-<p>As you build tables, apps and flows, they can scatter. A <strong>solution</strong> is a labelled box
-you put related things into, so you can find them and later <em>move the whole box</em> between
-environments (e.g. from a testing room to a live one). Professionals build inside solutions from day one.
-A solution has a <strong>publisher</strong> with a short <strong>prefix</strong> — a name tag added to
-everything you create.</p>
+<div class="card c-concept"><span class="lab">Concept — a solution is a moving box for your whole project</span>
+<p>As you build tables, apps, and flows, they can scatter across the environment. A <strong>solution</strong> is a labelled box you put related things into. Benefits:</p>
+<ul>
+<li><strong>Organisation</strong> — find everything in one place.</li>
+<li><strong>Portability</strong> — export the whole box as a <code>.zip</code> file, import it into another environment. This is how professionals ship software from Dev → Test → Production.</li>
+<li><strong>Backup</strong> — that <code>.zip</code> is also your safety copy (Day 16 walks through exporting it).</li>
+</ul>
+<p>When you add an existing table to a solution, Dataverse <em>references</em> it — the table data isn't duplicated. New components you create <em>inside</em> the solution automatically belong to it.</p>
+<p>A solution has a <strong>publisher</strong> with a short <strong>prefix</strong> (e.g. <code>learn</code>). Every new column you create inside the solution gets that prefix on its logical name: <code>learn_isbn</code>. This prevents name clashes when multiple solutions from different publishers live in the same environment.</p>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — security roles</span>
-<p>A <strong>security role</strong> is a set of permissions — can this person read, create, edit, delete
-rows? In your Learning environment you're the admin, so you can do everything. In a real company, most
-people get limited roles so they only touch what they should.</p>
+<div class="card c-concept"><span class="lab">Concept — security roles (who can do what)</span>
+<p>A <strong>security role</strong> is a collection of permissions: can this person <em>create</em>, <em>read</em>, <em>update</em>, or <em>delete</em> rows in each table? Permissions also have <em>scope</em>: their own rows only (User), their business unit (Business Unit), or everyone (Organisation).</p>
+<ul>
+<li><strong>System Administrator</strong> — can do everything. Give this to yourself in the Learning environment (it's an isolated practice room, so there's no risk).</li>
+<li><strong>Basic User</strong> — can use apps and read/write data they're allowed to. Give this to people using the finished app.</li>
+</ul>
+<p>In the real world: a library staff member would get a custom role with read/write on Book and Loan but no access to admin settings.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — create a solution and adopt your tables</span>
+<div class="card c-concept"><span class="lab">Concept — environment variables (stored settings)</span>
+<p>An <strong>environment variable</strong> is a named, typed value stored at the environment level — separate from any app or flow. When the value changes (e.g. the loan period changes from 14 days to 21 days), you update the environment variable in one place and every flow that reads it automatically uses the new value. No editing individual flows.</p>
+<p>Types: <strong>Text</strong>, <strong>Number</strong>, <strong>Boolean</strong> (true/false), <strong>JSON</strong> (structured data), <strong>Data source</strong> (a connection reference), <strong>Secret</strong> (stored securely in Key Vault).</p>
+<p>Each variable has a <strong>default value</strong> (set at design time) and an optional <strong>current value</strong> (set per environment, overrides default). This lets you have different values in Dev vs Production without editing your flow.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — create the solution and adopt all your work</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Solutions → New solution</strong> = <code>My Learning Solution</code>. New publisher: name <code>Learner</code>, prefix <code>learn</code>.</span></li>
-<li><span class="box"></span><span class="txt">Open it → <strong>Add existing → Table</strong> → add all four project tables: <strong>Book, Author, Member, Loan</strong>.</span></li>
-<li><span class="box"></span><span class="txt">Add one <strong>environment variable</strong> to see how settings are stored: in the solution → <strong>New → More → Environment variable</strong> → name <code>LoanPeriodDays</code>, type Number, current value <code>14</code>. (You'll use it in a flow later.)</span></li>
-<li><span class="box"></span><span class="txt">From now on, build <em>everything inside this solution</em> so the whole project stays in one movable box (this is also how you'll back it up — see "Keep it forever" on the home page).</span></li>
-<li><span class="box"></span><span class="txt">Peek: <code>admin.powerplatform.microsoft.com</code> → <strong>Environments → Learning</strong>. Just look at its settings, users and capacity.</span></li>
+<li><span class="box"></span><span class="txt">Maker portal → <strong>Solutions → New solution</strong>. Display name = <code>My Learning Solution</code>. Click <strong>New publisher</strong>: name = <code>Learner</code>, prefix = <code>learn</code>. Save. Back in the new solution dialog, select your Learner publisher. Create the solution.</span></li>
+<li><span class="box"></span><span class="txt">Open <strong>My Learning Solution</strong> → click <strong>Add existing → Table</strong>. Tick all four tables: <strong>Book</strong>, <strong>Author</strong>, <strong>Member</strong>, <strong>Loan</strong>. Click <strong>Next → Add</strong>. All four tables (and their columns, views, and relationships) are now tracked inside the solution.</span></li>
+<li><span class="box"></span><span class="txt">Add an <strong>environment variable</strong>: inside the solution → <strong>New → More → Environment variable</strong>. Display name = <code>LoanPeriodDays</code>, Type = Number. Default value = <code>14</code>. Save. (In Phase 3 you'll read this in a flow to calculate Due date automatically.)</span></li>
+<li><span class="box"></span><span class="txt">From now on: every new table, app, flow, or chatbot must be created <em>from inside this solution</em>. The pattern is: Solutions → My Learning Solution → New → [component type]. This ensures everything is tracked together.</span></li>
+<li><span class="box"></span><span class="txt">Now assign yourself a security role. Go to <code>admin.powerplatform.microsoft.com</code> → <strong>Environments → Learning</strong> → <strong>Settings → Users + Permissions → Users</strong>. Find the learning account → <strong>Manage security roles</strong> → tick <strong>System Administrator</strong> → Save. The learning account now has full access to the Learning environment.</span></li>
+<li><span class="box"></span><span class="txt">Explore the solution: inside <strong>My Learning Solution</strong>, look at the Objects tab. You'll see Tables, Environment variables. Over the course, Apps, Cloud flows, Chatbots will all appear here too.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — "managed" vs "unmanaged" (you'll meet this on Day 16)</span>
-While you build, your solution is <strong>unmanaged</strong> (editable). When you ship it to a live
-environment it's usually exported as <strong>managed</strong> (locked). More on that in Phase 5.</div>
+<div class="card c-tip"><span class="lab">Tip — managed vs unmanaged</span>
+While you build, your solution is <strong>unmanaged</strong> — you can edit everything freely. When you export it for deployment you can choose <strong>managed</strong> — a locked version where components can't be directly edited in the target environment. This prevents accidental changes in Production. You'll export on Day 16.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Solution</b> — a box grouping related components so you can manage and move them.</li>
-<li><b>Publisher / prefix</b> — the name tag added to what you create (e.g. <code>learn_</code>).</li>
-<li><b>Security role</b> — a set of permissions (who can do what).</li>
-<li><b>Managed / unmanaged</b> — locked (shipped) vs editable (in-progress) solution.</li>
-<li><b>Environment variable</b> — a stored setting (like <code>LoanPeriodDays</code>) you can change without editing apps or flows.</li>
+<li><b>Solution</b> — a movable box grouping related tables, apps, and flows.</li>
+<li><b>Publisher / prefix</b> — the solution's owner identity / the short code added to new column logical names.</li>
+<li><b>Managed / unmanaged</b> — locked (deployable) vs editable (in-progress) solution.</li>
+<li><b>Security role</b> — a set of table-level permissions scoped to user / business unit / org.</li>
+<li><b>Environment variable</b> — a named, typed setting stored at environment level; read by flows and apps.</li>
+<li><b>Default value / current value</b> — the design-time fallback / the per-environment override.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-You have <strong>My Learning Solution</strong> containing your two tables. Foundations complete — now
-you get to build apps. 🎉</div>
+<strong>My Learning Solution</strong> contains all four tables and the <code>LoanPeriodDays</code> variable. Foundations are complete. 🎉 From Day 5 you build on top of this — every new component goes inside the solution.</div>
 </section>
 
 <div class="pn">

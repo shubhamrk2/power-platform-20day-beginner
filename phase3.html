@@ -23,158 +23,241 @@
 <header class="hero">
   <span class="pill">Phase 3 · Days 9–11</span>
   <h1>Automation</h1>
-  <p>Make the computer do repetitive work by itself. You'll build flows that react to events, add logic,
-  ask a human to approve, post interactive cards to Teams, and change data safely.</p>
+  <p>Make the computer do repetitive work by itself. You'll build three real flows wired into your Community
+  Library: a loan confirmation email, an overdue-loans report that marks records, and a member approval
+  process with Teams cards and full error handling.</p>
 </header>
 
 <!-- DAY 9 -->
 <section class="day" id="day9">
 <div class="dhead"><span class="dnum">Day 9</span></div>
-<h2>Automation begins: your first flow</h2>
-<p class="meta">~100 minutes</p>
+<h2>Your first flows: anatomy, triggers, actions, and run history</h2>
+<p class="meta">~110 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — what is a "flow"?</span>
-<p>A <strong>flow</strong> is a little recipe that runs by itself: "<em>when</em> something happens,
-<em>do</em> these steps." For example: <em>when</em> a new book is added, <em>send</em> me an email. The
-two building blocks are a <strong>trigger</strong> (the "when" — exactly one per flow) and one or more
-<strong>actions</strong> (the "do this"). Steps reach services through <strong>connectors</strong> —
-ready-made bridges to Outlook, Teams, Dataverse, and hundreds more.</p>
+<div class="card c-concept"><span class="lab">Concept — what is a flow?</span>
+<p>A <strong>flow</strong> is a recipe that runs itself: "<em>When</em> something happens, <em>do</em> these steps." The three moving parts:</p>
+<ul>
+<li><strong>Trigger</strong> — the "when." Exactly one per flow. Can be an event (a row is added), a schedule (every morning at 9), or a manual button press.</li>
+<li><strong>Actions</strong> — the "do this." Each action does one thing: send an email, update a row, post a Teams message, wait for an approval. You chain as many as you need.</li>
+<li><strong>Connectors</strong> — ready-made bridges to services. Dataverse, Outlook, Teams, SharePoint, Excel — hundreds of connectors exist. Each provides its own triggers and actions.</li>
+</ul>
 </div>
 
 <figure class="fig">
-<svg viewBox="0 0 580 120" role="img" aria-label="A flow: trigger then actions connected by arrows">
+<svg viewBox="0 0 580 120" role="img" aria-label="A flow: one trigger then multiple actions connected by arrows">
 <defs><marker id="a3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
-<rect x="16" y="40" width="150" height="44" rx="9" fill="#fff8e9" stroke="#e0a020"/>
-<text x="91" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">TRIGGER</text>
-<text x="91" y="76" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">when a Book is added</text>
-<line x1="166" y1="62" x2="206" y2="62" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a3)"/>
-<rect x="208" y="40" width="150" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="283" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ACTION</text>
-<text x="283" y="76" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">send an email</text>
-<line x1="358" y1="62" x2="398" y2="62" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a3)"/>
-<rect x="400" y="40" width="164" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="482" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ACTION</text>
-<text x="482" y="76" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">update a row</text>
-<text x="290" y="24" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">one trigger  →  one or more actions</text>
+<rect x="14" y="38" width="140" height="46" rx="9" fill="#fff8e9" stroke="#e0a020"/>
+<text x="84" y="58" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">TRIGGER</text>
+<text x="84" y="74" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Loan row added</text>
+<line x1="154" y1="61" x2="194" y2="61" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a3)"/>
+<rect x="196" y="38" width="148" height="46" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="270" y="58" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ACTION 1</text>
+<text x="270" y="74" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Send email (Outlook)</text>
+<line x1="344" y1="61" x2="384" y2="61" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a3)"/>
+<rect x="386" y="38" width="174" height="46" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="473" y="58" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ACTION 2</text>
+<text x="473" y="74" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Update Loan row</text>
+<text x="290" y="22" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">one trigger  →  unlimited actions</text>
 </svg>
-<figcaption>Every flow is one trigger (the "when") followed by actions (the "do this")</figcaption>
+<figcaption>Every flow: one trigger then as many actions as needed</figcaption>
 </figure>
 
 <div class="card c-concept"><span class="lab">Concept — three ways a flow can start</span>
 <ul>
-<li><strong>Instant</strong> — you press a button to start it.</li>
-<li><strong>Automated</strong> — it starts on an event (a row added, an email arrives).</li>
-<li><strong>Scheduled</strong> — it starts on a timer (every morning at 9).</li>
+<li><strong>Automated</strong> — starts on an event: a Dataverse row is added/changed, an email arrives, a file is uploaded. No human needs to do anything.</li>
+<li><strong>Instant (manual)</strong> — starts when you press a button in a canvas app or the "Run" button on the flow page.</li>
+<li><strong>Scheduled</strong> — starts on a timer: every day at 8am, every Monday. Good for overnight reports.</li>
 </ul></div>
 
-<div class="card c-do"><span class="lab">Do this — build two simple flows</span>
+<div class="card c-concept"><span class="lab">Concept — the flow designer: every element</span>
+<ul>
+<li><strong>Add an action</strong> — click the <code>+</code> button below any step, then search for a connector and action.</li>
+<li><strong>Dynamic content</strong> — when filling in an action's fields, click Dynamic content to insert tokens from earlier steps (e.g. Book title from the trigger).</li>
+<li><strong>Expression tab</strong> — next to Dynamic content, lets you type functions like <code>utcNow()</code>.</li>
+<li><strong>Settings gear on each action</strong> — Timeout, Retry policy, Configure run after.</li>
+<li><strong>Parallel branch</strong> — run two sets of actions simultaneously.</li>
+<li><strong>Flow checker</strong> — the red badge icon at the top showing errors before you save.</li>
+</ul></div>
+
+<div class="card c-concept"><span class="lab">Concept — trigger scope (Organization vs User)</span>
+<p>The Dataverse trigger "When a row is added" requires a <strong>Scope</strong>:</p>
+<ul>
+<li><strong>Organization</strong> — fires for rows added by <em>anyone</em> in the environment. Use for system-wide automations like loan confirmations.</li>
+<li><strong>Business unit</strong> — only rows added by users in the same business unit as the flow owner.</li>
+<li><strong>User</strong> — only rows added by the flow owner themselves. For personal automation.</li>
+</ul>
+<p>For the Community Library, always use <strong>Organization</strong>.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — build the "Loan confirmation" flow</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Go to <code>make.powerautomate.com</code>; confirm the environment is <strong>Learning</strong>.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Create → Instant cloud flow</strong>, trigger <strong>Manually trigger a flow</strong>; add <strong>Send me an email notification</strong>. Save → <strong>Test → Manually → Run</strong>. Check your inbox.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Create → Automated cloud flow</strong> named <code>Loan confirmation</code>, trigger <strong>When a row is added (Dataverse)</strong> → table <strong>Loan</strong> → action <strong>Send me an email notification</strong> (in a real library this would email the member — here it emails you). Use <strong>dynamic content</strong> to include the Book and Due date.</span></li>
-<li><span class="box"></span><span class="txt">Lend a book in your <strong>Library Manager</strong> app (or add a Loan row); within a minute the flow emails you. Open <strong>Run history</strong> to see the green ticks. <em>Your app and your automation are now connected.</em></span></li>
+<li><span class="box"></span><span class="txt"><strong>Solutions → My Learning Solution → New → Automation → Cloud flow → Automated</strong>. Name = <code>Loan confirmation</code>. Trigger = search <strong>When a row is added (Dataverse)</strong>. Click Create.</span></li>
+<li><span class="box"></span><span class="txt">Configure the trigger: Table name = <strong>Loan</strong>. Scope = <strong>Organization</strong>. Save.</span></li>
+<li><span class="box"></span><span class="txt">Click <strong>+ New step</strong>. Search <strong>Send me an email notification</strong>. Subject: type <code>New Loan: </code> then click Dynamic content → find <strong>Book (Value)</strong> from the trigger (the lookup display name, not the GUID).</span></li>
+<li><span class="box"></span><span class="txt">Body: click Dynamic content → add <strong>Member (Value)</strong>, type " has borrowed this book. Due: ", add <strong>Due date</strong>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Save</strong>. Check <strong>Flow checker</strong> — 0 errors.</span></li>
+<li><span class="box"></span><span class="txt">Test: open Library Manager → lend a book. Within 60 seconds check your inbox. Check <strong>Run history</strong> — click the run to see each action's inputs and outputs. This run history is your debug tool for every flow you ever write.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — "dynamic content" is data from earlier steps</span>
-When filling an action, insert <strong>dynamic content</strong> — tokens like <em>Book Title</em> that
-carry a value from the trigger. That's how the email can say <em>which</em> book was added.</div>
+<div class="card c-tip"><span class="lab">Tip — dynamic content for lookup fields</span>
+Lookup columns appear twice in the dynamic content panel: an <strong>ID version</strong> (a long GUID) and a <strong>display name version</strong> (marked with "(Value)" or the FormattedValue suffix). For emails, always use the display name version.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Flow</b> — an automated "when… do…" recipe.</li>
-<li><b>Trigger / action / connector</b> — the "when" / a "do" step / a bridge to a service.</li>
-<li><b>Instant / Automated / Scheduled</b> — the three ways a flow can start.</li>
-<li><b>Run history</b> — the log of past runs (to see success or errors).</li>
+<li><b>Flow</b> — an automated "when… do…" recipe that runs by itself.</li>
+<li><b>Trigger / action / connector</b> — the "when" event / a "do" step / a bridge to a service.</li>
+<li><b>Automated / instant / scheduled</b> — event-triggered / button-triggered / timer-triggered.</li>
+<li><b>Dynamic content</b> — tokens from earlier steps you insert into an action's fields.</li>
+<li><b>Run history</b> — the log of every past run with full input/output details for debugging.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-Adding a book now emails you automatically. If not, <strong>Run history</strong> tells you which step needs attention.</div>
+Lending a book in Library Manager automatically sends you an email. If it didn't arrive, check Run history for the failed step and read its error message — that's the skill you need for all debugging.</div>
 </section>
 
 <!-- DAY 10 -->
 <section class="day" id="day10">
 <div class="dhead"><span class="dnum">Day 10</span></div>
-<h2>Smarter flows: conditions, loops, variables, expressions</h2>
-<p class="meta">~110 minutes</p>
+<h2>Smarter flows: conditions, loops, variables, expressions, and parallel branches</h2>
+<p class="meta">~120 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — the four ideas behind every automation</span>
+<div class="card c-concept"><span class="lab">Concept — the four ideas that make flows intelligent</span>
 <ul>
-<li><strong>Condition</strong> — an "if / else" fork.</li>
-<li><strong>Apply to each</strong> — a <em>loop</em>: repeat steps for every item in a list.</li>
-<li><strong>Variable</strong> — a labelled box to store/update a value while the flow runs (<em>Initialize</em> then <em>Set/Append</em>).</li>
-<li><strong>Expression</strong> — a small function you type, e.g. <code>formatDateTime(...)</code> or <code>concat(a,b)</code>.</li>
+<li><strong>Condition</strong> — an "if / else" fork. The flow takes the Yes branch if true, the No branch if false.</li>
+<li><strong>Apply to each</strong> — a loop. Repeats steps for every item in an array (list).</li>
+<li><strong>Variable</strong> — a labelled box to hold a value while the flow runs. Initialize once (type + initial value), then Set or Append inside the loop.</li>
+<li><strong>Expression</strong> — a formula you type in the Expression tab to compute new values: format dates, add numbers, build strings.</li>
 </ul></div>
 
-<div class="card c-do"><span class="lab">Do this — a flow that thinks</span>
+<div class="card c-concept"><span class="lab">Concept — essential expressions with exact examples</span>
+<ul>
+<li><code>utcNow()</code> — the current date/time in UTC.</li>
+<li><code>formatDateTime(utcNow(), 'yyyy-MM-dd')</code> — today's date as <code>2025-09-02</code>.</li>
+<li><code>addDays(triggerOutputs()?['body/learn_loandate'], 14)</code> — add 14 days to Loan date (calculates Due date). Replace <code>learn_loandate</code> with your column's logical name.</li>
+<li><code>length(outputs('List_rows')?['body/value'])</code> — count how many rows List rows returned.</li>
+<li><code>first(outputs('List_rows')?['body/value'])</code> — get the first row from List rows.</li>
+<li><code>items('Apply_to_each')?['cr_title@OData.Community.Display.V1.FormattedValue']</code> — display name of a lookup (Book Title) for the current loop item. Replace <code>cr_title</code> with your logical name.</li>
+<li><code>items('Apply_to_each')?['learn_status@OData.Community.Display.V1.FormattedValue']</code> — label of a Choice column inside a loop (e.g. "Open", "Overdue").</li>
+<li><code>concat('Book: ', items('Apply_to_each')?['cr_title@OData.Community.Display.V1.FormattedValue'], ' | Member: ', items('Apply_to_each')?['learn_member@OData.Community.Display.V1.FormattedValue'])</code> — build a combined string.</li>
+</ul>
+<p>You never memorize these — the Expression tab has a searchable function list. Type <code>format</code> to find date functions, <code>items</code> to find loop item functions.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Do this — build "Overdue check" with loop, condition, and parallel update</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Instant flow</strong> named <code>Overdue check</code> → add <strong>List rows (Dataverse)</strong> → table <strong>Loan</strong> (fetches all loans).</span></li>
-<li><span class="box"></span><span class="txt"><strong>Initialize variable</strong> <code>overdue</code> (String, empty).</span></li>
-<li><span class="box"></span><span class="txt"><strong>Apply to each</strong> over the loans; inside, a <strong>Condition</strong>: <em>Returned is No</em> <strong>AND</strong> <em>Due date is before <code>utcNow()</code></em>.</span></li>
-<li><span class="box"></span><span class="txt">In "If yes", <strong>Append to string variable</strong> <code>overdue</code> with the loan's Book + " · " + Member.</span></li>
-<li><span class="box"></span><span class="txt">After the loop, email yourself the <code>overdue</code> list. Test — you built a real overdue-loans report. (Later you'd make this a <em>scheduled</em> flow that runs every morning.)</span></li>
+<li><span class="box"></span><span class="txt"><strong>Solutions → My Learning Solution → New → Cloud flow → Instant</strong>. Name = <code>Overdue check</code>. Trigger = <strong>Manually trigger a flow</strong>. Create.</span></li>
+<li><span class="box"></span><span class="txt">Add step: <strong>List rows (Dataverse)</strong>. Table name = <strong>Loan</strong>. This fetches every loan row.</span></li>
+<li><span class="box"></span><span class="txt">Add step: <strong>Initialize variable</strong>. Name = <code>overdueList</code>, Type = String, Value = (leave empty).</span></li>
+<li><span class="box"></span><span class="txt">Add step: <strong>Apply to each</strong>. In "Select an output from previous steps": Dynamic content → <strong>value</strong> (from List rows — the array of all loan rows).</span></li>
+<li><span class="box"></span><span class="txt">Inside Apply to each: add <strong>Condition</strong>. Left: Dynamic content → <strong>Returned</strong> from the loop item. Operator: is equal to. Right: Expression → <code>false</code>. Click <strong>+ Add</strong> → AND. Second condition: <strong>Due date</strong> from loop item is less than Expression: <code>utcNow()</code>.</span></li>
+<li><span class="box"></span><span class="txt">In <strong>If yes</strong>: add <strong>Append to string variable</strong>. Name = overdueList. Value = Expression: <code>concat(items('Apply_to_each')?['learn_book@OData.Community.Display.V1.FormattedValue'], ' / ', items('Apply_to_each')?['learn_member@OData.Community.Display.V1.FormattedValue'], ' · Due: ', items('Apply_to_each')?['learn_duedate'], decodeUriComponent('%0A'))</code> — the last part adds a line break.</span></li>
+<li><span class="box"></span><span class="txt">In <strong>If yes</strong>, add a <strong>parallel branch</strong>: click <code>+</code> → "Add a parallel branch." In the parallel branch add <strong>Update a row (Dataverse)</strong>. Table = Loan. Row ID = Dynamic content → <strong>Loan (unique identifier)</strong>. Fields: Status = <strong>Overdue</strong>. Now the flow both builds the report AND marks each loan in Dataverse simultaneously.</span></li>
+<li><span class="box"></span><span class="txt">After the Apply to each (outside the loop): add <strong>Send me an email notification</strong>. Subject = Expression: <code>concat('Overdue Loans — ', formatDateTime(utcNow(), 'yyyy-MM-dd'))</code>. Body = Dynamic content → <strong>overdueList</strong> variable.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Save</strong> → <strong>Test → Manually → Run</strong>. Check your inbox and check the Loan table — overdue loans should now show Status = Overdue.</span></li>
+<li><span class="box"></span><span class="txt"><em>Convert to scheduled:</em> edit the trigger → change to <strong>Recurrence</strong>. Interval = 1, Frequency = Day, Start time at 08:00. Save. The flow now runs automatically every morning.</span></li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — you don't memorise expressions</span>
-Click into a field and the <strong>Expression</strong> tab shows a searchable list of functions with
-descriptions. Start typing (e.g. <code>format</code>) to find what you need. Learn by browsing.</div>
+<div class="card c-tip"><span class="lab">Tip — "OData.Community.Display.V1.FormattedValue" explained</span>
+When Dataverse returns rows, lookup columns come as GUIDs (useless) and Choice columns come as integers. Microsoft adds this long suffix to also give you the human-readable version. If you see <code>Book@OData.Community.Display.V1.FormattedValue</code> in the dynamic content panel, that's "the Book's Title as a readable string." Always use the FormattedValue version in emails and variables.</div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Condition / Apply to each</b> — an if/else branch / a loop over a list.</li>
-<li><b>Variable</b> — a value the flow stores and updates.</li>
-<li><b>Expression / dynamic content</b> — a typed function / values from earlier steps.</li>
+<li><b>Condition</b> — an if/yes/no fork in the flow.</li>
+<li><b>Apply to each</b> — a loop that runs inner steps for every item in an array.</li>
+<li><b>Variable / Initialize / Append</b> — a named value box / create it with a type / add text to it.</li>
+<li><b>Expression</b> — a typed function that computes a new value (dates, strings, counts, arrays).</li>
+<li><b>Parallel branch</b> — two sets of actions that run simultaneously.</li>
+<li><b>Recurrence trigger</b> — starts a flow on a timer (daily, weekly, monthly).</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-Your flow emails a list of overdue loans (not returned, past their due date) — a real overdue-loans report built from your own data with a condition and a loop.</div>
+Running the flow emails you all overdue loans AND marks each one as Overdue in Dataverse — a real overdue management report. If the email is blank, check that you have Loan rows with Returned = No and Due date in the past.</div>
 </section>
 
-<!-- DAY 11 (merged: approvals + adaptive cards + data changes + error handling) -->
+<!-- DAY 11 -->
 <section class="day" id="day11">
 <div class="dhead"><span class="dnum">Day 11</span></div>
-<h2>People, cards, data changes &amp; error handling</h2>
-<p class="meta">~120 minutes · this day covers several tightly-linked topics</p>
+<h2>Approvals, Adaptive Cards, data operations, and error handling</h2>
+<p class="meta">~130 minutes</p>
 
-<div class="card c-concept"><span class="lab">Concept — approvals and Adaptive Cards</span>
-<p>Often an automation needs a human to say "yes". Power Automate's <strong>approval</strong> action sends
-a request and <em>waits</em> for Approve/Reject, then continues based on the answer. An
-<strong>Adaptive Card</strong> is a small interactive panel — text plus buttons — that appears inside a
-Microsoft <strong>Teams</strong> chat, so you can capture a decision right there. (A card is described in
-<strong>JSON</strong>, but a flow action builds it for you.)</p>
+<div class="card c-concept"><span class="lab">Concept — approvals: asking a human and waiting</span>
+<p>An <strong>approval</strong> is a built-in action that sends a request to one or more people and <em>pauses the flow</em> until they respond. Types:</p>
+<ul>
+<li><strong>Approve/Reject — First to respond</strong> — any one approver clicking is enough to continue.</li>
+<li><strong>Approve/Reject — Everyone must approve</strong> — all assigned approvers must approve; one Reject rejects the whole thing.</li>
+<li><strong>Custom responses</strong> — define your own options ("Approve / Reject / Request more info").</li>
+</ul>
+<p>Approvals appear in three places: the <strong>Approvals app in Teams</strong>, the approver's <strong>Outlook email</strong> (with clickable buttons), and the <strong>Power Automate Approvals page</strong>.</p>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — changing data (CRUD) and handling failures</span>
-<p>Flows can <em>change</em> your database too. The four operations are <strong>CRUD</strong>: Create,
-Read, Update, Delete — Dataverse has an action for each. And because steps sometimes fail (a service is
-down, a value is missing), you add <strong>error handling</strong>: each action's
-<strong>"Configure run after"</strong> can make a step run <em>only if the previous one failed</em>.
-Grouping steps in a <strong>Scope</strong> and adding a "run after failure" scope gives a simple
-try/catch.</p>
+<div class="card c-concept"><span class="lab">Concept — Adaptive Cards</span>
+<p>An <strong>Adaptive Card</strong> is a richly formatted interactive panel that appears inside Teams. The approver sees the details and Approve/Reject buttons directly in Teams — no need to open an email or a web page. It's described in <strong>JSON</strong> (structured text). Power Automate has a "Post adaptive card and wait for a response" action that handles the JSON for you, but you can also write custom JSON.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — approval, Teams card, and a safe data-change flow</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Automated flow</strong> named <code>New member approval</code>, trigger <em>When a row is added</em> (<strong>Member</strong>) → <strong>Start and wait for an approval</strong> (Approve/Reject, assigned to yourself).</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Condition</strong> on <em>Outcome = Approve</em>; email a "Welcome to the library" vs "Rejected" note in each branch. Add a Member and approve it from the email or the <strong>Approvals</strong> page.</span></li>
-<li><span class="box"></span><span class="txt"><em>Teams card:</em> a new flow with <strong>Post adaptive card and wait for a response</strong> (Teams) → post to yourself → sample Approve/Reject card → capture the response (this is how the approval could happen inside Teams).</span></li>
-<li><span class="box"></span><span class="txt"><em>Data change + errors:</em> instant flow that marks a loan returned — <strong>Update a row</strong> (Loan → set Returned = Yes, Status = Returned). Wrap it in a <strong>Scope "Try"</strong>; add a <strong>Scope "Catch"</strong> set to run after <em>has failed</em>, emailing you the error.</span></li>
+<div class="card c-concept"><span class="lab">Concept — data operations: Compose, Select, Filter array, Join</span>
+<ul>
+<li><strong>Compose</strong> — store any value in a named token for later reference. Avoids repeating a complex expression.</li>
+<li><strong>Select</strong> — reshape an array of rows: pick specific columns, rename them. Produces a cleaner array for downstream actions.</li>
+<li><strong>Filter array</strong> — filter an array of objects by a condition. More efficient than Apply to each + Condition for simple filters on small arrays.</li>
+<li><strong>Join</strong> — turn an array into a single string. E.g. <code>["Matilda","Dune"]</code> → <code>"Matilda, Dune"</code>.</li>
 </ul></div>
 
-<div class="card c-tip"><span class="lab">Tip — break it on purpose</span>
-Temporarily leave a required field blank, run the flow, and watch the Catch scope email you. Then fix it.
-Deliberately (safely) breaking things is one of the fastest ways to learn.</div>
+<div class="card c-concept"><span class="lab">Concept — Try/Catch: error handling</span>
+<p>Wrap main work in a <strong>Scope</strong> named "Try". Add another Scope named "Catch" set to run only when Try has failed (via Configure run after). Inside Catch, send an email or log the error details.</p>
+<ul>
+<li>Add step → <strong>Scope</strong> → rename <code>Try</code>. Drag your main actions inside.</li>
+<li>After Try, add another Scope → rename <code>Catch</code>. Click its <strong>Settings gear → Configure run after → tick "has failed"</strong>, untick "is successful".</li>
+<li>Inside Catch: add Send email. Body = Expression: <code>string(result('Try'))</code> — gives a full JSON summary of what failed and why.</li>
+</ul></div>
+
+<div class="card c-do"><span class="lab">Do this — build "New member approval" with Adaptive Card and Try/Catch</span>
+<ul class="tasks">
+<li><span class="box"></span><span class="txt"><strong>Solutions → My Learning Solution → New → Cloud flow → Automated</strong>. Name = <code>New member approval</code>. Trigger = <strong>When a row is added (Dataverse)</strong>. Table = <strong>Member</strong>. Scope = Organization. Create.</span></li>
+<li><span class="box"></span><span class="txt">Add a <strong>Scope</strong>, rename it <code>Try</code>. All remaining steps go inside this scope.</span></li>
+<li><span class="box"></span><span class="txt">Inside Try: add <strong>Start and wait for an approval</strong>. Type = Approve/Reject — First to respond. Title = Expression: <code>concat('New member: ', triggerOutputs()?['body/learn_fullname'])</code>. Assigned to = your email address. Details = Expression: <code>concat('Name: ', triggerOutputs()?['body/learn_fullname'], '\nEmail: ', triggerOutputs()?['body/emailaddress1'], '\nMembership: ', triggerOutputs()?['body/learn_membership@OData.Community.Display.V1.FormattedValue'])</code>.</span></li>
+<li><span class="box"></span><span class="txt">Add <strong>Condition</strong>. Dynamic content → <strong>Outcome</strong> (from approval). Is equal to → type <code>Approve</code>.</span></li>
+<li><span class="box"></span><span class="txt">If yes: <strong>Send me an email notification</strong>. Subject = <code>"Welcome to the library!"</code>. Body = Expression: <code>concat('Hello ', triggerOutputs()?['body/learn_fullname'], ', your membership is approved!')</code>.</span></li>
+<li><span class="box"></span><span class="txt">If yes: also add <strong>Update a row (Dataverse)</strong>. Table = Member. Row ID = Dynamic content → <strong>Member (unique identifier)</strong>. Set Active = Yes.</span></li>
+<li><span class="box"></span><span class="txt">If no: <strong>Send me an email notification</strong>. Subject = <code>"Membership not approved"</code>. Body explains the rejection.</span></li>
+<li><span class="box"></span><span class="txt">After the Try scope (outside it): add <strong>Scope</strong> → rename <code>Catch</code>. Settings gear → Configure run after → tick <strong>has failed</strong>, untick is successful.</span></li>
+<li><span class="box"></span><span class="txt">Inside Catch: <strong>Send me an email notification</strong>. Subject = <code>"Flow error: New member approval"</code>. Body = Expression: <code>string(result('Try'))</code>.</span></li>
+<li><span class="box"></span><span class="txt">Save. Test: add a new Member in Library Back Office. Receive the approval email → click Approve → receive the welcome email. Confirm the Member's Active field is now Yes.</span></li>
+<li><span class="box"></span><span class="txt"><em>Adaptive Card (stretch):</em> before the approval step, add <strong>Post adaptive card and wait for a response (Teams)</strong>. Post as = Flow bot. Paste this JSON in the Card body, replacing the <code>@{}</code> tokens with Dynamic content from the trigger:</span></li>
+</ul>
+<pre><code>{
+  "type": "AdaptiveCard",
+  "body": [
+    {"type": "TextBlock", "text": "New member registration",
+     "weight": "Bolder", "size": "Medium"},
+    {"type": "FactSet", "facts": [
+      {"title": "Name:", "value": "@{triggerOutputs()?['body/learn_fullname']}"},
+      {"title": "Email:", "value": "@{triggerOutputs()?['body/emailaddress1']}"},
+      {"title": "Membership:", "value": "@{triggerOutputs()?['body/learn_membership@OData.Community.Display.V1.FormattedValue']}"}
+    ]},
+    {"type": "Input.Text", "id": "approverNote",
+     "placeholder": "Add a note (optional)"}
+  ],
+  "actions": [
+    {"type": "Action.Submit", "title": "Approve", "data": {"response": "Approve"}},
+    {"type": "Action.Submit", "title": "Reject",
+     "style": "destructive", "data": {"response": "Reject"}}
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4"
+}</code></pre></div>
 
 <div class="card c-gloss"><span class="lab">Words you learned today</span>
 <ul class="terms">
-<li><b>Approval / outcome</b> — an "ask a human and wait" step / their answer you branch on.</li>
-<li><b>Adaptive Card / JSON</b> — an interactive Teams panel / the structured text describing it.</li>
-<li><b>CRUD</b> — Create, Read, Update, Delete.</li>
-<li><b>Scope / Configure run after</b> — a group of actions / control whether a step runs on failure.</li>
+<li><b>Approval / outcome</b> — a "pause and ask a human" step / the Approve/Reject/custom answer.</li>
+<li><b>Adaptive Card / JSON</b> — an interactive Teams panel with buttons and inputs / the structured text that describes it.</li>
+<li><b>CRUD</b> — Create, Read, Update, Delete — the four data operations.</li>
+<li><b>Data operations</b> — Compose / Select / Filter array / Join — built-in tools for working with arrays.</li>
+<li><b>Try/Catch scope</b> — a Try scope containing the main work, a Catch scope that runs only on failure.</li>
+<li><b>result('ScopeName')</b> — expression returning the output/error of a scope, used in Catch for diagnostics.</li>
 </ul></div>
 
 <div class="card c-check"><span class="lab">Check yourself</span>
-Adding a book triggers an approval and branches on the answer; you posted a Teams card; and you built a
-flow that changes data and emails you if a step fails. That's the shape of most real automations.</div>
+You have three production-grade flows: (1) Loan confirmation — auto-email when a loan is created. (2) Overdue check — loops, marks records, emails a report. (3) Member approval — waits for a human, branches on outcome, catches errors. That's the shape of real enterprise automation.</div>
 </section>
 
 <div class="pn">

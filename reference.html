@@ -74,17 +74,50 @@
 <tr><td>Key Vault / secret</td><td>A safe for passwords and keys.</td></tr>
 <tr><td>Microsoft Entra ID</td><td>The identity/users system (was "Azure AD").</td></tr>
 <tr><td>Power BI</td><td>Microsoft's tool for turning data into charts and dashboards.</td></tr>
-<tr><td>Power BI Service / Desktop</td><td>The browser version / the free Windows app for rich modelling &amp; DAX.</td></tr>
+<tr><td>Power BI Service / Desktop</td><td>The browser version (<code>app.powerbi.com</code>) / the free Windows app for full modelling &amp; DAX.</td></tr>
 <tr><td>Dataset / semantic model</td><td>The prepared, linked data a report reads from.</td></tr>
-<tr><td>Report / dashboard</td><td>Pages of charts / a one-screen summary of pinned visuals.</td></tr>
+<tr><td>Report / dashboard</td><td>Pages of charts / a one-screen summary of pinned visuals (Service only).</td></tr>
 <tr><td>Visual / slicer / matrix</td><td>A chart/table/card / an on-screen filter / a pivot-table visual.</td></tr>
-<tr><td>Cross-filtering</td><td>Clicking one visual filters the others.</td></tr>
+<tr><td>Card / KPI</td><td>A visual showing one big number / a number vs a target with a trend.</td></tr>
+<tr><td>Cross-filtering</td><td>Clicking one visual filters the others on the same page.</td></tr>
+<tr><td>Drill-down / drill-through</td><td>Clicking into a hierarchy (Year→Month) / jumping to a detail report page.</td></tr>
+<tr><td>Filter (visual / page / report)</td><td>A filter that applies to one visual / the whole page / every page.</td></tr>
 <tr><td>Star schema (fact / dimension)</td><td>Central "numbers" table surrounded by "describe-by" tables.</td></tr>
-<tr><td>DAX / measure / calculated column</td><td>Power BI's formula language / a total that respects filters / a per-row value.</td></tr>
-<tr><td>Import vs DirectQuery</td><td>Copy data into Power BI vs query it live in place.</td></tr>
-<tr><td>Row-level security (RLS)</td><td>Showing different rows to different viewers.</td></tr>
+<tr><td>Relationship / cardinality</td><td>A link between tables / how many rows on each side (usually one-to-many).</td></tr>
+<tr><td>DAX / measure / calculated column</td><td>Power BI's formula language / a total that recomputes with filters / a per-row value stored at refresh.</td></tr>
+<tr><td>Filter context</td><td>The set of active filters (slicers, row context, CALCULATE) that a measure evaluates under.</td></tr>
+<tr><td>CALCULATE</td><td>The most powerful DAX function: evaluates any expression under a modified filter context.</td></tr>
+<tr><td>TOTALYTD / time intelligence</td><td>A DAX function that computes a cumulative total year-to-date; requires a Date table.</td></tr>
+<tr><td>Date table / CALENDARAUTO()</td><td>A special table of every date; <code>CALENDARAUTO()</code> generates it automatically.</td></tr>
+<tr><td>Import vs DirectQuery</td><td>Copy data into Power BI (fast, scheduled) vs query it live in place (always fresh, slower).</td></tr>
+<tr><td>Row-level security (RLS)</td><td>Showing different rows to different viewers, controlled by a DAX filter on a role.</td></tr>
+<tr><td>USERPRINCIPALNAME()</td><td>DAX function that returns the email of the currently signed-in viewer — used in RLS expressions.</td></tr>
+<tr><td>Gateway (on-premises)</td><td>A piece of software on your PC that lets Power BI Service refresh data from local files or databases.</td></tr>
+<tr><td>Workspace / app (Power BI)</td><td>A folder in the Service for reports and datasets / a published bundle of content shared with consumers.</td></tr>
+<tr><td>Endorsement (Promoted / Certified)</td><td>Trust badges an admin applies to datasets to signal quality.</td></tr>
+<tr><td>Q&amp;A visual</td><td>A Power BI visual where you type a question in plain English and the AI builds a chart.</td></tr>
 <tr><td>PL-900 / PL-300</td><td>The Power Platform Fundamentals / Power BI Data Analyst certifications.</td></tr>
 </table>
+</section>
+
+<section class="day" id="dax-ref">
+<div class="dhead"><span class="dnum">Ref</span></div>
+<h2>DAX quick-reference: all measures from the course</h2>
+<p>Copy any of these into Power BI Desktop → Modeling → New measure. Column logical names will differ — substitute yours.</p>
+<table>
+<tr><th>Measure name</th><th>Formula</th><th>What it does</th></tr>
+<tr><td>Total Loans</td><td><code>COUNTROWS(Loan)</code></td><td>Count every loan row regardless of filters.</td></tr>
+<tr><td>Open Loans</td><td><code>CALCULATE(COUNTROWS(Loan), Loan[Returned] = FALSE())</code></td><td>Count loans not yet returned.</td></tr>
+<tr><td>Returned Loans</td><td><code>CALCULATE(COUNTROWS(Loan), Loan[Returned] = TRUE())</code></td><td>Count returned loans.</td></tr>
+<tr><td>Overdue Loans</td><td><code>CALCULATE(COUNTROWS(Loan), Loan[Status] = "Overdue")</code></td><td>Count loans with Status = Overdue.</td></tr>
+<tr><td>Avg Loan Days</td><td><code>AVERAGEX(Loan, DATEDIFF(Loan[Loan date], Loan[Due date], DAY))</code></td><td>Average number of days between loan date and due date.</td></tr>
+<tr><td>Late Return Rate</td><td><code>DIVIDE(CALCULATE(COUNTROWS(Loan), Loan[Status] = "Overdue"), COUNTROWS(Loan), 0)</code></td><td>Fraction of all loans that are overdue. Third argument (0) is the safe fallback if denominator = 0.</td></tr>
+<tr><td>Avg Days Overdue</td><td><code>AVERAGEX(FILTER(Loan, Loan[Status] = "Overdue"), DATEDIFF(Loan[Due date], TODAY(), DAY))</code></td><td>Average days past due for currently overdue loans.</td></tr>
+<tr><td>Loans YTD</td><td><code>TOTALYTD([Total Loans], 'Dates'[Date])</code></td><td>Running total of loans from Jan 1 to the current date. Requires a Date table related to Loan date.</td></tr>
+<tr><td>Dates (new table)</td><td><code>Dates = CALENDARAUTO()</code></td><td>Auto-generates a date dimension table spanning all dates in the model.</td></tr>
+</table>
+<div class="card c-tip"><span class="lab">Tip — RLS role DAX</span>
+The RLS role <code>LibraryStaff</code> uses this DAX on the Member table: <code>[Email] = USERPRINCIPALNAME()</code>. Each signed-in viewer only sees their own Member row — and because Loan relates to Member, they only see their own loans too (through the relationship filter).</div>
 </section>
 
 <section class="day" id="help">
@@ -93,22 +126,31 @@
 <table>
 <tr><th>Problem</th><th>Try this</th></tr>
 <tr><td>"It signed me in as the wrong account."</td><td>Close everything, open a fresh <strong>incognito</strong> window, sign in again with the learning account.</td></tr>
-<tr><td>"I can't see my table / app."</td><td>Check the <strong>environment picker</strong> (top-right) says <strong>Learning</strong>. Things live per-environment.</td></tr>
-<tr><td>"My flow didn't run."</td><td>Open the flow's <strong>Run history</strong>. A red step tells you exactly what failed; click it to read the message.</td></tr>
-<tr><td>"A formula has a red underline."</td><td>Read the tooltip — usually a missing bracket/quote, or a name typed wrong. Quotes must be straight <code>"</code>.</td></tr>
-<tr><td>"The chatbot won't answer from my document."</td><td>Knowledge sources take a minute or two to index after upload. Wait, then retry in the Test panel.</td></tr>
-<tr><td>"Azure is asking about payment / I'm worried about cost."</td><td>Stop. Don't create virtual machines. Delete <code>rg-learning</code>. Do Azure with the account owner.</td></tr>
-<tr><td>"A blue 'delegation' warning appeared."</td><td>Harmless for your small practice data. It only matters with thousands of rows — a topic for later.</td></tr>
-<tr><td>"Power BI won't let me model / write DAX easily."</td><td>The browser Service is limited; install free <strong>Power BI Desktop</strong> (Windows) when you have a laptop for full modelling and DAX.</td></tr>
-<tr><td>"My progress ticks disappeared."</td><td>Ticks are saved per browser/computer and per page. A different device or clearing browser data resets them — that's expected.</td></tr>
+<tr><td>"I can't see my table / app / flow."</td><td>Check the <strong>environment picker</strong> (top-right) says <strong>Learning</strong>. Everything lives per-environment.</td></tr>
+<tr><td>"My flow didn't run."</td><td>Open the flow's <strong>Run history</strong>. A red step shows exactly what failed. Click it to read the error message — it's almost always a missing required field or a wrong expression.</td></tr>
+<tr><td>"Dynamic content I expected isn't showing."</td><td>Dynamic content only shows outputs from steps <em>above</em> the current step. If a token is missing, check whether the step that produces it ran before the step that consumes it.</td></tr>
+<tr><td>"The flow runs but the email body is blank."</td><td>The variable or expression you used is empty. Check that Apply to each ran over a non-empty array, and that Append to string ran at least once before the email step.</td></tr>
+<tr><td>"Expression error: 'invalid template language expression'."</td><td>Expression syntax error. Common causes: unmatched parentheses, a function name mistyped, or a dynamic content token inside an Expression tab (use dynamic content in the dynamic content tab, expressions in the expression tab — not mixed).</td></tr>
+<tr><td>"A formula has a red underline in Power Fx."</td><td>Read the tooltip — usually a missing bracket/quote, a name typed wrong, or a column's logical name used instead of display name. Quotes must be straight <code>"</code> not curly <code>"</code>.</td></tr>
+<tr><td>"Search() in canvas app returns no results."</td><td>You must use the column's <strong>logical name</strong> (e.g. <code>learn_title</code>), not its display name. Find logical names in Dataverse → Tables → Columns → Column name field (not Display name).</td></tr>
+<tr><td>"Form won't save — a required field is red."</td><td>All Required columns must be filled. If the field is a Lookup (e.g. Book on Loan form), make sure DefaultSelectedItems is set correctly so it's pre-filled.</td></tr>
+<tr><td>"Dataverse environment creation fails: needs 1GB capacity."</td><td>Your tenant's Dataverse capacity is full. Use the <strong>Power Apps Developer Plan</strong> (<code>powerapps.microsoft.com/developerplan</code>) — permanently free, gives its own Dataverse environment with ~2GB.</td></tr>
+<tr><td>"The chatbot won't answer from my document."</td><td>Knowledge sources take 1–3 minutes to index after upload. Wait, then retry in the Test panel. If it still fails, check the file is text-based (not a scanned PDF image).</td></tr>
+<tr><td>"Copilot Studio flow action isn't responding."</td><td>The flow must use trigger type <strong>"Manually trigger a flow"</strong> with defined inputs. "Automated" or "Scheduled" triggers cannot be called by Copilot Studio. Check Run history in Power Automate.</td></tr>
+<tr><td>"Azure is asking about payment / I'm worried about cost."</td><td>Stop. Don't create virtual machines. Delete <code>rg-learning</code> immediately (Resource groups → rg-learning → Delete resource group). Do all Azure steps with the account owner present.</td></tr>
+<tr><td>"DLP policy is blocking my flow."</td><td>A DLP policy prevents combining the connectors in your flow. Check admin.powerplatform.microsoft.com → Policies → Data policies to see which policy applies and which connector is in the wrong group. If it's a test policy, delete it.</td></tr>
+<tr><td>"A blue 'delegation' warning appeared in canvas app."</td><td>Harmless for small practice data (under 500 rows). It means the filter/sort runs on the device, not the database. With thousands of rows this causes performance issues — use a delegable function or a filter on an indexed column.</td></tr>
+<tr><td>"Power BI won't let me model / write DAX easily."</td><td>The browser Service is limited; install free <strong>Power BI Desktop</strong> (Windows) for full modelling, Power Query, and DAX. All PL-300 exam skills assume Desktop.</td></tr>
+<tr><td>"DAX measure shows blank / returns wrong number."</td><td>Check that relationships exist (Model view). A measure reading Book[Genre] from the Loan table requires a Loan→Book relationship. Also check: are you on the right table? COUNTROWS(Loan) counts loan rows, not book rows.</td></tr>
+<tr><td>"RLS 'Test as role' shows all rows — not filtered."</td><td>The DAX expression in the role must reference a column that exists in the filtered table. Check the formula: <code>[Email] = USERPRINCIPALNAME()</code> — the column name must match exactly and the table must have an Email column with the user's UPN.</td></tr>
+<tr><td>"My progress ticks disappeared."</td><td>Ticks are saved in this browser on this device. A different device or clearing browser data resets them — that's expected. Re-tick as you revisit sections.</td></tr>
 </table>
 <div class="card c-tip"><span class="lab">Tip — the single best habit</span>
-When stuck, slow down and read the message on screen. Power Platform is unusually good at telling you
-what's wrong in plain-ish English. Nine times out of ten the fix is in the words you skipped.</div>
+When stuck, slow down and read the message on screen. Power Platform is unusually good at telling you what's wrong in plain-ish English. Nine times out of ten the fix is in the words you skipped. The second-best habit: check Run history in Power Automate and the expression error tooltip in Power Fx — both give exact, actionable error messages.</div>
 
 <div class="card c-check"><span class="lab">That's the whole course</span>
 Revisit any phase anytime — your ticks are saved. Next stops: <strong>PL-900</strong> and
-<strong>PL-300</strong> on <code>learn.microsoft.com</code>. Happy building. 🌱</div>
+<strong>PL-300</strong> on <code>learn.microsoft.com</code>. Happy building.</div>
 </section>
 
 <div class="pn">

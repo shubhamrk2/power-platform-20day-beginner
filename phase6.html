@@ -230,13 +230,20 @@ means clicking part of one visual filters the others — you can even change how
 Quarter → Month), and <strong>drill-through</strong> jumps to a detail page for the thing you clicked.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — build a polished report page</span>
+<div class="card c-do"><span class="lab">Do this — build two report pages with 9 specific visuals</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Open your <strong>Loan</strong> data → <strong>Create report</strong> (Service) or build in Desktop.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Card</strong> = count of <code>Loan</code> (Total loans); a <strong>column chart</strong> of loans by <code>Genre</code> (from Book); a <strong>line chart</strong> of loans by <code>Loan date</code>.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Slicer</strong> on <code>Membership</code> (from Member). Click a value — watch cross-filtering across every chart.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Format</strong> a visual: give it a title, data labels, and colours (the paint-roller icon). Add a <strong>page-level filter</strong> (e.g. only <em>Returned = No</em> to see current loans).</span></li>
-<li><span class="box"></span><span class="txt">Try the <strong>Q&amp;A</strong> visual: type <em>"count of loans by genre"</em> and let Power BI build the chart. <strong>Save</strong> the report as <code>Library Loans</code>.</span></li>
+<li><span class="box"></span><span class="txt">Open your dataset → <strong>Create report</strong>. Rename the first page to <code>Loan Overview</code>. You'll build 5 visuals here.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Visual 1 — Card (Total Loans):</strong> click the Card visual. Field well: Values = Loan (count of rows, or your Total Loans measure). Title: "Total Loans". Format: font size 20, white background, teal accent bar.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Visual 2 — Card (Open Loans):</strong> second Card. Values = Open Loans measure. Title: "Open Loans". Red accent bar so it stands out. Place the two cards side-by-side at the top.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Visual 3 — Clustered Column Chart (Loans by Genre):</strong> X-axis = Book[Genre]. Y-axis = Loan (count). Title: "Loans by Book Genre". Turn on Data labels. Sort by count descending: click the "..." → Sort by → count.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Visual 4 — Line Chart (Loans over time):</strong> X-axis = Loan[Loan date]. Y-axis = count of Loans. Title: "Loans Over Time". This shows borrowing trends. If you have a Date table, use Dates[Month] on X for a cleaner month-by-month line.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Visual 5 — Slicer (by Membership):</strong> Slicer visual. Field = Member[Membership]. Style: Dropdown (Format → Slicer settings → Dropdown). Click "Student" — all 4 charts filter to student loans only. Click "Clear" to reset. This is cross-filtering in action.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Add a page-level filter:</strong> Filters pane → Add filter (Page level). Field = Loan[Status]. Select "Open" and "Overdue" only. Now the whole page shows only active loans. Title the page filter "Active loans view".</span></li>
+<li><span class="box"></span><span class="txt"><strong>Add Page 2:</strong> click <strong>+</strong> at the bottom → rename <code>Member Analysis</code>. Build 4 visuals here.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Visual 6 — Pie Chart (Members by Membership type):</strong> Legend = Member[Membership]. Values = Member (count). Turn off the pie in future — for learning this is fine. Title: "Members by Type". Note: pie charts work OK with 4-5 slices; bars are clearer at 6+.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Visual 7 — Table (Overdue Loans detail):</strong> Table visual. Columns: Book[Title], Member[Full name], Loan[Loan date], Loan[Due date], Loan[Late fee]. Add a filter on this visual: Loan[Status] = Overdue. This gives staff a list of overdue loans to chase.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Visual 8 — KPI (Returned vs target):</strong> KPI visual. Value = Returned Loans measure. Target = Total Loans measure. Trend axis = Loan date. A green arrow if returns exceed the target fraction.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Visual 9 — Q&amp;A visual:</strong> add the Q&amp;A visual. Click it → type <code>count of loans by genre as bar chart</code>. Power BI builds the chart from natural language. Save the report as <code>Library Loans</code>.</span></li>
 </ul></div>
 
 <div class="card c-tip"><span class="lab">Tip — good charts, not fancy charts</span>
@@ -349,14 +356,28 @@ Loans YTD    = TOTALYTD([Total Loans], 'Dates'[Date])</code></pre>
 <figcaption>Totals that must react to filters → measure; a per-row value → calculated column</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — clean, model, and calculate</span>
+<div class="card c-do"><span class="lab">Do this — clean, model, build all DAX measures, and add the Date table</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Transform data</strong> (Power Query): open your <strong>Member</strong> query, <strong>promote headers</strong> if needed, set <strong>types</strong> (Join date → Date), and read the Applied steps.</span></li>
-<li><span class="box"></span><span class="txt">In <strong>Model</strong> view, make sure the relationships are there: <strong>Loan[Book] → Book</strong> and <strong>Loan[Member] → Member</strong> (both one-to-many). If you imported from Excel, drag the matching columns together to create them.</span></li>
-<li><span class="box"></span><span class="txt">Build a chart of loan <strong>count</strong> by <code>Book[Genre]</code> — only possible because Loan is linked to Book.</span></li>
-<li><span class="box"></span><span class="txt"><strong>New measure</strong> (Modeling → New measure) — type each exactly:<br><code>Total Loans = COUNTROWS(Loan)</code><br><code>Open Loans = CALCULATE(COUNTROWS(Loan), Loan[Returned] = false)</code><br><code>Avg Loan Days = AVERAGEX(Loan, DATEDIFF(Loan[Loan date], Loan[Due date], DAY))</code></span></li>
-<li><span class="box"></span><span class="txt">Put <code>Total Loans</code> and <code>Open Loans</code> in Cards; add <code>Membership</code> as a slicer and watch them recompute.</span></li>
-<li><span class="box"></span><span class="txt"><em>Stretch (Desktop):</em> create a date table — <strong>Modeling → New table</strong> → <code>Dates = CALENDARAUTO()</code> — relate <code>Dates[Date]</code> to <code>Loan[Loan date]</code>, then add <code>Loans YTD = TOTALYTD([Total Loans], 'Dates'[Date])</code>.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Power Query — clean your tables:</strong> Transform data → open Member query → promote headers if needed → set column types: Full name (text), Email (text), Join date (date), Active (true/false). Check Loan query: Loan date and Due date → set to Date type. Applied steps should show 3-5 steps. Close &amp; Apply.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Model view — relationships:</strong> switch to Model view (left sidebar icon). Connect: <code>Loan[Book]</code> → <code>Book[BookID]</code> (drag from the Loan column to the Book column). Cardinality: Many-to-one. Cross-filter direction: Single (Book filters Loan). Same for <code>Loan[Member]</code> → <code>Member[MemberID]</code>. You now have a star schema: Loan is the fact, Book and Member are dimensions.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Build all 8 DAX measures:</strong> for each, click <strong>Modeling → New measure</strong> and type the formula exactly:
+<br><code>Total Loans = COUNTROWS(Loan)</code>
+<br><code>Open Loans = CALCULATE(COUNTROWS(Loan), Loan[Returned] = FALSE())</code>
+<br><code>Returned Loans = CALCULATE(COUNTROWS(Loan), Loan[Returned] = TRUE())</code>
+<br><code>Overdue Loans = CALCULATE(COUNTROWS(Loan), Loan[Status] = "Overdue")</code>
+<br><code>Avg Loan Days = AVERAGEX(Loan, DATEDIFF(Loan[Loan date], Loan[Due date], DAY))</code>
+<br><code>Late Return Rate = DIVIDE(CALCULATE(COUNTROWS(Loan), Loan[Status] = "Overdue"), COUNTROWS(Loan), 0)</code>
+<br><code>Avg Days Overdue = AVERAGEX(FILTER(Loan, Loan[Status] = "Overdue"), DATEDIFF(Loan[Due date], TODAY(), DAY))</code>
+<br>And after adding the Date table below: <code>Loans YTD = TOTALYTD([Total Loans], 'Dates'[Date])</code></span></li>
+<li><span class="box"></span><span class="txt"><strong>Date table (Desktop):</strong> Modeling → New table → type exactly: <code>Dates = CALENDARAUTO()</code>. Power BI scans all date columns and builds a continuous date range. Add calculated columns to Dates:
+<br><code>Year = YEAR('Dates'[Date])</code>
+<br><code>Month = FORMAT('Dates'[Date], "MMMM")</code>
+<br><code>Month number = MONTH('Dates'[Date])</code>
+<br><code>Quarter = "Q" &amp; QUARTER('Dates'[Date])</code>
+<br><code>Day of week = FORMAT('Dates'[Date], "dddd")</code>
+<br><code>Is weekend = WEEKDAY('Dates'[Date], 2) >= 6</code>
+<br>Then mark it as a date table: right-click Dates → Mark as date table → Date column = Date. Now relate: Dates[Date] → Loan[Loan date] (many-to-one, Dates side = one).</span></li>
+<li><span class="box"></span><span class="txt">Put Total Loans, Open Loans, Overdue Loans in Cards. Add Loans YTD in a Card. Slicer on Member[Membership] → watch all measures recompute as you click different membership types. This is the filter context at work.</span></li>
 </ul></div>
 
 <div class="card c-warn"><span class="lab">Careful — this day is much richer in Desktop</span>
@@ -415,13 +436,15 @@ Dataverse security (Day 4) and DLP (Day 16). You may also see <strong>sensitivit
 <strong>endorsement</strong> (Promoted / Certified datasets) for governance.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — publish, pin, and glance at RLS</span>
+<div class="card c-do"><span class="lab">Do this — publish, create RLS, pin a dashboard, schedule refresh, and export the .pbix</span>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Make sure your <strong>Library Loans</strong> report is saved in a workspace (publish from Desktop if you built it there).</span></li>
-<li><span class="box"></span><span class="txt">On a visual, click <strong>pin</strong> → <strong>New dashboard</strong> = <code>Library Dashboard</code>; pin the Total Loans card, the loans-by-genre chart, and the loans-over-time line. Open the dashboard; click a tile → it jumps to the report.</span></li>
-<li><span class="box"></span><span class="txt">Explore <strong>Share</strong> / <strong>Manage permissions</strong> and the dataset's <strong>Security</strong> (where RLS roles live) — read to understand; don't share anything real.</span></li>
-<li><span class="box"></span><span class="txt">Find <strong>Settings → Scheduled refresh</strong> on the dataset and read the options.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Keep your report forever:</strong> if you built in Desktop, <strong>File → Save as</strong> a <code>.pbix</code> on your computer. From the Service you can also <strong>Download this report (.pbix)</strong>. That file is yours permanently (see "Keep it forever" on the home page).</span></li>
+<li><span class="box"></span><span class="txt"><strong>Publish (Desktop):</strong> File → Publish → Publish to Power BI. Sign in if asked. Choose <strong>My workspace</strong>. Open the link → your report appears in the Service.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Create an RLS role (Desktop):</strong> Modeling → <strong>Manage roles → + New role</strong>. Name = <code>LibraryStaff</code>. Select the Member table. In the Table filter DAX expression box, type: <code>[Email] = USERPRINCIPALNAME()</code>. This means: when a LibraryStaff user views the report, the Member table is filtered so they only see their own row. Save. Now go back to the Service.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Assign users to RLS role (Service):</strong> open your dataset → <strong>Security</strong> (three dots → Security). Find LibraryStaff → + Add people. Add your own email address. Save. Now click <strong>Test as role → LibraryStaff</strong> — the report filters to only your Member row. Click "Now viewing as: LibraryStaff" → Stop viewing. This is exactly how an admin would verify RLS before deployment.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Build the dashboard:</strong> on the Loan Overview page, hover over the Total Loans card → pin icon → <strong>New dashboard</strong>. Name = <code>Library Dashboard</code>. Pin it. Go to pin Loans by Genre chart → Existing dashboard → Library Dashboard. Pin Loans Over Time → same dashboard. Open the dashboard: click any tile → it jumps back to the report page with full interactivity.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Share (read only):</strong> on the dashboard → Share → enter an email address. They need a Power BI Pro licence to view. With the M365 E5 trial, your learning account has Pro. Read-only viewers cannot see the underlying data, only the visuals.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Scheduled refresh:</strong> dataset → Settings → <strong>Scheduled refresh</strong>. Toggle On. Frequency = Daily. Time = 6am. Add your email for refresh failure notifications. For the Dataverse connector this works without a gateway (cloud-to-cloud). For a file-based source (local Excel), you'd need to install the <strong>on-premises data gateway</strong> on your PC.</span></li>
+<li><span class="box"></span><span class="txt"><strong>Save the .pbix permanently:</strong> Desktop → File → Save as → choose a folder → save as <code>library-loans.pbix</code>. Or in Service → File → <strong>Download this file (.pbix)</strong>. This file contains your model, all visuals, and all DAX — your entire Power BI project in one portable file.</span></li>
 </ul></div>
 
 <div class="card c-do"><span class="lab">Do this — your capstone (ties the whole course together)</span>
