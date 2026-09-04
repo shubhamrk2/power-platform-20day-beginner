@@ -211,65 +211,141 @@ late fees that vary. When you import it and something looks wrong, <em>that's th
 
 <section class="day" id="setup">
 <div class="dhead"><span class="dnum">Day 0</span></div>
-<h2>Setup — done once, by the account owner</h2>
-<p class="meta">For the person who owns the Microsoft 365 &amp; Azure trials · ~20 minutes</p>
+<h2>Setup — complete this before Day 1</h2>
+<p class="meta">~45 minutes · Done once · You need your learning account credentials ready</p>
 
-<div class="card c-concept"><span class="lab">Concept — what you're setting up and why</span>
-<p><strong>Plain English:</strong> the trials belong to one person (the "account owner"). Before the
-learner starts, the owner makes the learner their own <em>sign-in</em> and their own private
-<em>room</em> to build in, so the learner can't accidentally disturb anything else.</p>
-<p><strong>A bit more technical:</strong> in Microsoft's cloud, one company/trial is a
-<strong>tenant</strong>. Inside a tenant you create <strong>users</strong> (people who can sign in) and
-<strong>environments</strong> (separate containers that each hold their own apps and database). We give
-the learner a user account and a dedicated environment called <em>Learning</em>.</p>
+<div class="card c-concept"><span class="lab">Concept — your account, your tenant, and why you have three environments</span>
+<p>You have been given a <strong>learning account</strong> — a Microsoft 365 E5 account created by the course administrator inside a shared <strong>tenant</strong> (your organisation's space in Microsoft's cloud). Everyone on the same tenant can see each other's environments and share work.</p>
+<p>For this course you will create <strong>three environments</strong>, each playing a different role — just like real enterprise teams work:</p>
+<ul>
+<li><strong>LM-DEV</strong> — your building room. You create and edit everything here during Days 1–15.</li>
+<li><strong>LM-UAT</strong> — your testing room. On Day 16 you deploy a locked copy of your work here and test it as a real user would. Nothing is built here directly.</li>
+<li><strong>LM-PRD</strong> — your production room. The final live system. Deployed to after UAT sign-off on Day 16. Nobody edits anything here directly, ever.</li>
+</ul>
+<p>LM stands for <strong>Library Manager</strong> — the project you will build across all 20 days.</p>
 </div>
 
 <figure class="fig">
-<svg viewBox="0 0 620 210" role="img" aria-label="Diagram: a tenant contains users and a Learning environment">
-<rect x="12" y="12" width="596" height="186" rx="12" fill="#f7f9fc" stroke="#cbd3de"/>
-<text x="28" y="36" font-family="monospace" font-size="12" fill="#7b8798">TENANT — your whole space in the cloud (yourname.onmicrosoft.com)</text>
-<rect x="34" y="54" width="150" height="120" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
-<text x="109" y="82" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f2733">Users</text>
-<text x="109" y="104" text-anchor="middle" font-family="monospace" font-size="10" fill="#4a5567">owner@…</text>
-<text x="109" y="122" text-anchor="middle" font-family="monospace" font-size="10" fill="#4a5567">learner@…</text>
-<text x="109" y="150" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#7b8798">who can sign in</text>
-<rect x="214" y="54" width="360" height="120" rx="10" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="394" y="82" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f2733">Environment: "Learning"</text>
-<rect x="238" y="98" width="100" height="56" rx="7" fill="#fff" stroke="#cbd3de"/>
-<text x="288" y="122" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Apps</text>
-<text x="288" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">&amp; flows</text>
-<rect x="350" y="98" width="100" height="56" rx="7" fill="#fff" stroke="#cbd3de"/>
-<text x="400" y="122" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Dataverse</text>
-<text x="400" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">(database)</text>
-<rect x="462" y="98" width="100" height="56" rx="7" fill="#fff" stroke="#cbd3de"/>
-<text x="512" y="122" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Reports</text>
-<text x="512" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">(Power BI)</text>
+<svg viewBox="0 0 640 180" role="img" aria-label="Tenant contains three environments: LM-DEV, LM-UAT, LM-PRD connected by pipeline arrows">
+<defs><marker id="d0" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
+<rect x="12" y="12" width="616" height="158" rx="12" fill="#f7f9fc" stroke="#cbd3de"/>
+<text x="320" y="34" text-anchor="middle" font-family="monospace" font-size="11" fill="#7b8798">TENANT — shared by you and test users (same domain)</text>
+<rect x="30" y="48" width="166" height="106" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
+<text x="113" y="74" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">LM-DEV</text>
+<text x="113" y="92" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">lmdev258.crm8.dynamics.com</text>
+<text x="113" y="112" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Build here · Days 1–15</text>
+<text x="113" y="128" text-anchor="middle" font-family="monospace" font-size="9" fill="#2f6fed">Unmanaged solution</text>
+<text x="113" y="144" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">editable</text>
+<line x1="196" y1="101" x2="228" y2="101" stroke="#9fb0c8" stroke-width="2" marker-end="url(#d0)"/>
+<text x="212" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">Pipeline</text>
+<rect x="230" y="48" width="166" height="106" rx="10" fill="#fff8e9" stroke="#e0a020"/>
+<text x="313" y="74" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">LM-UAT</text>
+<text x="313" y="92" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">lmuat258.crm8.dynamics.com</text>
+<text x="313" y="112" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Test here · Day 16</text>
+<text x="313" y="128" text-anchor="middle" font-family="monospace" font-size="9" fill="#e0a020">Managed solution</text>
+<text x="313" y="144" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">locked / import only</text>
+<line x1="396" y1="101" x2="428" y2="101" stroke="#9fb0c8" stroke-width="2" marker-end="url(#d0)"/>
+<text x="412" y="96" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">Pipeline</text>
+<rect x="430" y="48" width="166" height="106" rx="10" fill="#f3fbf6" stroke="#0e9f6e"/>
+<text x="513" y="74" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">LM-PRD</text>
+<text x="513" y="92" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">lmprd258.crm8.dynamics.com</text>
+<text x="513" y="112" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Go live · Day 20</text>
+<text x="513" y="128" text-anchor="middle" font-family="monospace" font-size="9" fill="#0e9f6e">Managed solution</text>
+<text x="513" y="144" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">locked / import only</text>
 </svg>
-<figcaption>One tenant holds users and environments — the learner builds only in "Learning"</figcaption>
+<figcaption>Three environments, one pipeline: build in DEV → test in UAT → go live in PRD</figcaption>
 </figure>
 
-<div class="card c-do"><span class="lab">Do this — set up the learner's environment (two paths)</span>
-<p style="margin:.6rem 0 .4rem"><strong>Path A — Power Apps Developer Plan (recommended, free &amp; instant)</strong></p>
+<!-- STEP 1: CREATE ENVIRONMENTS -->
+<div class="card c-do"><span class="lab">Step 1 — Create your three environments (you do this, with your learning account)</span>
+<p style="margin:.3rem 0 .7rem">Open a private/incognito window. Go to <code>admin.powerplatform.microsoft.com</code>. Sign in with your <strong>learning account</strong> (the email and password the course administrator gave you).</p>
+<p style="margin:.3rem 0 .5rem"><strong>Create LM-DEV first:</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">The learner goes to <code>powerapps.microsoft.com/developerplan</code> and signs in with their Microsoft account (a personal Outlook/Hotmail, or the E5 learner account). Click <strong>Get started free</strong>. Microsoft creates a personal environment automatically — it will be named <em>"[Learner's Name]'s Environment"</em> (e.g. "Ashwini Pandey's Environment").</span></li>
-<li><span class="box"></span><span class="txt">The learner opens <code>make.powerapps.com</code> in an incognito window, signs in, and confirms the environment picker (top-right) shows <em>their</em> Developer Plan environment. That's their building room for all 20 days.</span></li>
+<li><span class="box"></span><span class="txt">Click <strong>Environments</strong> in the left menu → click <strong>+ New</strong> (top right).</span></li>
+<li><span class="box"></span><span class="txt">Fill in the form:<br>
+— Name: <code>LM-DEV</code><br>
+— Region: <strong>India (South)</strong><br>
+— Type: <strong>Developer</strong><br>
+— Purpose (optional): <code>Library Manager — Development</code><br>
+— Add a Dataverse data store: <strong>Yes</strong><br>
+— URL (the address of this environment): type <code>lmdev258</code> — if it says "already taken", try <code>lmdev2581</code> or <code>lmdev2024</code>. Note down whichever URL you successfully use.<br>
+— Currency: INR · Language: English</span></li>
+<li><span class="box"></span><span class="txt">Click <strong>Save</strong>. Wait 2–3 minutes for the environment to be created (status changes from "Preparing" to a green tick). Refresh the page if needed.</span></li>
 </ul>
-<p style="margin:.8rem 0 .4rem"><strong>Path B — Admin creates a shared "Learning" environment (requires M365 admin)</strong></p>
+<p style="margin:.7rem 0 .5rem"><strong>Repeat for LM-UAT and LM-PRD (same steps, different names):</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Go to <code>admin.microsoft.com</code> → <strong>Users → Active users → Add a user</strong>. Create <code>learner@YOURTENANT.onmicrosoft.com</code>, set a password, assign a <strong>Microsoft 365 / Office 365 E5</strong> licence.</span></li>
-<li><span class="box"></span><span class="txt">Go to <code>admin.powerplatform.microsoft.com</code> → <strong>Environments → New</strong>. Name it <strong>Learning</strong>, pick your region, set <strong>Add a Dataverse data store = Yes</strong>. (If you see a capacity error, activate the Power Apps Premium trial in the M365 admin centre first — Billing → Purchase services → Power Apps Premium → free trial.)</span></li>
-<li><span class="box"></span><span class="txt">Open <strong>Learning</strong> → <strong>Settings → Users + permissions → Users</strong>, add the learner, give them <strong>System Administrator</strong> for this environment only.</span></li>
+<li><span class="box"></span><span class="txt">LM-UAT: Name = <code>LM-UAT</code>, URL = <code>lmuat258</code>, Type = Developer, Dataverse = Yes.</span></li>
+<li><span class="box"></span><span class="txt">LM-PRD: Name = <code>LM-PRD</code>, URL = <code>lmprd258</code>, Type = Developer, Dataverse = Yes.</span></li>
+<li><span class="box"></span><span class="txt">After all three are created, your Environments list should show: <strong>LM-DEV, LM-UAT, LM-PRD</strong> — all with a green status. Write down the full URL of each environment (e.g. <code>lmdev258.crm8.dynamics.com</code>) — you will need these on Day 16.</span></li>
 </ul>
-<p style="margin:.8rem 0 .4rem"><strong>Both paths:</strong></p>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt">Share the sign-in with the learner; tell them to always use a <strong>private / incognito</strong> window.</span></li>
-<li><span class="box"></span><span class="txt"><em>Azure (only for Day 16's short tour):</em> plan to sit with the learner using the owner's Azure sign-in. Keep Azure supervised — it can cost money.</span></li>
-</ul></div>
+<div class="card c-warn" style="margin:.8rem 0 0"><span class="lab">Power Apps Developer Plan allows 3 environments per user</span>
+If you get a "limit reached" error when creating your second or third environment, it means you already used some slots. Check if any old environments exist — delete unused ones to free up slots.</div>
+</div>
+
+<!-- STEP 2: YOUR TEST USERS -->
+<div class="card c-concept"><span class="lab">Step 2 — Your test users (created by the course administrator, ready for you to use)</span>
+<p>The course administrator has created <strong>6 test user accounts</strong> in the tenant. You will use these to test security roles, approval flows, Power BI row-level security, and the Copilot Studio chatbot throughout the course. You don't need to create these — they are already there.</p>
+<table>
+<tr><th>Name</th><th>Username</th><th>Library role</th><th>Membership type</th><th>First used</th></tr>
+<tr><td><strong>Pooja Sharma</strong></td><td><code>pooja.sharma@[tenant]</code></td><td>Library Admin</td><td>Staff</td><td>Day 4</td></tr>
+<tr><td><strong>Sanjay Singh</strong></td><td><code>sanjay.singh@[tenant]</code></td><td>Senior Librarian</td><td>Staff</td><td>Day 4</td></tr>
+<tr><td><strong>Neha Agarwal</strong></td><td><code>neha.agarwal@[tenant]</code></td><td>Junior Librarian</td><td>Staff</td><td>Day 4</td></tr>
+<tr><td><strong>Rohit Verma</strong></td><td><code>rohit.verma@[tenant]</code></td><td>App user</td><td>Premium</td><td>Day 7</td></tr>
+<tr><td><strong>Priyanka Singh</strong></td><td><code>priyanka.singh@[tenant]</code></td><td>App user</td><td>Student</td><td>Day 7</td></tr>
+<tr><td><strong>Gaurav Malhotra</strong></td><td><code>gaurav.malhotra@[tenant]</code></td><td>App user</td><td>Regular</td><td>Day 15</td></tr>
+</table>
+<p style="margin:.6rem 0 0">Ask the administrator for the passwords for each account. Save them somewhere — you will switch between these accounts in later days to test different experiences.</p>
+</div>
+
+<!-- STEP 3: ADD USERS TO LM-DEV -->
+<div class="card c-do"><span class="lab">Step 3 — Add all test users to LM-DEV (you do this now)</span>
+<p style="margin:.3rem 0 .6rem">In the admin center → <strong>Environments → LM-DEV</strong> → click <strong>Settings</strong> (top menu) → <strong>Users + permissions → Users → + Add user</strong>.</p>
+<p>Add each user with the role shown below. Search by their display name:</p>
+<table>
+<tr><th>User</th><th>Role in LM-DEV</th><th>Why this role</th></tr>
+<tr><td>Pooja Sharma</td><td><strong>System Administrator</strong></td><td>She acts as the Library Admin — full access to configure the environment alongside you</td></tr>
+<tr><td>Sanjay Singh</td><td><strong>Basic User</strong></td><td>You will assign a custom Library Staff security role on Day 4 — for now Basic User is correct</td></tr>
+<tr><td>Neha Agarwal</td><td><strong>Basic User</strong></td><td>Same — custom Junior Librarian role on Day 4</td></tr>
+<tr><td>Rohit Verma</td><td><strong>Basic User</strong></td><td>Library member — can run canvas apps shared with him, sees only his own loans</td></tr>
+<tr><td>Priyanka Singh</td><td><strong>Basic User</strong></td><td>Library member — student tier, tests different membership restrictions</td></tr>
+<tr><td>Gaurav Malhotra</td><td><strong>Basic User</strong></td><td>Library member — used in Day 15 Copilot Studio and Day 20 Power BI RLS testing</td></tr>
+</table>
+<p style="margin:.6rem 0 0"><strong>Do NOT add any test users to LM-UAT or LM-PRD yet.</strong> Those environments are empty and locked until Day 16. The pipeline you set up on Day 16 will handle access for UAT and PRD.</p>
+</div>
+
+<!-- STEP 4: LM-UAT AND LM-PRD STAY EMPTY -->
+<div class="card c-tip"><span class="lab">LM-UAT and LM-PRD — leave them completely empty until Day 16</span>
+Do not build anything in LM-UAT or LM-PRD. Do not create tables, apps, or flows there. These two environments receive <strong>managed solution deployments</strong> via the pipeline on Day 16 — that is their only purpose. Building directly in UAT or PRD defeats the entire point of ALM and is the most common mistake in enterprise projects.</div>
+
+<!-- STEP 5: YOUR URL CHEATSHEET -->
+<div class="card c-gloss"><span class="lab">Your URL cheatsheet — bookmark all of these</span>
+<table>
+<tr><th>What you need</th><th>URL</th><th>Sign in with</th></tr>
+<tr><td>Build apps, tables, flows</td><td><code>make.powerapps.com</code></td><td>Your learning account</td></tr>
+<tr><td>Manage environments, DLP, users</td><td><code>admin.powerplatform.microsoft.com</code></td><td>Your learning account</td></tr>
+<tr><td>Build and run flows directly</td><td><code>make.powerautomate.com</code></td><td>Your learning account</td></tr>
+<tr><td>Build AI agents / chatbots</td><td><code>copilotstudio.microsoft.com</code></td><td>Your learning account</td></tr>
+<tr><td>Power BI web service</td><td><code>app.powerbi.com</code></td><td>Your learning account</td></tr>
+<tr><td>Microsoft 365 apps (Teams, SharePoint)</td><td><code>microsoft365.com</code></td><td>Your learning account</td></tr>
+<tr><td>Azure (Day 16 tour only)</td><td><code>portal.azure.com</code></td><td>Your learning account</td></tr>
+<tr><td>LM-DEV environment directly</td><td><code>lmdev258.crm8.dynamics.com</code></td><td>Your learning account</td></tr>
+</table>
+<p style="margin:.5rem 0 0"><strong>Always use a private/incognito window</strong> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>) so your browser does not sign you in with a wrong account automatically.</p>
+</div>
+
+<!-- STEP 6: WHAT ENVIRONMENT TO USE WHEN -->
+<div class="card c-concept"><span class="lab">Which environment to use on which day</span>
+<table>
+<tr><th>Days</th><th>Environment</th><th>What you do</th></tr>
+<tr><td>Days 1–15</td><td><strong>LM-DEV</strong></td><td>All building: tables, apps, flows, SharePoint, Copilot Studio agent</td></tr>
+<tr><td>Day 16</td><td>LM-DEV → LM-UAT → LM-PRD</td><td>ALM: export managed solution, deploy via pipeline, test connections</td></tr>
+<tr><td>Days 17–20</td><td><strong>LM-DEV</strong> (and LM-PRD for final report)</td><td>Power BI connects to LM-DEV data; final dashboard published to LM-PRD workspace</td></tr>
+</table>
+<p style="margin:.6rem 0 0">In the environment picker (top-right of <code>make.powerapps.com</code>), always confirm it shows <strong>LM-DEV</strong> before building anything. This is the most common beginner mistake — building in the wrong environment means your work appears to "disappear."</p>
+</div>
 
 <div class="card c-warn"><span class="lab">Careful — money lives in Azure, not in Power Platform</span>
-Days 1–15 and the Power BI track are covered by the trial and create <strong>no surprise charges</strong>.
-The short Azure tour on Day 16 is the only place that <em>can</em> bill — we keep it tiny, never create a
-"virtual machine", and delete everything at the end.</div>
+Days 1–15 and the Power BI phase are fully covered by the M365 E5 trial — <strong>no charges whatsoever</strong>. The short Azure tour on Day 16 is the only place that <em>can</em> bill. Always delete the Azure resource group at the end of Day 16 (full instructions are in the Day 16 page).</div>
 </section>
 
 <section id="roadmap">
