@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>7-Day Power Platform Bootcamp · Community Library System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--card2:#1c2128;--accent:#2f6fed;--accent2:#58a6ff;
+  --text:#e6edf3;--muted:#8b949e;--border:#30363d;
+  --orange:#f0883e;--green:#3fb950;--red:#f85149;--gold:#e3b341;
+  --code-bg:#161b22;--code-text:#79c0ff;
+  font-family:'Nunito','Century Gothic','Trebuchet MS',sans-serif;
+}
+html.light{
+  --bg:#f6f8fa;--card:#ffffff;--card2:#f0f2f5;--text:#24292f;--muted:#57606a;
+  --border:#d0d7de;--code-bg:#f6f8fa;--code-text:#0550ae;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+
+/* THEME BUTTON */
+.themebtn{
+  position:fixed;top:14px;right:16px;z-index:1000;
+  background:var(--card);border:1px solid var(--border);
+  color:var(--text);border-radius:50%;width:38px;height:38px;
+  font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);transition:background .2s;
+}
+.themebtn:hover{background:var(--card2)}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,#0d2040 0%,#0d1117 60%);
+  border-bottom:1px solid var(--border);
+  padding:56px 24px 40px;text-align:center;
+}
+html.light .hero{background:linear-gradient(135deg,#dbeafe 0%,#f6f8fa 60%)}
+.hero h1{font-size:clamp(1.8rem,5vw,3rem);font-weight:800;color:#fff;margin-bottom:10px}
+html.light .hero h1{color:#0d2040}
+.hero p{font-size:1.05rem;color:var(--muted);margin-bottom:24px}
+.stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:10px 22px;font-weight:700;font-size:.9rem;color:var(--accent2)}
+
+/* STICKY TAB BAR */
+.tabbar{
+  position:sticky;top:0;z-index:900;
+  background:var(--card);border-bottom:1px solid var(--border);
+  display:flex;overflow-x:auto;gap:0;
+  scrollbar-width:none;
+}
+.tabbar::-webkit-scrollbar{display:none}
+.tabbar a{
+  flex:0 0 auto;padding:13px 20px;font-size:.85rem;font-weight:700;
+  color:var(--muted);text-decoration:none;border-bottom:3px solid transparent;
+  white-space:nowrap;transition:color .15s,border-color .15s;
+}
+.tabbar a:hover{color:var(--text)}
+.tabbar a.on{color:var(--accent2);border-bottom-color:var(--accent)}
+.tabbar a.gloss{color:var(--green)}
+.tabbar a.cast-tab{color:var(--gold)}
+
+/* MAIN LAYOUT */
+main{max-width:960px;margin:0 auto;padding:0 20px 80px}
+
+/* SECTIONS */
+section{padding:52px 0 8px;border-bottom:1px solid var(--border)}
+section:last-child{border-bottom:none}
+h2{font-size:1.55rem;font-weight:800;margin-bottom:6px;color:var(--accent2)}
+.day-goal{font-size:1rem;color:var(--muted);margin-bottom:20px;font-style:italic}
+h3{font-size:1.1rem;font-weight:700;margin:28px 0 10px;color:var(--text)}
+h4{font-size:.95rem;font-weight:700;margin:18px 0 8px;color:var(--gold)}
+p{margin-bottom:12px;color:var(--text)}
+
+/* KEYWORDS BADGE ROW */
+.kw-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.kw{background:var(--card2);border:1px solid var(--border);border-radius:20px;
+  padding:3px 12px;font-size:.78rem;font-weight:700;color:var(--accent2);
+  text-decoration:none}
+.kw:hover{background:var(--accent);color:#fff}
+
+/* STEPS */
+ol.steps{padding-left:0;counter-reset:step;list-style:none;margin:8px 0 16px}
+ol.steps li{
+  counter-increment:step;padding:9px 12px 9px 52px;position:relative;
+  border-radius:6px;margin-bottom:6px;background:var(--card2);
+}
+ol.steps li::before{
+  content:counter(step);position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  background:var(--accent);color:#fff;border-radius:50%;
+  width:24px;height:24px;display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:800;
+}
+ol.steps li sub-step{display:block;padding-left:12px;color:var(--muted);font-size:.88rem}
+
+/* CODE BLOCKS */
+pre{
+  background:var(--code-bg);color:var(--code-text);
+  border-left:3px solid var(--accent);
+  font-family:'JetBrains Mono',monospace;font-size:.82rem;
+  padding:14px 18px;border-radius:4px;overflow-x:auto;
+  margin:14px 0;line-height:1.6;
+}
+code{font-family:'JetBrains Mono',monospace;font-size:.82em;
+  background:var(--card2);padding:2px 6px;border-radius:3px;color:var(--code-text)}
+
+/* SCENARIO BOX */
+.scenario{
+  border-left:4px solid var(--orange);background:rgba(240,136,62,.07);
+  border-radius:0 6px 6px 0;padding:16px 18px;margin:20px 0;
+}
+.scenario-title{font-weight:800;color:var(--orange);margin-bottom:8px;font-size:.9rem;
+  text-transform:uppercase;letter-spacing:.04em}
+
+/* INTERVIEW / GREEN BOX */
+.interview{
+  border-left:4px solid var(--green);background:rgba(63,185,80,.07);
+  border-radius:0 6px 6px 0;padding:16px 18px;margin:20px 0;
+}
+.interview-title{font-weight:800;color:var(--green);margin-bottom:10px;font-size:.9rem;
+  text-transform:uppercase;letter-spacing:.04em}
+.interview ol{padding-left:20px}
+.interview ol li{margin-bottom:8px}
+
+/* INFO BOX */
+.info{
+  border-left:4px solid var(--accent);background:rgba(47,111,237,.08);
+  border-radius:0 6px 6px 0;padding:14px 16px;margin:16px 0;font-size:.93rem;
+}
+
+/* CHECKPOINT */
+.checkpoint{
+  background:var(--card2);border:1px solid var(--border);border-radius:8px;
+  padding:16px 18px;margin:24px 0 8px;
+}
+.checkpoint-title{font-weight:800;color:var(--gold);font-size:.85rem;
+  text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+details{margin-top:10px}
+summary{cursor:pointer;font-weight:700;color:var(--accent2);font-size:.9rem;padding:4px 0}
+details[open] summary{color:var(--green)}
+.answer{margin-top:10px;padding:12px 14px;background:var(--card);
+  border-radius:6px;border:1px solid var(--border);font-size:.9rem}
+
+/* GLOSSARY */
+#glossary{padding-top:52px}
+.gloss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:14px;margin-top:16px}
+@media(max-width:600px){.gloss-grid{grid-template-columns:1fr}}
+.gloss-card{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.gloss-term{display:inline-block;background:var(--accent);color:#fff;border-radius:4px;
+  padding:2px 10px;font-size:.8rem;font-weight:800;margin-bottom:8px;letter-spacing:.02em}
+.gloss-card p{font-size:.88rem;margin:0;color:var(--muted)}
+.gloss-card code{color:var(--code-text)}
+.gloss-sub{margin-top:6px;padding-left:12px;border-left:2px solid var(--border)}
+.gloss-sub-term{font-weight:700;color:var(--accent2);font-size:.83rem}
+
+/* CAST TABLE */
+.cast-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.88rem}
+.cast-table th{background:var(--card2);padding:10px 12px;text-align:left;
+  font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+  border-bottom:2px solid var(--border)}
+.cast-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.cast-table tr:last-child td{border-bottom:none}
+.role-badge{display:inline-block;border-radius:4px;padding:2px 8px;font-size:.75rem;font-weight:700}
+.badge-admin{background:rgba(240,136,62,.15);color:var(--orange)}
+.badge-staff{background:rgba(88,166,255,.15);color:var(--accent2)}
+.badge-premium{background:rgba(227,179,65,.15);color:var(--gold)}
+.badge-standard{background:rgba(63,185,80,.15);color:var(--green)}
+.badge-student{background:rgba(139,148,158,.15);color:var(--muted)}
+.badge-senior{background:rgba(248,81,73,.1);color:var(--red)}
+.badge-test{font-size:.68rem;background:rgba(47,111,237,.2);color:var(--accent2);
+  border-radius:3px;padding:1px 5px;margin-left:4px}
+
+/* PART HEADERS (Day 4 sub-sections) */
+.part{
+  background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:18px 20px;margin:18px 0;
+}
+.part-label{font-size:.78rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.part h3{margin:0 0 10px}
+
+/* FLOW DIAGRAM */
+.flow-diagram{display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+  margin:16px 0;font-size:.85rem;font-weight:700}
+.flow-box{background:var(--card2);border:1px solid var(--border);
+  border-radius:6px;padding:8px 14px;text-align:center}
+.flow-arrow{color:var(--muted);font-size:1.1rem}
+.flow-box.parent{border-color:var(--accent);color:var(--accent2)}
+.flow-box.child{border-color:var(--green);color:var(--green)}
+.flow-box.output{border-color:var(--orange);color:var(--orange)}
+
+/* DAY HEADER STRIP */
+.day-strip{
+  background:linear-gradient(90deg,var(--accent) 0,transparent 100%);
+  border-radius:6px 6px 0 0;height:4px;margin-bottom:24px;
+}
+.day-num{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--accent);margin-bottom:4px}
+
+@media(max-width:640px){
+  .stats{gap:10px}.stat{padding:8px 14px;font-size:.8rem}
+  .tabbar a{padding:11px 14px;font-size:.78rem}
+  h2{font-size:1.3rem}
+  .gloss-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<button class="themebtn" id="thbtn" aria-label="Toggle theme">☾</button>
+
+<!-- HERO -->
+<header class="hero">
+  <h1>7-Day Power Platform Bootcamp</h1>
+  <p>Build a Community Library System from scratch &nbsp;·&nbsp; Ashwini's Roadmap</p>
+  <div class="stats">
+    <span class="stat">7 Days</span>
+    <span class="stat">5 Tools</span>
+    <span class="stat">1 Project</span>
+    <span class="stat">Real ALM</span>
+    <span class="stat">28 Keywords</span>
+  </div>
+</header>
+
+<!-- STICKY TAB BAR -->
+<nav class="tabbar" id="tabbar">
+  <a href="#cast" class="cast-tab">Cast</a>
+  <a href="#glossary" class="gloss">Glossary</a>
+  <a href="#day1">Day 1</a>
+  <a href="#day2">Day 2</a>
+  <a href="#day3">Day 3</a>
+  <a href="#day4">Day 4</a>
+  <a href="#day5">Day 5</a>
+  <a href="#day6">Day 6</a>
+  <a href="#day7">Day 7</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════ CAST ═══════════════════ -->
+<section id="cast">
+  <h2>Cast of Characters</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:4px">These are the real and fictional people Ashwini interacts with throughout the 7 days. Test users are real M365 accounts created by Shubham.</p>
+  <table class="cast-table">
+    <thead>
+      <tr><th>Name</th><th>Role / Membership</th><th>Community</th><th>First appears</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Pooja Sharma</strong><span class="badge-test">TEST USER</span></td>
+        <td><span class="role-badge badge-admin">Library Admin</span></td>
+        <td>Brahmin, UP</td><td>Day 1</td>
+      </tr>
+      <tr>
+        <td><strong>Sanjay Singh</strong><span class="badge-test">TEST USER</span></td>
+        <td><span class="role-badge badge-staff">Senior Librarian</span></td>
+        <td>Cross-community (Singh)</td><td>Day 5</td>
+      </tr>
+      <tr>
+        <td><strong>Neha Agarwal</strong><span class="badge-test">TEST USER</span></td>
+        <td><span class="role-badge badge-staff">Junior Librarian</span></td>
+        <td>Baniya, UP</td><td>Day 5</td>
+      </tr>
+      <tr>
+        <td><strong>Rohit Verma</strong><span class="badge-test">TEST USER</span></td>
+        <td><span class="role-badge badge-premium">Premium Member</span></td>
+        <td>Kayastha, UP</td><td>Day 2</td>
+      </tr>
+      <tr>
+        <td><strong>Priyanka Singh</strong><span class="badge-test">TEST USER</span></td>
+        <td><span class="role-badge badge-student">Student Member</span></td>
+        <td>Cross-community (Singh)</td><td>Day 2</td>
+      </tr>
+      <tr>
+        <td><strong>Gaurav Malhotra</strong><span class="badge-test">TEST USER</span></td>
+        <td><span class="role-badge badge-standard">Standard Member</span></td>
+        <td>Punjabi Hindu</td><td>Day 2</td>
+      </tr>
+      <tr>
+        <td><strong>Fatima Ansari</strong></td>
+        <td><span class="role-badge badge-senior">Senior Member</span></td>
+        <td>Muslim OBC (Ansari — weaver community, UP)</td><td>Day 1</td>
+      </tr>
+      <tr>
+        <td><strong>Suresh Yadav</strong></td>
+        <td><span class="role-badge badge-senior">Senior Member</span></td>
+        <td>Yadav OBC, UP</td><td>Day 4</td>
+      </tr>
+      <tr>
+        <td><strong>Rekha Pasi</strong></td>
+        <td><span class="role-badge badge-senior">Senior Member</span></td>
+        <td>Pasi SC, UP</td><td>Day 3</td>
+      </tr>
+      <tr>
+        <td><strong>Kiran Chauhan</strong></td>
+        <td><span class="role-badge badge-premium">Premium Member</span></td>
+        <td>Chauhan Rajput, MP</td><td>Day 6</td>
+      </tr>
+      <tr>
+        <td><strong>Nisha Kurmi</strong></td>
+        <td><span class="role-badge badge-student">Student Member</span></td>
+        <td>Kurmi OBC, Bihar</td><td>Day 3</td>
+      </tr>
+      <tr>
+        <td><strong>Mohammed Khan</strong></td>
+        <td><span class="role-badge badge-premium">Premium Member</span></td>
+        <td>Muslim, UP</td><td>Day 2</td>
+      </tr>
+      <tr>
+        <td><strong>Vikram Rathore</strong></td>
+        <td><span class="role-badge badge-standard">Standard Member</span></td>
+        <td>Rathore Rajput, Rajasthan</td><td>Day 5</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════ GLOSSARY ═══════════════════ -->
+<section id="glossary">
+  <h2>Full Keyword Glossary</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:4px">28 terms defined in plain English, every one with a library example. These are the words you <em>must</em> own before any Power Platform interview.</p>
+
+  <div class="gloss-grid">
+
+    <article class="gloss-card">
+      <div class="gloss-term">Power Platform</div>
+      <p>Microsoft's low-code suite of five tools: <strong>Power Apps</strong> (build UIs), <strong>Power Automate</strong> (workflows), <strong>Power BI</strong> (reports), <strong>Power Pages</strong> (public websites), and <strong>Copilot Studio</strong> (AI chatbots). They all plug into Dataverse and share the same licensing, connectors, and admin center. For this library project, you use Apps, Automate, and BI.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Environment</div>
+      <p>An isolated container — think of it as a separate room — that holds its own apps, flows, Dataverse tables, and data. You have three: <strong>LM-DEV</strong> (you build here), <strong>LM-UAT</strong> (test users test here), <strong>LM-PRD</strong> (live members use here). Nothing in one environment can accidentally break another. Rohit Verma testing in UAT never touches DEV data.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Dataverse</div>
+      <p>Microsoft's managed cloud database built specifically for Power Platform. Think of it as SQL Server but with built-in security roles, audit logs, relationships, and business rules — and no server to manage. Your Books, Members, and Loans tables all live in Dataverse inside LM-DEV. Unlike SharePoint lists, Dataverse supports proper relational lookups, currency fields, and row-level security.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Table</div>
+      <p>The Dataverse equivalent of a database table — a structured collection of rows all sharing the same columns. You create three tables: <strong>Books</strong>, <strong>Members</strong>, and <strong>Loans</strong>. Tables have two kinds: <em>Standard</em> (built-in, like Contact or Account) and <em>Custom</em> (ones you create, like your Books table). Custom tables get a publisher prefix on every column name.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Column</div>
+      <p>A single field inside a table — the equivalent of a spreadsheet column. Examples: <code>cr_title</code> (Text) on Books, <code>cr_email</code> (Email) on Members, <code>cr_late_fee</code> (Currency) on Loans. Column types include Text, Number, Date, Choice (dropdown), Lookup (link to another table), Yes/No, Currency, and File. The type you choose affects what Power Fx functions you can use on it.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Row</div>
+      <p>One record in a table — all the data about one thing. Rohit Verma's loan of <em>The Alchemist</em> is one row in the Loans table, containing: Rohit's member lookup, the book lookup, loan_date = 2025-01-05, due_date = 2025-01-19, returned = Yes. When you use <code>Patch()</code> in Power Fx, you're creating or updating a row. When you use <code>Filter()</code>, you're selecting certain rows.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Publisher</div>
+      <p>A prefix attached to every custom table, column, and component name to avoid naming conflicts. You create a publisher with prefix <code>cl</code> for this project. Dataverse automatically names your columns <code>cl_title</code>, <code>cl_email</code>, etc. The default out-of-the-box publisher uses prefix <code>cr</code> (which is why you see <code>cr_</code> everywhere in Microsoft docs — if you created components without switching publishers). Always use your own publisher prefix in real projects.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Solution</div>
+      <p>A deployment container that packages all your components — apps, flows, tables, security roles, environment variables — into a single transportable zip. Solutions are how you move your work from DEV to UAT to PRD. There are two types:</p>
+      <div class="gloss-sub">
+        <p><span class="gloss-sub-term">Unmanaged</span> — the "editable" state you work in inside LM-DEV. All components are modifiable. You export as Unmanaged to back up your work.</p>
+        <p><span class="gloss-sub-term">Managed</span> — the "locked" state you import into LM-UAT and LM-PRD. Nobody can directly edit apps or flows in a managed environment. Changes must come from re-deploying from DEV. This enforces ALM discipline.</p>
+      </div>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Canvas App</div>
+      <p>A Power Apps type where you design every pixel of the UI yourself — like designing slides in PowerPoint but with live data. You add screens, galleries, buttons, and text inputs exactly where you want them. You write Power Fx formulas on each control's properties. In this project, the <em>Member Borrowing Portal</em> is a canvas app — Rohit Verma sees a browse screen with a search box and a gallery of book covers.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Model-Driven App</div>
+      <p>A Power Apps type where the UI is automatically generated from your Dataverse table schemas — you don't position controls manually. You configure <em>views</em> (which columns to show), <em>forms</em> (which fields to edit), and <em>navigation</em>. Model-driven apps are ideal for staff working with complex data relationships. In this project, Sanjay Singh uses the <em>Library Staff Portal</em> (model-driven) to manage all loans, members, and books.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Power Fx</div>
+      <p>The Excel-like formula language used inside canvas apps. If you know <code>=VLOOKUP()</code> in Excel, Power Fx is the same idea but for live Dataverse data. Key functions: <code>Filter()</code> to query rows, <code>Patch()</code> to create/update, <code>Navigate()</code> to switch screens, <code>Notify()</code> to show messages, <code>If()</code> for conditions, <code>Set()</code> for variables. Power Fx is NOT used inside Power Automate flows — flows use Expressions instead.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Connector</div>
+      <p>A pre-built API wrapper that connects Power Platform to an external service — Outlook, SharePoint, SQL Server, Teams, HTTP, and 1,000+ others. You don't write REST calls; Microsoft wrote the wrapper. Two types:</p>
+      <div class="gloss-sub">
+        <p><span class="gloss-sub-term">Standard</span> — free with any Power Platform license. Examples: SharePoint, Outlook (Office 365), Teams, Excel Online, OneDrive.</p>
+        <p><span class="gloss-sub-term">Premium</span> — requires Power Apps/Automate Per User plan or Developer Plan. Examples: HTTP, Dataverse (direct connection in flows), SQL Server, Salesforce. Ashwini's Developer Plan covers all premium connectors.</p>
+      </div>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Connection</div>
+      <p>One authenticated instance of a connector. A Connection Reference points to a Connection. When Neha Agarwal's Outlook Connection is used in a flow, that's one Connection — tied to her specific email account. If you deploy the same flow to UAT, you need a new Connection (Ashwini's UAT Outlook) because the credentials change between environments. Connections are environment-specific; Connection References are solution-portable.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Connection Reference</div>
+      <p>A named placeholder inside a solution that points to a Connection, allowing the connection to be swapped per environment without changing any app or flow code. Example: Your flow has a Connection Reference called <em>CL_Outlook_Ref</em>. In LM-DEV it points to Ashwini's DEV Outlook connection. When you import the managed solution to LM-UAT, you re-map <em>CL_Outlook_Ref</em> to a UAT Outlook connection — the flow code is untouched. Without Connection References, deploying across environments breaks every connector.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Environment Variable</div>
+      <p>A solution-level variable that holds a value which can differ per environment. You reference the variable name in code; the actual value is set at import time. Example: <code>cl_LoanPeriodDays</code> = <strong>14</strong> in LM-DEV (generous for testing), = <strong>7</strong> in LM-PRD (library policy). Your canvas app reads the variable — same code, different behavior per environment. Without Environment Variables, you'd have to hard-code different values for each environment, which defeats the purpose of managed solutions.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">ALM — Application Lifecycle Management</div>
+      <p>The discipline of moving your application through structured stages: <strong>DEV</strong> (build &amp; unit test) → <strong>UAT</strong> (user acceptance test) → <strong>PRD</strong> (production, live users). In Power Platform, ALM is implemented by exporting a Managed solution from DEV and importing it to UAT/PRD, or by using Power Platform Pipelines to automate that. ALM prevents "cowboy changes" — direct edits to production that can't be tracked or rolled back.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Pipeline (Power Platform Pipelines)</div>
+      <p>A free, built-in tool that automates the DEV→UAT→PRD deployment with a single <em>Deploy</em> button click inside make.powerapps.com. No manual export/import zip file. You configure the pipeline once (which environments, in what order), then each deployment is one click and creates an audit trail. Available from the Pipelines section of a solution. This is the modern ALM approach; manual export/import is the fallback when Pipelines aren't available.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">DLP — Data Loss Prevention</div>
+      <p>Admin-controlled policies (created in the Power Platform Admin Center) that restrict which connectors can work together in a single flow or app. You group connectors into <em>Business</em> (allowed) and <em>Non-Business</em> (blocked from mixing with Business). Example: DLP can block the HTTP connector from being used alongside SharePoint — preventing someone from building a flow that copies SharePoint data to an unknown external URL. DLP is set by admins; developers can't override it. Only Pooja Sharma (Library Admin) can create DLP policies.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Business Rule</div>
+      <p>A no-code condition-and-action attached directly to a Dataverse table or form. Business Rules run without a flow and without writing code. Example: If <code>cr_membership_type = Student</code>, show a warning message "Student limit: 2 books." Business Rules can set field values, show/hide fields, enable/disable fields, and validate data — but only on the form level, not in background batch operations (use flows for that).</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Security Role</div>
+      <p>A Dataverse permission set that defines what a user can Create, Read, Update, or Delete on each table, and at what scope (their own rows, their business unit's rows, or all rows). You create four roles: <em>Library Member</em> (read Books, CRUD their own Loans), <em>Junior Librarian</em> (CRUD Books, read Members, read/write Loans), <em>Senior Librarian</em> (all of Junior + write Members), <em>Library Admin</em> (full CRUD everywhere). Security Roles live in the environment and are assigned per-user in the Admin Center.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Row-Level Security (RLS)</div>
+      <p>A pattern that ensures each user sees only the data rows that belong to them. In canvas apps, you implement this with a Power Fx filter: <code>Filter(Loans, 'cr_member (Members)'.cr_email = User().Email)</code>. When Priyanka Singh logs in, <code>User().Email</code> returns her email — so she only sees her own loans. Mohammed Khan's loans are invisible to her. Dataverse Security Roles also enforce RLS at the database level (ownership scope), giving you two layers of security.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Trigger</div>
+      <p>The event that <em>starts</em> a Power Automate flow. There are three types: <strong>Automated</strong> — triggered by an event (e.g. "When a row is added to Loans"); <strong>Scheduled</strong> — runs on a timer (e.g. "Every day at 9:00 AM"); <strong>Instant</strong> — started manually, by a button in an app, or by a parent flow calling a child flow (this is the trigger child flows must use). You cannot mix trigger types — each flow has exactly one trigger.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Action</div>
+      <p>A single step inside a flow that does something after the trigger fires. Examples: <em>Get a row by ID</em> (reads one Dataverse record), <em>Send an email (V2)</em> (Outlook), <em>Condition</em> (if/else branch), <em>Apply to each</em> (loop over a list), <em>Compose</em> (compute an expression), <em>Run a child flow</em>. A flow is just a trigger plus a sequence of actions. Actions run top-to-bottom; you can use outputs from earlier actions in later ones via Dynamic Content.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Child Flow</div>
+      <p>A flow designed to be <em>called by</em> another flow (the parent). It must use <strong>"Manually trigger a flow"</strong> as its trigger, with defined input parameters. At the end, it uses <strong>"Respond to a PowerApp or flow"</strong> to return output values. It must be inside the same solution as its parent. Child flows promote reuse: your "Calculate Late Fee" logic is written once and called from both the Return Book parent flow and the Scheduled Audit flow.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Parent Flow</div>
+      <p>A flow that calls one or more child flows using the <strong>"Run a child flow"</strong> action (found under the <em>Flow</em> connector in Power Automate). The parent passes input parameters to the child and receives output parameters back. The parent can call multiple child flows sequentially. In this project, <em>CL - Process Book Return (Parent)</em> calls two child flows: one to calculate the late fee, one to send the confirmation email.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Expression</div>
+      <p>The formula language used <em>inside Power Automate actions</em> — completely different from Power Fx used in canvas apps. Expressions use Azure Logic Apps / Workflow Definition Language syntax. Examples: <code>addDays(utcNow(), 14)</code> adds 14 days to today; <code>formatDateTime(utcNow(), 'dd MMM yyyy')</code> formats a date; <code>mul(3, 5)</code> multiplies. You write expressions in the <em>fx</em> field of an action. Don't confuse with Power Fx — they're separate languages.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Respond to a PowerApp or flow</div>
+      <p>The action placed at the <em>end</em> of a child flow (or a flow called by a canvas app button) to return output values back to the caller. Without this action, the parent flow gets no data back from the child. You define named outputs with types (Text, Number, Boolean). The parent flow then receives these outputs via Dynamic Content — for example, the child returns <code>fee_amount = 15</code>, and the parent uses that number to update the Loan record's <code>cr_late_fee</code> column.</p>
+    </article>
+
+    <article class="gloss-card">
+      <div class="gloss-term">Admin Center (PPAC)</div>
+      <p>The Power Platform Admin Center at <code>admin.powerplatform.microsoft.com</code> — the control panel for admins. From here: create and manage environments (LM-DEV, LM-UAT, LM-PRD), create DLP policies, monitor capacity and storage, add users to environments with environment roles (System Admin or Basic User), view analytics, and manage Dataverse security. Pooja Sharma (Library Admin + System Administrator) spends most of her time here, not in make.powerapps.com.</p>
+    </article>
+
+  </div><!-- /gloss-grid -->
+</section>
+
+<!-- ═══════════════════ DAY 1 ═══════════════════ -->
+<section id="day1">
+  <div class="day-strip"></div>
+  <div class="day-num">Day 1</div>
+  <h2>Environment Setup + Dataverse Foundations</h2>
+  <p class="day-goal">Goal: Create your LM-DEV environment, set up a Solution with a custom publisher, build the Books / Members / Loans tables, and import all three CSV files so the library database is ready to build on.</p>
+
+  <div class="kw-row">
+    <a class="kw" href="#glossary">Environment</a>
+    <a class="kw" href="#glossary">Dataverse</a>
+    <a class="kw" href="#glossary">Table</a>
+    <a class="kw" href="#glossary">Column</a>
+    <a class="kw" href="#glossary">Row</a>
+    <a class="kw" href="#glossary">Publisher</a>
+    <a class="kw" href="#glossary">Solution</a>
+    <a class="kw" href="#glossary">Admin Center</a>
+  </div>
+
+  <h3>Concepts</h3>
+  <p>The Admin Center and make.powerapps.com are two different portals with different jobs. The Admin Center (<code>admin.powerplatform.microsoft.com</code>) is where environments are created and managed. The maker portal (<code>make.powerapps.com</code>) is where you build apps and flows. You start every working session by switching to the correct environment in the maker portal — the environment selector is a dropdown in the top-right corner.</p>
+  <p>A Solution is your project's container. Every app, flow, table, and environment variable you create must be <em>inside</em> the solution — components created outside a solution can't be deployed via ALM. The Publisher prefix (<code>cl</code> for Community Library) is stamped on every custom column name: <code>cl_title</code>, <code>cl_email</code>, <code>cl_due_date</code>. This prevents naming collisions with Microsoft's own system columns.</p>
+  <p>Dataverse relationships work via Lookup columns. A Lookup from Loans to Books means each loan row carries a reference to exactly one book row — Dataverse enforces referential integrity automatically. When you read a lookup value in Power Fx, you use dot notation: <code>ThisItem.'cl_book (Books)'.cl_title</code>.</p>
+
+  <h3>Step-by-Step Tasks</h3>
+  <ol class="steps">
+    <li>Log into <code>make.powerapps.com</code> with Ashwini's account (her M365 credentials, not Shubham's)</li>
+    <li>Open Admin Center (gear icon → Admin center) → Environments → + New → Type: <strong>Developer</strong> → Display name: <strong>LM-DEV</strong> → URL: <strong>lmdev258</strong> → Region: India → Create</li>
+    <li>Wait 2–5 minutes for provisioning. Switch to LM-DEV in the maker portal environment dropdown (top-right)</li>
+    <li>Go to Solutions → New Solution → Name: <strong>Community Library</strong> → create a new Publisher: Display name <em>Community Library Publisher</em>, Prefix: <strong>cl</strong> → Save → Create Solution</li>
+    <li>Inside the solution → New → Table → Name: <strong>Books</strong>. Add columns: <code>cl_author</code> (Text), <code>cl_genre</code> (Text), <code>cl_isbn</code> (Text, max 20), <code>cl_available</code> (Yes/No, default: Yes). The Name column is auto-created as <code>cl_title</code> (rename it)</li>
+    <li>New → Table → Name: <strong>Members</strong>. Add: <code>cl_email</code> (Email), <code>cl_phone</code> (Phone), <code>cl_membership_type</code> (Choice: Premium / Standard / Senior / Student), <code>cl_active</code> (Yes/No, default: Yes), <code>cl_join_date</code> (Date Only)</li>
+    <li>New → Table → Name: <strong>Loans</strong>. Add: <code>cl_book</code> (Lookup → Books), <code>cl_member</code> (Lookup → Members), <code>cl_loan_date</code> (Date Only), <code>cl_due_date</code> (Date Only), <code>cl_return_date</code> (Date Only), <code>cl_returned</code> (Yes/No, default: No), <code>cl_late_fee</code> (Currency, default: 0)</li>
+    <li>Import data: In the maker portal go to Tables → Books → Import → Import from Excel. Upload <code>books.csv</code>. Map columns. Repeat for <code>members.csv</code> (Members table) and <code>loans.csv</code> (Loans table)</li>
+    <li>Open Members table → Data view → confirm you see 30 rows including Rohit Verma (Premium) and Fatima Ansari (Senior)</li>
+    <li>Open Loans table → Data view → confirm loans link to the correct members and books via the lookup columns</li>
+  </ol>
+
+  <div class="scenario">
+    <div class="scenario-title">Scenario — Ashwini checks the imported data</div>
+    <p>Ashwini opens the Members table data view. She sees Rohit Verma at the top (Premium, joined 2024-01-15) and scrolls to find Fatima Ansari (Senior, OBC — Ansari community from UP). She notices every column she created has the prefix <code>cl_</code>, not <code>cr_</code> — because she used her own publisher. She hovers over the Loans table, clicks on Rohit Verma's loan of <em>The Alchemist</em>, and sees the <code>cl_book</code> column showing "The Alchemist" and <code>cl_member</code> showing "Rohit Verma" — the lookup relationships are working correctly.</p>
+    <p><strong>Note on prefixes:</strong> Microsoft's default publisher uses prefix <code>cr</code>. That's why many tutorials show <code>cr_title</code>. Since Ashwini created a publisher with prefix <code>cl</code>, her columns are <code>cl_title</code>, <code>cl_email</code>, etc. In this roadmap, we use <code>cr_</code> in formulas as is common in documentation — substitute <code>cl_</code> for your actual prefix.</p>
+  </div>
+
+  <div class="checkpoint">
+    <div class="checkpoint-title">End-of-Day Checkpoint</div>
+    <p><strong>Q:</strong> What is the difference between a Column of type <em>Lookup</em> and a Column of type <em>Choice</em>?</p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p><strong>Choice</strong> — a predefined list of options stored in the column definition itself (e.g. Membership type: Premium / Standard / Senior / Student). The options are fixed; users pick from a dropdown. Data stays in the same table.</p>
+        <p><strong>Lookup</strong> — a link to a row in a different table. The Loans table's <code>cl_book</code> column is a Lookup to the Books table — it stores the ID of one Books row, not a copy of the book title. When you read the loan, Dataverse fetches the book title from the Books table automatically. This creates a real relational link; if you edit the book title in Books, the Loans view immediately reflects the new title.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════ DAY 2 ═══════════════════ -->
+<section id="day2">
+  <div class="day-strip"></div>
+  <div class="day-num">Day 2</div>
+  <h2>Canvas App — Member Borrowing Portal</h2>
+  <p class="day-goal">Goal: Build a 3-screen canvas app where members browse available books, borrow a book with one tap, and see only their own active loans — implementing row-level security in Power Fx.</p>
+
+  <div class="kw-row">
+    <a class="kw" href="#glossary">Canvas App</a>
+    <a class="kw" href="#glossary">Power Fx</a>
+    <a class="kw" href="#glossary">Row-Level Security</a>
+    <a class="kw" href="#glossary">Connection</a>
+  </div>
+
+  <h3>Concepts</h3>
+  <p>A canvas app is structured as screens. Each screen contains controls (Gallery, Button, TextInput, Label, Form). Every control has <em>properties</em> — things like <code>Items</code>, <code>Text</code>, <code>Visible</code>, <code>OnSelect</code> — and each property accepts a Power Fx formula. The formula bar at the top works exactly like Excel: you click the property in the dropdown, type your formula, and the control reacts live.</p>
+  <p><code>User().Email</code> is the magic function for row-level security. It returns the M365 email of whoever is currently logged in. When you write <code>Filter(Loans, 'cl_member (Members)'.cl_email = User().Email)</code> on a gallery's <code>Items</code> property, Dataverse only returns loans where the member's email matches the logged-in user. Priyanka Singh logs in → gets her loans only. Mohammed Khan logs in → gets his loans only. Same app, different results, zero extra code.</p>
+  <p>The <code>Patch()</code> function writes data back to Dataverse. <code>Patch(Loans, Defaults(Loans), {...})</code> creates a new row. <code>Defaults(Loans)</code> tells Power Fx to start with all default values for the Loans table. You then override specific columns in the second argument using column names as keys.</p>
+
+  <h3>Step-by-Step Tasks</h3>
+  <ol class="steps">
+    <li>Inside your solution → New → App → Canvas App → Name: <strong>Library Member Portal</strong> → Format: Tablet</li>
+    <li>Set <code>App.OnStart</code> to: <code>Set(CurrentMember, LookUp(Members, cl_email = User().Email))</code> — this stores the logged-in member's full record in a global variable</li>
+    <li>Rename Screen1 to <strong>BrowseScreen</strong>. Add a Vertical Gallery → Data source: Books → set <code>Items</code> to: <code>Filter(Books, cl_available = true)</code></li>
+    <li>Add a TextInput named <strong>SearchInput</strong> above the gallery. Update gallery <code>Items</code> to: <code>Search(Filter(Books, cl_available = true), SearchInput.Text, "cl_title", "cl_author")</code></li>
+    <li>Inside the gallery template, add Labels for Title (<code>ThisItem.cl_title</code>), Author (<code>ThisItem.cl_author</code>), and a Genre badge (<code>ThisItem.cl_genre</code>). Add a Navigate button: <code>Navigate(DetailScreen)</code></li>
+    <li>Add Screen2, rename to <strong>DetailScreen</strong>. Add Labels showing <code>BookGallery.Selected.cl_title</code>, <code>BookGallery.Selected.cl_author</code>. Add a <strong>Borrow</strong> button</li>
+    <li>Set Borrow button <code>OnSelect</code>:<pre>Patch(Loans, Defaults(Loans), {
+    cl_book: BookGallery.Selected,
+    'cl_member (Members)': CurrentMember,
+    cl_loan_date: Today(),
+    cl_due_date: DateAdd(Today(), 14, Days),
+    cl_returned: false
+});
+Notify(
+    "Borrowed! Due back: " & Text(DateAdd(Today(), 14), "dd mmm yyyy"),
+    NotificationType.Success
+)</pre></li>
+    <li>Add Screen3, rename to <strong>MyLoansScreen</strong>. Add Gallery → set <code>Items</code> to the filter below. Show book title, due date, and late fee label</li>
+    <li>Add navigation buttons: BrowseScreen → MyLoansScreen, MyLoansScreen → BrowseScreen. Add a Back arrow on DetailScreen</li>
+    <li>Save and preview. Test with Rohit Verma's credentials → borrow a book → check MyLoansScreen shows only his loans</li>
+  </ol>
+
+  <pre>// MyLoans Gallery — Items property (Row-Level Security)
+Filter(
+    Loans,
+    'cl_member (Members)'.cl_email = User().Email
+        && cl_returned = false
+)</pre>
+
+  <div class="scenario">
+    <div class="scenario-title">Scenario — Priyanka Singh browses and borrows</div>
+    <p>Priyanka Singh (Student, priyanka.singh@gmail.com) opens the Member Portal on her phone. BrowseScreen shows 42 books with green "Available" badges. She types "Harry Potter" in the search box — the gallery narrows to 2 results instantly (Power Fx Search runs on the client, no server round-trip). She taps the first result, lands on DetailScreen, reads the description, taps Borrow — a success toast appears: <em>"Borrowed! Due back: 19 Jan 2025."</em></p>
+    <p>She taps "My Loans." The gallery shows 8 loans — all hers. She does <em>not</em> see Mohammed Khan's 8 loans (Premium member who has borrowed several business books), nor Gaurav Malhotra's loans. That's because <code>User().Email</code> returned <code>priyanka.singh@gmail.com</code>, and the Filter only passes rows where the member's email matches exactly.</p>
+  </div>
+
+  <div class="checkpoint">
+    <div class="checkpoint-title">End-of-Day Checkpoint</div>
+    <p><strong>Q:</strong> Why does <code>User().Email</code> return different values for Priyanka Singh vs Mohammed Khan when they use the same app?</p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p><code>User().Email</code> calls Microsoft's identity service at runtime and returns the email of whoever is <em>currently authenticated</em> in the app. The app itself doesn't store a username — it asks the platform "who is logged in right now?" Power Platform enforces one active session per browser/device. So when Priyanka opens the app, <code>User().Email</code> = <code>priyanka.singh@gmail.com</code>. When Mohammed opens the same app on his device, <code>User().Email</code> = <code>mohammed.khan@email.com</code>. Same formula, different caller, different result — that's how session-based row-level security works without any code change.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════ DAY 3 ═══════════════════ -->
+<section id="day3">
+  <div class="day-strip"></div>
+  <div class="day-num">Day 3</div>
+  <h2>Power Fx Deep Dive — Validation, Variables &amp; Calculated Fields</h2>
+  <p class="day-goal">Goal: Add loan-limit enforcement, overdue visual indicators, dynamic form modes, and a running fine total — making the app smart enough to prevent rule violations automatically.</p>
+
+  <div class="kw-row">
+    <a class="kw" href="#glossary">Power Fx</a>
+    <a class="kw" href="#glossary">Business Rule</a>
+    <a class="kw" href="#glossary">Row-Level Security</a>
+  </div>
+
+  <h3>Concepts</h3>
+  <p>Variables in Power Fx come in two forms: <strong>global</strong> (<code>Set(varName, value)</code> — accessible from any screen) and <strong>context</strong> (<code>UpdateContext({varName: value})</code> — scoped to the current screen only). You use <code>Set(ActiveLoanCount, CountRows(...))</code> because the count is needed on multiple screens. Context variables are better for temporary UI state like "is this form in edit mode?"</p>
+  <p><code>Filter()</code> returns a <em>table</em> — multiple rows. <code>LookUp()</code> returns a single <em>record</em> — the first row that matches. Use <code>Filter()</code> when you need a list (gallery items, countrows). Use <code>LookUp()</code> when you need one specific record (find the current member, find one book by ISBN). Mixing them up is the #1 beginner mistake in Power Fx.</p>
+  <p><code>DateDiff(date1, date2, unit)</code> returns a positive number if date2 is after date1. For overdue detection: <code>DateDiff(Today(), ThisItem.cl_due_date, Days)</code> — if this is negative, the book is overdue. You use this in an <code>If()</code> to color the row red or green.</p>
+
+  <h3>Step-by-Step Tasks</h3>
+  <ol class="steps">
+    <li>On BrowseScreen <code>OnVisible</code>, set the active loan count: <code>Set(ActiveLoanCount, CountRows(Filter(Loans, 'cl_member (Members)'.cl_email = User().Email &amp;&amp; cl_returned = false)))</code></li>
+    <li>Set Borrow button <code>Visible</code> to: <code>ActiveLoanCount &lt; Switch(CurrentMember.cl_membership_type, "Premium", 10, "Senior", 5, "Standard", 3, "Student", 2)</code> — Premium can borrow 10, Student only 2</li>
+    <li>Add a Label below Borrow button with <code>Text</code>: <code>If(ActiveLoanCount &gt;= 2 &amp;&amp; CurrentMember.cl_membership_type = "Student", "Loan limit reached (Student max: 2)", "")</code></li>
+    <li>In MyLoansScreen gallery template, set the background color of the due-date label to: <code>If(DateDiff(Today(), ThisItem.cl_due_date, Days) &lt; 0, RGBA(248,81,73,0.15), RGBA(63,185,80,0.1))</code> — red if overdue, green if within date</li>
+    <li>Add a due-date icon: <code>If(DateDiff(Today(), ThisItem.cl_due_date, Days) &lt; 0, "⚠ OVERDUE", "Due: " &amp; Text(ThisItem.cl_due_date, "dd mmm yyyy"))</code></li>
+    <li>Add a "Total fines" label on MyLoansScreen — see formula block below</li>
+    <li>For the Loan Form on DetailScreen, set <code>Mode</code> to: <code>If(IsBlank(BookGallery.Selected), FormMode.New, FormMode.View)</code></li>
+    <li>Add a membership tier badge on BrowseScreen using Switch for color: <code>Switch(CurrentMember.cl_membership_type, "Premium", RGBA(227,179,65,1), "Senior", RGBA(248,81,73,0.8), "Student", RGBA(88,166,255,1), RGBA(63,185,80,1))</code></li>
+  </ol>
+
+  <pre>// Outstanding fines total — Label.Text on MyLoansScreen
+"Outstanding fines: ₹" &
+Text(
+    Sum(
+        Filter(Loans,
+            'cl_member (Members)'.cl_email = User().Email
+        ),
+        cl_late_fee
+    ),
+    "[$-hi-IN]#,##0"
+)
+
+// Overdue indicator — ThisItem fill color in gallery
+If(
+    DateDiff(Today(), ThisItem.cl_due_date, Days) &lt; 0,
+    RGBA(248, 81, 73, 0.15),   // red tint — overdue
+    RGBA(63, 185, 80, 0.10)    // green tint — on time
+)</pre>
+
+  <div class="scenario">
+    <div class="scenario-title">Scenario — Loan limits in action</div>
+    <p>Fatima Ansari (Senior member, max 5 books) already has 5 active loans — she borrowed science books over the past month. When she taps BrowseScreen, <code>OnVisible</code> sets <code>ActiveLoanCount = 5</code>. The Borrow button's <code>Visible</code> property evaluates to <code>false</code> (5 &lt; 5 is false). The button disappears and the label "Loan limit reached (Senior max: 5)" appears instead.</p>
+    <p>Meanwhile Nisha Kurmi (Student, max 2) already has 2 loans. She tries to borrow <em>Cosmos</em> — same result. But Kiran Chauhan (Premium, max 10) has 6 loans and the Borrow button remains visible. Rekha Pasi (Senior member) checks her MyLoansScreen and sees <em>The Diary of a Young Girl</em> highlighted in red — it was due yesterday. Her outstanding fines label shows "Outstanding fines: ₹35."</p>
+  </div>
+
+  <div class="checkpoint">
+    <div class="checkpoint-title">End-of-Day Checkpoint</div>
+    <p><strong>Q:</strong> What is the difference between <code>Filter()</code> and <code>LookUp()</code> in Power Fx?</p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p><strong>Filter(Table, Condition)</strong> — returns a <em>Table</em> (zero or more rows). Use it when you need a list: gallery items, <code>CountRows()</code>, <code>Sum()</code> across multiple records. Example: <code>Filter(Loans, cl_returned = false)</code> returns all open loans.</p>
+        <p><strong>LookUp(Table, Condition, Result)</strong> — returns a single <em>Record</em> (the first match). Use it when you need one specific thing. Example: <code>LookUp(Members, cl_email = User().Email)</code> returns the one member record for the logged-in user. If you try to use <code>Filter()</code> where a single record is expected (like setting a Lookup field in <code>Patch()</code>), you'll get a type mismatch error.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════ DAY 4 ═══════════════════ -->
+<section id="day4">
+  <div class="day-strip"></div>
+  <div class="day-num">Day 4</div>
+  <h2>Power Automate — Flows, Child Flows &amp; Parent Flows</h2>
+  <p class="day-goal">Goal: Build a scheduled overdue reminder flow, then architect a parent-child flow system that calculates late fees and sends return confirmations — the most important flow pattern you'll use in real projects.</p>
+
+  <div class="kw-row">
+    <a class="kw" href="#glossary">Trigger</a>
+    <a class="kw" href="#glossary">Action</a>
+    <a class="kw" href="#glossary">Child Flow</a>
+    <a class="kw" href="#glossary">Parent Flow</a>
+    <a class="kw" href="#glossary">Expression</a>
+    <a class="kw" href="#glossary">Respond to a PowerApp or flow</a>
+    <a class="kw" href="#glossary">Connector</a>
+    <a class="kw" href="#glossary">Connection Reference</a>
+  </div>
+
+  <h3>Concepts</h3>
+  <p>Power Automate flows are built from a <strong>trigger</strong> (what starts the flow) and a sequence of <strong>actions</strong> (steps that do things). Expressions inside actions use a different formula language from Power Fx — they use Azure Logic Apps syntax like <code>addDays(utcNow(), 14)</code>, <code>formatDateTime()</code>, <code>mul()</code>, <code>div()</code>. You write expressions inside an action's <em>fx</em> field.</p>
+  <p>Child flows are the Power Automate equivalent of a reusable function. Instead of copy-pasting the same 5-step late-fee logic into three different flows, you write it once as a child flow and call it from anywhere. The key rules: child flows use <em>Manually trigger a flow</em> as their trigger, they define typed inputs, and they return outputs via <em>Respond to a PowerApp or flow</em>. Both parent and child must be in the same solution.</p>
+  <p>The <em>Run a child flow</em> action is found under the <strong>Flow</strong> connector (search "Run a child flow" in the action search bar). After the action completes, the child flow's outputs appear in the <em>Dynamic Content</em> panel of the parent — you can reference them in subsequent actions just like any other output.</p>
+
+  <!-- PART A -->
+  <div class="part">
+    <div class="part-label">Part A</div>
+    <h3>Daily Overdue Reminder (Scheduled Flow)</h3>
+    <ol class="steps">
+      <li>In your solution → New → Automation → Cloud Flow → Scheduled. Name: <strong>CL - Daily Overdue Reminder</strong>. Set: every 1 Day at 09:00 AM IST</li>
+      <li>Add action: <strong>List rows</strong> (Dataverse). Table: <em>Loans</em>. Filter rows: <code>cl_returned eq false and cl_due_date lt @{utcNow()}</code>. This returns all loans that are unpaid AND past due date</li>
+      <li>Add action: <strong>Apply to each</strong>. Input: the <code>value</code> output from List rows (this loops over each overdue loan)</li>
+      <li>Inside Apply to each → Add action: <strong>Get a row by ID</strong> (Dataverse). Table: Members. Row ID: the <code>cl_member</code> lookup value from the current loan row (use Dynamic Content)</li>
+      <li>Inside Apply to each → Add action: <strong>Send an email (V2)</strong> (Outlook). To: member's <code>cl_email</code>. Subject: <code>Overdue book reminder — @{items('Apply_to_each')?['cl_book_name']}</code>. Body: <em>"Hi [member name], your copy of '[book title]' was due on [date]. Late fee: ₹5/day. Please return it at the earliest."</em></li>
+      <li>Save the flow. Turn it On</li>
+    </ol>
+  </div>
+
+  <!-- PART B -->
+  <div class="part">
+    <div class="part-label">Part B — Read this carefully. This is the most important pattern in Power Automate.</div>
+    <h3>Parent Flow calling Child Flows — Book Return System</h3>
+
+    <div class="flow-diagram">
+      <div class="flow-box">Canvas App<br><small>Return button</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box parent">Parent Flow<br><small>CL - Process Book Return</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box child">Child 1<br><small>Calculate Late Fee</small></div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-box child">Child 2<br><small>Send Confirmation</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box output">Update Loan<br><small>Dataverse</small></div>
+    </div>
+
+    <h4>Step 1 — Build Child Flow 1: "CL - Calculate Late Fee (Child)"</h4>
+    <ol class="steps">
+      <li>In solution → New → Automation → Cloud Flow → <strong>Instant cloud flow</strong>. Name: <strong>CL - Calculate Late Fee (Child)</strong>. Trigger: <em>Manually trigger a flow</em></li>
+      <li>In the trigger, click <em>Add an input</em>:
+        <span class="sub-step">Input 1: Type = <strong>Text</strong>, Name = <strong>DueDate</strong> (ISO date string e.g. 2025-03-28)</span>
+        <span class="sub-step">Input 2: Type = <strong>Text</strong>, Name = <strong>ReturnDate</strong> (ISO date string e.g. 2025-03-31)</span>
+      </li>
+      <li>Add action: <strong>Compose</strong>. Name it <em>DaysLate</em>. Value (expression):<pre>max(
+  0,
+  div(
+    sub(
+      ticks(triggerBody()?['text_2']),
+      ticks(triggerBody()?['text_1'])
+    ),
+    864000000000
+  )
+)</pre>This converts the date strings to ticks (100-nanosecond intervals), subtracts, divides to get days, and floors to zero minimum</li>
+      <li>Add action: <strong>Compose</strong>. Name it <em>LateFee</em>. Value (expression): <code>mul(outputs('DaysLate'), 5)</code> — ₹5 per day overdue</li>
+      <li>Add action: <strong>Respond to a PowerApp or flow</strong>. Click <em>Add an output</em>:
+        <span class="sub-step">Output: Type = <strong>Number</strong>, Name = <strong>fee_amount</strong>, Value = <code>outputs('LateFee')</code></span>
+      </li>
+      <li>Save. This flow is now callable by any parent flow in the same solution.</li>
+    </ol>
+
+    <h4>Step 2 — Build Child Flow 2: "CL - Send Return Confirmation (Child)"</h4>
+    <ol class="steps">
+      <li>New → Instant cloud flow. Name: <strong>CL - Send Return Confirmation (Child)</strong>. Trigger: <em>Manually trigger a flow</em></li>
+      <li>Add inputs to the trigger:
+        <span class="sub-step">Input 1: Text → <strong>MemberEmail</strong></span>
+        <span class="sub-step">Input 2: Text → <strong>BookTitle</strong></span>
+        <span class="sub-step">Input 3: Number → <strong>FeeAmount</strong></span>
+      </li>
+      <li>Add action: <strong>Send an email (V2)</strong> (Outlook):
+        <span class="sub-step">To: <code>triggerBody()?['text']</code> (MemberEmail)</span>
+        <span class="sub-step">Subject: expression: <code>concat('Book returned: ', triggerBody()?['text_1'])</code></span>
+        <span class="sub-step">Body: <em>"Hi, your return has been recorded. Book: [BookTitle]. Late fee charged: ₹[FeeAmount]. Thank you for using the Community Library!"</em></span>
+      </li>
+      <li>Add action: <strong>Respond to a PowerApp or flow</strong>. Output: Text → <strong>status</strong> → value: <code>"sent"</code></li>
+      <li>Save.</li>
+    </ol>
+
+    <h4>Step 3 — Build Parent Flow: "CL - Process Book Return (Parent)"</h4>
+    <ol class="steps">
+      <li>New → Instant cloud flow. Name: <strong>CL - Process Book Return (Parent)</strong>. Trigger: <em>PowerApps (V2)</em> — this allows the canvas app's Return button to call it. Add one input: Text → <strong>LoanID</strong></li>
+      <li>Add action: <strong>Get a row by ID</strong> (Dataverse). Table: Loans. Row ID: <code>triggerBody()?['text']</code> (the LoanID passed from canvas app)</li>
+      <li>Add action: <strong>Get a row by ID</strong> (Dataverse). Table: Members. Row ID: use the <code>_cl_member_value</code> from the loan row (the lookup GUID)</li>
+      <li>Add action: <strong>Run a child flow</strong> (under <em>Flow</em> connector — search "Run a child flow"). Select: <em>CL - Calculate Late Fee (Child)</em>. Map inputs:
+        <span class="sub-step">DueDate: <code>formatDateTime(outputs('Get_loan_row')?['body/cl_due_date'], 'yyyy-MM-dd')</code></span>
+        <span class="sub-step">ReturnDate: <code>formatDateTime(utcNow(), 'yyyy-MM-dd')</code></span>
+      </li>
+      <li>Add action: <strong>Run a child flow</strong>. Select: <em>CL - Send Return Confirmation (Child)</em>. Map inputs:
+        <span class="sub-step">MemberEmail: <code>outputs('Get_member_row')?['body/cl_email']</code></span>
+        <span class="sub-step">BookTitle: <code>outputs('Get_loan_row')?['body/cl_book_name']</code> (the formatted lookup name)</span>
+        <span class="sub-step">FeeAmount: <code>outputs('CL_-_Calculate_Late_Fee_(Child)')?['body/fee_amount']</code></span>
+      </li>
+      <li>Add action: <strong>Update a row</strong> (Dataverse). Table: Loans. Row ID: the loan GUID. Fields:
+        <span class="sub-step"><code>cl_returned</code> = true</span>
+        <span class="sub-step"><code>cl_return_date</code> = <code>utcNow()</code></span>
+        <span class="sub-step"><code>cl_late_fee</code> = <code>outputs('CL_-_Calculate_Late_Fee_(Child)')?['body/fee_amount']</code></span>
+        <span class="sub-step"><code>cl_available</code> on the book row = true (update Books table row separately)</span>
+      </li>
+      <li>Add action: <strong>Respond to a PowerApp or flow</strong>. Output: Text → <strong>result</strong> → value: <code>"success"</code></li>
+      <li>Save. In the canvas app's Return Book button <code>OnSelect</code>: call this parent flow using <code>CommunityLibraryReturnFlow.Run(ThisItem.cl_loanid)</code> and show <code>Notify("Return successful!", NotificationType.Success)</code></li>
+    </ol>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-title">Scenario — Suresh Yadav returns a book 3 days late</div>
+    <p>Suresh Yadav (Senior member) borrowed <em>Sapiens</em> on 2025-03-01 with a due date of 2025-03-28. He returns it on 2025-03-31 — 3 days late. He taps "Return Book" in the Member Portal canvas app.</p>
+    <p>The canvas app calls the <strong>Parent Flow</strong> with LoanID = "abc123". The parent fetches the loan row (due_date = 2025-03-28) and the member row (email = suresh.yadav@outlook.com). It then calls <strong>Child Flow 1</strong> with DueDate="2025-03-28", ReturnDate="2025-03-31". Child 1 computes 3 days × ₹5 = ₹15 and returns <code>fee_amount = 15</code>. The parent then calls <strong>Child Flow 2</strong> with MemberEmail="suresh.yadav@outlook.com", BookTitle="Sapiens", FeeAmount=15. Suresh receives an email: <em>"Book returned: Sapiens. Late fee charged: ₹15."</em> Finally the parent updates the Loans row: returned=true, return_date=today, late_fee=15. The Book row's cl_available flips back to true.</p>
+    <p>Total time from button tap to Loan updated: ~3 seconds. Zero lines of "code" — just configured actions.</p>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Interview Q &amp; A — Parent Flow calling a Child Flow</div>
+    <p><strong>Q: If asked to create a simple parent flow that calls a child flow, walk me through your approach step by step.</strong></p>
+    <ol>
+      <li><strong>Build the child flow first.</strong> Use "Manually trigger a flow" as the trigger — this is mandatory, not optional. Define all input parameters in the trigger (e.g. DueDate as Text, LoanID as Text). Add your logic steps (Compose, Condition, HTTP, etc). At the very end, add "Respond to a PowerApp or flow" and define every output the parent will need (e.g. fee_amount as Number). Save and note the flow's name exactly.</li>
+      <li><strong>Both flows must live in the same solution.</strong> If the child is not in the same solution, the "Run a child flow" action will not find it. This is the most common mistake beginners make.</li>
+      <li><strong>Build the parent flow.</strong> Choose any trigger (PowerApps, Scheduled, or Automated — child flows don't care). Find the action "Run a child flow" under the Flow connector. Select your child flow from the dropdown. The child flow's input parameters appear as fields — map values from Dynamic Content or Expressions. After the action completes, the child flow's output values appear in the Dynamic Content panel for all subsequent parent actions.</li>
+      <li><strong>The child flow cannot see the parent's context automatically</strong> — you must explicitly pass everything the child needs as input parameters. Design child flows to be self-contained and reusable.</li>
+      <li><strong>Why use child flows?</strong> The "Calculate Late Fee" logic is identical whether a member returns a book (Return button), a librarian processes a return (Staff Portal), or a scheduled job audits overdue accounts. Write the child flow once, call it from all three parent flows — changes to fee rules happen in one place only.</li>
+    </ol>
+    <p style="margin-top:8px;font-size:.85rem;color:var(--muted)"><strong>Key constraint to remember:</strong> Child flows cannot recurse (call themselves). They also cannot call sibling child flows — only a parent can call a child.</p>
+  </div>
+
+  <div class="checkpoint">
+    <div class="checkpoint-title">End-of-Day Checkpoint</div>
+    <p><strong>Q:</strong> What trigger type must a child flow use? Why can't you use "When a row is added" as a child flow trigger?</p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p>A child flow <strong>must use "Manually trigger a flow"</strong> as its trigger. This is because the parent flow calls the child flow directly — it doesn't fire an event or add a row. The "Manually trigger a flow" trigger is the only one that supports defined input parameters and can receive calls from a "Run a child flow" action.</p>
+        <p>"When a row is added" is an <em>Automated</em> trigger — it's woken up by a Dataverse event, not by another flow. It has no input parameters for the parent to pass data through. If you tried to use it as a child, the "Run a child flow" action wouldn't find it in the dropdown because Power Platform only lists flows with "Manually trigger a flow" triggers as valid child flows.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════ DAY 5 ═══════════════════ -->
+<section id="day5">
+  <div class="day-strip"></div>
+  <div class="day-num">Day 5</div>
+  <h2>Model-Driven App — Library Staff Portal</h2>
+  <p class="day-goal">Goal: Build a model-driven app for Sanjay Singh and Neha Agarwal to manage books, members, and loans — using auto-generated UI, custom views, business rules, and command bar actions.</p>
+
+  <div class="kw-row">
+    <a class="kw" href="#glossary">Model-Driven App</a>
+    <a class="kw" href="#glossary">Business Rule</a>
+    <a class="kw" href="#glossary">Security Role</a>
+  </div>
+
+  <h3>Concepts</h3>
+  <p>Model-driven apps don't have a design canvas — you configure <em>views</em> (what columns appear in the list), <em>forms</em> (what fields staff see when opening a record), and <em>navigation</em> (which tables appear in the left nav). The UI renders automatically from your Dataverse schema. This means less design work for you, and consistent Microsoft Fluent UI for the user — exactly what staff expect from a back-office tool.</p>
+  <p>Business Rules are form-layer logic that runs without flows. They're perfect for simple field validation, show/hide logic, and default values. You configure them visually in a condition-action diagram inside Dataverse. Unlike flows, Business Rules can fire synchronously while the user is still filling the form — instant feedback with no round-trip delay.</p>
+  <p>Command Bar customizations let you add a custom button to the list or form toolbar. Your "Return Book" button in the Staff Portal calls the parent flow directly from within the model-driven app, giving Sanjay Singh a one-click return process without ever opening the canvas app.</p>
+
+  <h3>Step-by-Step Tasks</h3>
+  <ol class="steps">
+    <li>In your solution → New → App → Model-driven app. Name: <strong>Library Staff Portal</strong></li>
+    <li>In the app designer, click <em>Navigation</em> → + Add page → Dataverse table → select <strong>Books</strong>. Repeat for <strong>Members</strong> and <strong>Loans</strong>. Group them under a nav group named "Library Operations"</li>
+    <li>Customize the <strong>Books</strong> view: open the Books view → Edit columns → include: Title, Author, Genre, Available, ISBN. Sort by Title ascending. Save as "All Books"</li>
+    <li>Create a custom view for Loans named <strong>"All Active Loans"</strong>: columns = Book, Member Name, Loan Date, Due Date, Days Remaining. Filter: <code>cl_returned = No</code>. Sort: Due Date ascending (most overdue first)</li>
+    <li>Open the Loans <strong>form</strong> → add all columns. Set <code>cl_due_date</code> to locked (read-only on form — it's calculated at borrow time)</li>
+    <li>Create a <strong>Business Rule</strong> on the Loans table: Condition: <code>cl_member.cl_membership_type = Student</code>. Action: Set field <code>cl_notes</code> = "Student member — max 2 concurrent loans." Save and Activate</li>
+    <li>Add a <strong>Command Bar button</strong> on the Loans form: label "Mark Returned". Action: run the <em>CL - Process Book Return (Parent)</em> flow, passing the current record ID. Set visibility: only show when <code>cl_returned = false</code></li>
+    <li>Customize Members view: columns = Full Name, Email, Membership Type, Active, Join Date, Phone. Filter: Active = Yes</li>
+    <li>Save and Publish the app. Share the app with Sanjay Singh and Neha Agarwal (they need Basic User environment role + Senior/Junior Librarian security roles)</li>
+  </ol>
+
+  <div class="scenario">
+    <div class="scenario-title">Scenario — Sanjay Singh processes an overdue return</div>
+    <p>Sanjay Singh (Senior Librarian) opens the Staff Portal. He clicks "All Active Loans" — a sorted list appears. At the top: Vikram Rathore's loan of <em>Clean Code</em> is 2 days overdue (due 2026-07-24, today is 2026-07-26, highlighted in red by the view's conditional formatting). He clicks the row to open the loan form. He sees the member details (Vikram Rathore, Standard member, Rajput community from Rajasthan), the book lookup, and the business-rule note for student members (not applicable here).</p>
+    <p>He clicks the custom command bar button "Mark Returned." Behind the scenes, it fires the parent flow with Vikram's loan ID. Child Flow 1 computes 2 × ₹5 = ₹10. Child Flow 2 sends an email to vikram.rathore@yahoo.com. The loan row updates. The form refreshes — <code>cl_returned</code> is now Yes, the "Mark Returned" button disappears (visibility rule), and Vikram's loan drops off the Active Loans view automatically.</p>
+    <p>Meanwhile Neha Agarwal (Junior Librarian) is checking the Members list. She can see member records (Read permission) but cannot edit them — her Junior Librarian security role grants Read-only on Members. Only Sanjay (Senior) and Pooja (Admin) can edit member records.</p>
+  </div>
+
+  <div class="checkpoint">
+    <div class="checkpoint-title">End-of-Day Checkpoint</div>
+    <p><strong>Q:</strong> Name two things you can do in a Model-Driven App that you <em>cannot</em> do in a Canvas App.</p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <ol style="padding-left:18px;margin-top:4px">
+          <li><strong>Business Rules on forms</strong> — you can attach Business Rules (configured in Dataverse) that run automatically on the model-driven form. Canvas apps don't render Dataverse Business Rules; you'd have to replicate the logic manually in Power Fx.</li>
+          <li><strong>Automatic audit trail / activity feed</strong> — model-driven apps automatically show the record timeline (who created it, who modified it, notes, emails, tasks) in the right sidebar without any configuration. Canvas apps have no built-in activity tracking.</li>
+          <li><em>Bonus:</em> Views and forms are shared and managed centrally — changing a view affects all model-driven apps that use it. In canvas apps, each app maintains its own gallery configuration.</li>
+        </ol>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════ DAY 6 ═══════════════════ -->
+<section id="day6">
+  <div class="day-strip"></div>
+  <div class="day-num">Day 6</div>
+  <h2>Solutions, ALM &amp; DLP — Moving to LM-UAT</h2>
+  <p class="day-goal">Goal: Package everything into a managed solution, add environment variables and connection references, deploy to LM-UAT, and protect the environment with a DLP policy.</p>
+
+  <div class="kw-row">
+    <a class="kw" href="#glossary">ALM</a>
+    <a class="kw" href="#glossary">Solution</a>
+    <a class="kw" href="#glossary">Environment Variable</a>
+    <a class="kw" href="#glossary">Connection Reference</a>
+    <a class="kw" href="#glossary">DLP</a>
+    <a class="kw" href="#glossary">Pipeline</a>
+  </div>
+
+  <h3>Concepts</h3>
+  <p>Before you can deploy, every connector in every flow must use a <strong>Connection Reference</strong>, not a direct connection. A direct connection is tied to your specific credentials. A Connection Reference is a named slot — the connection it points to can be changed per environment at import time. Without Connection References, importing your solution to UAT would break every flow that uses Outlook or Dataverse, because those connections don't exist in UAT yet.</p>
+  <p>Environment Variables decouple configuration from code. Instead of hard-coding 14 in your Borrow button formula, you read it from <code>cl_LoanPeriodDays</code>. When UAT should use a stricter 7-day policy, you set the variable to 7 at import time — zero code changes. This is the correct pattern for any value that might differ between environments: loan period, library name, email sender address, fee per day, etc.</p>
+  <p>DLP policies are your safety net. Even if a developer accidentally creates a flow in UAT that tries to use the HTTP connector to POST data to an external URL, the DLP policy will block the flow from running (and show an error at design time). DLP is configured in the Admin Center by Pooja Sharma (Library Admin / System Admin) — not by Ashwini the developer.</p>
+
+  <h3>Step-by-Step Tasks</h3>
+  <ol class="steps">
+    <li>Open solution "Community Library" in LM-DEV → verify all components are present: 2 apps, 4 flows (1 scheduled, 1 parent, 2 child), 3 tables, and any security roles</li>
+    <li>Add an <strong>Environment Variable</strong>: New → Environment Variable. Display name: <strong>Loan Period Days</strong>, Schema name: <code>cl_LoanPeriodDays</code>, Type: Integer, Default value: <strong>14</strong>. Save</li>
+    <li>In the canvas app, update the Borrow button formula to use the variable (see code block below) instead of the hard-coded <code>14</code></li>
+    <li>Add a <strong>Connection Reference</strong> for Dataverse: New → Connection Reference → Dataverse → connect to your LM-DEV Dataverse connection. Name: <em>CL Dataverse Reference</em></li>
+    <li>Add a <strong>Connection Reference</strong> for Outlook: New → Connection Reference → Office 365 Outlook → connect using Ashwini's credentials. Name: <em>CL Outlook Reference</em></li>
+    <li>In each flow, open every Dataverse and Outlook action → switch the connection from direct to the Connection Reference. Save all flows</li>
+    <li>Solutions → Community Library → <strong>Export</strong>. Select: <strong>Managed</strong>. Download the zip file</li>
+    <li>Switch to <strong>LM-UAT</strong> environment → Solutions → Import → upload the zip. During the import wizard:
+      <span class="sub-step">Re-map <em>CL Dataverse Reference</em> → create a new connection to LM-UAT Dataverse</span>
+      <span class="sub-step">Re-map <em>CL Outlook Reference</em> → create a new Outlook connection for UAT</span>
+      <span class="sub-step">Set <code>cl_LoanPeriodDays</code> current value → <strong>7</strong></span>
+    </li>
+    <li>Open LM-UAT → verify apps are present but <em>read-only / not editable</em>. Try to open the canvas app in Edit mode — Power Platform should show: "Managed solutions cannot be edited in this environment"</li>
+    <li>Go to <code>admin.powerplatform.microsoft.com</code> → DLP → + New Policy. Name: <strong>Library DLP — Business Environments</strong>. Scope: select LM-UAT and LM-PRD environments. Move <strong>HTTP connector</strong> to Blocked tier. Move <strong>Custom connectors</strong> to Blocked. Save</li>
+  </ol>
+
+  <pre>// Borrow button — use Environment Variable instead of hard-coded 14
+Patch(Loans, Defaults(Loans), {
+    cl_book: BookGallery.Selected,
+    'cl_member (Members)': CurrentMember,
+    cl_loan_date: Today(),
+    cl_due_date: DateAdd(
+        Today(),
+        Value(
+            LookUp(
+                'Environment Variable Values',
+                'Environment Variable Definition'.'Schema Name' = "cl_LoanPeriodDays",
+                Value
+            )
+        ),
+        Days
+    ),
+    cl_returned: false
+})</pre>
+
+  <div class="info">
+    <strong>Why Managed in UAT?</strong><br>
+    In LM-DEV, your solution is unmanaged — you (Ashwini) can edit every app, flow, and table freely. When you export as Managed and import to LM-UAT, nobody — not even Ashwini — can directly edit the apps or flows in UAT. All changes must go through: edit in DEV → export Managed → import to UAT. This creates an immutable audit trail and prevents someone from making a "quick fix" directly in UAT that never gets propagated back to DEV, causing DEV and UAT to diverge. This discipline is what ALM is all about.
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-title">Scenario — Kiran Chauhan tests in UAT with a different loan period</div>
+    <p>Ashwini has deployed the managed solution to LM-UAT with <code>cl_LoanPeriodDays = 7</code>. Kiran Chauhan (Premium member, Rajput from MP) logs into the UAT canvas app. She browses the book list, selects <em>Dune</em>, and taps Borrow. The success toast reads: <em>"Borrowed! Due back: 12 Sep 2026"</em> — exactly 7 days from today (5 Sep 2026), not 14. The same code is running, but the Environment Variable value changed per-environment.</p>
+    <p>Ashwini tries to open the canvas app in Edit mode inside LM-UAT. The Edit button is greyed out — she gets a message that managed solutions cannot be edited in this environment. She goes back to LM-DEV to make her change, re-exports Managed, and re-imports to UAT. That's ALM working correctly.</p>
+    <p>Pooja Sharma (Library Admin) has set a DLP policy blocking HTTP in LM-UAT. A junior developer accidentally tries to create a "webhook notification" flow using HTTP in LM-UAT — the flow designer shows a red DLP violation warning immediately, before the flow is even saved. The connector is blocked at the admin level.</p>
+  </div>
+
+  <div class="checkpoint">
+    <div class="checkpoint-title">End-of-Day Checkpoint</div>
+    <p><strong>Q:</strong> What happens if you try to edit a canvas app that was imported as a Managed solution?</p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p>Power Platform shows an error or disables the Edit button entirely: <em>"This app is part of a managed solution and cannot be edited in this environment."</em> Managed solutions are intentionally locked — the philosophy is that the source of truth is always the unmanaged solution in DEV, and UAT/PRD receive immutable snapshots (managed imports). To update the app, you must: (1) edit in LM-DEV, (2) re-export as Managed, (3) re-import to LM-UAT. This prevents environment drift — a situation where UAT has changes that never made it back to DEV.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════ DAY 7 ═══════════════════ -->
+<section id="day7">
+  <div class="day-strip"></div>
+  <div class="day-num">Day 7</div>
+  <h2>Security Roles, Governance &amp; Capstone Test</h2>
+  <p class="day-goal">Goal: Create all four Dataverse security roles, assign them to your 6 test users, run a complete end-to-end test with three member accounts, and master 10 interview questions.</p>
+
+  <div class="kw-row">
+    <a class="kw" href="#glossary">Security Role</a>
+    <a class="kw" href="#glossary">Row-Level Security</a>
+    <a class="kw" href="#glossary">ALM</a>
+    <a class="kw" href="#glossary">DLP</a>
+    <a class="kw" href="#glossary">Environment</a>
+  </div>
+
+  <h3>Concepts</h3>
+  <p>Dataverse Security Roles work on two axes: <em>which table</em> and <em>which scope</em>. Scope options are: User (only rows you created/own), Business Unit (your team's rows), Organization (all rows in the environment), or None (no access). "Library Member" role gives Loans scope = User — a member can only see and write their own loan records at the Dataverse level, not just the canvas app filter level. This means even if someone bypassed the app and hit the API directly, row-level security still holds.</p>
+  <p>The end-to-end test is the most important thing you can do before calling anything "done." You test as each of your three test users — Rohit Verma (Premium), Priyanka Singh (Student), Gaurav Malhotra (Standard) — in LM-DEV. You borrow books, trigger the return parent flow, verify emails arrive, check isolation between accounts. Only after this passes do you deploy to UAT and retest.</p>
+
+  <h3>Step-by-Step Tasks</h3>
+  <ol class="steps">
+    <li>In LM-DEV → Settings → Users + Permissions → Security Roles → + New Role: <strong>Library Member</strong>. Set permissions:
+      <span class="sub-step">Books table: Read — Organization scope (all members can see all books)</span>
+      <span class="sub-step">Members table: Read — User scope (can only read their own member record)</span>
+      <span class="sub-step">Loans table: Create / Read / Write / Delete — User scope (their own loans only)</span>
+    </li>
+    <li>New Role: <strong>Junior Librarian</strong> (Neha Agarwal):
+      <span class="sub-step">Books: Create / Read / Write / Delete — Organization</span>
+      <span class="sub-step">Members: Read — Organization</span>
+      <span class="sub-step">Loans: Read / Write — Organization</span>
+    </li>
+    <li>New Role: <strong>Senior Librarian</strong> (Sanjay Singh):
+      <span class="sub-step">Books: Full CRUD — Organization</span>
+      <span class="sub-step">Members: Read / Write — Organization</span>
+      <span class="sub-step">Loans: Full CRUD — Organization</span>
+    </li>
+    <li>New Role: <strong>Library Admin</strong> (Pooja Sharma): Full CRUD on all tables, Organization scope, plus Customize System, Manage Environment permissions</li>
+    <li>In Admin Center → LM-DEV → Users → add each test user and assign roles:
+      <span class="sub-step">Rohit Verma, Priyanka Singh, Gaurav Malhotra → Basic User + <strong>Library Member</strong></span>
+      <span class="sub-step">Neha Agarwal → Basic User + <strong>Junior Librarian</strong></span>
+      <span class="sub-step">Sanjay Singh → Basic User + <strong>Senior Librarian</strong></span>
+      <span class="sub-step">Pooja Sharma → System Administrator + <strong>Library Admin</strong></span>
+    </li>
+    <li>End-to-end test — <strong>as Rohit Verma</strong>: open Member Portal → browse books → borrow <em>Dune</em> → confirm toast and Loans row created → tap Return → confirm flow ran (check run history) → confirm email arrived at rohit.verma@gmail.com → confirm loan shows returned=true, late_fee updated</li>
+    <li>End-to-end test — <strong>as Priyanka Singh</strong>: open Member Portal → go to My Loans → confirm she sees ONLY her own loans, not Rohit's <em>Dune</em> loan → try to borrow a 3rd book (she has 2 already) → confirm Borrow button is hidden and limit message appears</li>
+    <li>End-to-end test — <strong>as Gaurav Malhotra</strong>: open Member Portal → confirm isolation from Rohit and Priyanka's data → borrow one book → confirm loan created with 14-day due date (DEV env var = 14)</li>
+    <li>Admin Center → Activity log (or Dataverse Audit Log) → confirm all create/update operations are tracked with user, timestamp, and old/new values</li>
+    <li>Review and document: which DLP policies are in place, which environments have managed solutions, which users have which roles. This is your governance snapshot.</li>
+  </ol>
+
+  <div class="scenario">
+    <div class="scenario-title">Scenario — Three users, one app, total isolation</div>
+    <p>All three test users open the Member Portal simultaneously. Rohit Verma (Premium, UP) has 10 loans on his account. Priyanka Singh (Student, Singh community) has 2 loans and hits her limit — the Borrow button is hidden. Gaurav Malhotra (Standard, Punjabi) has 3 loans and can still borrow 0 more (Standard max = 3 — button hidden). Each user's My Loans screen shows completely different data, all enforced by the same <code>User().Email</code> filter in one formula.</p>
+    <p>Pooja Sharma (Library Admin) opens the Staff Portal as System Administrator. She can see ALL loans, ALL members, ALL books. She opens Rohit Verma's member record and edits his membership type from Premium to Standard — something Rohit himself cannot do (he only has Read on his own Member row). She then opens the Admin Center, checks the DLP policy, and confirms the HTTP connector is blocked in LM-UAT — the governance layer is working.</p>
+  </div>
+
+  <!-- INTERVIEW Q&A -->
+  <h3 style="margin-top:32px">Interview Q &amp; A — 10 Essential Questions</h3>
+  <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px">Click "See answer" to reveal each answer. Practice saying these out loud.</p>
+
+  <div class="interview">
+    <div class="interview-title">Q1</div>
+    <p><strong>Canvas App vs Model-Driven App — when do you use each?</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p><strong>Canvas App</strong> when: users need a custom, pixel-perfect UI (mobile-first, consumer-facing, specific branding); when data comes from multiple sources (SharePoint + SQL + Dataverse in one screen); or when the user interaction is non-standard (custom workflows, kiosk screens). Example: the Member Borrowing Portal — members need a clean, app-like experience.</p>
+        <p><strong>Model-Driven App</strong> when: users are staff working with complex relational data where the standard form/list/detail pattern is sufficient; when you need built-in timeline, Business Rules, and audit logs without extra effort; when data is entirely in Dataverse. Example: the Library Staff Portal — Sanjay Singh needs to manage hundreds of loans and members efficiently, not beautifully.</p>
+        <p><em>One-liner:</em> Canvas = creative control for custom UX; Model-driven = productivity for data-heavy back-office work.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Q2</div>
+    <p><strong>What is ALM in Power Platform? How do you implement it?</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p>ALM stands for Application Lifecycle Management — the practice of moving your app through structured stages: DEV (build) → UAT (test) → PRD (live). Without ALM, you make changes directly in production, can't roll back, and have no audit trail.</p>
+        <p>In Power Platform, ALM is implemented by: (1) keeping all components inside a Solution, (2) exporting the solution as Managed from DEV, (3) importing the managed solution to UAT/PRD. Alternatively, use Power Platform Pipelines (free built-in tool) for one-click deployment with automated steps. Connection References and Environment Variables are the technical enablers that allow the same solution to work across all three environments without code changes.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Q3</div>
+    <p><strong>What is a Connection Reference and why is it needed?</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p>A Connection Reference is a named placeholder inside a solution that points to a connector connection. Instead of a flow directly using "Ashwini's Outlook connection" (which only exists in LM-DEV), the flow uses "CL Outlook Reference" — a pointer that can be re-mapped to a different connection at import time.</p>
+        <p>Without it: import your solution to LM-UAT and every Outlook/Dataverse action in every flow breaks immediately, because those specific connections don't exist in UAT. With it: during import, you map the reference to a UAT-specific connection — the flow code is unchanged. This is how you make solutions portable across environments.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Q4</div>
+    <p><strong>Managed vs Unmanaged Solution — what's the difference?</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p><strong>Unmanaged</strong> — the working state in DEV. All components are editable. Deleting a component from the solution (not from the environment) doesn't delete the underlying app/table — it just removes it from the solution packaging. You can have multiple unmanaged solutions in one environment.</p>
+        <p><strong>Managed</strong> — the deployed state in UAT/PRD. Components are locked — nobody can edit apps, flows, or tables directly. Deleting the managed solution deletes all its components from the environment (clean uninstall). When you re-import an updated managed solution, it layers over the existing one. This creates a clear separation: DEV is where you build, UAT/PRD is where you run — and the two never mix.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Q5</div>
+    <p><strong>What are Environment Variables? Give a real example from this project.</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p>Environment Variables are solution-level key-value pairs where the key is constant but the value is set per environment at deployment time. You reference the variable name in code — the runtime resolves it to the correct value for the current environment.</p>
+        <p>Real example: <code>cl_LoanPeriodDays</code>. In LM-DEV = 14 (generous for easy testing). In LM-UAT = 7 (closer to real policy). In LM-PRD = 7 (actual library rule). The canvas app's Borrow button formula reads <code>LookUp('Environment Variable Values', ...)</code> — same formula, different result per environment. No code changes between deployments. Other good candidates: fee per day (₹5 in DEV, ₹10 in PRD), library email sender address, max overdue days before membership suspension.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Q6</div>
+    <p><strong>What is DLP? Who creates DLP policies and who is affected?</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p>DLP (Data Loss Prevention) policies are admin-controlled rules that group connectors into tiers — Business (allowed to work together), Non-Business (isolated), and Blocked (cannot be used at all in a flow or app). If a flow tries to combine a Business connector (SharePoint) with a Non-Business one (HTTP to external), the DLP policy blocks the flow from running.</p>
+        <p>Who creates them: only Power Platform Administrators and Tenant-level Global Admins. Developers like Ashwini cannot create or override DLP policies. In this project, Pooja Sharma (Library Admin + System Admin) creates the "Library DLP" policy in the Admin Center, blocking HTTP in LM-UAT and LM-PRD to prevent unauthorized data exfiltration. DLP policies are the governance safety net — they enforce data boundaries even when developers don't know (or don't follow) security rules.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Q7 — Most Important</div>
+    <p><strong>Walk me through creating a parent flow that calls a child flow, step by step.</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <ol style="padding-left:18px">
+          <li><strong>Design the child flow first.</strong> Decide what inputs it needs and what outputs it returns. In this project: inputs = DueDate, ReturnDate; output = fee_amount.</li>
+          <li><strong>Create the child flow.</strong> New → Instant cloud flow → trigger: <em>Manually trigger a flow</em>. Add all inputs via "Add an input" in the trigger. Add your logic actions. At the very end, add <em>Respond to a PowerApp or flow</em> and define all outputs.</li>
+          <li><strong>Ensure both flows are in the same solution.</strong> This is the most commonly forgotten step. The parent's "Run a child flow" action only sees child flows that are in the same solution and environment. Add the child flow to your solution before building the parent.</li>
+          <li><strong>Create the parent flow.</strong> Any trigger. Add action "Run a child flow" (under the Flow connector — search for it). Select your child flow from the dropdown. The child's input parameters appear as fields — map them from Dynamic Content or Expressions.</li>
+          <li><strong>Use the child's output.</strong> After the "Run a child flow" action, the child's output values (e.g. fee_amount) appear in the Dynamic Content panel. Use them in subsequent actions — in this project, to update the Loan row and pass the amount to Child Flow 2.</li>
+          <li><strong>Test.</strong> Run the parent flow manually with test inputs. Check the run history — each "Run a child flow" step shows its own sub-run that you can expand to see inputs and outputs.</li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Q8</div>
+    <p><strong>What is the difference between a Trigger and an Action in Power Automate?</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p><strong>Trigger</strong> — the event that starts a flow. Every flow has exactly one trigger. Types: Automated (Dataverse row added/modified, email received), Scheduled (every day at 9 AM), Instant (button click, PowerApps call, "Manually trigger a flow" for child flows). The trigger also defines what input data is available to the flow — a "When a row is added" trigger provides the new row's data; a PowerApps trigger provides data passed from the app.</p>
+        <p><strong>Action</strong> — a step inside the flow that does something: reads data, writes data, sends an email, evaluates a condition, loops over a list. A flow can have unlimited actions. Actions can use outputs from previous actions via Dynamic Content. Common actions: Get a row by ID, List rows, Send an email, Condition (if/else), Apply to each (loop), Compose (compute expression), Run a child flow.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Q9</div>
+    <p><strong>How do you implement Row-Level Security in a Canvas App?</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p>Two layers — and you should use both:</p>
+        <p><strong>Layer 1 — Power Fx filter (app layer):</strong> On the gallery's <code>Items</code> property: <code>Filter(Loans, 'cl_member (Members)'.cl_email = User().Email &amp;&amp; cl_returned = false)</code>. <code>User().Email</code> returns the email of the currently logged-in user. This filters what is displayed in the UI.</p>
+        <p><strong>Layer 2 — Dataverse Security Role (database layer):</strong> Assign the "Library Member" security role with Loans scope = User. This means even if someone bypasses the canvas app (e.g. calls the Dataverse API directly or uses Power Automate), they can only access their own loan rows. The database enforces ownership regardless of the application layer.</p>
+        <p>Layer 1 alone is UI-only security — savvy users could bypass it. Layer 2 alone doesn't help in canvas apps (the app delegates queries to Dataverse, which respects the role). Using both is the correct production pattern.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="interview">
+    <div class="interview-title">Q10</div>
+    <p><strong>Standard vs Premium connector — what's the difference? Give examples of each.</strong></p>
+    <details>
+      <summary>See answer</summary>
+      <div class="answer">
+        <p><strong>Standard connectors</strong> are included with any Power Platform license (Microsoft 365, Power Apps per app, etc.). Examples: SharePoint, Office 365 Outlook, Microsoft Teams, Excel Online, OneDrive for Business, Microsoft Forms, Approvals, Notifications. You can use these freely without additional licensing.</p>
+        <p><strong>Premium connectors</strong> require Power Apps/Automate Per User Plan, Per App Plan, or a Developer Plan. Examples: HTTP (call any REST API), Dataverse (direct connector in flows — as opposed to Common Data Service which is standard for some editions), SQL Server, Salesforce, Stripe, Adobe Sign, SAP. In this project, Ashwini's Developer Plan covers all premium connectors — so she can use the HTTP connector for advanced scenarios. However, test users (Rohit Verma, etc.) only have E5 licenses. Since Ashwini <em>owns</em> the flow, her license covers it — test users only need a license if they own their own flows.</p>
+      </div>
+    </details>
+  </div>
+
+</section>
+
+</main>
+
+<script>
+(function(){
+  // Theme toggle
+  var K='pp7-theme';
+  var saved; try{saved=localStorage.getItem(K)}catch(e){}
+  if(saved==='light') document.documentElement.classList.remove('dark');
+  else document.documentElement.classList.add('dark');
+
+  var btn=document.getElementById('thbtn');
+  function setIcon(){ btn.textContent = document.documentElement.classList.contains('dark') ? '☀' : '☾'; }
+  setIcon();
+  btn.onclick=function(){
+    document.documentElement.classList.toggle('dark');
+    try{localStorage.setItem(K, document.documentElement.classList.contains('dark')?'dark':'light')}catch(e){}
+    setIcon();
+  };
+
+  // Tab bar scroll spy
+  var tabs=[].slice.call(document.querySelectorAll('.tabbar a'));
+  var secs=[].slice.call(document.querySelectorAll('section[id]'));
+  function spy(){
+    var y=window.scrollY+140;
+    var cur=null;
+    secs.forEach(function(s){ if(s.offsetTop<=y) cur=s; });
+    tabs.forEach(function(a){
+      var id=a.getAttribute('href').replace('#','');
+      a.classList.toggle('on', !!cur && cur.id===id);
+    });
+  }
+  window.addEventListener('scroll',spy,{passive:true});
+  window.addEventListener('resize',spy);
+  spy();
+})();
+</script>
+</body>
+</html>
