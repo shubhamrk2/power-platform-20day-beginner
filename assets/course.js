@@ -8,7 +8,7 @@
     {p:'phase4',  file:'phase4.html',   t:'Data & integration', gk:'Phase 4', days:[['day12','Day 12 · SharePoint'],['day13','Day 13 · Dataflows & M'],['day14','Day 14 · Connectors & APIs']]},
     {p:'phase5',  file:'phase5.html',   t:'AI & governance', gk:'Phase 5', days:[['day15','Day 15 · Copilot Studio'],['day16','Day 16 · Governance & Azure']]},
     {p:'phase6',  file:'phase6.html',   t:'Power BI', gk:'Phase 6', days:[['setup-bi','Setup guide'],['day17','Day 17 · Get started & data'],['day18','Day 18 · Visuals & reports'],['day19','Day 19 · Prepare & model'],['day20','Day 20 · Share & capstone']]},
-    {p:'reference',file:'reference.html',t:'Reference', days:[['glossary','Glossary'],['help','Troubleshooting']]}
+    {p:'reference',file:'reference.html',t:'Reference', days:[['glossary','Glossary'],['abbreviations','Abbreviations'],['help','Troubleshooting']]}
   ];
   var current=document.body.getAttribute('data-page')||'index';
 
