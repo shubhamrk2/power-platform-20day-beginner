@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Phase 4 · Data &amp; integration — Power Platform in 20 Days</title>
+<title>Month 4 — December · AI Integration + Capstone · AI-Ready in 4 Months</title>
 <link rel="stylesheet" href="assets/course.css">
 </head>
 <body data-page="phase4">
 <button id="menu" aria-label="Menu">☰</button>
 <aside id="rail">
   <div class="brand"><a href="index.html">
-    <div class="t">Power Platform in 20 Days</div>
-    <div class="s">A Beginner's Course</div></a>
+    <div class="t">AI-Ready in 4 Months</div>
+    <div class="s">Power Platform · Azure · GitHub · AI</div></a>
     <div class="prog"><i id="pfill"></i></div>
     <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
   </div>
@@ -19,442 +19,1078 @@
 </aside>
 
 <main>
-<div class="crumb"><a href="index.html">Home</a> / Phase 4 · Data &amp; integration</div>
-<header class="hero">
-  <span class="pill">Phase 4 · Days 12–14</span>
-  <h1>Data &amp; integration</h1>
-  <p>Real solutions pull data from many places. You'll set up a Community Library SharePoint team site (list + library + automation), bulk-import members with a dataflow and Power Query, then explore how Power Platform talks to the outside world through connectors, HTTP, Office Scripts, and custom connectors.</p>
+
+<header class="hero" id="welcome">
+  <span class="pill">Month 4 · December 1–31, 2026</span>
+  <h1>AI Integration + Final Capstone</h1>
+  <p>You have built a complete system. You have built the pipes. This month, you make the pipes think. AI is not a separate tool — it is a layer you add to everything you already have. By December 31, you will have a system that would impress any technology employer — and the ability to explain every single choice you made.</p>
 </header>
 
-<!-- DAY 12 -->
-<section class="day" id="day12">
-<div class="dhead"><span class="dnum">Day 12</span></div>
-<h2>SharePoint: team sites, lists, libraries, views, and notifications</h2>
-<p class="meta">~100 minutes</p>
+<section id="ai-basics">
+<h2>What "AI" Really Means — Before We Touch Any Tool</h2>
 
-<div class="card c-concept"><span class="lab">Concept — SharePoint site types</span>
-<p><strong>SharePoint</strong> is Microsoft 365's team collaboration layer. Two site types:</p>
-<ul>
-<li><strong>Team site</strong> — internal, team-first. Has a Members list (M365 group), a default document library, and a News section. Best for a team actively building together.</li>
-<li><strong>Communication site</strong> — broadcast-first. No M365 group. Designed for a wider audience to consume content (announcements, policies, portals). No editing by viewers.</li>
-</ul>
-<p>For the Community Library, use a <strong>Team site</strong> — the whole team needs to add events and upload policies.</p>
+<div class="card c-concept"><span class="lab">AI is not magic — it is mathematics</span>
+<p>AI is statistics — very sophisticated statistics. When a chatbot reads your question and gives an answer, it is doing this:</p>
+<ol>
+  <li>Your question is broken into numbers — this is called <strong>tokenization</strong></li>
+  <li>A very large mathematical model trained on billions of sentences finds the most likely next word, then the next, then the next</li>
+  <li>Those words are assembled into a response</li>
+</ol>
+<p>The AI does not "know" anything in the way a human knows things. It has seen patterns in text and learned which words tend to follow which other words, in which context. It is extremely good at this — good enough that the output seems like understanding.</p>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — lists vs Dataverse tables</span>
-<p>SharePoint lists are lighter and simpler than Dataverse tables. Use a list when:</p>
-<ul>
-<li>The data is document-centric or already lives in M365.</li>
-<li>You need simple tracking without business rules or complex relationships.</li>
-<li>The audience are regular M365 users with no Power Apps licence.</li>
-</ul>
-<p>Use Dataverse when you need relationships between tables, business rules, security roles, or the data feeds a canvas / model-driven app seriously.</p>
+<div class="card c-concept"><span class="lab">What AI does well vs what AI does badly</span>
+<table>
+<tr><th>AI does well</th><th>AI does badly</th></tr>
+<tr><td>Generating natural-sounding text</td><td>Knowing current facts (only knows its training data)</td></tr>
+<tr><td>Summarising long documents</td><td>Doing precise arithmetic reliably</td></tr>
+<tr><td>Translating between languages</td><td>Following strict business rules without error</td></tr>
+<tr><td>Classifying inputs into categories</td><td>Knowing when it is wrong (can be confidently incorrect)</td></tr>
+<tr><td>Extracting information from unstructured text</td><td>Respecting data privacy if not carefully configured</td></tr>
+<tr><td>Predicting patterns in data</td><td>Making decisions that require human judgment or empathy</td></tr>
+</table>
 </div>
 
-<figure class="fig">
-<svg viewBox="0 0 560 150" role="img" aria-label="When to choose a SharePoint list vs a Dataverse table">
-<rect x="18" y="24" width="256" height="106" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
-<text x="146" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">SharePoint list</text>
-<text x="146" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">simple · document-centric</text>
-<text x="146" y="86" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">anyone in M365 can edit</text>
-<text x="146" y="106" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">events · policies · announcements</text>
-<rect x="286" y="24" width="256" height="106" rx="10" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="414" y="46" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Dataverse table</text>
-<text x="414" y="68" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">relationships · security roles</text>
-<text x="414" y="86" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#4a5567">business rules · scale</text>
-<text x="414" y="106" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">books · members · loans</text>
-</svg>
-<figcaption>SharePoint list for light/document work; Dataverse for relational, business-critical data</figcaption>
-</figure>
-
-<div class="card c-concept"><span class="lab">Concept — list column types in SharePoint</span>
-<ul>
-<li><strong>Title</strong> — the default primary text column (rename it to match your purpose).</li>
-<li><strong>Single line / Multiple lines of text</strong> — short vs long text.</li>
-<li><strong>Date and Time</strong> — date only or date+time.</li>
-<li><strong>Number / Currency</strong> — numeric values.</li>
-<li><strong>Choice</strong> — a fixed pick-list (similar to Dataverse Choice).</li>
-<li><strong>Yes/No</strong> — a checkbox.</li>
-<li><strong>Person or Group</strong> — a pointer to a user in the tenant.</li>
-<li><strong>Lookup</strong> — a pointer to an item in another list on the same site.</li>
-</ul>
+<div class="card c-tip"><span class="lab">💭 The most important question to ask about any AI feature</span>
+<p><strong>"What happens when the AI is wrong?"</strong></p>
+<p>Every AI feature needs a fallback — a way for humans to catch and correct AI errors before they affect real people. AI should make your system better, not make your system fragile. Design every AI feature with a human-in-the-loop for low-confidence or high-stakes decisions.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — build the Community Library SharePoint site</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt"><code>microsoft365.com</code> → app launcher (grid icon) → <strong>SharePoint → Create site → Team site</strong>. Site name = <code>Community Library</code>. Description = <code>Event calendar and library policies</code>. Privacy = Private. Click Next → Finish.</span></li>
-<li><span class="box"></span><span class="txt">On the site: <strong>+ New → List</strong>. Name = <code>Library Events</code>. Click Create.</span></li>
-<li><span class="box"></span><span class="txt">Add these columns to <strong>Library Events</strong>:
-<br>• <strong>Title</strong> column already exists — rename it to <code>Event name</code> (click column header → Column settings → Rename).
-<br>• <strong>+ Add column → Date and Time</strong> — Name: <code>Event date</code>, type: Date only.
-<br>• <strong>+ Add column → Single line of text</strong> — Name: <code>Location</code>.
-<br>• <strong>+ Add column → Multiple lines of text</strong> — Name: <code>Description</code>.
-<br>• <strong>+ Add column → Number</strong> — Name: <code>Capacity</code>.
-<br>• <strong>+ Add column → Yes/No</strong> — Name: <code>Confirmed</code>, default = Yes.</span></li>
-<li><span class="box"></span><span class="txt">Add 3 rows of made-up events: e.g. "Book club meeting", "Summer reading launch", "Author talk".</span></li>
-<li><span class="box"></span><span class="txt">Create a <strong>custom view</strong>: click the view dropdown (top right) → <strong>Create new view</strong>. Name = <code>Confirmed events</code>. Filter: Confirmed is equal to Yes. Sort: Event date ascending. Save. This is exactly how you'd filter a view in Dataverse (Day 3) — same concept.</span></li>
-<li><span class="box"></span><span class="txt">Turn on <strong>versioning</strong>: Settings (gear icon, top right) → <strong>List settings → Versioning settings</strong>. Set "Create a version each time you edit an item" = Yes. Save. Now every edit is tracked — you can restore an old version.</span></li>
-<li><span class="box"></span><span class="txt"><strong>+ New → Document library</strong> — Name: <code>Policies</code>. Create. Upload a text file called <code>borrowing-rules.txt</code> (write two fake sentences). The library stores the file PLUS any columns you add (that's "metadata").</span></li>
-<li><span class="box"></span><span class="txt"><strong>Power Automate notification flow</strong>: go to <code>make.powerautomate.com</code> → <strong>Solutions → My Learning Solution → New → Automation → Cloud flow → Automated</strong>. Trigger = <strong>When an item is created (SharePoint)</strong>. Site address = your Community Library site. List name = Library Events. Add step: <strong>Post message in a chat or channel (Teams)</strong>. Post in = Channel. Team and Channel = (any channel you have, or use General). Message = Expression: <code>concat('New event: ', triggerOutputs()?['body/Title'], ' on ', triggerOutputs()?['body/Event_x0020_date'])</code>. Save and test by adding a new event row.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — SharePoint's "5,000 item limit"</span>
-Past about 5,000 items in a list, some views and filters that don't use an indexed column become very slow. You'll never hit this in learning. But knowing the number (and that you fix it by indexing a column or using filtered views) is useful in interviews.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Team site / Communication site</b> — internal team collaboration / broadcast to a wide audience.</li>
-<li><b>List / library / item</b> — a simple table / file storage with columns / one row or file.</li>
-<li><b>Metadata</b> — the columns of information attached to a document in a library.</li>
-<li><b>Versioning</b> — tracking every change so you can restore previous versions.</li>
-<li><b>Custom view</b> — a saved filter+sort+column-selection for a list.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — SharePoint in enterprise Power Platform</span>
-<p>SharePoint is deeply embedded in enterprise Power Platform solutions:</p>
-<ul>
-<li>A law firm stores all client documents in SharePoint document libraries with metadata columns (Matter number, Document type, Confidentiality level). Power Automate flows automatically route documents for review when uploaded.</li>
-<li>A city council uses SharePoint lists as lightweight databases for public feedback submissions — Power Apps reads the list, and Power BI displays submission statistics on a dashboard.</li>
-<li>Many organisations start with SharePoint lists and migrate data to Dataverse as the solution matures — the move is worth it when complex business rules, security roles, or relationships become important.</li>
-</ul>
-<p>The rule you're learning: <strong>SharePoint = collaboration layer</strong> (documents, announcements, team tracking). <strong>Dataverse = application data layer</strong> (structured records driving apps and automations).</p>
+<div class="card c-concept"><span class="lab">December Week-by-Week Plan</span>
+<table>
+<tr><th>Week</th><th>Dates</th><th>Focus</th></tr>
+<tr><td><strong>Week 13</strong></td><td>Dec 1–7</td><td>AI Builder (Power Platform) + Azure AI Services</td></tr>
+<tr><td><strong>Week 14</strong></td><td>Dec 8–14</td><td>Copilot Studio Advanced — AI that takes actions</td></tr>
+<tr><td><strong>Week 15</strong></td><td>Dec 15–21</td><td>AI in DevOps + GitHub Copilot + AI Ethics</td></tr>
+<tr><td><strong>Week 16</strong></td><td>Dec 22–31</td><td>Final Capstone + System Design Document + Career Preparation</td></tr>
+</table>
 </div>
-
-<div class="card c-warn"><span class="lab">Common mistakes with SharePoint lists</span>
-<ul>
-<li><strong>Using SharePoint lists for complex relational data.</strong> SharePoint's Lookup column can only look up from a list on the same site — it doesn't support multi-level lookups or referential integrity. For anything needing relationships, use Dataverse.</li>
-<li><strong>Not setting up versioning on important lists.</strong> Without versioning, an accidental edit overwrites data permanently. Turn versioning on from Day 1 on any production list — it costs minimal storage and saves you from disasters.</li>
-<li><strong>The 5,000 item threshold surprises at scale.</strong> If you don't add an index on a filtered column, SharePoint will refuse to load the view once the list exceeds 5,000 rows. Always index any column you filter or sort by in large lists.</li>
-<li><strong>Triggering a SharePoint flow on item modified when you only need item created.</strong> "When an item is modified" fires on EVERY save, including automated updates from flows. This can cause infinite loops if your flow itself modifies the item. Use "When an item is created" for first-time triggers.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 12 hands-on checks</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the Library Events list, click the <strong>+ Add column → Person or Group</strong>. Name it <code>Event organiser</code>. Add yourself as the organiser of one event. Notice that this column shows real M365 users from your tenant — it's a live directory lookup, not a typed string.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Turn on versioning for the Library Events list (Settings → List settings → Versioning settings → Yes). Then edit one of your event rows — change the Location. Go to the row → three dots → Version history. You'll see Version 1.0 (original) and Version 2.0 (edited). Restore Version 1.0 — the original location comes back. This is enterprise data protection in 3 clicks.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Create a Power Apps canvas app that reads the <strong>Library Events</strong> SharePoint list: in the studio, add a data source → SharePoint → select the Community Library site → Library Events list. Add a Gallery with Items = LibraryEvents. Set the gallery layout to show Event name, Event date, and Location. Save as <code>Events Browser</code>. You now have a read-only events app without any Dataverse tables — proof that canvas apps work with SharePoint as the data source.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Upload 2 more documents to the Policies library. Add a column to the library: <strong>+ Add column → Choice</strong>. Name = <code>Document type</code>. Choices = "Policy", "Procedure", "Form". Set values for each uploaded file. This is "document metadata" — SharePoint libraries excel at this pattern.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> In Power Automate, find your "new event" Teams notification flow. Edit it. Before the Teams message, add a <strong>Condition</strong>: check that the new event's Confirmed column = Yes. If yes: post the Teams message. If no: do nothing (leave the "no" branch empty). Now only confirmed events trigger the notification — a common filter requirement in event-driven flows.</span></li>
-</ul>
-</div>
-
-<div class="card c-check"><span class="lab">Mini-quiz — Day 12</span>
-<p><strong>Q1</strong> A SharePoint list has 8,000 rows and a custom view filtered by a column that is not indexed. What will happen?</p>
-<p><strong>Q2</strong> Should you store Book and Loan data in a SharePoint list or Dataverse? Give one reason for your answer.</p>
-<p><strong>Q3</strong> What is the difference between a SharePoint list and a document library?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> SharePoint will refuse to load that view — the 5,000-item view threshold. The fix is to add an index on the filtered column: List settings → Indexed columns → Create a new index on that column.</p>
-<p><strong>A2</strong> Dataverse. Reason: Book and Loan have a relationship (Loan points to Book), need referential integrity (can't delete a Book with open Loans), and feed a Power Apps model-driven app with business rules. SharePoint lists can't handle multi-table relationships or business rules.</p>
-<p><strong>A3</strong> A SharePoint list stores structured rows (like a table or spreadsheet) — each row is an item with columns. A document library stores files (Word, Excel, PDF) with optional metadata columns attached to each file. Use lists for data; use libraries for files.</p>
-</details>
-</div>
-
-<div class="card c-check"><span class="lab">Check yourself</span>
-You built a SharePoint team site with a list (6 columns, custom view, versioning) and a document library, and a flow that posts to Teams when a new event is added. Could you explain in one sentence when you'd use a list instead of a Dataverse table?</div>
 </section>
 
-<!-- DAY 13 -->
-<section class="day" id="day13">
-<div class="dhead"><span class="dnum">Day 13</span></div>
-<h2>Importing and cleaning data: dataflows, Power Query, and the M language</h2>
-<p class="meta">~120 minutes</p>
+<!-- ============================================================ -->
+<section class="day" id="week13">
+<div class="dhead"><span class="dnum">Week 13 · December 1–7</span></div>
+<h2>AI Builder + Azure AI Services — Bringing Intelligence to Every Layer</h2>
+<p class="meta">~4 hours · make.powerapps.com + portal.azure.com · AI Builder credits from your license</p>
 
-<div class="card c-concept"><span class="lab">Concept — what is a dataflow?</span>
-<p>A <strong>dataflow</strong> is a pull → clean → load pipeline that runs on a schedule:</p>
-<ul>
-<li><strong>Pull</strong> — connect to a source: CSV, Excel, SharePoint list, SQL Server, web URL, or many others.</li>
-<li><strong>Clean</strong> — transform the raw data visually in <strong>Power Query</strong>.</li>
-<li><strong>Load</strong> — write the clean rows into a Dataverse table (or SharePoint list).</li>
-</ul>
-<p>The same Power Query editor appears in Power BI (Day 19) — learning it here gives you two skills at once.</p>
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 13</span>
+<dl>
+  <dt><strong>1. Machine Learning</strong></dt>
+  <dd>A category of AI where a computer learns patterns from examples instead of being given explicit rules.<br>
+  <em>Analogy: Teaching a child to recognise cats. You show thousands of pictures and say "cat" each time. After many examples, the child recognises cats in new pictures they have never seen — without ever receiving a list of rules.</em><br>
+  <em>Example: "The AI Builder model learned to recognise overdue notices by looking at 200 examples of overdue notices and 200 examples of other documents. Now it can classify new documents with 94% accuracy."</em></dd>
+
+  <dt><strong>2. Model (in AI)</strong></dt>
+  <dd>The result of machine learning — the mathematical structure that learned from examples and can now make predictions on new data.<br>
+  <em>Analogy: A doctor who has treated 10,000 patients. All those cases are their "training data." Their medical judgment is the "model" — a pattern-recognition system built from experience.</em><br>
+  <em>Example: "I trained an AI Builder model to classify library book return condition: Good, Damaged, or Lost. The model is a file that stores what it learned. I deploy this model to production and it classifies 100 book returns per day automatically."</em></dd>
+
+  <dt><strong>3. Training (in AI)</strong></dt>
+  <dd>The process of teaching an AI model by showing it many labeled examples.<br>
+  <em>Example: "Training the membership form reader took 45 minutes: I uploaded 50 completed membership forms, highlighted the Name, Email, and Phone fields on each form, and clicked Train. The model learned where these fields are on the form."</em></dd>
+
+  <dt><strong>4. Prediction</strong></dt>
+  <dd>The AI model's output — what it thinks the answer is for a new input.<br>
+  <em>Example: "I sent a new membership form to the trained model. The model's prediction: Name = 'Aditya Kumar', Email = 'aditya.kumar@email.com', Phone = '+91-9876501234', Confidence = 97%. The 97% confidence means the model is highly certain about this prediction."</em></dd>
+
+  <dt><strong>5. Confidence Score</strong></dt>
+  <dd>A percentage that tells you how certain the AI is about its prediction — 99% means very sure, 40% means unsure.<br>
+  <em><strong>Critical rule:</strong> Always set a minimum confidence threshold below which you ask a human to verify. Never automatically trust a prediction below 70%.</em><br>
+  <em>Example: "The form reader returned a phone number with 42% confidence. The flow is programmed: if confidence &lt; 70%, send the form to Pooja for manual review. If confidence ≥ 70%, save the extracted data automatically."</em></dd>
+
+  <dt><strong>6. Azure AI Language</strong></dt>
+  <dd>An Azure service that understands text — it can detect language, analyse sentiment, extract key information, and answer questions from documents.<br>
+  <em>Example: "I used Azure AI Language to analyse member complaint emails. The service returns: sentiment = 'negative', key phrases = ['damaged book', 'spine broken', 'replacement request']. The flow automatically routes high-priority negative sentiment emails to Pooja."</em></dd>
+
+  <dt><strong>7. Sentiment Analysis</strong></dt>
+  <dd>AI-powered analysis of whether text is positive, negative, or neutral.<br>
+  <em>Analogy: A mood ring — but for text. It does not always get it right, but it gives you a quick indicator.</em><br>
+  <em>Example: "I ran sentiment analysis on 6 months of member feedback forms. Result: 72% positive (members happy), 18% neutral, 10% negative. The negative feedback clusters around two themes: parking (outside our control) and late fee amounts (actionable)."</em></dd>
+
+  <dt><strong>8. Named Entity Recognition (NER)</strong></dt>
+  <dd>AI that identifies specific types of information in text — names, dates, amounts, locations, organisations.<br>
+  <em>Example: "I used NER on member emails to automatically extract: who they are mentioning (person names), which books they are discussing (titles), and what dates they reference. The flow uses these extracted entities to link the email to the correct Dataverse records."</em></dd>
+</dl>
 </div>
 
-<figure class="fig">
-<svg viewBox="0 0 580 110" role="img" aria-label="Dataflow pipeline: source, clean with Power Query, load to Dataverse">
-<defs><marker id="a4" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
-<rect x="16" y="36" width="140" height="46" rx="9" fill="#f4f6f9" stroke="#cbd3de"/>
-<text x="86" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Source</text>
-<text x="86" y="72" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">CSV / Excel / SQL…</text>
-<line x1="156" y1="59" x2="196" y2="59" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a4)"/>
-<rect x="198" y="36" width="180" height="46" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
-<text x="288" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Power Query (clean)</text>
-<text x="288" y="72" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#4a5567">headers · types · merge · custom cols</text>
-<line x1="378" y1="59" x2="418" y2="59" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a4)"/>
-<rect x="420" y="36" width="144" height="46" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="492" y="56" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Dataverse table</text>
-<text x="492" y="72" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">loaded · upsert · scheduled</text>
-<text x="290" y="22" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">dataflow = pull → clean → load (repeatable)</text>
-</svg>
-<figcaption>A dataflow pulls from a source, cleans in Power Query, and loads into Dataverse</figcaption>
-</figure>
+<div class="card c-concept"><span class="lab">Concept — AI Builder: AI Inside Power Platform, No Code Required</span>
+<p>AI Builder is Microsoft's point-and-click AI tool inside Power Platform. It gives you pre-trained AI models AND the ability to train your own — all without writing a single line of Python or machine learning code.</p>
 
-<div class="card c-concept"><span class="lab">Concept — Power Query transforms and the M language</span>
-<p>Every click in Power Query generates a line of <strong>M code</strong> in the Applied steps list. You never need to write M by hand, but reading it helps you understand what's happening. Common transforms:</p>
-<ul>
-<li><strong>Use first row as headers</strong> — promotes row 1 to column names.</li>
-<li><strong>Change type</strong> — sets each column to the correct data type (Text, Number, Date…).</li>
-<li><strong>Remove columns</strong> — drops columns you don't need.</li>
-<li><strong>Rename columns</strong> — gives columns cleaner names.</li>
-<li><strong>Custom column</strong> — adds a new column with a formula (M syntax, similar to Excel).</li>
-<li><strong>Filter rows</strong> — keeps only rows matching a condition.</li>
-<li><strong>Group by</strong> — aggregates rows (like a pivot table — count orders per customer).</li>
-<li><strong>Merge queries</strong> — joins two sources like a VLOOKUP/SQL JOIN.</li>
-<li><strong>Append queries</strong> — stacks two tables with the same columns.</li>
-</ul>
-<p>The <strong>Advanced Editor</strong> shows the full M code for your query. It looks like this for a simple CSV import:</p>
-<pre><code>let
-  Source = Csv.Document(File.Contents("new-members.csv"),
-             [Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-  #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-  #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",
-                     {{"First name", type text}, {"Last name", type text},
-                      {"Email", type text}, {"Membership", type text}}),
-  #"Custom Column" = Table.AddColumn(#"Changed Type", "Full name",
-                      each [#"First name"] &amp; " " &amp; [#"Last name"], type text)
-in
-  #"Custom Column"</code></pre>
-<p>Each step is: <code>StepName = Transform(PreviousStep, ...)</code>. The last step is what flows into the load.</p>
+<h3>Pre-Built Models (Ready to Use Today)</h3>
+<table>
+<tr><th>Model</th><th>What It Does</th><th>Library Use Case</th></tr>
+<tr><td><strong>Business Card Reader</strong></td><td>Extracts info from business cards</td><td>When new member brings their card to register</td></tr>
+<tr><td><strong>Text Recognition (OCR)</strong></td><td>Reads text from images and PDFs</td><td>Digitise old handwritten loan records</td></tr>
+<tr><td><strong>Sentiment Analysis</strong></td><td>Detects positive/negative/neutral text</td><td>Analyse member feedback automatically</td></tr>
+<tr><td><strong>Language Detection</strong></td><td>Identifies which language text is in</td><td>Handle multilingual book enquiries</td></tr>
+<tr><td><strong>Category Classification</strong></td><td>Classifies text into categories you define</td><td>Auto-categorise member support emails</td></tr>
+</table>
+
+<h3>Custom Models (You Train Them)</h3>
+<table>
+<tr><th>Model Type</th><th>What You Train</th><th>Library Use Case</th></tr>
+<tr><td><strong>Document Processing</strong></td><td>Upload sample forms, label fields</td><td>Read membership application forms automatically</td></tr>
+<tr><td><strong>Object Detection</strong></td><td>Label objects in images</td><td>Detect book damage from photos</td></tr>
+<tr><td><strong>Text Classification</strong></td><td>Classify text into your own categories</td><td>Classify book return conditions (Good / Damaged / Lost)</td></tr>
+<tr><td><strong>Prediction</strong></td><td>Predict outcomes from historical data</td><td>Predict which members are likely to go overdue</td></tr>
+</table>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — upsert (key column): update instead of duplicate</span>
-<p>When you load into Dataverse, you can choose a <strong>load type</strong>:</p>
-<ul>
-<li><strong>Load to new entity / create</strong> — inserts every row as new every time. Run it twice → duplicates.</li>
-<li><strong>Load to existing entity (upsert)</strong> — picks a key column (e.g. Email). For each row: if a Dataverse row already has that Email, <em>update</em> it; if not, <em>insert</em> it. Run it ten times → no duplicates.</li>
-</ul>
-<p>Always use upsert for imports that will be re-run.</p>
+<div class="card c-tip"><span class="lab">💭 System Thinking — What happens when AI Builder credits run out?</span>
+<p>AI Builder models cost "AI credits" from your Microsoft license. Each prediction uses credits. If credits run out mid-month, the AI features stop working. If your overdue email classification flow depends on AI Builder and credits are exhausted, emails stop being classified.</p>
+<p><strong>Good system design for AI:</strong></p>
+<ol>
+  <li>Monitor credit consumption monthly</li>
+  <li>Have a fallback: if AI is unavailable, process manually (or flag all emails for human review)</li>
+  <li>AI should be an enhancement, not a single point of failure</li>
+</ol>
+<p>The principle: <strong>AI should make your system better, not make your system fragile.</strong></p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — bulk-import members with a dataflow</span>
-<p>Download <a href="../sample-data/new-members.csv"><strong>new-members.csv</strong></a> from the course home page (Sample Data section). This file contains <strong>15 new members</strong> (completely different names from your existing 30 members) — ready to import. It has the full columns the Member table expects: Full_name, Email, Phone, Membership, Join_date, Membership_expiry, Active.</p>
+<div class="card c-do"><span class="lab">Exercise 1 — Train a Document Processing Model for Membership Forms</span>
+<p>This model will read membership application forms and automatically extract the member's name, email, phone, and membership type.</p>
+
+<p><strong>Step 1: Create sample membership forms</strong></p>
+<p>Create 5–10 PDF or image files that look like membership application forms. Each should have: Full Name, Email, Phone, Membership Type (checkbox), Date. You can create them in Word and save as PDF, or scan handwritten forms.</p>
+
+<p><strong>Step 2: Train the model</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Dataflows → New dataflow</strong>. Name = <code>Import new members</code>. Click Create. In the connector list, choose <strong>Text/CSV</strong>. Click Browse → upload <code>new-members.csv</code>. Click Next.</span></li>
-<li><span class="box"></span><span class="txt">In Power Query editor: confirm <strong>First row as headers</strong> is on. The columns Full_name, Email, Phone, Membership, Join_date, Membership_expiry, Active will all appear. Select the Join_date and Membership_expiry columns → right-click → <strong>Change type → Date</strong>. Leave others as Text.</span></li>
-<li><span class="box"></span><span class="txt">The CSV already has Full_name as one column, so no custom column formula is needed. Click <strong>Advanced Editor</strong> — read the M code. Notice: every Power Query click created an Applied Step. Close the editor.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>Next</strong>. Under "Load settings", choose <strong>Load to existing table</strong> → select the <strong>Member</strong> table. Map columns: Full_name → Full name, Email → Email, Phone → Phone, Membership → Membership, Join_date → Join date, Membership_expiry → Membership expiry, Active → Active. Set Key column = <strong>Email</strong>. Click <strong>Publish</strong>.</span></li>
-<li><span class="box"></span><span class="txt">The dataflow runs. Check your <strong>Member</strong> table — you should now have 15 new rows (the 15 new-members.csv names) in addition to your existing members. Total ≈ 45 members.</span></li>
-<li><span class="box"></span><span class="txt">Test upsert: open new-members.csv, change Ishaan Tripathi's Membership from "Standard" to "Premium". Re-publish the dataflow. In Dataverse, confirm Ishaan now shows Premium — the email key matched and updated the row rather than inserting a second one.</span></li>
-<li><span class="box"></span><span class="txt"><em>Optional — schedule it:</em> open the dataflow → <strong>Settings → Scheduled refresh</strong>. Set to run daily at 7am. This would keep Dataverse in sync with an external system that exports a new CSV daily. Disable after testing.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — dataflow vs cloud flow</span>
-A <strong>dataflow</strong> is for <em>bulk</em> loading/cleaning on a schedule. A <strong>cloud flow</strong> (Power Automate) is for <em>event-driven</em> per-record automation. A classic beginner mistake is using a cloud flow in a loop to import 5,000 rows — use a dataflow instead.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Dataflow</b> — a pull-clean-load pipeline into Dataverse, runnable on a schedule.</li>
-<li><b>Power Query</b> — the visual transformation editor (shared between dataflows and Power BI).</li>
-<li><b>M</b> — the formula language Power Query writes behind every click.</li>
-<li><b>Applied steps</b> — the recorded list of transforms; each is one M statement.</li>
-<li><b>Upsert / key column</b> — update existing rows matching the key column, insert the rest.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — dataflows and Power Query in enterprise</span>
-<p>Power Query is one of the most valuable skills in the Microsoft data ecosystem because it appears in THREE products:</p>
-<ul>
-<li><strong>Power BI Desktop</strong> — transforms raw data for reports (Day 19).</li>
-<li><strong>Power Platform dataflows</strong> — bulk-loads data into Dataverse on a schedule (today).</li>
-<li><strong>Excel (Get &amp; Transform)</strong> — Power Query is built into modern Excel too.</li>
+  <li><span class="box"></span><span class="txt">Go to <code>make.powerapps.com</code> → left menu → <strong>AI hub</strong> (or <strong>AI Builder</strong>)</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>+ New model</strong> → <strong>Document processing</strong></span></li>
+  <li><span class="box"></span><span class="txt">Name: <code>Membership Form Reader</code> → upload your 5–10 sample forms</span></li>
+  <li><span class="box"></span><span class="txt">On each form, draw a box around each field and label it: "FullName", "Email", "Phone", "MembershipType", "Date"</span></li>
+  <li><span class="box"></span><span class="txt">After all forms are labeled → click <strong>Train</strong> → wait 15–30 minutes for training to complete</span></li>
 </ul>
-<p>Real enterprise use cases:</p>
-<ul>
-<li>A retailer runs a dataflow nightly: reads the sales ERP's CSV export → cleans column names → calculates margin → upserts into Dataverse for regional managers to analyse in a model-driven app.</li>
-<li>An HR team imports payroll data weekly from a legacy system CSV. Power Query adds a "Full name" computed column (First + Last) and standardises the Membership type field (maps "Std" → "Standard", "Stu" → "Student") before loading.</li>
-<li>The <strong>upsert with key column</strong> pattern means the dataflow can run 100 times and produce exactly the same rows — idempotent loading. This is a fundamental principle of reliable data pipelines.</li>
-</ul>
-</div>
 
-<div class="card c-warn"><span class="lab">Common mistakes with dataflows and Power Query</span>
-<ul>
-<li><strong>Not setting a key column (upsert key) — getting duplicates.</strong> If you choose "Load to existing table" without a key column, every run inserts every row again — 8 members the first time, 16 the second, 24 the third. Always set the key column (Email is usually the natural key for people records).</li>
-<li><strong>Wrong column type causing load failures.</strong> If Power Query sets a column as "number" but the Membership column contains text like "Student", the load fails. Always verify column types in the Power Query editor before publishing.</li>
-<li><strong>Using a cloud flow in a loop for bulk imports.</strong> A flow looping through 5,000 rows to insert them one by one may take hours and hit API throttle limits. Use a dataflow for bulk operations — it batches the writes efficiently.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 13 hands-on checks</span>
+<p><strong>Step 3: Test the model</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the dataflow's Power Query editor, click the <strong>Advanced Editor</strong> button. Read through the M code. Identify: (a) which step adds the Full name column, (b) which step promotes headers. Close the editor without changes.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Add a data-cleaning step to the dataflow: in Power Query, select the Membership column. Right-click → Transform → <strong>Trim</strong> (removes leading/trailing spaces). Right-click again → Transform → <strong>Capitalize each word</strong>. Now even "  student" in the CSV becomes "Student" — cleaner data entering Dataverse.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add a <strong>filter rows</strong> step: right-click the Email column → Filter → "does not begin with" → type <code>test</code>. This removes any rows that are obviously test data. Now re-publish — Dataverse should only have real-looking email addresses. Check that your 8 members still loaded correctly (none had "test" in their email).</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Edit the CSV — change one member's Membership from "Student" to "Premium". Add one entirely new member (9th row). Re-run the dataflow. In Dataverse, confirm: the changed member now shows Premium membership, the new member appears, and there are no duplicates. Total should be 9 rows.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Open <code>Dataflows</code> in the maker portal (left sidebar). Click your Import members dataflow → <strong>Settings</strong>. Enable <strong>Scheduled refresh</strong> — set daily at 7am. This would keep Dataverse in sync with an external HR system that exports a new CSV daily. Turn it off after setting it up (to avoid confusion during the course).</span></li>
+  <li><span class="box"></span><span class="txt">After training, click <strong>Quick test</strong></span></li>
+  <li><span class="box"></span><span class="txt">Upload a new form — one the model has NOT seen during training</span></li>
+  <li><span class="box"></span><span class="txt">See the extracted fields and confidence scores. Note any fields with low confidence (&lt; 70%).</span></li>
+</ul>
+
+<p><strong>Step 4: Use the model in a Power Automate flow</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Create a new flow: <strong>When a new email arrives</strong> (with membership form attachment)</span></li>
+  <li><span class="box"></span><span class="txt">Add step: <strong>Predict</strong> (AI Builder) → select your Membership Form Reader model → Input: the email attachment</span></li>
+  <li><span class="box"></span><span class="txt">Add step: <strong>Create a row in Dataverse</strong> → Members table → use extracted fields (FullName, Email, Phone, MembershipType)</span></li>
+  <li><span class="box"></span><span class="txt">Add condition: if confidence &lt; 70% → send form to Pooja for manual review. If ≥ 70% → auto-save to Dataverse.</span></li>
+  <li><span class="box"></span><span class="txt">Test the flow by emailing a sample form — verify the member record appears in Dataverse.</span></li>
+</ul>
+
+<div class="card c-tip" style="margin:.7rem 0 0"><span class="lab">💭 What you just built</span>
+A new member scans and emails their membership form. Power Automate receives the email, AI Builder reads the form, extracts the member's information, and creates the member record in Dataverse. If the AI is not confident enough, a human reviews it. This is AI augmenting a human workflow — not replacing humans. The human is still in the loop for low-confidence cases. This is responsible AI design.
+</div>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 2 — Azure AI Language: Sentiment Analysis on Member Feedback</span>
+
+<p><strong>Step 1: Create Azure AI Language resource</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Azure Portal → search <strong>Language service</strong> → <strong>+ Create</strong></span></li>
+  <li><span class="box"></span><span class="txt">Resource group: <code>rg-community-library</code> · Region: <strong>Central India</strong> · Pricing tier: <strong>Free (F0)</strong> — 5,000 transactions/month free</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Review + Create</strong> → <strong>Create</strong> → wait for deployment</span></li>
+</ul>
+
+<p><strong>Step 2: Get the API key and endpoint</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Go to your Language resource → <strong>Keys and Endpoint</strong> → copy Key 1 and the Endpoint URL</span></li>
+  <li><span class="box"></span><span class="txt">Store in GitHub Secrets: <code>AZURE_AI_KEY</code> and <code>AZURE_AI_ENDPOINT</code></span></li>
+</ul>
+
+<p><strong>Step 3: Call sentiment analysis from Power Automate</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Create a flow: <strong>When a new row is added</strong> to a "MemberFeedback" Dataverse table</span></li>
+  <li><span class="box"></span><span class="txt">Add step → <strong>HTTP</strong> connector → Method: POST · URI: <code>[your endpoint]/text/analytics/v3.1/sentiment</code></span></li>
+  <li><span class="box"></span><span class="txt">Headers: <code>Ocp-Apim-Subscription-Key</code> = [your AI key] · <code>Content-Type</code> = application/json</span></li>
+  <li><span class="box"></span><span class="txt">Body: <code>{"documents": [{"id": "1", "language": "en", "text": "@{triggerOutputs()?['body/cr_feedback_text']}"}]}</code></span></li>
+  <li><span class="box"></span><span class="txt">Parse the JSON response — it returns sentiment ("positive"/"negative"/"neutral") and confidence scores</span></li>
+  <li><span class="box"></span><span class="txt">Update the MemberFeedback row with the sentiment and confidence scores</span></li>
+  <li><span class="box"></span><span class="txt">Add condition: if sentiment = "negative" AND confidence &gt; 0.80 → send alert email to Pooja</span></li>
+</ul>
+<p>Now every piece of member feedback is automatically analysed. Pooja sees a weekly report: "This week — 85% positive feedback. 2 high-confidence negative feedbacks require attention."</p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 3 — Prediction Model: Which Members Are at Risk of Going Overdue?</span>
+<p>Use AI Builder's Prediction model to predict which members are likely to have an overdue loan next month, based on their borrowing history. Use <code>loans.csv</code> from the sample data as your training dataset.</p>
+
+<p><strong>Feature columns (inputs) for the model:</strong></p>
+<table>
+<tr><th>Feature</th><th>Why It Matters</th></tr>
+<tr><td>MembershipType</td><td>Premium members may be more responsible</td></tr>
+<tr><td>TotalPreviousLoans</td><td>Active borrowers have more history to learn from</td></tr>
+<tr><td>PreviousOverdueCount</td><td>Past behaviour predicts future behaviour</td></tr>
+<tr><td>DaysSinceLastReturn</td><td>Irregular returners may go overdue again</td></tr>
+<tr><td>AverageHoldDuration</td><td>How long do they typically keep books?</td></tr>
+<tr><td><strong>WentOverdue (label)</strong></td><td>This is what we want to predict: Yes or No</td></tr>
+</table>
+
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">AI Builder → <strong>+ New model</strong> → <strong>Prediction</strong> → upload the enriched loans CSV</span></li>
+  <li><span class="box"></span><span class="txt">Select the target column: <code>WentOverdue</code> → AI Builder automatically splits data 80/20 train/test and tries multiple algorithms</span></li>
+  <li><span class="box"></span><span class="txt">After training: look at the <strong>Accuracy score</strong> and the <strong>Feature Importance</strong> chart — which features most predict overdue loans?</span></li>
+  <li><span class="box"></span><span class="txt">Write down: which feature is most important, and what does that tell you about your library members?</span></li>
+</ul>
+
+<div class="card c-tip" style="margin:.7rem 0 0"><span class="lab">💭 System Thinking — What should the library do with the "high risk" prediction?</span>
+<p>If the model says a member is high risk, the library has choices:</p>
+<ul>
+  <li>Block them from borrowing (punitive — dangerous and unfair)</li>
+  <li>Send proactive reminders earlier (preventive — recommended)</li>
+  <li>Offer a shorter loan period (adaptive — reasonable)</li>
+  <li>Call them personally when a book is due (personalized — resource-intensive)</li>
+</ul>
+<p>All four are valid — they reflect different library philosophies. <strong>The AI gives you the insight. YOU (and the library team) decide what to do with it.</strong> Never automate the policy decision itself based purely on AI output, especially when it affects people's access to services.</p>
+</div>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 13: Hedging Language — Speaking Carefully About Uncertainty</span>
+
+<h3>Why This Grammar Pattern?</h3>
+<p>AI is powerful — but it is NOT certain. One of the most important professional skills when working with AI is knowing how to communicate about things that are PROBABLE but not GUARANTEED. This is called <strong>hedging language</strong>.</p>
+
+<p><strong>Without hedging (overconfident — dangerous):</strong></p>
+<ul>
+  <li>"The AI model correctly identifies all overdue members."</li>
+  <li>"The sentiment analysis always detects negative feedback."</li>
+</ul>
+<p><strong>With hedging (accurate — professional):</strong></p>
+<ul>
+  <li>"The AI model <strong>correctly identifies most</strong> overdue members, <strong>with an accuracy of approximately</strong> 94% on our test data."</li>
+  <li>"The sentiment analysis <strong>tends to detect</strong> negative feedback effectively, <strong>though it may miss</strong> sarcasm or culturally specific expressions."</li>
+</ul>
+
+<h3>Key Hedging Words and Phrases</h3>
+<table>
+<tr><th>Category</th><th>Words</th><th>Example</th></tr>
+<tr><td><strong>Frequency</strong></td><td>usually, generally, often, sometimes</td><td>"The model <strong>generally</strong> returns results within 200ms."</td></tr>
+<tr><td><strong>Certainty</strong></td><td>likely, probably, possibly, may, might, could</td><td>"Low confidence scores <strong>may indicate</strong> a poor quality form scan."</td></tr>
+<tr><td><strong>Approximation</strong></td><td>approximately, around, about, roughly</td><td>"Training takes <strong>approximately</strong> 30 minutes."</td></tr>
+<tr><td><strong>Limitation</strong></td><td>in most cases, under normal conditions</td><td>"The form reader works well <strong>in most cases</strong>, but <strong>may struggle with</strong> handwritten text."</td></tr>
+<tr><td><strong>Source</strong></td><td>according to, based on, our data suggests</td><td>"<strong>Based on</strong> our test dataset, the model achieved 94% accuracy."</td></tr>
+</table>
+
+<h3>Grammar Practice — Rewrite These Overconfident Sentences</h3>
+<p>Rewrite each sentence using hedging language. Write your answers in your journal.</p>
+<ol>
+  <li>❌ "The AI model perfectly predicts which members will go overdue."<br>✅ "The AI model _______________."</li>
+  <li>❌ "Sentiment analysis always detects when a member is angry."<br>✅ "Sentiment analysis _______________."</li>
+  <li>❌ "The confidence score tells you whether the prediction is right."<br>✅ "The confidence score _______________."</li>
+  <li>❌ "AI will replace the need for human review of membership forms."<br>✅ "AI _______________."</li>
+  <li>❌ "The chatbot answers every question correctly."<br>✅ "The chatbot _______________."</li>
+</ol>
+
+<h3>Writing Exercise: The AI Model Card</h3>
+<p>An <strong>AI Model Card</strong> is a document that describes an AI model honestly — what it does, how accurate it is, what its limitations are, and when NOT to use it. Write a Model Card for the Overdue Prediction model you built this week. Use this template:</p>
+<pre><code># AI Model Card: Overdue Loan Predictor
+
+## Purpose
+This model [describe what it predicts and why — use hedging].
+
+## Training Data
+- Source: [Where the data came from]
+- Size: [Number of records]
+- Date range: [Time period covered]
+- Potential biases: [What groups or patterns may be underrepresented]
+
+## Performance
+- Accuracy: approximately [X]% on test data
+- The model tends to perform better when: [conditions]
+- The model may perform less well when: [conditions]
+
+## What This Model Should Be Used For
+- ✅ [Appropriate use 1]
+- ✅ [Appropriate use 2]
+
+## What This Model Should NOT Be Used For
+- ❌ [Inappropriate use 1 — and why]
+- ❌ [Inappropriate use 2 — and why]
+
+## Human Oversight Required
+Decisions based on this model's predictions should [describe human review needed].
+
+## Limitations
+- [Limitation 1 — with hedging language]
+- [Limitation 2 — with hedging language]
+
+## Contact
+Questions about this model: [Your name]
+Last reviewed: [Date]</code></pre>
+
+<h3>🔊 Read Aloud Exercise</h3>
+<p>Read this paragraph out loud as if presenting to a library management committee. The words in <strong>bold</strong> should be slightly emphasized:</p>
+<blockquote><em>"I would like to share the results of our AI analysis of library loan patterns. <strong>Based on</strong> the past 18 months of data, our prediction model <strong>suggests that approximately</strong> 12% of new members are at higher risk of returning books late. I want to be clear: this does <strong>not mean</strong> these members will definitely go overdue — it <strong>means they share characteristics</strong> with members who have gone overdue in the past. This is a <strong>probabilistic estimate, not a certainty</strong>. Our recommendation is to use this information to send earlier reminders to these members — not to restrict their access. We <strong>believe this approach can help reduce</strong> overdue rates while treating all members fairly."</em></blockquote>
+<p>After reading: write the 3 most important points from this presentation in your journal — using hedging language.</p>
+
+<h3>Professional Communication: Presenting AI Findings to a Manager</h3>
+<p>Use this email template when sharing AI results with a non-technical manager:</p>
+<pre><code>Subject: AI Analysis Results — [What Was Analysed] — [Date]
+
+Hi [Manager's name],
+
+I have completed the [name of AI analysis] and wanted to share the key findings.
+
+WHAT WE ANALYSED:
+[1-2 sentences: what data, what question we asked the AI]
+
+KEY FINDINGS:
+- [Finding 1 — with appropriate hedging]
+- [Finding 2 — with appropriate hedging]
+- [Finding 3 — with appropriate hedging]
+
+CONFIDENCE IN THESE FINDINGS:
+The results are based on [data size and quality]. [1 sentence acknowledging limitations.]
+
+RECOMMENDED ACTION:
+Based on these findings, I suggest [specific action]. This is a recommendation,
+not an automated decision — final approval should come from [who].
+
+WHAT THE AI CANNOT TELL US:
+[1-2 sentences about what is outside the scope of this analysis]
+
+Please let me know if you have questions or would like to discuss further.
+
+[Your name]</code></pre>
+
+<h3>🚫 Common English Mistakes — Week 13</h3>
+<p><strong>Mistake 1: "The AI thinks / believes / knows"</strong><br>
+AI does not think, believe, or know.<br>
+❌ "The AI thinks this member will go overdue."<br>
+✅ "The model <strong>predicts</strong> that this member has a higher risk of going overdue."</p>
+
+<p><strong>Mistake 2: Reporting only the success rate</strong><br>
+❌ "Our model is 94% accurate."<br>
+✅ "Our model is <strong>approximately</strong> 94% accurate <strong>on our test dataset of 200 loan records</strong>. This accuracy <strong>may vary</strong> on new data, particularly if member behaviour or library policies change."</p>
+
+<p><strong>Mistake 3: "AI is intelligent"</strong><br>
+❌ "The AI is intelligent enough to understand member behaviour."<br>
+✅ "The model <strong>identifies statistical patterns</strong> in historical member behaviour."</p>
+
+<p><strong>Mistake 4: Confusing "accuracy" and "precision" (in AI context)</strong><br>
+Accuracy = of ALL predictions, what fraction were correct.<br>
+Precision = of predictions that said "overdue", what fraction were actually overdue.<br>
+Always specify which metric you are reporting in your AI Model Card.</p>
+
+<h3>✅ Week 13 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you write 5 hedged sentences about the AI tools you used this week?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write an AI Model Card for the overdue prediction model?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a "presenting AI findings" email to a fictional manager?</span></li>
+  <li><span class="box"></span><span class="txt">Are you using "predicts", "suggests", "indicates" instead of "thinks", "believes", "knows" for AI?</span></li>
+  <li><span class="box"></span><span class="txt">Can you explain what a confidence score is, using the words "approximately" and "may"?</span></li>
 </ul>
 </div>
-
-<div class="card c-check"><span class="lab">Mini-quiz — Day 13</span>
-<p><strong>Q1</strong> What happens if you run a dataflow that loads to an existing table but set no key column?</p>
-<p><strong>Q2</strong> What is the difference between a dataflow and a Power Automate cloud flow for loading data?</p>
-<p><strong>Q3</strong> In Power Query's M language, what does each "Applied step" represent?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> Every run inserts all rows as new records — duplicates multiply with each run. After 3 runs of 8 members, you'd have 24 rows (8 original + 8 + 8). Always set a key column (like Email) for upsert behaviour.</p>
-<p><strong>A2</strong> A dataflow is designed for bulk scheduled loads: it pulls a whole dataset, transforms it in Power Query, and writes many rows at once efficiently. A cloud flow is event-driven and processes one record at a time (or small batches). Use dataflows for "import 5,000 rows every night"; use cloud flows for "send an email when one new row is added."</p>
-<p><strong>A3</strong> Each Applied step is one M transformation statement. They are chained: each step takes the output of the previous step as input. You can click any step to see the data at that point in the transformation pipeline, making debugging very visual.</p>
-</details>
-</div>
-
-<div class="card c-check"><span class="lab">Check yourself</span>
-You imported 8 members from a CSV, added a Full name computed column, and confirmed re-running doesn't duplicate. Open the Advanced Editor — you should be able to read each step even if you can't write M from memory yet.</div>
 </section>
 
-<!-- DAY 14 -->
-<section class="day" id="day14">
-<div class="dhead"><span class="dnum">Day 14</span></div>
-<h2>Connectors, APIs, Office Scripts, and custom connectors</h2>
-<p class="meta">~120 minutes</p>
+<!-- ============================================================ -->
+<section class="day" id="week14">
+<div class="dhead"><span class="dnum">Week 14 · December 8–14</span></div>
+<h2>Copilot Studio Advanced — A Chatbot That Takes Actions</h2>
+<p class="meta">~4 hours · copilotstudio.microsoft.com · Developer Plan environment</p>
 
-<div class="card c-concept"><span class="lab">Concept — connectors: the bridges Power Platform uses</span>
-<p>Power Automate, Power Apps, and Power BI all talk to external services through <strong>connectors</strong>. A connector wraps an API into a list of ready-made <em>triggers</em> and <em>actions</em> so you don't need to write code. There are three tiers:</p>
-<ul>
-<li><strong>Standard connectors</strong> — included in base Power Automate/Apps licences. SharePoint, Outlook, Teams, OneDrive, Forms, Excel Online, Planner.</li>
-<li><strong>Premium connectors</strong> — require a premium licence (Developer Plan counts). Dataverse, HTTP, SQL Server, Salesforce, custom connectors.</li>
-<li><strong>Custom connectors</strong> — you build a wrapper around any REST API that doesn't have a Microsoft-made connector.</li>
-</ul>
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 14</span>
+<dl>
+  <dt><strong>9. Generative AI</strong></dt>
+  <dd>AI that creates new content — text, images, code — rather than just classifying or analysing existing content.<br>
+  <em>Analogy: The difference between a librarian who looks up answers in a reference book (traditional AI) and a librarian who explains concepts in their own words (generative AI).</em><br>
+  <em>Example: "Copilot Studio's generative answers feature uses generative AI — it does not just retrieve a stored answer. It reads our borrowing policy and writes a fresh, conversational answer for each question."</em></dd>
+
+  <dt><strong>10. Conversational Design</strong></dt>
+  <dd>The practice of designing how a conversation between a user and a bot flows — what the bot says, when it asks for clarification, how it handles misunderstandings.<br>
+  <em>Analogy: Writing a script for a telephone helpline. If the caller says X, the agent responds Y. If the caller seems confused, the agent says Z. The script is conversational design.</em><br>
+  <em>Example: "Good conversational design means the bot does not ask 5 questions at once. It asks one, waits for the answer, then asks the next. This feels like talking to a person, not filling out a form."</em></dd>
+
+  <dt><strong>11. Escalation</strong></dt>
+  <dd>When the chatbot cannot handle a request and transfers the user to a human agent.<br>
+  <em><strong>Critical design principle:</strong> Every chatbot MUST have a clear escalation path. Users get frustrated when the bot loops endlessly and never offers a human.</em><br>
+  <em>Example: "If a member asks 'I lost a book and cannot afford to pay the replacement fee,' the bot escalates to Pooja — this requires human judgment, empathy, and possibly a payment plan discussion that no bot should handle."</em></dd>
+
+  <dt><strong>12. Slot Filling</strong></dt>
+  <dd>When the bot needs multiple pieces of information and collects them one by one in a natural conversation.<br>
+  <em>Example: "To reserve a book, the bot needs: book title, member ID, and preferred pickup date. Slot filling means the bot asks for each piece of information it is missing, in a natural way, until it has everything needed."</em></dd>
+</dl>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — what is an API?</span>
-<p>An <strong>API</strong> (Application Programming Interface) is the "ordering window" of a program — a defined set of ways other programs can ask it to do things or return data. On the web, most APIs use <strong>REST</strong>:</p>
-<ul>
-<li>You send a request to a <strong>URL</strong> (called an <strong>endpoint</strong>) using an HTTP <strong>verb</strong>: <code>GET</code> (fetch data), <code>POST</code> (create/send data), <code>PATCH</code> (update), <code>DELETE</code> (remove).</li>
-<li>You often include an <strong>API key</strong> or <strong>OAuth token</strong> in a header to prove who you are.</li>
-<li>The response comes back as <strong>JSON</strong> — structured text that looks like nested key-value pairs.</li>
-</ul>
-<p>When Power Automate uses a connector, it's making these REST calls for you behind the scenes.</p>
+<div class="card c-concept"><span class="lab">Concept — From Question-Answering Bot to Action-Taking Agent</span>
+<p>In September, we built a Library Helper bot that answered questions from knowledge documents. That was impressive — but limited. In December, we build an <strong>agent</strong> — a bot that not only answers questions but also DOES THINGS:</p>
+<table>
+<tr><th>September Bot (Q&amp;A only)</th><th>December Agent (Action-Taking)</th></tr>
+<tr><td>"What is the borrowing limit?" → reads policy</td><td>"What is my current loan status?" → queries live Dataverse</td></tr>
+<tr><td>"What are library hours?" → reads FAQ</td><td>"Renew my loan for Atomic Habits" → updates Dataverse record</td></tr>
+<tr><td>"How do I report a damaged book?" → gives instructions</td><td>"I want to report a damaged book" → creates Dataverse record AND emails Pooja</td></tr>
+<tr><td>"What books do you have on AI?" → static answer</td><td>"What books do you have on AI?" → searches live book catalog</td></tr>
+</table>
+<p>The difference is <strong>live data access</strong> and <strong>write operations</strong>. The September bot read documents. The December agent reads live databases and creates records. This is the direction AI is moving: from chatbots that answer to <strong>agents that act</strong>.</p>
 </div>
 
-<figure class="fig">
-<svg viewBox="0 0 560 130" role="img" aria-label="A flow calls an API with GET or POST and gets JSON back">
-<defs><marker id="a5" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2f6fed"/></marker><marker id="a5b" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0e9f6e"/></marker></defs>
-<rect x="24" y="44" width="140" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
-<text x="94" y="64" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Power Automate</text>
-<text x="94" y="80" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#4a5567">flow / connector</text>
-<line x1="166" y1="52" x2="394" y2="52" stroke="#2f6fed" stroke-width="1.8" marker-end="url(#a5)"/>
-<text x="280" y="44" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#2f6fed">GET /books/isbn/0451524935  + API key</text>
-<line x1="394" y1="80" x2="166" y2="80" stroke="#0e9f6e" stroke-width="1.8" marker-end="url(#a5b)"/>
-<text x="280" y="98" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#0e9f6e">{"title":"1984","author":"Orwell",...}  (JSON)</text>
-<rect x="396" y="44" width="140" height="44" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="466" y="64" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">External API</text>
-<text x="466" y="80" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#4a5567">e.g. Open Library</text>
-<text x="280" y="22" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">REST API: verb + endpoint + auth → JSON reply</text>
-</svg>
-<figcaption>A Power Automate HTTP action calls an external API and receives JSON data back</figcaption>
-</figure>
+<div class="card c-do"><span class="lab">Exercise 4 — Rebuild the Library Helper as an Action-Taking Agent</span>
+<p>We are not starting from scratch — we are enhancing what we built in September. Open your Copilot Studio agent at <code>copilotstudio.microsoft.com</code>.</p>
 
-<div class="card c-concept"><span class="lab">Concept — the HTTP action: calling any API without a connector</span>
-<p>The <strong>HTTP</strong> premium action lets you call any REST API directly from a flow:</p>
-<ul>
-<li><strong>Method</strong> — GET / POST / PATCH / DELETE.</li>
-<li><strong>URI</strong> — the full URL of the endpoint.</li>
-<li><strong>Headers</strong> — key-value pairs: e.g. <code>Content-Type: application/json</code>, <code>Authorization: Bearer &lt;token&gt;</code>.</li>
-<li><strong>Body</strong> — JSON payload for POST/PATCH.</li>
-</ul>
-<p>The response body is a JSON string. Use <strong>Parse JSON</strong> action (next step) to turn it into tokens you can use in dynamic content.</p>
-</div>
-
-<div class="card c-concept"><span class="lab">Concept — Office Scripts: TypeScript inside Excel</span>
-<p><strong>Office Scripts</strong> (Excel Online only, not desktop) let you automate Excel with <strong>TypeScript</strong>. You can:</p>
-<ul>
-<li>Record actions and read the generated script.</li>
-<li>Return a value from the script — Power Automate can read that return value as an action output.</li>
-<li>Accept parameters — your flow passes values in, the script uses them.</li>
-</ul>
-<p>This bridges Power Automate ↔ Excel when the Excel Online connector's built-in actions aren't enough (e.g. complex cell formatting, reading a named range, applying a formula).</p>
-</div>
-
-<div class="card c-concept"><span class="lab">Concept — custom connectors: wrapping your own API</span>
-<p>A <strong>custom connector</strong> wraps a REST API that doesn't have a Microsoft connector, so every flow-maker in your environment can use it without knowing the raw API details. You provide:</p>
-<ul>
-<li><strong>Host URL</strong> — the base address of the API.</li>
-<li><strong>Authentication type</strong> — API key, OAuth 2.0, Basic auth, or No auth.</li>
-<li><strong>Operations (actions/triggers)</strong> — each one maps to one API endpoint with a verb.</li>
-</ul>
-<p>You can also import an <strong>OpenAPI / Swagger spec</strong> and the connector builds itself from that file.</p>
-</div>
-
-<div class="card c-do"><span class="lab">Do this — Office Script + HTTP action + peek at custom connectors</span>
+<p><strong>Enhancement 1: "What is my loan status?" — Live Dataverse Query</strong></p>
+<p>Create a new Topic called <code>My Loan Status</code> with these trigger phrases:</p>
+<pre><code>my loan status
+my borrowed books
+what have I borrowed
+are any of my books overdue
+my account</code></pre>
+<p>Conversation flow:</p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Office Script:</strong> go to <code>microsoft365.com</code> → Excel → create a new blank workbook. Add headers in A1:D1: <code>Book | Member | Loan date | Due date</code>. Add 3 rows of made-up loan data.</span></li>
-<li><span class="box"></span><span class="txt">In Excel Online: <strong>Automate → Record Actions</strong>. Bold row 1 (click row 1 header → Ctrl+B). Stop recording. Open the script. You'll see TypeScript like:</span></li>
+  <li><span class="box"></span><span class="txt">Add a <strong>Question node</strong>: Bot says "I can look up your account. Please share the email you registered with the library." → Save answer as variable <code>MemberEmail</code></span></li>
+  <li><span class="box"></span><span class="txt">Add an <strong>Action node</strong> → <strong>Call an action</strong> → create a Power Automate flow called "Get Member Loans by Email" that: (1) queries Members table for the email, (2) queries Loans table for all active loans for that member, (3) calculates days remaining or overdue for each, (4) returns a JSON array</span></li>
+  <li><span class="box"></span><span class="txt">Add a <strong>Message node</strong> that shows the loan list: "You currently have [count] active loans: [list with book titles and due dates]"</span></li>
+  <li><span class="box"></span><span class="txt">Add a follow-up message: "Would you like help renewing a loan or paying a late fee?"</span></li>
 </ul>
-<pre><code>function main(workbook: ExcelScript.Workbook) {
-  let sheet = workbook.getActiveWorksheet();
-  let range = sheet.getRange("1:1");
-  range.getFormat().getFont().setBold(true);
-}</code></pre>
+
+<div class="card c-tip" style="margin:.7rem 0 0"><span class="lab">💭 Security Risk — Why asking for email is not the best approach</span>
+<p>If the user types their email, Rohit could type Priyanka's email and see her loan status. Nothing verifies the user owns that email.</p>
+<p><strong>Better approach:</strong> Use Teams identity. The bot's authentication session knows who is logged in. Use <code>@{triggeredBy/userPrincipalName}</code> — the logged-in user's email, automatically. This cannot be spoofed. This is called <strong>authenticated access</strong> — every serious chatbot uses it.</p>
+</div>
+
+<p style="margin-top:1rem"><strong>Enhancement 2: "Renew My Loan" — Write Operation</strong></p>
+<p>Create a new Topic called <code>Renew Loan</code> with trigger phrases: <code>renew my book</code>, <code>extend my loan</code>, <code>I need more time</code>, <code>renew</code>, <code>extend</code></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Modify the script to <em>return a value</em>: change the last line to <code>return sheet.getUsedRange().getRowCount();</code>. Change the function signature to <code>function main(workbook: ExcelScript.Workbook): number</code>. Save the script as <code>Count rows</code>.</span></li>
-<li><span class="box"></span><span class="txt">In Power Automate: create an Instant flow. Add <strong>Run script (Excel Online)</strong>. Location = OneDrive for Business. File = your workbook. Script = Count rows. Add <strong>Send me an email notification</strong>. Body = Dynamic content → <strong>Result</strong> (the return value from Run script). Test it — you should receive an email with the row count.</span></li>
-<li><span class="box"></span><span class="txt"><strong>HTTP action (read-only):</strong> in a flow, add <strong>HTTP</strong> action. Method = GET. URI = <code>https://openlibrary.org/api/books?bibkeys=ISBN:0451524935&amp;jscmd=data&amp;format=json</code>. Run the flow. In Run history, click the HTTP action output → see the JSON response for George Orwell's 1984. This is a real public API with no API key required.</span></li>
-<li><span class="box"></span><span class="txt">After the HTTP action, add <strong>Parse JSON</strong>. Content = Body (from HTTP). Click <strong>Generate from sample</strong> and paste the JSON output. Now the fields appear as dynamic content for later steps.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Custom connector tour:</strong> Power Automate → <strong>Custom connectors → + New connector → Create from blank</strong>. Name = <code>Open Library API</code>. Look at: (1) General tab — host, base URL; (2) Security — choose "No auth" for this public API; (3) Definition tab — + New action, name it "Get book by ISBN", set verb GET, path <code>/api/books</code>, add query parameter <code>bibkeys</code> (string, required). Don't save — just click Cancel after exploring. You've seen every piece a connector has.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — you don't need to master all of this today</span>
-The goal is vocabulary: <em>API</em> (a program's ordering window), <em>REST/HTTP</em> (how web programs talk), <em>GET/POST</em> (fetch vs send), <em>JSON</em> (the reply format), <em>custom connector</em> (your bridge to any API). Being able to say "I've used the HTTP action and I know how custom connectors are structured" is genuinely useful in interviews.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Connector / custom connector</b> — a ready-made bridge / one you build to wrap any web API.</li>
-<li><b>API / REST / HTTP verb / JSON</b> — a program's ordering window / web communication standard / GET/POST/PATCH/DELETE / the reply format.</li>
-<li><b>Endpoint / header / body</b> — the URL of an API operation / metadata for the request / the request payload.</li>
-<li><b>Office Script</b> — a TypeScript automation in Excel Online, callable from Power Automate flows.</li>
-<li><b>Parse JSON</b> — a Power Automate action that turns a JSON string into usable dynamic content tokens.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — APIs and custom connectors in enterprise integration</span>
-<p>Every modern enterprise connects Power Platform to external systems via APIs:</p>
-<ul>
-<li>A logistics company's Power Automate flow calls a shipping carrier's REST API (POST /create-shipment) when a Dataverse Order row is set to "Confirmed" — the carrier's booking number returns as JSON and is saved to the order record.</li>
-<li>A financial services company has a custom connector wrapping their internal risk-scoring API. Every flow-maker in the company can use it without knowing the API's URL, headers, or auth tokens — the connector hides all that complexity.</li>
-<li>Office Scripts are used to generate formatted Excel reports with charts, pivot tables, and conditional formatting — operations that Power Automate's built-in Excel connector can't do. The script runs in the cloud (no desktop needed) and is callable from any flow.</li>
+  <li><span class="box"></span><span class="txt">Bot shows the user's current active loans and asks: "Which book would you like to renew?"</span></li>
+  <li><span class="box"></span><span class="txt">Bot calls a Power Automate flow to check: is renewal allowed? (Max 1 renewal per book, only if not overdue)</span></li>
+  <li><span class="box"></span><span class="txt">If allowed: flow updates the Loan's DueDate = current DueDate + 14 days → Bot says: "Done! [Book] is now due on [new date]."</span></li>
+  <li><span class="box"></span><span class="txt">If not allowed: Bot says: "I'm sorry, this loan cannot be renewed — it has already been renewed once, or it is overdue. Please return the book or contact a librarian."</span></li>
 </ul>
-<p>The vocabulary you learned today — endpoint, verb, header, body, JSON, OAuth — appears in every API documentation you'll ever read. This is the universal language of modern software integration.</p>
+
+<div class="card c-tip" style="margin:.7rem 0 0"><span class="lab">💭 System Thinking — Where should the "max 1 renewal" rule live?</span>
+<p>If the rule is in the bot's Topics, it only applies when users talk to the bot. If a librarian renews a loan directly in the model-driven app, or a Power Automate flow automatically renews, the rule is bypassed.</p>
+<p>The renewal rule must be a <strong>Dataverse Business Rule</strong> or enforced in the Power Automate flow — so that ALL paths respect it. The bot is just one entry point. Business rules belong to the data layer, not the conversation layer.</p>
 </div>
 
-<div class="card c-warn"><span class="lab">Common mistakes with APIs and custom connectors</span>
-<ul>
-<li><strong>Hardcoding API keys in flow actions.</strong> If you paste an API key directly into an HTTP action's header, it's visible to anyone who can view the flow. Store API keys in an <strong>environment variable</strong> (type = Secret, backed by Key Vault) and reference the variable in the header.</li>
-<li><strong>Ignoring the HTTP status code in the response.</strong> A status code of 200 means success; 401 means unauthorized (wrong API key); 404 means the endpoint doesn't exist; 500 means the server errored. Always check the status code in a Condition after the HTTP action and handle errors — don't assume 200.</li>
-<li><strong>Using Parse JSON without a schema.</strong> If you skip "Generate from sample" in Parse JSON, the JSON fields won't appear as dynamic content in later steps. Always generate the schema from a real API response sample.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 14 hands-on checks</span>
+<p style="margin-top:1rem"><strong>Enhancement 3: "Report a Problem" — Slot Filling + Dataverse Record + Escalation</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In Power Automate, create a new Instant flow. Add the <strong>HTTP</strong> action. Method = GET. URI = <code>https://openlibrary.org/api/books?bibkeys=ISBN:9780141365466&amp;jscmd=data&amp;format=json</code>. Run the flow. In Run history, click the HTTP action → Outputs → Body. You see JSON data for Matilda (ISBN 9780141365466). This is a real API call — you got live book data with no API key.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> After the HTTP action, add <strong>Parse JSON</strong>. Content = Body (from HTTP). Click <strong>Generate from sample</strong> and paste the JSON body from the previous run's output. Click Done. Now add a <strong>Compose</strong> action — in its Inputs, click inside and use Dynamic content to browse the parsed JSON fields. Select the title of the book from the parsed fields. Run again and see the extracted title in Run history.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add a <strong>Condition</strong> after the HTTP action: Status code (from HTTP outputs) is equal to 200. In "If yes": do the Parse JSON + Compose. In "If no": add "Send me an email notification" with subject "API call failed" and body = the full HTTP output. This is the correct error-handling pattern for HTTP actions.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Go to Power Automate → <strong>Custom connectors → + New connector → Import an OpenAPI file</strong>. Download the Open Library OpenAPI spec (search "Open Library Swagger" or create a simple one). Import it. Look at the connector's Definition tab — you'll see the operations auto-populated from the spec. Delete the connector after exploring. You've seen how a Swagger/OpenAPI file becomes a ready-to-use connector.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Open the Excel workbook with your loan data (from Day 14). In Office Scripts → <strong>New script</strong>. Write this script manually (not recorded):
-<pre><code>function main(workbook: ExcelScript.Workbook): string {
-  let sheet = workbook.getActiveWorksheet();
-  let lastRow = sheet.getUsedRange().getRowCount();
-  return "Total rows: " + lastRow.toString();
-}</code></pre>
-Save as <code>Row counter</code>. Run it from a flow and receive the row count in an email. You've written your first Office Script by hand.</span></li>
+  <li><span class="box"></span><span class="txt">Create Topic: <code>Report a Problem</code> → Bot: "I'm sorry to hear you're having a problem. Let me help you report it."</span></li>
+  <li><span class="box"></span><span class="txt">Slot filling: Bot asks for (1) problem type — Damaged book / Missing book / Billing issue / App problem / Other, (2) brief description, (3) which book (if applicable)</span></li>
+  <li><span class="box"></span><span class="txt">Bot calls Power Automate flow to create a "MemberIssue" record in Dataverse: MemberID, IssueType, Description, BookID, DateReported, Status = "Open"</span></li>
+  <li><span class="box"></span><span class="txt">Bot confirms: "I've logged your issue (Reference #[ID]). A librarian will contact you within 2 working days."</span></li>
+  <li><span class="box"></span><span class="txt">Flow sends email to Pooja with full issue details</span></li>
+  <li><span class="box"></span><span class="txt">For Billing issues: add escalation message: "For billing concerns, you can also speak with a librarian directly at your next visit."</span></li>
 </ul>
 </div>
 
-<div class="card c-check"><span class="lab">Mini-quiz — Day 14</span>
-<p><strong>Q1</strong> What is the difference between GET and POST in an HTTP request?</p>
-<p><strong>Q2</strong> After an HTTP action, the flow continues whether the call succeeded or failed. How do you detect and handle a failed API call?</p>
-<p><strong>Q3</strong> What does the Parse JSON action do, and why is it needed after an HTTP action?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> GET retrieves data from the API — it reads without changing anything (like asking "show me the book data"). POST sends data to the API to create or trigger something — it changes server state (like "create this booking"). GET requests have no body; POST requests include a JSON body.</p>
-<p><strong>A2</strong> Add a Condition after the HTTP action. Check the <code>statusCode</code> output — if it's NOT equal to 200 (or the expected success code), take the error branch. Alternatively, configure the HTTP action's Settings → "Configure run after" so subsequent steps only run on specific status outcomes.</p>
-<p><strong>A3</strong> The HTTP action returns the response body as a raw JSON text string. Parse JSON turns that string into structured tokens that appear in the Dynamic content panel — so you can access individual fields like title, author, or ISBN without writing M or expressions to parse the JSON manually.</p>
-</details>
+<div class="card c-do"><span class="lab">Exercise 5 — Copilot Studio + Azure OpenAI (Optional — check free tier availability)</span>
+<div class="card c-warn" style="margin:0 0 .7rem"><span class="lab">Careful — Azure OpenAI may not be free in your region</span>
+Check <code>azure.microsoft.com/pricing/details/cognitive-services/openai-service/</code> for current free tier availability. If not available for free, skip this exercise — it is optional.
+</div>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Azure Portal → search <strong>Azure OpenAI</strong> → <strong>+ Create</strong> → choose free tier (if shown)</span></li>
+  <li><span class="box"></span><span class="txt">Deploy a model: <code>gpt-4o-mini</code> (cheapest/free tier option)</span></li>
+  <li><span class="box"></span><span class="txt">In Copilot Studio → <strong>Settings</strong> → <strong>Generative AI</strong> → connect to your Azure OpenAI deployment</span></li>
+  <li><span class="box"></span><span class="txt">Test the same questions — notice if answers improve in quality or naturalness</span></li>
+</ul>
+
+<div class="card c-tip" style="margin:.7rem 0 0"><span class="lab">💭 Why doesn't Microsoft always use the most powerful model?</span>
+<p>Model choice is always a trade-off:</p>
+<ul>
+  <li><strong>Cost:</strong> GPT-4 costs significantly more per query. 1,000 questions/day × ₹0.05 = ₹18,250/year vs ₹0.005 = ₹1,825/year</li>
+  <li><strong>Latency:</strong> GPT-4 may take 2–4 seconds. Smaller models: 0.5 seconds. Users notice delays.</li>
+  <li><strong>Privacy:</strong> Some organisations cannot send data to external servers. Azure OpenAI keeps data within your chosen region.</li>
+</ul>
+<p>The "best" model is the one that meets your specific requirements at acceptable cost — not always the most powerful one.</p>
+</div>
 </div>
 
-<div class="card c-check"><span class="lab">Check yourself</span>
-You ran an Office Script from a flow, called a real REST API with the HTTP action, and walked through every tab of a custom connector. Can you explain what an API is in one sentence, and when you'd use an HTTP action versus a connector?</div>
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 14: Problem-Solution Structure</span>
+
+<h3>The 6-Part Structure</h3>
+<table>
+<tr><th>Part</th><th>Connectors</th></tr>
+<tr><td>1. The Problem</td><td>"The problem was that..." / "Without X, users could not..."</td></tr>
+<tr><td>2. Why It Mattered</td><td>"This meant that..." / "As a result,..." / "The impact was..."</td></tr>
+<tr><td>3. The Solution</td><td>"To solve this, we..." / "The solution was to..."</td></tr>
+<tr><td>4. How It Works</td><td>"This works because..." / "When a user X, the system Y..."</td></tr>
+<tr><td>5. The Result</td><td>"As a result,..." / "Now, users can..." / "This reduced / improved..."</td></tr>
+<tr><td>6. The Limitation</td><td>"However, this approach has the limitation that..." / "One area for improvement is..."</td></tr>
+</table>
+
+<p><strong>Full example:</strong></p>
+<blockquote><em>"The problem was that library members had no way to check book availability after library hours. This meant that members often arrived at the library only to find their desired book was already on loan — a frustrating and wasteful experience. To solve this, we built a Copilot Studio chatbot that connects directly to the live Dataverse database. This works because when a user asks 'Is Atomic Habits available?', the chatbot calls a Power Automate flow that queries the Books table in real time and returns the current Available_Copies count. As a result, members can now check availability 24 hours a day from any device with Teams. However, this approach has the limitation that it requires members to have a Teams account — members without Teams access must still call during library hours."</em></blockquote>
+
+<h3>Writing Exercise: User Guide for the Library Helper Chatbot</h3>
+<p>Write a user guide for library members explaining how to use the Library Helper chatbot. Use simple vocabulary, imperative verbs (Open, Type, Click), and hedging for AI capabilities.</p>
+<pre><code># Library Helper — Member Guide
+
+## What is the Library Helper?
+[2-3 sentences describing the chatbot in completely non-technical language]
+
+## How to Open the Library Helper
+[3-4 steps: where to find it, how to start a conversation]
+
+## What You Can Ask
+The Library Helper can help you with:
+- [Topic 1 — plain English description, example question]
+- [Topic 2 — plain English description, example question]
+- [Topic 3 — plain English description, example question]
+
+## What the Library Helper Cannot Do
+The Library Helper cannot:
+- [Limitation 1]
+- [Limitation 2]
+If you need help with something not on this list, [how to contact a librarian].
+
+## Tips for Getting Good Answers
+- [Tip 1: how to phrase questions well]
+- [Tip 2: what to do if the answer is wrong]
+- [Tip 3: how to reach a human librarian]
+
+## Privacy Note
+[1-2 sentences: what data the chatbot sees and does not share]</code></pre>
+
+<h3>Demo Script Template</h3>
+<p>When you demonstrate a system to stakeholders, a prepared script prevents panic and shows the most impressive parts first.</p>
+<pre><code>DEMO SCRIPT: Library Helper Chatbot
+Audience: [Who you are presenting to]
+Duration: Approximately [X] minutes
+
+OPENING (30 seconds):
+"Today I would like to show you the Library Helper — a chatbot that [one sentence].
+The purpose of this demonstration is to [what you want the audience to understand]."
+
+DEMO PART 1 — Basic Questions (2 minutes):
+Script: "I will start by showing a simple question about borrowing policy..."
+[What to type, what you expect the bot to say]
+
+DEMO PART 2 — Live Data Query (2 minutes):
+Script: "Now I will show how the chatbot connects to our live library database..."
+[Show loan status feature]
+
+DEMO PART 3 — Action Taking (2 minutes):
+Script: "The chatbot does not just answer questions — it can also take actions..."
+[Show renew loan or report problem]
+
+DEMO PART 4 — Escalation (1 minute):
+Script: "When the chatbot cannot answer or the issue is sensitive..."
+[Show escalation to librarian]
+
+CLOSING (30 seconds):
+"This chatbot is currently [status]. The next step is [what comes next].
+Are there any questions?"
+
+BACKUP PLAN:
+If the demo breaks: "[What you will say and do]"</code></pre>
+
+<h3>🚫 Common English Mistakes — Week 14</h3>
+<p><strong>Mistake 1: Starting user guide steps with "You should click"</strong><br>
+❌ "You should click on the Teams icon."<br>
+✅ "<strong>Click</strong> the Teams icon." (imperative is cleaner for instructions)</p>
+
+<p><strong>Mistake 2: "It is showing" for states</strong><br>
+❌ "The chatbot is showing an error."<br>
+✅ "The chatbot <strong>shows</strong> an error." (state → simple present)<br>
+✅ "The chatbot <strong>is currently showing</strong> an error." (happening right now → present continuous)</p>
+
+<p><strong>Mistake 3: Overly technical language for non-technical audiences</strong><br>
+❌ "The chatbot leverages a generative AI large language model to perform semantic matching."<br>
+✅ "The chatbot reads our library policy documents and uses AI to give answers in natural language."<br>
+Rule: Know your audience. Technical precision is good for developers. Simple language is good for users and managers.</p>
+
+<h3>✅ Week 14 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Did you write a full problem-solution paragraph for one chatbot feature you built?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write the Library Helper user guide in plain, simple English?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write the demo script for presenting the chatbot?</span></li>
+  <li><span class="box"></span><span class="txt">Are you using imperative verbs (Click, Type, Open, Select) in user instructions?</span></li>
+</ul>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section class="day" id="week15">
+<div class="dhead"><span class="dnum">Week 15 · December 15–21</span></div>
+<h2>AI in DevOps + GitHub Copilot + AI Ethics</h2>
+<p class="meta">~3 hours · github.com + make.powerapps.com · Reflection and writing week</p>
+
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 15</span>
+<dl>
+  <dt><strong>13. GitHub Copilot</strong></dt>
+  <dd>An AI assistant inside VS Code and other code editors that suggests code as you type, explains existing code, and helps write tests and documentation.<br>
+  <em>Analogy: An experienced colleague sitting next to you while you code, who can say "I think you want something like this..." and write the first draft.</em><br>
+  <em>Example: "I asked GitHub Copilot: 'Write a Power Automate HTTP connector request to call the CalculateLateFee Azure Function with today's date and the loan due date.' It wrote the JSON body and headers correctly in 3 seconds."</em></dd>
+
+  <dt><strong>14. Prompt Engineering</strong></dt>
+  <dd>The skill of writing clear, specific instructions to an AI model to get useful, accurate output.<br>
+  <em>Analogy: Giving good directions. "Go to the place with the thing near the corner" gets a confused look. "Go to the red building on the left side of MG Road, second lane, number 42" gets you there.</em><br>
+  <em>Example: "My improved prompt: 'Write a Power Fx formula for a canvas app gallery that filters Dataverse Loans table to show only loans belonging to the user with email User().Email, where Status = Active, sorted by DueDate ascending.' This precise prompt gave exactly what I needed."</em></dd>
+
+  <dt><strong>15. AI Ethics</strong></dt>
+  <dd>The study of what is right and wrong when using AI — fairness, privacy, accountability, and avoiding harm.<br>
+  <em>Example: "The prediction model flags members as 'high risk' for overdue loans. We decided NOT to automatically block high-risk members from borrowing — only to send them earlier reminders. This is an ethical decision: the AI's prediction is probabilistic, not certain, and blocking access is a significant penalty."</em></dd>
+
+  <dt><strong>16. Algorithmic Bias</strong></dt>
+  <dd>When an AI model produces systematically unfair results for certain groups of people — often because the training data reflected historical inequalities.<br>
+  <em>Example: "If our prediction model was trained on data where members from lower-income areas had higher overdue rates (due to circumstances beyond their control), the model may disproportionately flag members from those areas — perpetuating inequality through automated decisions."</em></dd>
+</dl>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — Using AI as a Tool in Your Daily Workflow</span>
+<p>This week is about changing how you WORK, not just what you build. Here is how to use AI effectively for everything we have built:</p>
+
+<h3>Writing Power Fx Formulas</h3>
+<p>When you are not sure of the exact syntax, describe what you want in detail:</p>
+<div class="card c-tip" style="margin:.5rem 0"><span class="lab">Example prompt (precise = better output)</span>
+<p>"Write a Power Fx formula for Power Apps that creates a new row in Dataverse Loans table, linking to the selected book using its ID (SelectedBook.cr_bookid), linking to the current user's member record (found by matching User().Email to the cr_email field in Members table), with today as LoanDate, 14 days from today as DueDate, and status 'Active'."</p>
+</div>
+
+<h3>Writing GitHub Actions YAML</h3>
+<div class="card c-tip" style="margin:.5rem 0"><span class="lab">Example prompt</span>
+<p>"Write a GitHub Actions YAML workflow that runs when code is pushed to the main branch, only if files in the 'azure-functions/' folder changed. It should: install Node.js 18, install npm dependencies, run npm test, then deploy to an Azure Function App named 'library-functions-[name]' using service principal credentials stored in GitHub Secrets as AZURE_CREDENTIALS."</p>
+</div>
+
+<h3>Writing SQL Queries</h3>
+<div class="card c-tip" style="margin:.5rem 0"><span class="lab">Example prompt</span>
+<p>"Write a SQL query for Azure SQL Server that joins Loans (LoanID, BookID, MemberID, DueDate, ReturnDate, LateFee) with Members (MemberID, FullName, Email) and Books (BookID, Title) to return all overdue loans as of today, ordered by days overdue descending, including calculated columns for DaysOverdue and PotentialFee at ₹5 per day."</p>
+</div>
+
+<h3>Debugging Errors</h3>
+<div class="card c-tip" style="margin:.5rem 0"><span class="lab">Example prompt</span>
+<p>"I am getting this error in Power Automate: 'The expression items('Apply_to_each')?['cr_member_value'] is not valid. I am trying to get the GUID of the related Member record from a Loan row retrieved from Dataverse. What is the correct way to reference the related member ID?"</p>
+</div>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 6 — AI-Assisted Development Practice</span>
+<p>For each task, use an AI assistant (Claude, GitHub Copilot, or any other) to write the first draft. Then <strong>review carefully and modify</strong>.</p>
+
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt"><strong>Task 1:</strong> Ask AI to write the Power Automate flow description for the Membership Approval Flow. Give it the step-by-step process; it gives you documentation text. Review: is it accurate?</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Task 2:</strong> Ask AI to write a GitHub Actions YAML workflow: "Export Power Platform solution daily at midnight." Review: does it use the correct Microsoft Power Platform Actions syntax?</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Task 3:</strong> Ask AI to write a SQL query for monthly loan statistics for Power BI (total loans per month, average loan duration, total late fees, percentage overdue). Test it in Azure SQL Query Editor — does it give correct results?</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Task 4:</strong> Ask AI to write a DAX measure that calculates the rolling 3-month average number of loans. Verify it gives the right numbers on your loan data.</span></li>
+</ul>
+
+<div class="card c-warn" style="margin:.7rem 0 0"><span class="lab">Critical habit — Never paste AI code without reading it</span>
+<p>Before using AI-generated code, ask yourself:</p>
+<ol>
+  <li>Does this code do what I asked?</li>
+  <li>Does it do anything I did NOT ask? (Unexpected side effects)</li>
+  <li>Could this break anything in the existing system?</li>
+  <li>Does it follow security principles? (No hardcoded secrets, no overly permissive access)</li>
+</ol>
+<p>AI can write incorrect code confidently. Your job is to be the quality gate — the thinking human who reviews the AI's work. This is how AI makes you more productive, not a liability.</p>
+</div>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — AI Ethics: The Three Problems Every System Builder Must Understand</span>
+
+<h3>The Fairness Problem — Algorithmic Bias</h3>
+<p>Suppose the prediction model finds that members from a certain area of the city tend to return books late more often. The AI will use "postal code" as a predictive feature.</p>
+<p>But what if certain neighbourhoods have lower income? The AI learned from historical data that reflects real-world inequalities — and now it perpetuates those inequalities through automated decisions. This is <strong>algorithmic bias</strong>.</p>
+<p><strong>What to do:</strong> Remove features that are proxies for protected characteristics (income, location, community). Test the model's output for disparate impact. Regularly audit AI decisions that affect people's access to services.</p>
+
+<h3>The Accountability Problem</h3>
+<p>When the AI recommends blocking a member and Pooja follows the recommendation — who is accountable if the recommendation was wrong? The AI does not face consequences. Pooja does. Microsoft does not face consequences. Your organisation does.</p>
+<p><strong>Rule:</strong> Every AI-driven decision that affects a person must have a human accountable for it. AI can recommend. Humans must decide.</p>
+
+<h3>The Transparency Problem</h3>
+<p>If Rohit is blocked from borrowing books because the AI flagged him as "high risk," does he have the right to know why? Does he have the right to appeal? In many countries, yes — there are legal requirements (GDPR in Europe, similar laws being developed in India).</p>
+<p><strong>Good practice:</strong> If an AI decision affects someone, be able to explain what factors led to that decision, in plain language that the affected person can understand.</p>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 15: Balanced Arguments</span>
+
+<h3>The 5-Part Structure</h3>
+<ol>
+  <li><strong>Introduce the topic:</strong> "The question of whether [X] is not straightforward."</li>
+  <li><strong>First side:</strong> "On one hand, [argument for]. This is supported by [evidence/reason]."</li>
+  <li><strong>Second side:</strong> "On the other hand, [argument against]. Proponents argue that [reason]."</li>
+  <li><strong>Nuance:</strong> "It is also worth noting that [complicating factor]."</li>
+  <li><strong>Conclusion:</strong> "On balance, [your conclusion], because [primary reason]. However, [acknowledged limitation]."</li>
+</ol>
+
+<h3>🔊 Read Aloud Exercise — Full Balanced Argument</h3>
+<p>Read this out loud slowly. The sentences are longer — pause at every full stop:</p>
+<blockquote><em>"The question of whether to use AI predictions to identify library members at risk of going overdue is not straightforward. On one hand, early identification allows the library to send proactive reminders to members who are most likely to need them, potentially reducing overdue rates and the administrative burden of chasing unpaid fines. This benefit is real and measurable. On the other hand, the prediction model was trained on historical data that may reflect existing inequalities — for example, if members from certain postcodes or income groups have historically had higher overdue rates due to circumstances beyond their control, the model may unfairly target these groups for additional scrutiny. It is also worth noting that even a highly accurate model will make mistakes — some members flagged as high risk will always return books on time, and some low-risk members will go overdue. Treating people differently based on a probabilistic prediction, rather than their actual behaviour, raises concerns about fairness and dignity. On balance, using AI predictions to send earlier reminders — rather than to restrict access — appears to be a proportionate use of this technology, provided that all members are treated with equal courtesy and that the model's outputs are reviewed regularly for evidence of disproportionate impact on any group."</em></blockquote>
+<p>After reading: write the 5 parts of the balanced argument structure in your journal, with one sentence from the paragraph for each part.</p>
+
+<h3>Writing Exercise: The Ethics Analysis (200+ words)</h3>
+<p>Write a 3-paragraph ethical analysis of ONE AI feature in your library system. This is your longest English writing exercise in this course — that is intentional.</p>
+<ul>
+  <li><strong>Paragraph 1:</strong> What the AI feature does — describe it objectively using hedging language</li>
+  <li><strong>Paragraph 2:</strong> Ethical considerations — present both sides using "On one hand... On the other hand..." Use words: fair, unfair, transparent, opaque, privacy, consent, accuracy, error, impact</li>
+  <li><strong>Paragraph 3:</strong> Your recommendation — use "On balance..." Acknowledge that reasonable people might disagree</li>
+</ul>
+
+<h3>Professional Communication: The Recommendation Memo</h3>
+<pre><code>MEMORANDUM
+
+To: [Recipient name and role]
+From: [Your name and role]
+Date: [Date]
+Subject: Recommendation — [What you are recommending]
+
+EXECUTIVE SUMMARY (2-3 sentences)
+[State your recommendation immediately.]
+
+BACKGROUND
+[Why is this decision being considered?]
+
+ANALYSIS
+
+Option 1: [Name]
+Advantages: [List]
+Disadvantages: [List]
+Estimated impact: [What would change]
+
+Option 2: [Name]
+Advantages: [List]
+Disadvantages: [List]
+Estimated impact: [What would change]
+
+RECOMMENDATION
+Based on the analysis above, I recommend [Option X] because [primary reason].
+This approach [main benefit], while acknowledging that [acknowledged limitation].
+
+NEXT STEPS (if recommendation is approved)
+1. [Action 1] — Timeline: [Date]
+2. [Action 2] — Timeline: [Date]
+
+QUESTIONS?
+Please contact me at [contact] to discuss.</code></pre>
+
+<h3>🚫 Common English Mistakes — Week 15</h3>
+<p><strong>Mistake 1: Weak conclusions with "It depends"</strong><br>
+❌ "In conclusion, it depends on the situation."<br>
+✅ "On balance, [specific recommendation], because [specific reason], provided that [specific safeguard]."</p>
+
+<p><strong>Mistake 2: "Bias" used vaguely</strong><br>
+❌ "The AI model has bias."<br>
+✅ "The AI model shows <strong>demographic bias</strong> — specifically, it <strong>disproportionately flags</strong> members from [specific group] as high-risk, <strong>at a rate 1.4× higher</strong> than other groups with similar actual overdue frequencies."<br>
+Always specify: which group, what direction, how large the effect.</p>
+
+<p><strong>Mistake 3: "Moreover" used as "Also"</strong><br>
+"Moreover" and "Furthermore" mean "and this is an ADDITIONAL, STRONGER point."<br>
+❌ "AI can predict overdue loans. Moreover, it can also analyse sentiment."<br>
+✅ "AI can predict overdue loans. Moreover, these predictions have proven more accurate than staff intuitions based on manual review." (this IS a stronger claim)</p>
+
+<h3>✅ Week 15 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Did you write a full 5-part balanced argument about an AI ethics question?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a 200+ word ethical analysis of one AI feature?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write the recommendation memo about the prediction model?</span></li>
+  <li><span class="box"></span><span class="txt">Can you use "On one hand... On the other hand... On balance..." correctly?</span></li>
+  <li><span class="box"></span><span class="txt">Are you using specific language for bias ("disproportionately flags", "at a rate X times higher") instead of vague "the AI has bias"?</span></li>
+</ul>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section class="day" id="week16">
+<div class="dhead"><span class="dnum">Week 16 · December 22–31</span></div>
+<h2>Final Capstone + System Design Document + Career Preparation</h2>
+<p class="meta">~5 hours over several days · Writing + reviewing + celebrating what you built</p>
+
+<div class="card c-concept"><span class="lab">The Final Week — What This Week Is About</span>
+<p>This is not a week of building new things. This is the week where you:</p>
+<ol>
+  <li>Connect all pieces into one complete, documented system</li>
+  <li>Write a system design document in English</li>
+  <li>Understand your career path forward</li>
+  <li>Celebrate how far you have come</li>
+</ol>
+</div>
+
+<div class="card c-concept"><span class="lab">Capstone — The Full System Architecture</span>
+<p>Your complete Community Library Management System has four layers:</p>
+
+<h3>User Interaction Layer</h3>
+<ul>
+  <li><strong>Members (Rohit, Priyanka, Gaurav):</strong>
+    <ul>
+      <li>Canvas App (Power Apps) — search books, borrow books, view my loans</li>
+      <li>Library Helper chatbot (Copilot Studio in Teams) — ask questions, check loan status, renew loans, report problems</li>
+    </ul>
+  </li>
+  <li><strong>Librarians (Pooja, Sanjay, Neha):</strong>
+    <ul>
+      <li>Model-Driven App (Power Apps) — manage all records, see overdue loans, approve new members</li>
+      <li>Power BI Dashboard — loans per month, popular books, overdue analysis</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Data and Logic Layer</h3>
+<ul>
+  <li><strong>Dataverse:</strong> Books, Members, Loans, Authors, MemberIssues tables — the primary data store</li>
+  <li><strong>Azure SQL Database:</strong> Same schema as Dataverse — replica for analytics and SQL learning</li>
+  <li><strong>Power Automate Flows:</strong> Overdue reminder (daily 7 AM), Member approval, Loan created notification, Issue created → email Pooja</li>
+  <li><strong>Azure Functions:</strong> CalculateLateFee API — callable by any app, flow, or service</li>
+  <li><strong>Azure Blob Storage:</strong> Book cover images displayed in the canvas app</li>
+</ul>
+
+<h3>AI Layer</h3>
+<ul>
+  <li><strong>AI Builder:</strong> Membership Form Reader (Document Processing), Overdue Prediction Model</li>
+  <li><strong>Azure AI Language:</strong> Sentiment analysis on member feedback emails</li>
+  <li><strong>Copilot Studio:</strong> Library Helper agent — knowledge sources + live data queries + write operations</li>
+</ul>
+
+<h3>DevOps Layer</h3>
+<ul>
+  <li><strong>GitHub Repository:</strong> All code (Azure Functions, YAML workflows, SQL scripts), Power Platform solution export, documentation</li>
+  <li><strong>GitHub Actions:</strong> Deploy Azure Functions on push to main, export Power Platform solution (scheduled), run tests on pull requests</li>
+  <li><strong>Azure DevOps:</strong> Sprint board for project management</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 7 — Write the System Design Document</span>
+<p>This is your most important English and technical writing exercise. Write it in your GitHub repository at <code>docs/system-design.md</code>. Use the AI to help you check grammar — but the <strong>ideas must be yours</strong>. You have built this system. You know the answers.</p>
+
+<pre><code># Community Library Management System — System Design Document
+
+## Author
+[Your name]
+Date: December 2026
+
+## 1. Overview
+Write 3–5 sentences describing what this system is and who uses it.
+Example: "The Community Library Management System is a digital platform built to manage
+book lending, membership, and library operations for a small community library with
+approximately 500 members. The system serves two types of users: library members who
+borrow books and check loan status, and library staff who manage inventory, approve
+memberships, and monitor operations."
+
+## 2. The Problem We Are Solving
+Describe what the library was doing BEFORE this system existed, and what problems
+that caused.
+Example: "Before this system, loan records were kept in a paper register. Overdue reminders
+were sent manually by Pooja every Friday. New member registrations took 3 days to process."
+
+## 3. Architecture Overview
+Describe the 4 main layers:
+- Presentation layer (what users see)
+- Logic layer (what happens when users interact)
+- Data layer (where data is stored)
+- AI layer (what is automated / intelligent)
+
+## 4. Key Design Decisions and Their Reasons
+
+Decision 1: Dataverse vs Azure SQL as primary data store
+- Chose: Dataverse
+- Why: [Your answer]
+- Alternative considered: Azure SQL
+- Why not: [Your answer]
+
+Decision 2: Canvas App for members vs Model-Driven App for members
+- Chose: Canvas App for members, Model-Driven App for staff
+- Why: [Your answer]
+
+Decision 3: Scheduled flow for overdue reminders vs event-driven
+- Chose: Scheduled (runs every morning at 7 AM)
+- Why: [Your answer]
+- Alternative: Event-driven (trigger when DueDate passes)
+- Why not: Dataverse triggers are for row changes, not date conditions
+
+Decision 4: Azure Functions for late fee calculation
+- Chose: Centralise in Azure Function, not repeat in each flow/app
+- Why: [DRY principle — explain it]
+
+Decision 5: Copilot Studio for chatbot vs building a custom bot
+- Chose: Copilot Studio
+- Why: [Your answer]
+- Limitations: [Your answer]
+
+## 5. What Could Be Improved
+1. [Improvement 1] — because [reason]
+2. [Improvement 2] — because [reason]
+3. [Improvement 3] — because [reason]
+
+## 6. Security Considerations
+- Who can see what data (Dataverse security roles — Library Member vs Library Staff)
+- How secrets are stored (GitHub Secrets, not hardcoded)
+- What happens if a service goes down (failure modes for each critical component)
+
+## 7. Future Roadmap
+- [Feature 1]: why useful, rough effort estimate
+- [Feature 2]: why useful, rough effort estimate
+- [Feature 3]: why useful, rough effort estimate</code></pre>
+</div>
+
+<div class="card c-concept"><span class="lab">Career Preparation — Certifications to Pursue in 2027</span>
+<p><strong>Recommended order:</strong> PL-900 → AZ-900 → PL-300 → PL-200 (or AZ-204 for deeper Azure). Start with PL-900 in January — you have already done everything it tests.</p>
+<table>
+<tr><th>Certification</th><th>What It Tests</th><th>Estimated Study Time</th><th>Approx. Cost</th></tr>
+<tr><td><strong>PL-900</strong> — Power Platform Fundamentals</td><td>All Power Platform basics</td><td>2–3 weeks</td><td>~₹3,000</td></tr>
+<tr><td><strong>PL-300</strong> — Power BI Data Analyst</td><td>Power BI, DAX, data modelling</td><td>4–6 weeks</td><td>~₹3,000</td></tr>
+<tr><td><strong>PL-200</strong> — Power Platform Functional Consultant</td><td>Power Apps, Automate, Dataverse</td><td>6–8 weeks</td><td>~₹3,000</td></tr>
+<tr><td><strong>AZ-900</strong> — Azure Fundamentals</td><td>Azure basics, cloud concepts</td><td>2–3 weeks</td><td>~₹3,000</td></tr>
+<tr><td><strong>AZ-204</strong> — Azure Developer</td><td>Building Azure applications</td><td>3–4 months</td><td>~₹3,000</td></tr>
+</table>
+</div>
+
+<div class="card c-concept"><span class="lab">How to Talk About This Project in an Interview</span>
+<p><strong>Weak answer:</strong> "I built a library system in Power Apps and Power Automate."</p>
+<p><strong>Strong answer:</strong> "I designed and built a complete library management system using Microsoft Power Platform for the front-end layer — a Canvas App for members and a Model-Driven App for staff — with Dataverse as the primary data store. I built three Power Automate flows for automation: overdue reminders, new member approvals, and loan notifications. I integrated Azure Functions as a centralised API for late fee calculation, Azure Blob Storage for book cover images, and added AI Builder for document processing and predictive overdue detection. I used GitHub for version control and GitHub Actions for automated deployment of the Azure Functions. The entire system is documented in GitHub and can be deployed to a new environment from scratch."</p>
+<p>Notice how the strong answer names specific tools, explains WHY you made choices, shows depth (Azure integration), shows process (version control, deployment pipeline), and shows documentation (it can be reproduced).</p>
+
+<h3>What Jobs Use These Skills</h3>
+<table>
+<tr><th>Role</th><th>Primary Skills Used</th></tr>
+<tr><td><strong>Power Platform Developer</strong></td><td>Power Apps, Power Automate, Dataverse</td></tr>
+<tr><td><strong>Business Applications Analyst</strong></td><td>Power Platform + requirements gathering</td></tr>
+<tr><td><strong>CRM Consultant (Dynamics 365)</strong></td><td>Dataverse, model-driven apps</td></tr>
+<tr><td><strong>Power BI Developer</strong></td><td>Power BI, DAX, data modelling</td></tr>
+<tr><td><strong>Azure Integration Engineer</strong></td><td>Azure Functions, Logic Apps, API Management</td></tr>
+<tr><td><strong>DevOps Engineer (Microsoft Stack)</strong></td><td>GitHub Actions, Azure DevOps, CI/CD</td></tr>
+<tr><td><strong>AI Solutions Engineer</strong></td><td>Copilot Studio, AI Builder, Azure AI</td></tr>
+</table>
+<p>Your 4-month project touches ALL of these roles. You are not an expert in any single role — but you are qualified to join a team in any of these areas and grow from there.</p>
+</div>
+
+<div class="card c-do"><span class="lab">December 31 — Your Final Checklist</span>
+<p><strong>Technical:</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Canvas App works end-to-end: search books, borrow, view loans</span></li>
+  <li><span class="box"></span><span class="txt">Model-Driven App shows all library data with correct security roles</span></li>
+  <li><span class="box"></span><span class="txt">Overdue reminder flow runs on schedule and sends emails</span></li>
+  <li><span class="box"></span><span class="txt">Member approval flow works end-to-end</span></li>
+  <li><span class="box"></span><span class="txt">Azure Function (CalculateLateFee) is deployed and callable from Power Automate</span></li>
+  <li><span class="box"></span><span class="txt">Copilot Studio agent answers questions AND takes actions (loan status, renewal, report issue)</span></li>
+  <li><span class="box"></span><span class="txt">AI Builder form reader is trained and integrated into the member registration flow</span></li>
+  <li><span class="box"></span><span class="txt">GitHub repository has all code, solution files, SQL scripts, and documentation</span></li>
+  <li><span class="box"></span><span class="txt">GitHub Actions pipelines run automatically on push to main</span></li>
+</ul>
+<p><strong>Documentation:</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt"><code>docs/system-design.md</code> written in English with all 7 sections complete</span></li>
+  <li><span class="box"></span><span class="txt"><code>README.md</code> explains the project clearly to someone who has never seen it</span></li>
+  <li><span class="box"></span><span class="txt"><code>docs/setup-guide.md</code> exists with step-by-step setup instructions</span></li>
+</ul>
+<p><strong>English:</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">December journal has at least 15 entries</span></li>
+  <li><span class="box"></span><span class="txt">Can explain the project in English for 3 minutes without stopping</span></li>
+  <li><span class="box"></span><span class="txt">All 16 vocabulary words from December defined in your own words (no looking)</span></li>
+</ul>
+<p><strong>Reflection:</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Read your September 6 journal entry — the very first one</span></li>
+  <li><span class="box"></span><span class="txt">Compare it to your December 31 entry. Write 3 sentences about what changed.</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 16: Register — Matching Language to Your Audience</span>
+
+<p>The same system can be described in three completely different ways depending on who you are talking to:</p>
+
+<h3>Register 1: Technical Documentation (for developers)</h3>
+<blockquote><em>"The Community Library Management System uses a three-tier architecture: a Dataverse-backed Power Apps front end for member and staff interactions, a set of Power Automate flows for event-driven business logic including overdue notifications and membership approvals, and an Azure Functions API layer for centralised business logic callable by multiple consumers. The Azure SQL replica serves as an analytics-optimised read model for Power BI reporting."</em></blockquote>
+
+<h3>Register 2: Interview Answer (for a hiring manager)</h3>
+<blockquote><em>"I built a complete library management system over 4 months using Microsoft Power Platform and Azure. It includes a mobile app for members to borrow books, automated email reminders when books are overdue, a chatbot that answers questions 24 hours a day, and a Power BI dashboard that helps the library understand which books are most popular. I also set up a GitHub repository with automated deployment so that any code change goes live automatically without manual steps."</em></blockquote>
+
+<h3>Register 3: LinkedIn Post (for your professional network)</h3>
+<blockquote><em>"Excited to share that I have completed a 4-month learning journey building a Community Library Management System from scratch using Microsoft Power Platform, Azure, and GitHub. From zero technical knowledge to a complete, deployed system with AI, chatbot, and CI/CD automation. If you are curious about how non-technical people can build enterprise-level systems, I am happy to share what I learned. 🚀 #PowerPlatform #Azure #LearningInPublic"</em></blockquote>
+
+<h3>Grammar: Tense Consistency in Documentation</h3>
+<table>
+<tr><th>Tense</th><th>Use For</th><th>Example</th></tr>
+<tr><td><strong>Present simple</strong></td><td>Describing current state</td><td>"The canvas app <strong>connects</strong> to Dataverse and <strong>reads</strong> book records."</td></tr>
+<tr><td><strong>Past simple</strong></td><td>Describing decisions and history</td><td>"We <strong>chose</strong> Dataverse over Azure SQL because it <strong>provided</strong> built-in Power Apps integration."</td></tr>
+<tr><td><strong>Imperative</strong></td><td>Instructions</td><td>"<strong>Navigate</strong> to the Power Apps portal. <strong>Click</strong> Solutions."</td></tr>
+<tr><td><strong>Future</strong></td><td>Planned improvements</td><td>"Future versions <strong>will include</strong> mobile push notifications."</td></tr>
+</table>
+
+<h3>Three-Register Writing Challenge</h3>
+<p>Write the same content (your Community Library project) in all three registers:</p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt"><strong>Part 1: System Design Document excerpt</strong> (150+ words, technical) — Write the "Architecture Overview" section using technical vocabulary, precise language, layers and integration points.</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Part 2: Interview Answer</strong> (100-150 words) — Answer: "Tell me about a technical project you have built independently." Use STAR method: Situation, Task, Action, Result.</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Part 3: LinkedIn Post</strong> (50-80 words) — Announce your completed project. Be enthusiastic. Use 2-3 relevant hashtags.</span></li>
+</ul>
+
+<h3>🔊 Read Aloud — The Feynman Technique</h3>
+<p>Read your system design document's "Overview" section out loud. Then, WITHOUT looking at it, say it again as if speaking to:</p>
+<ol>
+  <li>A technical colleague (use technical language)</li>
+  <li>A non-technical library manager (use simple language)</li>
+  <li>A friend who knows nothing about technology (use an analogy)</li>
+</ol>
+<p>If you can explain something simply, you truly understand it. If you can only explain it using technical words, you have memorised without understanding. This is called the <strong>Feynman technique</strong>.</p>
+
+<h3>Professional Communication: Your LinkedIn Profile Summary</h3>
+<pre><code>I am a [role or aspiration] with experience in [your main skills].
+
+Over the past [time period], I have built [what], using [tools].
+Most recently, I [specific achievement with a concrete detail].
+
+I am currently [looking for / open to / focused on] [what].
+
+[How to connect with you — "Feel free to reach out..." / "I am happy to discuss..."]</code></pre>
+
+<h3>🚫 Common English Mistakes — Week 16</h3>
+<p><strong>Mistake 1: "I am a quick learner" — the most overused CV phrase</strong><br>
+❌ "I am a quick learner and a team player."<br>
+✅ "I built a complete enterprise-scale system from zero technical knowledge in 4 months." — show the evidence, do not claim the adjective.</p>
+
+<p><strong>Mistake 2: Abbreviations without explanation for non-technical readers</strong><br>
+❌ "The system uses Power Apps, PA, CDS, PBI, and CS."<br>
+✅ "The system uses Power Apps, Power Automate (PA), Dataverse (formerly Common Data Service), Power BI, and Copilot Studio." — spell out first, abbreviate after.</p>
+
+<p><strong>Mistake 3: "Please let me know if any issues"</strong><br>
+❌ "Please let me know if any issues."<br>
+✅ "Please <strong>contact me</strong> if you <strong>have any questions</strong> or notice <strong>any problems</strong>." — grammatically complete sentence.</p>
+
+<h3>✅ Final English Progress Check — The Complete Journey</h3>
+<p>Look back at your very first journal entry (September 6 or 7). Then look at what you have written today. Write a reflection of 5–8 sentences answering:</p>
+<ul>
+  <li>How has your English writing changed in 4 months?</li>
+  <li>Which grammar pattern was most useful to you?</li>
+  <li>What type of professional document was hardest to write?</li>
+  <li>Which mistake did you make most often — and have you improved?</li>
+  <li>What will you continue to practise after December 31?</li>
+</ul>
+<p><strong>This reflection is the final English exercise. There is no template. No example. Write it entirely in your own words, in English, from your own experience. After 4 months, you no longer need a template.</strong></p>
+</div>
+
+<div class="card c-gloss"><span class="lab">December Vocabulary Master List — Write Your Own Definitions</span>
+<table>
+<tr><th>Word</th><th>Your definition (write from memory — no looking)</th></tr>
+<tr><td>Machine Learning</td><td></td></tr>
+<tr><td>Model (AI)</td><td></td></tr>
+<tr><td>Training (AI)</td><td></td></tr>
+<tr><td>Prediction</td><td></td></tr>
+<tr><td>Confidence Score</td><td></td></tr>
+<tr><td>Azure AI Language</td><td></td></tr>
+<tr><td>Sentiment Analysis</td><td></td></tr>
+<tr><td>Named Entity Recognition</td><td></td></tr>
+<tr><td>Generative AI</td><td></td></tr>
+<tr><td>Conversational Design</td><td></td></tr>
+<tr><td>Escalation</td><td></td></tr>
+<tr><td>Slot Filling</td><td></td></tr>
+<tr><td>GitHub Copilot</td><td></td></tr>
+<tr><td>Prompt Engineering</td><td></td></tr>
+<tr><td>AI Ethics</td><td></td></tr>
+<tr><td>Algorithmic Bias</td><td></td></tr>
+</table>
+</div>
+
+<div class="card c-check"><span class="lab">A Final Message — You Changed. That Is the Proof.</span>
+<p>On September 6, you started this guide as someone who described themselves as non-technical with poor English.</p>
+<p>On December 31, you are someone who:</p>
+<ul>
+  <li>Built a complete, production-quality library management system</li>
+  <li>Understands why each piece of the system exists, not just how to click it</li>
+  <li>Knows how databases relate to each other, how APIs work, how CI/CD pipelines run</li>
+  <li>Has used AI as a tool — and understands its limits</li>
+  <li>Has written technical documents, SQL queries, YAML configurations, Power Fx formulas</li>
+  <li>Has a GitHub repository to show anyone who asks</li>
+  <li>Has the vocabulary and the confidence to discuss technical topics in English</li>
+</ul>
+<p>The world of technology did not become simpler this year. But you became someone who can navigate it.</p>
+<p style="font-size:1.1rem;text-align:center;font-style:italic;padding:.5rem 0"><strong>That is the goal. You reached it.</strong></p>
+<hr style="border:0;border-top:1px solid var(--line);margin:1rem 0">
+<p style="text-align:center;color:var(--ink2)"><em>"The measure of intelligence is the ability to change." — Albert Einstein</em></p>
+<p style="text-align:center;font-weight:600">You changed. That is the proof.</p>
+</div>
 </section>
 
 <div class="pn">
-<a href="phase3.html"><div class="d">← Previous</div><div class="tt">Phase 3 · Automation</div></a>
-<a class="nx" href="phase5.html"><div class="d">Next phase →</div><div class="tt">Phase 5 · AI &amp; governance</div></a>
+  <a class="pv" href="phase3.html"><div class="d">← Previous Month</div><div class="tt">November · Azure &amp; GitHub</div></a>
+  <a class="nx" href="reference.html"><div class="d">Reference →</div><div class="tt">Glossary &amp; Troubleshooting</div></a>
 </div>
+
 </main>
 <button class="top" id="top" aria-label="Back to top">↑</button>
 <script src="assets/course.js"></script>

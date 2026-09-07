@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Phase 3 · Automation — Power Platform in 20 Days</title>
+<title>Month 3 — November · AI-Ready in 4 Months</title>
 <link rel="stylesheet" href="assets/course.css">
 </head>
 <body data-page="phase3">
 <button id="menu" aria-label="Menu">☰</button>
 <aside id="rail">
   <div class="brand"><a href="index.html">
-    <div class="t">Power Platform in 20 Days</div>
-    <div class="s">A Beginner's Course</div></a>
+    <div class="t">AI-Ready in 4 Months</div>
+    <div class="s">Power Platform · Azure · GitHub · AI</div></a>
     <div class="prog"><i id="pfill"></i></div>
     <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
   </div>
@@ -19,403 +19,1192 @@
 </aside>
 
 <main>
-<div class="crumb"><a href="index.html">Home</a> / Phase 3 · Automation</div>
-<header class="hero">
-  <span class="pill">Phase 3 · Days 9–11</span>
-  <h1>Automation</h1>
-  <p>Make the computer do repetitive work by itself. You'll build three real flows wired into your Community
-  Library: a loan confirmation email, an overdue-loans report that marks records, and a member approval
-  process with Teams cards and full error handling.</p>
+
+<header class="hero" id="nov-hero">
+  <span class="pill">Month 3 · November 1–30, 2026</span>
+  <h1>Azure + GitHub + DevOps</h1>
+  <p>Power Platform is how businesses build solutions quickly. Azure and GitHub are how engineers build the systems that run the world — the APIs, databases, and pipelines that Power Platform itself depends on. This month, you pull back the curtain. By November 30, you will understand not just how to <em>use</em> a system — you will understand how systems are <em>built</em> and <em>deployed</em>.</p>
 </header>
 
-<!-- DAY 9 -->
-<section class="day" id="day9">
-<div class="dhead"><span class="dnum">Day 9</span></div>
-<h2>Your first flows: anatomy, triggers, actions, and run history</h2>
-<p class="meta">~110 minutes</p>
-
-<div class="card c-concept"><span class="lab">Concept — what is a flow?</span>
-<p>A <strong>flow</strong> is a recipe that runs itself: "<em>When</em> something happens, <em>do</em> these steps." The three moving parts:</p>
-<ul>
-<li><strong>Trigger</strong> — the "when." Exactly one per flow. Can be an event (a row is added), a schedule (every morning at 9), or a manual button press.</li>
-<li><strong>Actions</strong> — the "do this." Each action does one thing: send an email, update a row, post a Teams message, wait for an approval. You chain as many as you need.</li>
-<li><strong>Connectors</strong> — ready-made bridges to services. Dataverse, Outlook, Teams, SharePoint, Excel — hundreds of connectors exist. Each provides its own triggers and actions.</li>
-</ul>
+<section id="nov-intro">
+<h2>A new way of thinking: Infrastructure Thinking</h2>
+<div class="card c-concept"><span class="lab">Two Types of Engineering Thinking</span>
+<p>In October, you thought like an <strong>app builder</strong>: "What does the user see? What happens when they tap this button?"</p>
+<p>In November, you think like an <strong>infrastructure engineer</strong>: "Where does the data live? What happens when the server gets 1,000 requests at the same time? If this service goes down, what is the backup?"</p>
+<p>These two types of thinking are not opposites — the best engineers have both. This month, you develop the infrastructure mind.</p>
 </div>
 
-<figure class="fig">
-<svg viewBox="0 0 580 120" role="img" aria-label="A flow: one trigger then multiple actions connected by arrows">
-<defs><marker id="a3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
-<rect x="14" y="38" width="140" height="46" rx="9" fill="#fff8e9" stroke="#e0a020"/>
-<text x="84" y="58" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">TRIGGER</text>
-<text x="84" y="74" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Loan row added</text>
-<line x1="154" y1="61" x2="194" y2="61" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a3)"/>
-<rect x="196" y="38" width="148" height="46" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="270" y="58" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ACTION 1</text>
-<text x="270" y="74" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Send email (Outlook)</text>
-<line x1="344" y1="61" x2="384" y2="61" stroke="#9fb0c8" stroke-width="2" marker-end="url(#a3)"/>
-<rect x="386" y="38" width="174" height="46" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="473" y="58" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ACTION 2</text>
-<text x="473" y="74" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Update Loan row</text>
-<text x="290" y="22" text-anchor="middle" font-family="monospace" font-size="10" fill="#7b8798">one trigger  →  unlimited actions</text>
-</svg>
-<figcaption>Every flow: one trigger then as many actions as needed</figcaption>
-</figure>
-
-<div class="card c-concept"><span class="lab">Concept — three ways a flow can start</span>
-<ul>
-<li><strong>Automated</strong> — starts on an event: a Dataverse row is added/changed, an email arrives, a file is uploaded. No human needs to do anything.</li>
-<li><strong>Instant (manual)</strong> — starts when you press a button in a canvas app or the "Run" button on the flow page.</li>
-<li><strong>Scheduled</strong> — starts on a timer: every day at 8am, every Monday. Good for overnight reports.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Concept — the flow designer: every element</span>
-<ul>
-<li><strong>Add an action</strong> — click the <code>+</code> button below any step, then search for a connector and action.</li>
-<li><strong>Dynamic content</strong> — when filling in an action's fields, click Dynamic content to insert tokens from earlier steps (e.g. Book title from the trigger).</li>
-<li><strong>Expression tab</strong> — next to Dynamic content, lets you type functions like <code>utcNow()</code>.</li>
-<li><strong>Settings gear on each action</strong> — Timeout, Retry policy, Configure run after.</li>
-<li><strong>Parallel branch</strong> — run two sets of actions simultaneously.</li>
-<li><strong>Flow checker</strong> — the red badge icon at the top showing errors before you save.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Concept — trigger scope (Organization vs User)</span>
-<p>The Dataverse trigger "When a row is added" requires a <strong>Scope</strong>:</p>
-<ul>
-<li><strong>Organization</strong> — fires for rows added by <em>anyone</em> in the environment. Use for system-wide automations like loan confirmations.</li>
-<li><strong>Business unit</strong> — only rows added by users in the same business unit as the flow owner.</li>
-<li><strong>User</strong> — only rows added by the flow owner themselves. For personal automation.</li>
-</ul>
-<p>For the Community Library, always use <strong>Organization</strong>.</p>
+<div class="card c-concept"><span class="lab">Azure Free Tier — What We Build This Month</span>
+<table>
+<tr><th>Service</th><th>What It Is</th><th>We Build</th></tr>
+<tr><td><strong>Azure SQL Database</strong></td><td>A real relational database in the cloud</td><td>LibraryDB — same data as Dataverse but in SQL</td></tr>
+<tr><td><strong>Azure Functions</strong></td><td>Code that runs on-demand, no server management</td><td>An API that Power Apps and Power Automate call</td></tr>
+<tr><td><strong>Azure Blob Storage</strong></td><td>Cloud file storage</td><td>Book cover images for the library app</td></tr>
+<tr><td><strong>Azure App Service (F1 free)</strong></td><td>Hosts a web application</td><td>A simple library catalog webpage</td></tr>
+<tr><td><strong>Azure Static Web Apps</strong></td><td>Hosts a static website (HTML/CSS/JS)</td><td>A public-facing library information page</td></tr>
+<tr><td><strong>Azure DevOps</strong></td><td>Plan, track, and deploy projects</td><td>A sprint board + deployment pipeline</td></tr>
+</table>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — build the "Loan confirmation" flow</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Solutions → My Learning Solution → New → Automation → Cloud flow → Automated</strong>. Name = <code>Loan confirmation</code>. Trigger = search <strong>When a row is added (Dataverse)</strong>. Click Create.</span></li>
-<li><span class="box"></span><span class="txt">Configure the trigger: Table name = <strong>Loan</strong>. Scope = <strong>Organization</strong>. Save.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>+ New step</strong>. Search <strong>Send me an email notification</strong>. Subject: type <code>New Loan: </code> then click Dynamic content → find <strong>Book (Value)</strong> from the trigger (the lookup display name, not the GUID).</span></li>
-<li><span class="box"></span><span class="txt">Body: click Dynamic content → add <strong>Member (Value)</strong>, type " has borrowed this book. Due: ", add <strong>Due date</strong>.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Save</strong>. Check <strong>Flow checker</strong> — 0 errors.</span></li>
-<li><span class="box"></span><span class="txt">Test: open Library Manager → lend a book. Within 60 seconds check your inbox. Check <strong>Run history</strong> — click the run to see each action's inputs and outputs. This run history is your debug tool for every flow you ever write.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — dynamic content for lookup fields</span>
-Lookup columns appear twice in the dynamic content panel: an <strong>ID version</strong> (a long GUID) and a <strong>display name version</strong> (marked with "(Value)" or the FormattedValue suffix). For emails, always use the display name version.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Flow</b> — an automated "when… do…" recipe that runs by itself.</li>
-<li><b>Trigger / action / connector</b> — the "when" event / a "do" step / a bridge to a service.</li>
-<li><b>Automated / instant / scheduled</b> — event-triggered / button-triggered / timer-triggered.</li>
-<li><b>Dynamic content</b> — tokens from earlier steps you insert into an action's fields.</li>
-<li><b>Run history</b> — the log of every past run with full input/output details for debugging.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — flows in enterprise automation</span>
-<p>Power Automate runs over 50 billion actions per month across Microsoft's cloud. Real enterprise flows you'll find at companies:</p>
-<ul>
-<li>A bank's loan application triggers a flow that sends confirmation to the customer (Outlook), creates a CRM record (Dataverse), and posts to a Teams channel for the review team — three parallel actions from one trigger.</li>
-<li>A manufacturing company triggers a flow when a safety incident row is added to Dataverse — automatically notifying supervisors in under 30 seconds, no manual handoffs.</li>
-<li>A logistics company runs a <em>scheduled</em> flow at 6am every day that reads delayed shipment rows, emails each customer individually, and updates a SharePoint list for customer service staff.</li>
-</ul>
-<p>The Loan confirmation flow you just built is the same trigger → email action pattern used in every one of these examples. Scale is the only difference.</p>
-
-<figure class="fig">
-<svg viewBox="0 0 560 100" role="img" aria-label="Flow trigger types: automated, instant, scheduled">
-<rect x="14" y="24" width="160" height="58" rx="9" fill="#fff8e9" stroke="#e0a020"/>
-<text x="94" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Automated</text>
-<text x="94" y="62" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">row added/changed</text>
-<text x="94" y="74" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">email arrives, file uploaded</text>
-<rect x="196" y="24" width="160" height="58" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
-<text x="276" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Instant (manual)</text>
-<text x="276" y="62" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">button in app</text>
-<text x="276" y="74" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">or "Run" on flow page</text>
-<rect x="378" y="24" width="168" height="58" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="462" y="46" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Scheduled</text>
-<text x="462" y="62" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">recurrence: daily, weekly</text>
-<text x="462" y="74" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">overnight reports</text>
-</svg>
-<figcaption>Three trigger types — automated (event), instant (button), scheduled (timer) — each for different use cases</figcaption>
-</figure>
+<div class="card c-concept"><span class="lab">November Week-by-Week Plan</span>
+<table>
+<tr><th>Week</th><th>Dates</th><th>Focus</th></tr>
+<tr><td><strong>Week 9</strong></td><td>Nov 1–7</td><td>Azure Portal fundamentals + Resource Groups + Azure SQL</td></tr>
+<tr><td><strong>Week 10</strong></td><td>Nov 8–14</td><td>Azure Functions + Blob Storage + calling Azure from Power Platform</td></tr>
+<tr><td><strong>Week 11</strong></td><td>Nov 15–21</td><td>GitHub — repositories, branches, commits, pull requests</td></tr>
+<tr><td><strong>Week 12</strong></td><td>Nov 22–30</td><td>GitHub Actions (CI/CD) + Azure DevOps + connecting everything</td></tr>
+</table>
 </div>
-
-<div class="card c-warn"><span class="lab">Common mistakes on Day 9</span>
-<ul>
-<li><strong>Using "Send an email (V2)" instead of Outlook connector without a licence.</strong> The full Outlook Send Email action requires an Exchange mailbox. "Send me an email notification" sends to the flow owner's address and works with any licence. Use the notification action while learning.</li>
-<li><strong>Wrong dynamic content for lookup display names.</strong> When you pick "Book" from the Dataverse trigger's dynamic content, you may get the GUID (a long code like 3e7b…). Always look for the version labelled "(Value)" or with the FormattedValue suffix — that's the human-readable name.</li>
-<li><strong>Building flows outside the solution.</strong> Always create flows via Solutions → My Learning Solution → New → Cloud flow. Flows created directly from the Power Automate portal aren't automatically tracked in the solution and can't be exported with it.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 9 hands-on checks</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> After the flow sends the loan confirmation email, open <strong>Run history</strong> on the flow page. Click the latest successful run. Click the "Send me an email notification" action — read its <strong>Inputs</strong> (the Subject and Body you configured) and its <strong>Outputs</strong> (status code 200 means success). This is the primary debugging view for every flow you ever write.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Edit the flow. In the email body, add a new line using Dynamic content: add <strong>Late fee</strong> from the trigger and <strong>Status</strong> (the FormattedValue version). Save and test again. You've extended the email with more useful information — a common real-world requirement.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Intentionally break the flow — edit it and delete the trigger's Table name (leave it blank). Click Save — the Flow checker should show a red error badge. Read the error message. Then undo the break and save again. Reading Flow checker errors is the first skill in flow debugging.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a second action to the existing Loan confirmation flow: after the email, add <strong>Post message in a chat or channel (Teams)</strong>. Post as = Flow bot. Post in = Chat with Flow bot. Message = Expression: <code>concat('New loan created: ', triggerOutputs()?['body/learn_book@OData.Community.Display.V1.FormattedValue'])</code>. Save and test. Now both an email AND a Teams message are sent on each loan.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Find the logical names of three columns from the Loan table trigger that you'll need for the Overdue check flow tomorrow: the Loan date column, the Due date column, and the Returned column. You can find them by looking at the dynamic content panel in the flow designer or by checking the column's advanced options in the table editor.</span></li>
-</ul>
-</div>
-
-<div class="card c-check"><span class="lab">Mini-quiz — Day 9</span>
-<p><strong>Q1</strong> You add a new Loan row and the confirmation email doesn't arrive within 2 minutes. What are the first two things you check?</p>
-<p><strong>Q2</strong> What is the difference between "Scope: Organization" and "Scope: User" on a Dataverse trigger?</p>
-<p><strong>Q3</strong> Dynamic content shows two versions for the "Book" column: one is a GUID and one says "Book (Value)". Which do you use in an email body, and why?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> (1) Check the flow's Run history — is there a failed run? Click it to see which action failed and what the error message says. (2) Check that the flow is turned On — a flow that is off never runs.</p>
-<p><strong>A2</strong> Scope Organization: the trigger fires for rows added by any user in the environment. Scope User: the trigger only fires for rows added by the flow's owner. For a shared library system, always use Organization.</p>
-<p><strong>A3</strong> Use "Book (Value)" — that's the human-readable display name (e.g. "Matilda"). The GUID version (e.g. 3e7b1234-...) is the database ID, which is meaningless to an email recipient.</p>
-</details>
-</div>
-
-<div class="card c-check"><span class="lab">Check yourself</span>
-Lending a book in Library Manager automatically sends you an email. If it didn't arrive, check Run history for the failed step and read its error message — that's the skill you need for all debugging.</div>
 </section>
 
-<!-- DAY 10 -->
-<section class="day" id="day10">
-<div class="dhead"><span class="dnum">Day 10</span></div>
-<h2>Smarter flows: conditions, loops, variables, expressions, and parallel branches</h2>
-<p class="meta">~120 minutes</p>
+<!-- ==================== WEEK 9 ==================== -->
+<section class="day" id="week9">
+<div class="dhead"><span class="dnum">Week 9 · November 1–7</span></div>
+<h2>Azure Portal + Resource Groups + Azure SQL Database</h2>
+<p class="meta">~4 hours · portal.azure.com · Azure free account required</p>
 
-<div class="card c-concept"><span class="lab">Concept — the four ideas that make flows intelligent</span>
-<ul>
-<li><strong>Condition</strong> — an "if / else" fork. The flow takes the Yes branch if true, the No branch if false.</li>
-<li><strong>Apply to each</strong> — a loop. Repeats steps for every item in an array (list).</li>
-<li><strong>Variable</strong> — a labelled box to hold a value while the flow runs. Initialize once (type + initial value), then Set or Append inside the loop.</li>
-<li><strong>Expression</strong> — a formula you type in the Expression tab to compute new values: format dates, add numbers, build strings.</li>
-</ul></div>
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 9</span>
+<dl>
+  <dt><strong>1. Azure Portal</strong></dt>
+  <dd>The web interface for managing all your Azure services — like the cockpit of an airplane, with all the controls in one place.<br>
+  <em>Example: "I opened portal.azure.com to create a new database. The Azure Portal shows all my services, their costs, health status, and settings in one place."</em></dd>
 
-<div class="card c-concept"><span class="lab">Concept — essential expressions with exact examples</span>
-<ul>
-<li><code>utcNow()</code> — the current date/time in UTC.</li>
-<li><code>formatDateTime(utcNow(), 'yyyy-MM-dd')</code> — today's date as <code>2025-09-02</code>.</li>
-<li><code>addDays(triggerOutputs()?['body/learn_loandate'], 14)</code> — add 14 days to Loan date (calculates Due date). Replace <code>learn_loandate</code> with your column's logical name.</li>
-<li><code>length(outputs('List_rows')?['body/value'])</code> — count how many rows List rows returned.</li>
-<li><code>first(outputs('List_rows')?['body/value'])</code> — get the first row from List rows.</li>
-<li><code>items('Apply_to_each')?['cr_title@OData.Community.Display.V1.FormattedValue']</code> — display name of a lookup (Book Title) for the current loop item. Replace <code>cr_title</code> with your logical name.</li>
-<li><code>items('Apply_to_each')?['learn_status@OData.Community.Display.V1.FormattedValue']</code> — label of a Choice column inside a loop (e.g. "Open", "Overdue").</li>
-<li><code>concat('Book: ', items('Apply_to_each')?['cr_title@OData.Community.Display.V1.FormattedValue'], ' | Member: ', items('Apply_to_each')?['learn_member@OData.Community.Display.V1.FormattedValue'])</code> — build a combined string.</li>
-</ul>
-<p>You never memorize these — the Expression tab has a searchable function list. Type <code>format</code> to find date functions, <code>items</code> to find loop item functions.</p>
+  <dt><strong>2. Subscription</strong></dt>
+  <dd>Your billing account in Azure — all services you create are attached to a subscription, and the subscription is what Microsoft charges.<br>
+  <em>Real-world analogy: Your electricity meter. All the electricity used in your house goes through one meter. The meter is your subscription — it accumulates charges.</em><br>
+  <em>Example: "My Azure free account comes with one free subscription. All the services I create this month — SQL database, Functions, Storage — are all inside this one subscription."</em></dd>
+
+  <dt><strong>3. Resource Group</strong></dt>
+  <dd>A logical container that holds related Azure services — like a project folder that groups everything belonging to one project.<br>
+  <em>Real-world analogy: A file drawer for one project. All documents, invoices, notes for "Community Library" go in the same drawer. When the project ends, you open the drawer and delete everything at once.</em><br>
+  <em>Example: "I created a resource group called 'rg-community-library'. Inside it, I put the SQL database, the Azure Functions app, and the Blob storage. When I want to delete the entire project, I delete the resource group and everything inside it disappears."</em></dd>
+
+  <dt><strong>4. Region</strong></dt>
+  <dd>The physical location of the data center where your Azure service runs — a specific city or area.<br>
+  <em>Real-world analogy: Choosing which Amazon warehouse ships your order. Mumbai warehouse (Central India region) ships faster to Delhi than the Singapore warehouse.</em><br>
+  <em>Example: "I chose the 'Central India' region for all my Azure services because our library's users are in India. Data traveling from a Delhi user to a Central India data center is faster than traveling to a Europe data center."</em></dd>
+
+  <dt><strong>5. SQL (Structured Query Language)</strong></dt>
+  <dd>The language used to talk to relational databases — to create tables, insert rows, read data, update records, and delete.<br>
+  <em>Real-world analogy: The language you use to talk to a filing clerk. "Give me all files where the date is after January 2025" is a SELECT query. "Add this new file" is an INSERT. "Change the status to Closed" is an UPDATE.</em><br>
+  <em>Example: "I used SQL to create the Books table: <code>CREATE TABLE Books (BookID INT PRIMARY KEY, Title VARCHAR(200))</code>"</em></dd>
+
+  <dt><strong>6. Connection String</strong></dt>
+  <dd>A text code that tells an app HOW to connect to a database — it contains the server address, database name, username, and password in one line.<br>
+  <em>Real-world analogy: A full mailing address: building name + floor + room number + a key. All the information needed to find and open a specific room.</em><br>
+  <em>Example: "The Power Automate flow uses a connection string: <code>Server=tcp:library-server.database.windows.net,1433;Database=LibraryDB;User ID=libadmin;Password=...</code>. I keep this secret — never put connection strings in public code."</em></dd>
+
+  <dt><strong>7. Schema</strong></dt>
+  <dd>The structure of a database — which tables exist, which columns each table has, and what data type each column stores.<br>
+  <em>Real-world analogy: The blueprint of a filing system. "The Member drawer has: a Name section, an Email section, a Phone section, a Join Date section." The schema is the blueprint, not the actual files.</em><br>
+  <em>Example: "The Library database schema has 4 tables: Books, Members, Loans, Authors. The Loans table schema: LoanID (integer), BookID (foreign key to Books), MemberID (foreign key to Members), LoanDate (date), DueDate (date), ReturnDate (nullable), LateFee (decimal)."</em></dd>
+
+  <dt><strong>8. Query</strong></dt>
+  <dd>A question you ask a database, written in SQL.<br>
+  <em>Example: "I ran a query to find all overdue loans: <code>SELECT m.FullName, b.Title, l.DueDate, DATEDIFF(day, l.DueDate, GETDATE()) AS DaysOverdue FROM Loans l JOIN Members m ON l.MemberID = m.MemberID JOIN Books b ON l.BookID = b.BookID WHERE l.ReturnDate IS NULL AND l.DueDate &lt; GETDATE()</code>"</em></dd>
+</dl>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — build "Overdue check" with loop, condition, and parallel update</span>
+<div class="card c-concept"><span class="lab">Concept — Azure SQL vs Dataverse: Why Learn Both?</span>
+<p>You have already built your library system in Dataverse. Why are we now building it in Azure SQL? <strong>Three reasons:</strong></p>
+<h3>Reason 1: Dataverse is built ON Azure SQL</h3>
+<p>Dataverse stores its data in Azure SQL internally. Microsoft adds a layer on top (security roles, Power Apps integration, business rules) and calls it Dataverse. Understanding Azure SQL means understanding what Dataverse is doing behind the scenes.</p>
+<h3>Reason 2: Not Every System Uses Dataverse</h3>
+<p>Many companies store their data in Azure SQL (relational data, traditional enterprises), Azure Cosmos DB (NoSQL, high-scale apps), Azure Data Lake (analytics, big data), or SQL Server on-premises (old systems not yet moved to cloud). If you connect Power Automate to a customer's Azure SQL database — very common in consulting projects — you must understand SQL.</p>
+<h3>Reason 3: SQL is Universal</h3>
+<p>SQL is 50+ years old and is used by every major database system: Microsoft SQL Server, PostgreSQL, MySQL, Oracle, SQLite. Power Fx and DAX are Microsoft-specific. SQL is the language of data for the whole world.</p>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — If Dataverse and Azure SQL are similar, why doesn't Microsoft just tell everyone to use Azure SQL directly?</span>
+<p>Because Azure SQL requires writing SQL queries (a programming skill), managing connections and firewalls manually, building your own security model, and it has no built-in Power Apps integration.</p>
+<p>Dataverse is Azure SQL + security model + Power Apps integration + business rules + automatic API — all pre-built. For business users who cannot write SQL, Dataverse is much more accessible.</p>
+<p><strong>The trade-off:</strong> Dataverse is easier and more integrated, but more expensive and more opinionated (it works Microsoft's way). Azure SQL is harder to set up but cheaper at scale and more flexible.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 1 — Create Your Azure Resource Group and SQL Database</span>
+
+<h3>Step 1: Open Azure Portal</h3>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Solutions → My Learning Solution → New → Cloud flow → Instant</strong>. Name = <code>Overdue check</code>. Trigger = <strong>Manually trigger a flow</strong>. Create.</span></li>
-<li><span class="box"></span><span class="txt">Add step: <strong>List rows (Dataverse)</strong>. Table name = <strong>Loan</strong>. This fetches every loan row.</span></li>
-<li><span class="box"></span><span class="txt">Add step: <strong>Initialize variable</strong>. Name = <code>overdueList</code>, Type = String, Value = (leave empty).</span></li>
-<li><span class="box"></span><span class="txt">Add step: <strong>Apply to each</strong>. In "Select an output from previous steps": Dynamic content → <strong>value</strong> (from List rows — the array of all loan rows).</span></li>
-<li><span class="box"></span><span class="txt">Inside Apply to each: add <strong>Condition</strong>. Left: Dynamic content → <strong>Returned</strong> from the loop item. Operator: is equal to. Right: Expression → <code>false</code>. Click <strong>+ Add</strong> → AND. Second condition: <strong>Due date</strong> from loop item is less than Expression: <code>utcNow()</code>.</span></li>
-<li><span class="box"></span><span class="txt">In <strong>If yes</strong>: add <strong>Append to string variable</strong>. Name = overdueList. Value = Expression: <code>concat(items('Apply_to_each')?['learn_book@OData.Community.Display.V1.FormattedValue'], ' / ', items('Apply_to_each')?['learn_member@OData.Community.Display.V1.FormattedValue'], ' · Due: ', items('Apply_to_each')?['learn_duedate'], decodeUriComponent('%0A'))</code> — the last part adds a line break.</span></li>
-<li><span class="box"></span><span class="txt">In <strong>If yes</strong>, add a <strong>parallel branch</strong>: click <code>+</code> → "Add a parallel branch." In the parallel branch add <strong>Update a row (Dataverse)</strong>. Table = Loan. Row ID = Dynamic content → <strong>Loan (unique identifier)</strong>. Fields: Status = <strong>Overdue</strong>. Now the flow both builds the report AND marks each loan in Dataverse simultaneously.</span></li>
-<li><span class="box"></span><span class="txt">After the Apply to each (outside the loop): add <strong>Send me an email notification</strong>. Subject = Expression: <code>concat('Overdue Loans — ', formatDateTime(utcNow(), 'yyyy-MM-dd'))</code>. Body = Dynamic content → <strong>overdueList</strong> variable.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Save</strong> → <strong>Test → Manually → Run</strong>. Check your inbox and check the Loan table — overdue loans should now show Status = Overdue.</span></li>
-<li><span class="box"></span><span class="txt"><em>Convert to scheduled:</em> edit the trigger → change to <strong>Recurrence</strong>. Interval = 1, Frequency = Day, Start time at 08:00. Save. The flow now runs automatically every morning.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — "OData.Community.Display.V1.FormattedValue" explained</span>
-When Dataverse returns rows, lookup columns come as GUIDs (useless) and Choice columns come as integers. Microsoft adds this long suffix to also give you the human-readable version. If you see <code>Book@OData.Community.Display.V1.FormattedValue</code> in the dynamic content panel, that's "the Book's Title as a readable string." Always use the FormattedValue version in emails and variables.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Condition</b> — an if/yes/no fork in the flow.</li>
-<li><b>Apply to each</b> — a loop that runs inner steps for every item in an array.</li>
-<li><b>Variable / Initialize / Append</b> — a named value box / create it with a type / add text to it.</li>
-<li><b>Expression</b> — a typed function that computes a new value (dates, strings, counts, arrays).</li>
-<li><b>Parallel branch</b> — two sets of actions that run simultaneously.</li>
-<li><b>Recurrence trigger</b> — starts a flow on a timer (daily, weekly, monthly).</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — loops, conditions, and variables in enterprise flows</span>
-<p>The Apply to each + Condition + Variable pattern you built today is the backbone of all report-generation flows in real companies:</p>
-<ul>
-<li>A bank's end-of-day flow loops through all flagged transactions, checks each one's amount, and builds a report string of transactions over the limit — exactly like your overdue list string.</li>
-<li>A supply chain company's flow runs each morning: Loop through open Purchase Orders → if delivery is overdue → append to delay string → mark PO as Delayed → after loop, email the procurement team. Same exact structure as your Overdue check flow.</li>
-<li>The <strong>parallel branch</strong> pattern (update the record AND build the string simultaneously) saves time in high-volume flows — instead of 1000 sequential steps, two parallel branches finish in half the time.</li>
+  <li><span class="box"></span><span class="txt">Go to <code>portal.azure.com</code> and sign in with your Azure free account.</span></li>
+  <li><span class="box"></span><span class="txt">Explore the Azure home page dashboard — note the Services panel, Cost Management, and recent activity.</span></li>
 </ul>
 
-<figure class="fig">
-<svg viewBox="0 0 560 160" role="img" aria-label="Overdue check flow: list rows, loop each, condition, parallel: append string AND update row, then email">
-<defs><marker id="f10" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
-<rect x="14" y="10" width="130" height="36" rx="7" fill="#fff8e9" stroke="#e0a020"/><text x="79" y="33" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1f2733">Manual trigger</text>
-<line x1="79" y1="46" x2="79" y2="60" stroke="#9fb0c8" stroke-width="1.5" marker-end="url(#f10)"/>
-<rect x="14" y="60" width="130" height="36" rx="7" fill="#eef4ff" stroke="#2f6fed"/><text x="79" y="83" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1f2733">List rows (Loan)</text>
-<line x1="79" y1="96" x2="79" y2="110" stroke="#9fb0c8" stroke-width="1.5" marker-end="url(#f10)"/>
-<rect x="14" y="110" width="130" height="36" rx="7" fill="#f4f2fb" stroke="#7a5cd6"/><text x="79" y="133" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1f2733">Apply to each row</text>
-<line x1="144" y1="128" x2="180" y2="128" stroke="#9fb0c8" stroke-width="1.5" marker-end="url(#f10)"/>
-<rect x="182" y="110" width="130" height="36" rx="7" fill="#f4f6f9" stroke="#cbd3de"/><text x="247" y="128" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1f2733">Condition</text><text x="247" y="140" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">overdue?</text>
-<line x1="312" y1="118" x2="346" y2="106" stroke="#0e9f6e" stroke-width="1.3" marker-end="url(#f10)"/>
-<line x1="312" y1="138" x2="346" y2="150" stroke="#0e9f6e" stroke-width="1.3" marker-end="url(#f10)"/>
-<rect x="348" y="92" width="130" height="28" rx="6" fill="#f3fbf6" stroke="#0e9f6e"/><text x="413" y="111" text-anchor="middle" font-family="monospace" font-size="9" fill="#1f2733">Append string</text>
-<rect x="348" y="136" width="130" height="28" rx="6" fill="#f3fbf6" stroke="#0e9f6e"/><text x="413" y="155" text-anchor="middle" font-family="monospace" font-size="9" fill="#1f2733">Update row → Overdue</text>
-</svg>
-<figcaption>Overdue check: list all loans → loop → check due date → parallel: build email string AND mark as Overdue</figcaption>
-</figure>
-</div>
-
-<div class="card c-warn"><span class="lab">Common mistakes with loops and variables</span>
-<ul>
-<li><strong>Placing Initialize variable inside Apply to each.</strong> A variable must be initialized BEFORE the loop (outside Apply to each). If you initialize inside, it resets to blank on every iteration — your accumulated string becomes empty each loop.</li>
-<li><strong>Using the wrong "value" in Apply to each.</strong> When you configure Apply to each, you must select the <strong>value</strong> output from the List rows action — this is the array of rows. If you accidentally select something else, the loop body doesn't have the individual row columns available.</li>
-<li><strong>Forgetting the OData FormattedValue suffix for display names in loops.</strong> Inside Apply to each, lookup and choice columns need the <code>@OData.Community.Display.V1.FormattedValue</code> suffix to get human-readable text. The exact logical name + suffix appears in the Expression tab's dynamic content when you're inside the loop.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 10 hands-on checks</span>
+<h3>Step 2: Create a Resource Group</h3>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Run the Overdue check flow. In Run history, click the run → expand Apply to each → click on one iteration. You can see that specific row's inputs and the condition result (Yes or No). This per-iteration visibility is the most powerful debugging tool for loops.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Edit the flow. Inside the "If yes" branch, add a <strong>Compose</strong> action before the Append to string variable. Name it <code>OverdueSummary</code>. Value = Expression: <code>concat('OVERDUE: ', items('Apply_to_each')?['learn_book@OData.Community.Display.V1.FormattedValue'], ' | Member: ', items('Apply_to_each')?['learn_member@OData.Community.Display.V1.FormattedValue'], ' | Due: ', items('Apply_to_each')?['learn_duedate'])</code>. Then change the Append to string variable to use Dynamic content → Outputs of Compose. This makes each string segment reusable via the Compose output token.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add a <strong>Filter array</strong> data operation AFTER the List rows action and BEFORE the Apply to each. Filter: <code>@item()['learn_returned']</code> is equal to <code>false</code>. This pre-filters the array before the loop — so Apply to each only processes non-returned loans, making the loop faster. Update Apply to each to use the filtered array (Outputs of Filter array).</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a condition AFTER the Apply to each loop (outside it): if <code>length(variables('overdueList'))</code> is greater than 0, send the email. If false (no overdue loans), send a different email: "Good news — no overdue loans today!" This way staff aren't confused by a blank email on days with no overdue loans.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Change the flow from Instant to <strong>Scheduled</strong>: edit the trigger → change to Recurrence → set Interval = 1, Frequency = Day, Start time = 08:00. Save. Turn the flow off for now (to avoid daily emails during learning) — but you've seen how a production overnight report is configured.</span></li>
+  <li><span class="box"></span><span class="txt">Search for "Resource groups" in the top search bar → click <strong>+ Create</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">Fill in: Subscription = <em>Azure subscription 1</em>, Resource group name = <code>rg-community-library</code>, Region = <em>(Asia Pacific) Central India</em>.</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Review + Create</strong> → <strong>Create</strong>.</span></li>
+</ul>
+
+<div class="card c-tip"><span class="lab">💭 Why put ALL related resources in the same resource group?</span>
+<p><strong>Cost visibility:</strong> The Azure Portal shows the total cost of a resource group. If "rg-community-library" costs ₹0 this month (free tier), you know immediately.<br>
+<strong>Lifecycle management:</strong> When the project ends, delete the resource group. Done. No orphaned resources slowly billing you.<br>
+<strong>Access control:</strong> Give a colleague access to the entire group instead of configuring each service individually.</p>
+</div>
+
+<h3>Step 3: Create the Azure SQL Database</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Search "SQL databases" → click <strong>+ Create</strong>.</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Basics tab:</strong> Resource group = <code>rg-community-library</code>, Database name = <code>LibraryDB</code>.</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Server: Create new</strong> → Server name = <code>library-server-[yourname]</code> (must be globally unique), Region = <em>Central India</em>, Authentication = SQL authentication, Admin login = <code>libadmin</code>, Password = a strong 12+ character password. <strong>Write it in your notebook.</strong></span></li>
+  <li><span class="box"></span><span class="txt"><strong>Compute + storage:</strong> Click <strong>Configure database</strong> → choose <strong>Basic</strong> tier (5 DTU, 2 GB — your free account covers this for 12 months, showing ₹0).</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Review + Create</strong> → <strong>Create</strong>. Wait 3–5 minutes for the database to be provisioned.</span></li>
+</ul>
+
+<h3>Step 4: Configure the Firewall</h3>
+<p>By default, Azure SQL blocks ALL access from outside Azure. You need to allow your computer's IP.</p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Go to your new SQL server → <strong>Networking</strong> (left menu).</span></li>
+  <li><span class="box"></span><span class="txt">Under Firewall rules → click <strong>+ Add your client IPv4 address</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">Toggle <strong>Allow Azure services and resources to access this server</strong> → ON (allows Azure Functions and Power Automate to connect).</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Save</strong>.</span></li>
+</ul>
+
+<div class="card c-tip"><span class="lab">💭 Why does Azure block all access by default?</span>
+<p>The principle: <strong>deny everything, then explicitly allow what you need.</strong> If the default was "allow everything," a hacker who discovered your server address could immediately try to connect. By denying everything by default, an attacker gets no response at all — they do not even know if the server exists.</p>
+<p>This is called "deny by default" or "zero trust" — a security philosophy you will see in Azure networking, Dataverse security roles, GitHub repository permissions, and Entra ID. It is everywhere.</p>
+</div>
+
+<h3>Step 5: Create the Library Database Tables</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">In the Azure Portal → your SQL database → <strong>Query editor (preview)</strong> → sign in with your <code>libadmin</code> credentials.</span></li>
+  <li><span class="box"></span><span class="txt">Run the Books table SQL (copy exactly from the code block below).</span></li>
+  <li><span class="box"></span><span class="txt">Run the Members table SQL. Run the Loans table SQL.</span></li>
+  <li><span class="box"></span><span class="txt">Run the INSERT statements to add 5 sample books and 2 sample members.</span></li>
+  <li><span class="box"></span><span class="txt">Run the SELECT JOIN query and verify it returns the overdue loan for Rohit.</span></li>
+</ul>
+
+<p><strong>Create the Books table:</strong></p>
+<pre><code>CREATE TABLE Books (
+    BookID INT IDENTITY(1,1) PRIMARY KEY,
+    Title NVARCHAR(200) NOT NULL,
+    AuthorName NVARCHAR(100) NOT NULL,
+    ISBN NVARCHAR(20),
+    Genre NVARCHAR(50) NOT NULL,
+    PublishedYear INT,
+    TotalCopies INT NOT NULL DEFAULT 1,
+    AvailableCopies INT NOT NULL DEFAULT 1,
+    AverageRating DECIMAL(3,1),
+    CreatedDate DATETIME DEFAULT GETDATE()
+);</code></pre>
+
+<p><strong>Create the Members table:</strong></p>
+<pre><code>CREATE TABLE Members (
+    MemberID INT IDENTITY(1,1) PRIMARY KEY,
+    FullName NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(100) NOT NULL UNIQUE,
+    Phone NVARCHAR(20),
+    MembershipType NVARCHAR(20) NOT NULL
+        CHECK (MembershipType IN ('Standard', 'Premium', 'Student', 'Staff')),
+    JoinDate DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),
+    MembershipExpiry DATE NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1
+);</code></pre>
+
+<p><strong>Create the Loans table:</strong></p>
+<pre><code>CREATE TABLE Loans (
+    LoanID INT IDENTITY(1,1) PRIMARY KEY,
+    BookID INT NOT NULL FOREIGN KEY REFERENCES Books(BookID),
+    MemberID INT NOT NULL FOREIGN KEY REFERENCES Members(MemberID),
+    LoanDate DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),
+    DueDate DATE NOT NULL,
+    ReturnDate DATE NULL,
+    LateFee DECIMAL(8,2) DEFAULT 0,
+    Status NVARCHAR(20) NOT NULL DEFAULT 'Active'
+        CHECK (Status IN ('Active', 'Returned', 'Lost'))
+);</code></pre>
+
+<div class="card c-concept"><span class="lab">Every SQL Constraint Has a Dataverse Equivalent</span>
+<ul>
+  <li><code>INT IDENTITY(1,1) PRIMARY KEY</code> → auto-incrementing primary key (like Dataverse's auto-generated ID)</li>
+  <li><code>NOT NULL</code> → like "Required" in Dataverse columns</li>
+  <li><code>UNIQUE</code> → no two rows can share the same email (prevents duplicate members)</li>
+  <li><code>CHECK (MembershipType IN (...))</code> → only these values are allowed (like "Choice" column type in Dataverse)</li>
+  <li><code>FOREIGN KEY REFERENCES Books(BookID)</code> → this column must contain a valid BookID (like a Lookup column in Dataverse)</li>
+  <li><code>DEFAULT GETDATE()</code> → if you do not provide a value, use today's date (like a column default in Dataverse)</li>
+</ul>
+<p><strong>Every constraint you see in SQL has an equivalent in Dataverse.</strong> Now you understand what Dataverse is doing behind the scenes when you set "Required" or "Choice" column types.</p>
+</div>
+
+<p><strong>Insert sample data:</strong></p>
+<pre><code>INSERT INTO Books (Title, AuthorName, ISBN, Genre, PublishedYear, TotalCopies, AvailableCopies, AverageRating)
+VALUES
+('Atomic Habits', 'James Clear', '978-1847941831', 'Non-Fiction', 2018, 3, 2, 4.8),
+('The Alchemist', 'Paulo Coelho', '978-0062315007', 'Fiction', 1988, 2, 1, 4.5),
+('Sapiens', 'Yuval Noah Harari', '978-0062316097', 'Non-Fiction', 2011, 2, 2, 4.4),
+('Wings of Fire', 'A.P.J. Abdul Kalam', '978-8173711466', 'Biography', 1999, 4, 4, 4.7),
+('The God of Small Things', 'Arundhati Roy', '978-0812979657', 'Fiction', 1997, 1, 0, 4.3);
+
+INSERT INTO Members (FullName, Email, Phone, MembershipType, MembershipExpiry)
+VALUES
+('Rohit Verma', 'rohit.verma@learner.com', '+91-9876543210', 'Premium', '2027-09-30'),
+('Priyanka Singh', 'priyanka.singh@learner.com', '+91-9876543211', 'Student', '2027-03-31');
+
+-- Rohit borrowed The God of Small Things, currently overdue
+INSERT INTO Loans (BookID, MemberID, LoanDate, DueDate, Status)
+VALUES (5, 1, '2026-10-01', '2026-10-15', 'Active');</code></pre>
+
+<p><strong>Run the overdue loans query:</strong></p>
+<pre><code>SELECT
+    m.FullName AS MemberName,
+    b.Title AS BookTitle,
+    l.DueDate,
+    DATEDIFF(day, l.DueDate, GETDATE()) AS DaysOverdue,
+    DATEDIFF(day, l.DueDate, GETDATE()) * 5.00 AS LateFeeINR
+FROM Loans l
+INNER JOIN Members m ON l.MemberID = m.MemberID
+INNER JOIN Books b ON l.BookID = b.BookID
+WHERE l.ReturnDate IS NULL
+  AND l.DueDate &lt; GETDATE()
+ORDER BY DaysOverdue DESC;</code></pre>
+
+<div class="card c-tip"><span class="lab">💭 What SQL Query Is Dataverse Running Behind Your Power Fx Formulas?</span>
+<p>When you use <code>LookUp(Members, cr_email = User().Email)</code> in Power Apps, Dataverse runs:</p>
+<pre><code>SELECT TOP 1 * FROM Members WHERE Email = 'rohit.verma@learner.com'</code></pre>
+<p>When you use <code>Filter(Loans, cr_due_date &lt; Today())</code> in Power Apps, Dataverse runs:</p>
+<pre><code>SELECT * FROM Loans WHERE DueDate &lt; GETDATE()</code></pre>
+<p>Power Fx and SQL are different languages, but they express the same ideas. Understanding SQL makes you a better Power Fx developer — because now you understand WHAT the formula is doing at the data layer.</p>
+</div>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 9: Technical Precision Writing</span>
+<h3>This Week's Grammar Pattern: Say WHAT, WHERE, WHEN, HOW MUCH exactly</h3>
+<p>Infrastructure work requires <strong>precise language</strong>. Vague descriptions cause confusion, delays, and expensive mistakes.</p>
+<table>
+<tr><th>Vague (avoid)</th><th>Precise (use)</th></tr>
+<tr><td>"I created a database."</td><td>"I created an <strong>Azure SQL Database</strong> named <strong>LibraryDB</strong> in the <strong>Central India</strong> region using the <strong>Basic (5 DTU)</strong> tier."</td></tr>
+<tr><td>"Something went wrong."</td><td>"The <strong>CREATE TABLE</strong> statement failed with error: <strong>'Cannot insert duplicate key in object dbo.Books'</strong>, indicating that BookID 1 already exists."</td></tr>
+<tr><td>"It takes some time."</td><td>"The Azure SQL Database takes <strong>2–3 minutes</strong> to provision after clicking Create."</td></tr>
+</table>
+
+<h3>Grammar Practice: Add Precision</h3>
+<p>Rewrite each vague sentence with specific details from your own learning this week:</p>
+<ol>
+  <li>"The database has some tables." → "The LibraryDB database has _____ tables: ________________________________."</li>
+  <li>"I set up the firewall." → "I configured the Azure SQL firewall to _____________ and enabled _____________."</li>
+  <li>"The query returns loan information." → "The SQL query returns ______ columns: _____, _____, _____, filtered by _____ and sorted by _____."</li>
+  <li>"There was an error." → "When I ran the CREATE TABLE statement for Loans, I received error: ______, which occurred because _______."</li>
+</ol>
+
+<h3>Vocabulary in Sentences (with maximum precision)</h3>
+<table>
+<tr><th>Word</th><th>Write your precise sentence</th></tr>
+<tr><td>Resource Group</td><td></td></tr>
+<tr><td>SQL</td><td></td></tr>
+<tr><td>Connection String</td><td></td></tr>
+<tr><td>Schema</td><td></td></tr>
+<tr><td>Region</td><td></td></tr>
+</table>
+<p><em>Example — Word: Subscription → "My Azure free account includes one subscription named 'Azure subscription 1', covering 12 months of free services including 250 GB of Azure SQL Database storage and 5 GB of Blob Storage."</em></p>
+
+<h3>Writing Exercise: The Technical Setup Log</h3>
+<p>A setup log is critical in infrastructure. When something breaks 3 months later, this log tells you exactly what was configured. Write a complete setup log for the Azure SQL Database you created:</p>
+<pre><code>AZURE SQL DATABASE SETUP LOG
+
+Date: [Exact date]
+Created by: [Your name]
+
+RESOURCE DETAILS:
+  Resource Group: [Name]
+  Server Name: [Full address, e.g. library-server.database.windows.net]
+  Database Name: [Name]
+  Region: [Region name]
+  Pricing Tier: [Tier and DTU count]
+  Monthly Cost: [Amount — should be ₹0 on free tier]
+
+AUTHENTICATION:
+  Method: SQL Authentication
+  Admin Login: [Username only — NEVER write passwords in documents]
+  Password stored in: [Location — e.g. "personal encrypted notebook"]
+
+FIREWALL RULES:
+  - Rule 1: [Your IP range]
+  - Azure services access: Enabled
+
+TABLES CREATED:
+  - Books: [Number of columns, primary key name]
+  - Members: [Number of columns, primary key name]
+  - Loans: [Number of columns, foreign keys]
+
+SAMPLE DATA LOADED:
+  - Books: [Number of rows]
+  - Members: [Number of rows]
+  - Loans: [Number of rows]
+
+VERIFICATION:
+  - Test query: [What you ran] — Result: [What it returned]
+
+NOTES:
+  [Any problems encountered and how you solved them]</code></pre>
+
+<h3>🔊 Read Aloud Exercise</h3>
+<p>Read this SQL query explanation out loud as if teaching a colleague:</p>
+<p><em>"This SQL query joins three tables to produce a list of overdue loans. The FROM clause starts with the Loans table, aliased as 'l'. The first INNER JOIN connects Loans to the Members table using the MemberID column — this gives us the member's name and email. The second INNER JOIN connects to the Books table using BookID, giving us the book title. The WHERE clause has two conditions: ReturnDate IS NULL — meaning the book has not been returned — and DueDate is less than today's date, meaning the loan is past due. The ORDER BY clause sorts results so the most overdue loans appear first."</em></p>
+<p>After reading: Write this query's purpose in 3 plain English bullet points without using SQL keywords.</p>
+
+<h3>Professional Communication: The Azure Support Ticket</h3>
+<pre><code>Subject: [Service Name] — [Brief problem description] — [Urgency: Low/Medium/High]
+
+SUBSCRIPTION: [Name]
+RESOURCE: [Full resource name and type]
+REGION: [Region]
+
+PROBLEM DESCRIPTION:
+[What you tried to do, what you expected, what actually happened — 2-3 sentences]
+
+ERROR MESSAGE:
+[Copy the EXACT error text — do not paraphrase]
+
+STEPS TO REPRODUCE:
+1. [Exact step]
+2. [Exact step]
+
+WHAT I HAVE ALREADY TRIED:
+- [Action] — Result: [What happened]
+
+IMPACT:
+[What cannot be done while this problem exists?]</code></pre>
+
+<h3>🚫 Common English Mistakes — Week 9</h3>
+<ul>
+  <li><strong>Vague time references:</strong> ❌ "I will do it soon." ✅ "I will complete the database setup <strong>by November 5</strong>."</li>
+  <li><strong>"Same to same" (Indian English):</strong> ❌ "The schema is same to same as Dataverse." ✅ "The schema is <strong>identical to</strong> the Dataverse schema."</li>
+  <li><strong>Writing passwords in documentation:</strong> NEVER write actual passwords in documents. Write: "Password stored in [location]."</li>
+  <li><strong>Passive without saying who:</strong> ❌ "The error was fixed." ✅ "<strong>I</strong> fixed the error <strong>on November 4</strong> by updating the firewall rules."</li>
+</ul>
+
+<h3>✅ Week 9 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Did you write a complete Azure SQL setup log?</span></li>
+  <li><span class="box"></span><span class="txt">Can you describe the LibraryDB schema in 4 precise sentences without looking at notes?</span></li>
+  <li><span class="box"></span><span class="txt">Are you using specific dates, numbers, and names instead of vague words?</span></li>
+  <li><span class="box"></span><span class="txt">Have you practised "identical to" instead of "same to same"?</span></li>
+  <li><span class="box"></span><span class="txt">Can you explain what a SQL JOIN does using "combines" and "matches"?</span></li>
 </ul>
 </div>
 
-<div class="card c-check"><span class="lab">Mini-quiz — Day 10</span>
-<p><strong>Q1</strong> Where must you place the "Initialize variable" action relative to an Apply to each loop?</p>
-<p><strong>Q2</strong> You have a flow that loops through 500 rows and takes 10 minutes. A colleague suggests adding a parallel branch inside the loop. Will this make it faster?</p>
-<p><strong>Q3</strong> What does <code>formatDateTime(utcNow(), 'yyyy-MM-dd')</code> return, and when would you use it?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> Before (outside) the Apply to each loop. If placed inside, it resets to its initial value at the start of every iteration — losing all accumulated data from previous iterations.</p>
-<p><strong>A2</strong> Yes — parallel branches inside a loop run simultaneously. If each iteration previously took 1 second for two sequential actions, adding a parallel branch for those two actions can halve the per-iteration time. However, Power Automate has throttling limits per connector — very high volumes may still be slow due to API limits.</p>
-<p><strong>A3</strong> It returns today's date as a string like <code>2025-09-15</code>. Use it in email subjects, filenames, or as the date portion of a log entry — any place where you need today's date formatted as readable text rather than an ISO timestamp.</p>
-</details>
-</div>
-
-<div class="card c-check"><span class="lab">Check yourself</span>
-Running the flow emails you all overdue loans AND marks each one as Overdue in Dataverse — a real overdue management report. If the email is blank, check that you have Loan rows with Returned = No and Due date in the past.</div>
 </section>
 
-<!-- DAY 11 -->
-<section class="day" id="day11">
-<div class="dhead"><span class="dnum">Day 11</span></div>
-<h2>Approvals, Adaptive Cards, data operations, and error handling</h2>
-<p class="meta">~130 minutes</p>
+<!-- ==================== WEEK 10 ==================== -->
+<section class="day" id="week10">
+<div class="dhead"><span class="dnum">Week 10 · November 8–14</span></div>
+<h2>Azure Functions + Blob Storage + Calling Azure from Power Platform</h2>
+<p class="meta">~4 hours · portal.azure.com + make.powerautomate.com · Azure free account required</p>
 
-<div class="card c-concept"><span class="lab">Concept — approvals: asking a human and waiting</span>
-<p>An <strong>approval</strong> is a built-in action that sends a request to one or more people and <em>pauses the flow</em> until they respond. Types:</p>
-<ul>
-<li><strong>Approve/Reject — First to respond</strong> — any one approver clicking is enough to continue.</li>
-<li><strong>Approve/Reject — Everyone must approve</strong> — all assigned approvers must approve; one Reject rejects the whole thing.</li>
-<li><strong>Custom responses</strong> — define your own options ("Approve / Reject / Request more info").</li>
-</ul>
-<p>Approvals appear in three places: the <strong>Approvals app in Teams</strong>, the approver's <strong>Outlook email</strong> (with clickable buttons), and the <strong>Power Automate Approvals page</strong>.</p>
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 10</span>
+<dl>
+  <dt><strong>9. Serverless</strong></dt>
+  <dd>Running code without managing servers — you write the function; Microsoft runs it on whatever server is available; you pay only for the milliseconds your code actually runs.<br>
+  <em>Real-world analogy: Using a hotel room vs buying an apartment. If you book a hotel, you pay only for the nights you stay. You do not maintain the building. Azure Functions is the hotel room of computing — available on demand, billed only when used.</em><br>
+  <em>Example: "I built a serverless Azure Function to calculate late fees. The function sleeps 99% of the time. When Power Automate calls it, it wakes up, calculates the fee in 50 milliseconds, and sends the result back. I pay only for those 50ms."</em></dd>
+
+  <dt><strong>10. API (Application Programming Interface)</strong></dt>
+  <dd>A defined way for one software to talk to another software — a contract that says "send me THIS, and I will give you THAT back".<br>
+  <em>Real-world analogy: A restaurant menu. The menu tells you what you can order (inputs) and what you will receive (outputs). You do not go into the kitchen and cook it yourself. You use the menu interface.</em><br>
+  <em>Example: "Power Automate calls the late fee Azure Function using its API. Power Automate sends: <code>&#123;"loanDate": "2026-10-01", "dueDate": "2026-10-15"&#125;</code>. The API sends back: <code>&#123;"lateFee": 75, "daysOverdue": 15&#125;</code>."</em></dd>
+
+  <dt><strong>11. HTTP (HyperText Transfer Protocol)</strong></dt>
+  <dd>The standard language of the internet. When your browser loads a webpage, it uses HTTP. When an app calls an API, it usually uses HTTP.<br>
+  <strong>Methods:</strong><br>
+  <strong>GET</strong> — asking for data ("give me the book with ID 5")<br>
+  <strong>POST</strong> — sending data to create something ("here is a new loan record, please save it")<br>
+  <strong>PUT/PATCH</strong> — updating existing data ("change the status of loan #12 to Returned")<br>
+  <strong>DELETE</strong> — removing data ("delete book #7")<br>
+  <em>Example: "When Power Automate calls the Azure Function, it makes an HTTP POST request — it is sending data (the loan details) to the function and expecting a calculated result back."</em></dd>
+
+  <dt><strong>12. JSON (JavaScript Object Notation)</strong></dt>
+  <dd>A simple text format for sending structured data between systems — uses curly braces <code>&#123;&#125;</code> for objects and square brackets <code>[]</code> for lists.<br>
+  <em>Real-world analogy: A standardized form. Everyone fills in the same fields, in the same order. The form can be read by anyone who knows the format.</em>
+<pre><code>&#123;
+  "loanDate": "2026-10-01",
+  "dueDate": "2026-10-15",
+  "feePerDay": 5,
+  "memberEmail": "rohit.verma@learner.com"
+&#125;</code></pre></dd>
+
+  <dt><strong>13. Blob Storage</strong></dt>
+  <dd>Azure's service for storing unstructured files — images, videos, PDFs, CSVs — any file type, in massive quantities.<br>
+  <em>Real-world analogy: A warehouse for boxes. You don't care what's in the boxes — you just need somewhere to store them. Blob storage is the warehouse.</em><br>
+  <em>Example: "I uploaded all 50 book cover images to Azure Blob Storage. The canvas app loads each cover image directly from its Blob Storage URL, so book cover images are not stored inside Dataverse."</em></dd>
+
+  <dt><strong>14. Endpoint</strong></dt>
+  <dd>The URL (web address) of an API — where you "call" to use the API.<br>
+  <em>Example: "The Azure Function's endpoint is <code>https://library-functions.azurewebsites.net/api/CalculateLateFee</code>. Any system that knows this URL and has the right key can call the function."</em></dd>
+</dl>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — Adaptive Cards</span>
-<p>An <strong>Adaptive Card</strong> is a richly formatted interactive panel that appears inside Teams. The approver sees the details and Approve/Reject buttons directly in Teams — no need to open an email or a web page. It's described in <strong>JSON</strong> (structured text). Power Automate has a "Post adaptive card and wait for a response" action that handles the JSON for you, but you can also write custom JSON.</p>
+<div class="card c-concept"><span class="lab">Concept — Why Build an Azure Function Instead of Doing It in Power Automate?</span>
+<table>
+<tr><th>Scenario</th><th>Power Automate Only</th><th>Azure Function</th></tr>
+<tr><td>Basic calculation</td><td>✅ Works fine</td><td>Overkill</td></tr>
+<tr><td>Complex calculation (multiple rules, exceptions)</td><td>⚠️ Gets messy</td><td>✅ Clean code</td></tr>
+<tr><td>Reusable by Power Apps AND Power Automate AND a website</td><td>❌ Cannot (flow is only callable by Microsoft tools)</td><td>✅ Any system can call it via HTTP</td></tr>
+<tr><td>If logic changes, update in one place</td><td>❌ Must update every flow that has the formula</td><td>✅ Update the function once, all callers get the new behavior</td></tr>
+<tr><td>Version history and testing</td><td>❌ Limited</td><td>✅ Full code repository, automated tests</td></tr>
+</table>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — data operations: Compose, Select, Filter array, Join</span>
-<ul>
-<li><strong>Compose</strong> — store any value in a named token for later reference. Avoids repeating a complex expression.</li>
-<li><strong>Select</strong> — reshape an array of rows: pick specific columns, rename them. Produces a cleaner array for downstream actions.</li>
-<li><strong>Filter array</strong> — filter an array of objects by a condition. More efficient than Apply to each + Condition for simple filters on small arrays.</li>
-<li><strong>Join</strong> — turn an array into a single string. E.g. <code>["Matilda","Dune"]</code> → <code>"Matilda, Dune"</code>.</li>
-</ul></div>
+<div class="card c-tip"><span class="lab">💭 System Thinking — The DRY Principle (Don't Repeat Yourself)</span>
+<p>We are building the late fee calculation in three different places: Power Fx (in the app), Power Automate (in the flow), and Azure Functions. This is a <strong>DRY principle violation</strong>.</p>
+<p>If the library changes its policy from ₹5/day to ₹7/day, you must update 3 places. If you forget one, different parts of the system give different answers.</p>
+<p><strong>The correct architecture:</strong> ONE Azure Function holds the late fee calculation. The canvas app calls this function. Power Automate calls this function. Nothing calculates fees locally — they always ask the function. The policy lives in one place.</p>
+<p>This is called <strong>centralized business logic</strong> — one of the most important architectural principles in enterprise software.</p>
+</div>
 
-<div class="card c-concept"><span class="lab">Concept — Try/Catch: error handling</span>
-<p>Wrap main work in a <strong>Scope</strong> named "Try". Add another Scope named "Catch" set to run only when Try has failed (via Configure run after). Inside Catch, send an email or log the error details.</p>
-<ul>
-<li>Add step → <strong>Scope</strong> → rename <code>Try</code>. Drag your main actions inside.</li>
-<li>After Try, add another Scope → rename <code>Catch</code>. Click its <strong>Settings gear → Configure run after → tick "has failed"</strong>, untick "is successful".</li>
-<li>Inside Catch: add Send email. Body = Expression: <code>string(result('Try'))</code> — gives a full JSON summary of what failed and why.</li>
-</ul></div>
+<div class="card c-do"><span class="lab">Exercise 2 — Create the CalculateLateFee Azure Function</span>
 
-<div class="card c-do"><span class="lab">Do this — build "New member approval" with Adaptive Card and Try/Catch</span>
+<h3>Step 1: Create a Function App</h3>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Solutions → My Learning Solution → New → Cloud flow → Automated</strong>. Name = <code>New member approval</code>. Trigger = <strong>When a row is added (Dataverse)</strong>. Table = <strong>Member</strong>. Scope = Organization. Create.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Scope</strong>, rename it <code>Try</code>. All remaining steps go inside this scope.</span></li>
-<li><span class="box"></span><span class="txt">Inside Try: add <strong>Start and wait for an approval</strong>. Type = Approve/Reject — First to respond. Title = Expression: <code>concat('New member: ', triggerOutputs()?['body/learn_fullname'])</code>. Assigned to = your email address. Details = Expression: <code>concat('Name: ', triggerOutputs()?['body/learn_fullname'], '\nEmail: ', triggerOutputs()?['body/emailaddress1'], '\nMembership: ', triggerOutputs()?['body/learn_membership@OData.Community.Display.V1.FormattedValue'])</code>.</span></li>
-<li><span class="box"></span><span class="txt">Add <strong>Condition</strong>. Dynamic content → <strong>Outcome</strong> (from approval). Is equal to → type <code>Approve</code>.</span></li>
-<li><span class="box"></span><span class="txt">If yes: <strong>Send me an email notification</strong>. Subject = <code>"Welcome to the library!"</code>. Body = Expression: <code>concat('Hello ', triggerOutputs()?['body/learn_fullname'], ', your membership is approved!')</code>.</span></li>
-<li><span class="box"></span><span class="txt">If yes: also add <strong>Update a row (Dataverse)</strong>. Table = Member. Row ID = Dynamic content → <strong>Member (unique identifier)</strong>. Set Active = Yes.</span></li>
-<li><span class="box"></span><span class="txt">If no: <strong>Send me an email notification</strong>. Subject = <code>"Membership not approved"</code>. Body explains the rejection.</span></li>
-<li><span class="box"></span><span class="txt">After the Try scope (outside it): add <strong>Scope</strong> → rename <code>Catch</code>. Settings gear → Configure run after → tick <strong>has failed</strong>, untick is successful.</span></li>
-<li><span class="box"></span><span class="txt">Inside Catch: <strong>Send me an email notification</strong>. Subject = <code>"Flow error: New member approval"</code>. Body = Expression: <code>string(result('Try'))</code>.</span></li>
-<li><span class="box"></span><span class="txt">Save. Test: add a new Member in Library Back Office. Receive the approval email → click Approve → receive the welcome email. Confirm the Member's Active field is now Yes.</span></li>
-<li><span class="box"></span><span class="txt"><em>Adaptive Card (stretch):</em> before the approval step, add <strong>Post adaptive card and wait for a response (Teams)</strong>. Post as = Flow bot. Paste this JSON in the Card body, replacing the <code>@{}</code> tokens with Dynamic content from the trigger:</span></li>
+  <li><span class="box"></span><span class="txt">Azure Portal → search "Function App" → <strong>+ Create</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">Resource group: <code>rg-community-library</code>, Function App name: <code>library-functions-[yourname]</code> (globally unique), Runtime: Node.js, Region: Central India.</span></li>
+  <li><span class="box"></span><span class="txt">Hosting plan: <strong>Consumption (Serverless)</strong> — you pay per execution, first 1 million free.</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Review + Create</strong> → <strong>Create</strong>.</span></li>
 </ul>
-<pre><code>{
-  "type": "AdaptiveCard",
-  "body": [
-    {"type": "TextBlock", "text": "New member registration",
-     "weight": "Bolder", "size": "Medium"},
-    {"type": "FactSet", "facts": [
-      {"title": "Name:", "value": "@{triggerOutputs()?['body/learn_fullname']}"},
-      {"title": "Email:", "value": "@{triggerOutputs()?['body/emailaddress1']}"},
-      {"title": "Membership:", "value": "@{triggerOutputs()?['body/learn_membership@OData.Community.Display.V1.FormattedValue']}"}
-    ]},
-    {"type": "Input.Text", "id": "approverNote",
-     "placeholder": "Add a note (optional)"}
-  ],
-  "actions": [
-    {"type": "Action.Submit", "title": "Approve", "data": {"response": "Approve"}},
-    {"type": "Action.Submit", "title": "Reject",
-     "style": "destructive", "data": {"response": "Reject"}}
-  ],
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-  "version": "1.4"
-}</code></pre></div>
 
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Approval / outcome</b> — a "pause and ask a human" step / the Approve/Reject/custom answer.</li>
-<li><b>Adaptive Card / JSON</b> — an interactive Teams panel with buttons and inputs / the structured text that describes it.</li>
-<li><b>CRUD</b> — Create, Read, Update, Delete — the four data operations.</li>
-<li><b>Data operations</b> — Compose / Select / Filter array / Join — built-in tools for working with arrays.</li>
-<li><b>Try/Catch scope</b> — a Try scope containing the main work, a Catch scope that runs only on failure.</li>
-<li><b>result('ScopeName')</b> — expression returning the output/error of a scope, used in Catch for diagnostics.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — approvals and error handling in enterprise</span>
-<p>Approval flows are one of the highest-value Power Automate features in enterprise:</p>
-<ul>
-<li>A multinational uses approval flows for expense reports: when a manager's expense exceeds ₹50,000, the flow pauses and waits for the CFO's approval — which they give from their phone in the Teams Approvals app, without opening a separate system.</li>
-<li>A healthcare provider's new patient onboarding flow waits for the records team to verify ID — the flow has been running (paused, waiting) for up to 30 days. Power Automate supports long-running paused flows.</li>
-<li>Try/Catch scopes are standard practice in production: without them, a failed action silently kills the flow. With Catch, you always know what broke and can alert the right person. The expression <code>string(result('Try'))</code> is copy-pasted across thousands of enterprise flows worldwide.</li>
-</ul>
-</div>
-
-<div class="card c-warn"><span class="lab">Common mistakes with approvals and error handling</span>
-<ul>
-<li><strong>Using "First to respond" when all approvers must agree.</strong> If you have 3 approvers and use "First to respond", the first person to click Approve ends the approval — even if the other two would have rejected. Use "Everyone must approve" when consensus is required.</li>
-<li><strong>Not checking the Outcome before branching.</strong> The Approval action outputs "Approve" or "Reject" (exact strings, case-sensitive). If your Condition checks for "approve" (lowercase), it will never match. Always check by clicking the run and reading the exact Outcome string in Run history.</li>
-<li><strong>Putting the Catch scope inside the Try scope.</strong> Catch must be AFTER Try (outside it), not inside. An inner scope doesn't have access to the Try scope's result. Configure run after → has failed on the Catch scope.</li>
-<li><strong>Forgetting to set "run after" on the Catch scope.</strong> Without configuring "has failed", the Catch scope runs after every run (success AND failure). Always click the Catch scope's Settings → Configure run after → tick "has failed", untick "is successful".</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 11 hands-on checks</span>
+<h3>Step 2: Create the CalculateLateFee Function</h3>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Add a new Member row in Library Back Office to trigger the "New member approval" flow. Check your email within 60 seconds for the approval notification. Click Reject (not Approve). Confirm you receive the rejection email. Then add another Member and Approve — confirm the welcome email and that Active = Yes in Dataverse.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Edit the approval flow. Inside the "If yes" (Approve) branch, add a <strong>Compose</strong> action. Value = Expression: <code>concat('Approved by: ', outputs('Start_and_wait_for_an_approval')?['body/approver/email'], ' at ', formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm'))</code>. Add a note to the welcome email body that includes this Compose output — so the welcome email shows who approved it and when.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Test the Try/Catch error handling: temporarily break the flow by editing the "Update a row" action inside Try and deleting the Row ID (leave it blank). Add a new Member row — the flow should fail on that action. Check your error email — it should contain the <code>string(result('Try'))</code> JSON with the error details. Fix the broken step and test the approval again.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a <strong>data operation: Join</strong> after the approval step. Inputs = <code>["Approved", "Pending", "Rejected"]</code> (type this as an expression). Join with = <code>", "</code>. Output = a single string "Approved, Pending, Rejected". This previews how you'd turn an array of values into a readable list for an email — used frequently in real report flows.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5 (Adaptive Card stretch):</strong> If you have Microsoft Teams available, paste the Adaptive Card JSON from the course into the "Post adaptive card and wait for a response" action. Open Teams and look for the Flow bot message — you should see a formatted card with Approve/Reject buttons. Clicking Approve in Teams should complete the approval and trigger the success branch.</span></li>
+  <li><span class="box"></span><span class="txt">Go to your Function App → <strong>Functions</strong> → <strong>+ Create</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">Choose <strong>HTTP trigger</strong>, Name: <code>CalculateLateFee</code>, Authorization level: <strong>Function</strong> (requires a key to call).</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Create</strong>.</span></li>
+</ul>
+
+<h3>Step 3: Write the Function Code</h3>
+<p>Click <strong>Code + Test</strong> → replace the default code with:</p>
+<pre><code>module.exports = async function (context, req) {
+    const { loanDate, dueDate, feePerDay = 5 } = req.body;
+
+    if (!loanDate || !dueDate) {
+        context.res = {
+            status: 400,
+            body: { error: "Please provide loanDate and dueDate in the request body." }
+        };
+        return;
+    }
+
+    const today = new Date();
+    const dueDateObj = new Date(dueDate);
+
+    if (today &lt;= dueDateObj) {
+        context.res = {
+            body: { daysOverdue: 0, lateFee: 0, status: "Not overdue", dueDate: dueDate }
+        };
+        return;
+    }
+
+    const msPerDay = 24 * 60 * 60 * 1000;
+    const daysOverdue = Math.ceil((today - dueDateObj) / msPerDay);
+    const lateFee = daysOverdue * feePerDay;
+
+    context.res = {
+        body: {
+            daysOverdue: daysOverdue,
+            lateFee: lateFee,
+            feePerDay: feePerDay,
+            status: "Overdue",
+            message: `${daysOverdue} days × ₹${feePerDay} = ₹${lateFee}`,
+            dueDate: dueDate,
+            calculatedAt: new Date().toISOString()
+        }
+    };
+};</code></pre>
+
+<h3>Step 4: Test the Function</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>Test/Run</strong> in Code + Test view.</span></li>
+  <li><span class="box"></span><span class="txt">Input body: <code>&#123;"loanDate": "2026-10-01", "dueDate": "2026-10-15", "feePerDay": 5&#125;</code></span></li>
+  <li><span class="box"></span><span class="txt">Verify the response shows <code>daysOverdue</code>, <code>lateFee</code>, <code>status: "Overdue"</code>, and <code>message</code>.</span></li>
+</ul>
+
+<h3>Step 5: Call the Function from Power Automate</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Copy the Function URL: click <strong>Get Function Url</strong> → copy (includes the function key).</span></li>
+  <li><span class="box"></span><span class="txt">Open <code>make.powerautomate.com</code> → New flow → <strong>Instant cloud flow</strong> → Manual trigger.</span></li>
+  <li><span class="box"></span><span class="txt">Add step → <strong>HTTP</strong>: Method = POST, URI = the Azure Function URL, Headers: <code>Content-Type</code> = <code>application/json</code>, Body = loan date JSON.</span></li>
+  <li><span class="box"></span><span class="txt">Add step → <strong>Parse JSON</strong> to read the response.</span></li>
+  <li><span class="box"></span><span class="txt">Add step → <strong>Send email</strong> → Body: "The calculated late fee is: ₹@&#123;body('Parse_JSON')?['lateFee']&#125;"</span></li>
+  <li><span class="box"></span><span class="txt">Run the flow and verify you receive an email with the calculated fee.</span></li>
 </ul>
 </div>
 
-<div class="card c-check"><span class="lab">Mini-quiz — Day 11</span>
-<p><strong>Q1</strong> A flow has a Try scope and a Catch scope. Under what condition does the Catch scope run?</p>
-<p><strong>Q2</strong> An approval flow uses "Approve/Reject — Everyone must approve" with 3 approvers. Two approve, one rejects. What is the Outcome?</p>
-<p><strong>Q3</strong> You receive a blank error email from the Catch scope. What does this tell you, and what should you check?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> Only when the Try scope has a failed status — because you configured the Catch scope's "run after" setting to "has failed" only. If Try succeeds, Catch is skipped.</p>
-<p><strong>A2</strong> Reject — with "Everyone must approve", a single Reject from any approver rejects the entire approval. The flow takes the "If no" branch.</p>
-<p><strong>A3</strong> A blank error email usually means <code>result('Try')</code> returned empty — possibly because the Try scope name was changed or misspelled in the expression. Check that the Catch scope's expression exactly says <code>string(result('Try'))</code> where 'Try' matches the exact name of the Try scope (case-sensitive, spaces replaced with underscores).</p>
-</details>
+<div class="card c-do"><span class="lab">Exercise 3 — Book Cover Images in Azure Blob Storage</span>
+
+<h3>Step 1: Create a Storage Account</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Azure Portal → <strong>Storage accounts</strong> → <strong>+ Create</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">Resource group: <code>rg-community-library</code>, Name: <code>librarystorage[yourname]</code> (lowercase, globally unique), Region: Central India, Redundancy: LRS.</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Review + Create</strong> → <strong>Create</strong>.</span></li>
+</ul>
+
+<h3>Step 2: Create a Container and Upload Images</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Go to your Storage Account → <strong>Containers</strong> → <strong>+ Container</strong>, Name: <code>book-covers</code>, Public access: <strong>Blob</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">For each book in the library: download a cover image from the internet, upload it to the container, click it, and copy its URL.</span></li>
+  <li><span class="box"></span><span class="txt">Open your Library Canvas App → add a <code>cr_cover_image_url</code> text column to the Dataverse Books table → store the Blob URL for each book.</span></li>
+  <li><span class="box"></span><span class="txt">In the Canvas App Book Gallery: add an <strong>Image</strong> control with Image property: <code>ThisItem.cr_cover_image_url</code>.</span></li>
+  <li><span class="box"></span><span class="txt">Test: book covers should now appear in the gallery.</span></li>
+</ul>
+
+<div class="card c-tip"><span class="lab">💭 Why Make Book Covers Public but NOT the Database?</span>
+<p>Book cover images are not sensitive data — anyone can see what a book looks like. Making them public means the canvas app can display them without any authentication. This is faster and simpler.</p>
+<p>The database contains member emails, phone numbers, and loan histories — private data. A hacker should not be able to type a URL and read all your members' personal information.</p>
+<p><strong>The principle:</strong> Make things as open as they need to be, no more. Images: open. Data: private. Authentication keys: very private (never in code).</p>
+</div>
 </div>
 
-<div class="card c-check"><span class="lab">Check yourself</span>
-You have three production-grade flows: (1) Loan confirmation — auto-email when a loan is created. (2) Overdue check — loops, marks records, emails a report. (3) Member approval — waits for a human, branches on outcome, catches errors. That's the shape of real enterprise automation.</div>
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 10: Procedural Writing (First, Then, After That, Finally)</span>
+<h3>This Week's Grammar Pattern: Sequential Connectors for Instructions</h3>
+<table>
+<tr><th>Position</th><th>Words to use</th></tr>
+<tr><td>First step</td><td>"First,", "To begin,", "Start by [verb-ing]"</td></tr>
+<tr><td>Middle steps</td><td>"Next,", "Then,", "After that,", "Once [step] is complete,"</td></tr>
+<tr><td>Before a condition</td><td>"If [condition],", "When [event],"</td></tr>
+<tr><td>Final step</td><td>"Finally,", "The setup is complete when..."</td></tr>
+</table>
+
+<p><strong>Example — Azure Function deployment:</strong></p>
+<p><em>"To deploy the CalculateLateFee Azure Function, begin by creating a Function App in the Azure Portal. First, navigate to portal.azure.com and search for 'Function App'. Then, click '+ Create' and fill in the resource group, name, and runtime settings. After that, configure the hosting plan as 'Consumption (Serverless)'. Once the Function App is provisioned — which takes approximately 2 minutes — navigate to Functions and click '+ Create'. Finally, select 'HTTP trigger', name the function 'CalculateLateFee', and paste the Node.js code. The setup is complete when the function URL appears and a test run returns a valid JSON response."</em></p>
+
+<h3>Grammar Practice</h3>
+<p>Write the steps for ONE of these processes (5–8 steps, using at least 5 connectors):</p>
+<ul>
+  <li>Option A: How to upload a book cover image to Azure Blob Storage</li>
+  <li>Option B: How to test the CalculateLateFee function in the Azure Portal</li>
+  <li>Option C: How to call the Azure Function from Power Automate</li>
+</ul>
+
+<h3>Vocabulary in Sentences (HOW it works, not just a definition)</h3>
+<table>
+<tr><th>Word</th><th>Write your "how it works" sentence</th></tr>
+<tr><td>Serverless</td><td></td></tr>
+<tr><td>API</td><td></td></tr>
+<tr><td>JSON</td><td></td></tr>
+<tr><td>Blob Storage</td><td></td></tr>
+<tr><td>Endpoint</td><td></td></tr>
+</table>
+
+<h3>Writing Exercise: API Documentation</h3>
+<pre><code># API Reference: CalculateLateFee
+
+## Endpoint
+POST https://[your-function-app].azurewebsites.net/api/CalculateLateFee
+
+## Description
+[2 sentences: what the function does and who should use it]
+
+## Request Body (Content-Type: application/json)
+{
+  "loanDate": "[YYYY-MM-DD] The date the book was borrowed",
+  "dueDate": "[YYYY-MM-DD] The date the book is due back",
+  "feePerDay": "[number, optional] Fee in INR per day. Default: 5"
+}
+
+## Response (HTTP 200)
+{
+  "daysOverdue": "[number] Days past due date. 0 if not overdue.",
+  "lateFee": "[number] Total fee in INR.",
+  "status": "[string] 'Overdue' or 'Not overdue'",
+  "message": "[string] Human-readable explanation"
+}
+
+## Example Request
+[Write the JSON for a loan due October 15, calculated on November 10]
+
+## Example Response
+[Write what the function returns for the above]</code></pre>
+
+<h3>🔊 Read Aloud Exercise</h3>
+<p>Read this out loud as if explaining to a colleague unfamiliar with APIs:</p>
+<p><em>"An API is a defined way for two software systems to communicate. Think of it as a restaurant menu: the menu tells you what you can order and what you will receive. You do not go into the kitchen and cook it yourself. In our case, the CalculateLateFee function is the kitchen. Power Automate is the waiter. Power Automate sends an order — the loan date and due date — using an HTTP POST request. The function calculates the late fee and sends back a response in JSON format. The two systems never need to know how each other works internally — only how to communicate through the defined interface."</em></p>
+<p>After reading: Explain what JSON is, out loud, using your own analogy.</p>
+
+<h3>🚫 Common English Mistakes — Week 10</h3>
+<ul>
+  <li><strong>Starting every step with "Then":</strong> ❌ "Then open. Then click. Then fill. Then save." ✅ Vary: First → Next → After that → Finally.</li>
+  <li><strong>Steps that skip sub-steps:</strong> ❌ "Step 3: Configure the firewall." ✅ Break into labeled sub-steps a, b, c, d with a ✅ success check after each.</li>
+  <li><strong>Passive without clear instruction:</strong> ❌ "The function key should be copied." ✅ "<strong>Copy</strong> the function key by clicking <strong>Get Function Url</strong>." — In instructions, use imperative verbs: Copy, Click, Navigate, Enter, Select, Save.</li>
+</ul>
+
+<h3>✅ Week 10 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Did you write API documentation for the CalculateLateFee function?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a setup guide using First/Then/Finally connectors?</span></li>
+  <li><span class="box"></span><span class="txt">Can you explain what an API is using the restaurant menu analogy?</span></li>
+  <li><span class="box"></span><span class="txt">Are you using imperative verbs (Copy, Click, Navigate) in instructions?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write at least 3 journal entries this week?</span></li>
+</ul>
+</div>
+
+</section>
+
+<!-- ==================== WEEK 11 ==================== -->
+<section class="day" id="week11">
+<div class="dhead"><span class="dnum">Week 11 · November 15–21</span></div>
+<h2>GitHub — Where Code Lives, Grows, and Is Kept Safe</h2>
+<p class="meta">~3 hours · github.com · GitHub free account required</p>
+
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 11</span>
+<dl>
+  <dt><strong>15. Repository</strong> (often called "repo")</dt>
+  <dd>A storage place for code (and all its history) — every version of every file, from the very first line to today.<br>
+  <em>Real-world analogy: A very detailed diary that stores every version of your writing — not just the latest version, but every sentence you ever wrote, every word you crossed out, and who made each change.</em><br>
+  <em>Example: "I created a GitHub repository called 'community-library' for our project. It stores our Power Platform solution files, our Azure Function code, and all documentation."</em></dd>
+
+  <dt><strong>16. Commit</strong></dt>
+  <dd>A saved snapshot of your changes — like pressing "Save" but also adding a note explaining what you changed and why.<br>
+  <em>Real-world analogy: A dated entry in a project logbook: "November 15: Updated the late fee formula from ₹5/day to ₹7/day because the library committee approved the increase."</em><br>
+  <em>Example: "I made a commit with the message: 'Fix: recalculate available copies from live loans instead of stored field — prevents race condition.' Now anyone reading the commit history understands why this change was made."</em></dd>
+
+  <dt><strong>17. Branch</strong></dt>
+  <dd>A separate copy of the repository where you make changes safely — without affecting the main/working version.<br>
+  <em>Real-world analogy: Making a photocopy of an important document before editing it. You mark up the photocopy. If the changes are good, you update the original. If the changes are bad, you throw the photocopy away.</em><br>
+  <em>Example: "I created a branch called 'feature/waitlist-system' to build the book waitlist feature. The main branch still has the working app. I experiment in my branch. When the feature is done and tested, I merge my branch into main."</em></dd>
+
+  <dt><strong>18. Pull Request</strong> (often called "PR")</dt>
+  <dd>A formal request to merge your branch into the main branch — it shows your changes, allows others to review them, and triggers automated checks.<br>
+  <em>Real-world analogy: Submitting a report for manager approval before publishing. You write the report (changes in your branch). You submit it for review (pull request). Your manager reads it, asks questions. When approved, it gets published (merged).</em><br>
+  <em>Example: "I created a pull request to add the waitlist feature. Pooja reviewed the code, asked why I used a FIFO queue instead of a priority system, and approved it after I explained. The merge only happened after approval."</em></dd>
+
+  <dt><strong>19. Merge</strong></dt>
+  <dd>Combining changes from one branch into another — usually from a feature branch into the main branch.<br>
+  <em>Example: "After Pooja approved the pull request, I merged the waitlist-system branch into main. Now the waitlist feature is part of the official app."</em></dd>
+
+  <dt><strong>20. .gitignore</strong></dt>
+  <dd>A file that tells Git which files to NOT save in the repository — secrets, large files, auto-generated files that do not need to be tracked.<br>
+  <em><strong>Critical rule:</strong> NEVER commit API keys, passwords, connection strings, or .env files to GitHub. Even after deleting them, they exist in the history and can be found by hackers using automated tools.</em><br>
+  <em>Example: "My .gitignore file contains: <code>*.env</code>, <code>local.settings.json</code>, <code>connection_strings.txt</code>. These files contain database passwords and API keys — they exist on my computer but are never uploaded to GitHub."</em></dd>
+
+  <dt><strong>21. README.md</strong></dt>
+  <dd>A text file (written in Markdown — a simple formatting language) that explains what the repository is, how to set it up, and how to use it.<br>
+  <em>Example: "The repository README explains: what the Community Library system is, which tools are needed to run it (Power Platform Developer Plan, Azure free account), step-by-step setup instructions, and how to run the Azure Functions locally for testing."</em></dd>
+</dl>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — Why Version Control Exists: The Story Without It</span>
+<p>Imagine you are building the library app with a team of 3 people — Sanjay is adding the waitlist feature, Neha is fixing a bug in the date calculation, you are updating the book cover image URLs.</p>
+<p><strong>Without version control:</strong></p>
+<pre><code>Day 1: All three start with a copy of the app
+Day 3: Sanjay saves his waitlist changes
+Day 3: Neha saves her bug fix (accidentally overwrites Sanjay's work)
+Day 4: You save your URL updates (accidentally overwrites both)
+Day 4: Sanjay's work is GONE. Neha's fix is GONE.
+Panic.</code></pre>
+<p><strong>With version control (Git):</strong></p>
+<pre><code>Day 1: All three create their own BRANCH from main
+Day 3: Sanjay commits his changes to branch 'feature/waitlist'
+Day 3: Neha commits her fix to branch 'bugfix/date-calc'
+Day 4: You commit your changes to branch 'update/cover-images'
+Day 4: All three create pull requests
+Day 4: If there are conflicting changes, Git shows exactly where and asks for a decision
+Day 5: All three branches are merged cleanly. Everyone's work is preserved.</code></pre>
+<p>Version control is not just a backup tool — it is the entire infrastructure of team collaboration in software development.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 4 — Create the Community Library GitHub Repository</span>
+
+<h3>Step 1: Create the Repository</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Go to <code>github.com</code> → sign in → click <strong>+</strong> (top right) → <strong>New repository</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">Name: <code>community-library</code>, Description: "Complete Community Library Management System — Power Platform, Azure, and GitHub Actions", Visibility: <strong>Private</strong>, Add README ✅, .gitignore: <strong>Node</strong>, License: MIT.</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Create repository</strong>.</span></li>
+</ul>
+
+<h3>Step 2: Set Up Folder Structure</h3>
+<p>Click <strong>Create new file</strong> and create the following structure by typing the path in the filename field:</p>
+<pre><code>community-library/
+├── README.md
+├── .gitignore
+├── docs/
+│   ├── architecture.md       ← System design documentation
+│   ├── setup-guide.md        ← How to set up from scratch
+│   └── api-reference.md      ← Azure Function API documentation
+├── power-platform/
+│   ├── solution/             ← Power Platform solution .zip files
+│   └── sample-data/          ← The CSV files from the course
+├── azure-functions/
+│   └── library-functions/    ← The Azure Function Node.js code
+├── sql/
+│   ├── schema.sql            ← All CREATE TABLE statements
+│   └── seed-data.sql         ← Sample data INSERT statements
+└── .github/
+    └── workflows/            ← GitHub Actions (CI/CD) — Week 12</code></pre>
+
+<h3>Step 3: Upload the Azure Function Code</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">On your computer, create the folder <code>azure-functions/library-functions/</code> with <code>CalculateLateFee/index.js</code> containing the function code from Week 10.</span></li>
+  <li><span class="box"></span><span class="txt">Create <code>local.settings.json</code> and add it to <code>.gitignore</code> immediately (it may contain secrets later).</span></li>
+  <li><span class="box"></span><span class="txt">In GitHub, navigate to <code>azure-functions/library-functions/</code> → click <strong>Upload files</strong> → drag your files.</span></li>
+</ul>
+
+<h3>Step 4: Write the README</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click on <code>README.md</code> → <strong>Edit</strong> (pencil icon).</span></li>
+  <li><span class="box"></span><span class="txt">Write: what the system does (4–5 bullet points), prerequisites (Power Apps Developer Plan, Azure free account, GitHub account), and step-by-step setup instructions for each component.</span></li>
+  <li><span class="box"></span><span class="txt">Commit the README with message: <code>docs: add comprehensive README with setup instructions</code></span></li>
+</ul>
+
+<h3>Step 5: Create a Branch and Pull Request</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click the branch dropdown → type <code>feature/add-architecture-docs</code> → press Enter (you are now in the new branch).</span></li>
+  <li><span class="box"></span><span class="txt">Click on <code>docs/architecture.md</code> → create it with 3–5 sentences describing the system architecture.</span></li>
+  <li><span class="box"></span><span class="txt">Commit with message: <code>docs: add initial architecture documentation</code></span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Compare &amp; pull request</strong> → Title: "Add architecture documentation" → Description: "Adds the initial architecture overview document explaining how the 4 system components connect." → <strong>Create pull request</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">Review your own changes → click <strong>Merge pull request</strong> → <strong>Confirm merge</strong>.</span></li>
+</ul>
+
+<h3>Step 6: Upload the Power Platform Solution</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">In Power Apps → Solutions → select your Community Library solution → <strong>Export</strong> → Unmanaged → download the ZIP.</span></li>
+  <li><span class="box"></span><span class="txt">On GitHub → navigate to <code>power-platform/solution/</code> → <strong>Upload files</strong> → upload the ZIP.</span></li>
+  <li><span class="box"></span><span class="txt">Commit message: <code>chore: upload Power Platform solution v1.0</code></span></li>
+</ul>
+
+<div class="card c-tip"><span class="lab">💭 Why Do Teams Require Pull Requests Even for Small Changes?</span>
+<p>In professional teams, the <code>main</code> branch is always deployable. It always works. Nobody pushes directly to <code>main</code>.</p>
+<p>The pull request process enforces: (1) a second person reviews the change, (2) automated tests must pass, (3) the branch is up to date with main (no conflicts), (4) approvals are recorded for compliance and audit.</p>
+<p>Even if you work alone, PRs are valuable because they force you to look at your own changes one more time before they go to production.</p>
+</div>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 11: Asking Good Technical Questions</span>
+<h3>This Week's Grammar Pattern: Question Formation</h3>
+<table>
+<tr><th>Type</th><th>Structure</th><th>Example</th></tr>
+<tr><td>Yes/No</td><td>Does/Is/Can/Will + subject + verb?</td><td>"Does this function handle a null DueDate?"</td></tr>
+<tr><td>Wh-question</td><td>What/Why/How/When/Who + auxiliary + subject + verb?</td><td>"Why did we choose FIFO for the waitlist?"</td></tr>
+<tr><td>Clarification</td><td>Could you explain...? / What do you mean by...?</td><td>"Could you explain what 'delegation limit' means?"</td></tr>
+<tr><td>Suggestion</td><td>Would it be better to...? / Have you considered...?</td><td>"Would it be better to store the key in Azure Key Vault?"</td></tr>
+</table>
+<p><strong>The most common Indian English question mistake:</strong><br>
+❌ "How I can add a branch?" / "What is means of this error?"<br>
+✅ "How <strong>can I</strong> add a branch?" / "What <strong>does</strong> this error <strong>mean</strong>?"<br>
+<em>Rule: The helping verb (can, does, should, will) comes BEFORE the subject in questions.</em></p>
+
+<h3>Grammar Practice — Fix the Question Formation</h3>
+<ol>
+  <li>❌ "How I can create a pull request in GitHub?" → ✅ "______________________________?"</li>
+  <li>❌ "What is means of this error message?" → ✅ "______________________________?"</li>
+  <li>❌ "Why we need to add files to .gitignore?" → ✅ "______________________________?"</li>
+  <li>❌ "When the pipeline will run automatically?" → ✅ "______________________________?"</li>
+  <li>"Who is responsible for approving the pull request?" — Is this CORRECT or INCORRECT? Explain why.</li>
+</ol>
+
+<h3>Vocabulary in Sentences (as questions)</h3>
+<table>
+<tr><th>Word</th><th>Write a correct question</th></tr>
+<tr><td>Repository</td><td>"What is the difference between ______ and a ZIP file of the same code?"</td></tr>
+<tr><td>Branch</td><td>"Why do we create a branch instead of ______ directly?"</td></tr>
+<tr><td>Pull Request</td><td>"Who should review a pull request when ______?"</td></tr>
+<tr><td>.gitignore</td><td>"What happens if I accidentally commit a file that should be in ______?"</td></tr>
+<tr><td>README.md</td><td>"What information should ______ contain for someone new to this project?"</td></tr>
+</table>
+
+<h3>Writing Exercise: 8 System Thinking Questions About GitHub</h3>
+<p>Think like a curious, non-technical library manager hearing about GitHub for the first time. Write 8 questions they would ask — then answer each in 1–2 sentences.</p>
+<pre><code>Q1: [Question]
+A1: [Answer in 1-2 sentences]
+
+Q2: [Question]
+A2: [Answer]
+
+[Continue to Q8...]</code></pre>
+
+<h3>🔊 Read Aloud Exercise</h3>
+<p>Read this code review comment out loud — notice the tone is questioning and constructive, not critical:</p>
+<p><em>"I have a question about this section. On line 23, we use LookUp(Members, cr_email = User().Email) to find the member record. This makes sense if the member's Microsoft account email always matches their library registration email. But what happens if a member registered with their personal email but signs in with their work email? Would the LookUp return blank? If so, the Borrow button would show 'Member not found' even though Rohit is a valid member. Could we discuss whether we need to add an alternate email field to the Members table, or another way to handle this?"</em></p>
+<p>After reading: Notice this raises a concern WITHOUT saying "this is wrong." It asks a question, explains the risk, and suggests solutions. Write a similar comment about any part of the system you built.</p>
+
+<h3>Professional Communication: The Pull Request Description</h3>
+<pre><code>## What this PR does
+[2-3 sentences: what you changed and why]
+
+## Changes made
+- [File/component 1]: [What you changed]
+- [File/component 2]: [What you changed]
+
+## Why this approach
+[1-2 sentences: the technical decision and alternatives considered]
+
+## Testing done
+- [ ] [Test 1 and result]
+- [ ] [Test 2 and result]
+
+## Notes for reviewer
+[Anything to pay special attention to, or questions you have]</code></pre>
+
+<h3>🚫 Common English Mistakes — Week 11</h3>
+<ul>
+  <li><strong>"Could you please revert back on my PR":</strong> ❌ "Please revert back on my pull request comments." ✅ "Please <strong>respond to</strong> my pull request comments." / "Please <strong>review</strong> my pull request."</li>
+  <li><strong>Accusatory code review:</strong> ❌ "This code is wrong. You should have used a different approach." ✅ "I noticed this uses [approach X]. Have you considered [approach Y]? It might handle [edge case] better — what do you think?"</li>
+  <li><strong>"Suggest to":</strong> ❌ "I suggest to use a branch." ✅ "I suggest <strong>using</strong> a branch." / "I suggest <strong>that</strong> you use a branch."</li>
+  <li><strong>Over-polite hedging:</strong> ❌ "I humbly request that you might perhaps consider potentially looking at the .gitignore." ✅ "Please update the .gitignore to exclude local.settings.json — it contains environment-specific settings."</li>
+</ul>
+
+<h3>✅ Week 11 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you form 5 correct "How can I...?", "Why do we...?", "What happens when...?" questions?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a pull request description this week?</span></li>
+  <li><span class="box"></span><span class="txt">Can you give code review feedback in a questioning, non-accusatory way?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write the 8 system thinking questions about GitHub?</span></li>
+  <li><span class="box"></span><span class="txt">Are you using "suggest using" instead of "suggest to"?</span></li>
+</ul>
+</div>
+
+</section>
+
+<!-- ==================== WEEK 12 ==================== -->
+<section class="day" id="week12">
+<div class="dhead"><span class="dnum">Week 12 · November 22–30</span></div>
+<h2>GitHub Actions (CI/CD) + Azure DevOps — Automation of Everything</h2>
+<p class="meta">~4 hours · github.com + dev.azure.com · Azure free account required</p>
+
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 12</span>
+<dl>
+  <dt><strong>22. CI/CD (Continuous Integration / Continuous Delivery)</strong></dt>
+  <dd>An automated system that takes your code from "developer committed it" to "it is live and running" — testing it, building it, and deploying it automatically.<br>
+  <em>Real-world analogy: A car factory assembly line. When a new part arrives (commit), the conveyor belt (CI/CD pipeline) automatically takes it through: quality check (tests) → assembly (build) → inspection → shipping (deploy). Humans set up the line; the line runs automatically.</em><br>
+  <em>Example: "Our CI/CD pipeline runs every time we merge a pull request to main. It automatically deploys the Azure Function to production. We never manually copy files to the server."</em></dd>
+
+  <dt><strong>23. Pipeline</strong></dt>
+  <dd>A series of automated steps that run in sequence — each step takes input from the previous step.<br>
+  <em>Example: "The pipeline steps: 1) Check out code from GitHub. 2) Install Node.js dependencies. 3) Run tests. 4) If tests pass, deploy to Azure. 5) Send a notification: 'Deployment successful.'"</em></dd>
+
+  <dt><strong>24. YAML (Yet Another Markup Language)</strong></dt>
+  <dd>A human-readable text format for writing configuration — GitHub Actions pipelines are written in YAML. Indentation shows structure.<br>
+<pre><code>name: Deploy Azure Function
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4</code></pre></dd>
+
+  <dt><strong>25. Secret (in GitHub)</strong></dt>
+  <dd>An encrypted value stored in GitHub that your pipelines can use — but nobody can read (not even you, after setting it). Use for API keys, Azure credentials, database passwords — never write these in your YAML files.<br>
+  <em>Example: "I stored the Azure Function key as a GitHub Secret named <code>AZURE_FUNCTION_KEY</code>. The pipeline YAML references it as <code>${{ secrets.AZURE_FUNCTION_KEY }}</code> — it appears in the pipeline but is never visible in logs or code."</em></dd>
+
+  <dt><strong>26. Environment (in deployment/GitHub)</strong></dt>
+  <dd>A specific target for deploying code — Development, Staging (UAT), Production — each with its own credentials and protection rules.<br>
+  <em>Example: "The pipeline has 3 environments: Dev (auto-deploys on every commit), UAT (auto-deploys on merge to main, requires manual approval from Pooja), Production (deploys only when UAT is confirmed successful)."</em></dd>
+
+  <dt><strong>27. Azure DevOps</strong></dt>
+  <dd>Microsoft's platform for planning, tracking, and deploying software projects — includes a task board (Boards), a code repository (Repos), and a pipeline system (Pipelines).<br>
+  <em>Example: "We use Azure DevOps Boards to track work. Each new feature or bug fix is a 'work item' on the board. Each sprint is 2 weeks. At the start of the sprint, we move work items from 'Backlog' to 'Active.' At the end, everything in 'Done' is deployed."</em></dd>
+</dl>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — GitHub Actions vs Azure DevOps: Which to Use?</span>
+<table>
+<tr><th></th><th>GitHub Actions</th><th>Azure DevOps Pipelines</th></tr>
+<tr><td>Where code lives</td><td>GitHub</td><td>Azure DevOps Repos or GitHub</td></tr>
+<tr><td>Pricing</td><td>Free for public repos; 2,000 min/month for private</td><td>1,800 min/month free (5 users)</td></tr>
+<tr><td>Best for</td><td>Open source, modern cloud apps, GitHub-centric teams</td><td>Enterprise Microsoft environments, existing Azure DevOps users</td></tr>
+<tr><td>Integration with Azure</td><td>✅ Good (official Microsoft actions)</td><td>✅ Excellent (native)</td></tr>
+<tr><td>Integration with Power Platform</td><td>✅ Via Microsoft Power Platform Actions</td><td>✅ Via Azure DevOps Power Platform tasks</td></tr>
+<tr><td>Learning curve</td><td>Lower</td><td>Higher</td></tr>
+</table>
+<p><strong>For our learning project:</strong> GitHub Actions — simpler to start with, and more industry-standard for modern cloud development.</p>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — Why Would a Company Choose CI/CD?</span>
+<p><strong>Before CI/CD (the old world):</strong> A developer finishes a feature. On a Friday afternoon, someone manually copies files to a server. Something breaks. They spend the weekend fixing it. This is called a "big bang" deployment — everything at once, high risk.</p>
+<p><strong>With CI/CD (the new world):</strong> Every small change is deployed automatically and immediately. If something breaks, the pipeline catches it in tests BEFORE it reaches production. Deployments happen dozens of times per day with no drama. This is the industry standard.</p>
+<p><strong>Why it matters for you:</strong> Companies now require CI/CD knowledge from anyone who works with cloud systems. Understanding CI/CD — even at a basic level — is the difference between a "button clicker" and an "infrastructure person" in a job interview.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 5 — Create the GitHub Actions Pipeline for Azure Functions</span>
+
+<h3>Step 1: Set Up Azure Credentials as GitHub Secrets</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">In Azure Portal → Azure Cloud Shell (<code>&gt;_</code> icon at top) → run: <code>az ad sp create-for-rbac --name "github-library-deploy" --role contributor --scopes /subscriptions/[your-subscription-id]/resourceGroups/rg-community-library --sdk-auth</code></span></li>
+  <li><span class="box"></span><span class="txt">Copy the entire JSON output — these are your Azure service principal credentials.</span></li>
+  <li><span class="box"></span><span class="txt">In GitHub repository → <strong>Settings</strong> → <strong>Secrets and variables</strong> → <strong>Actions</strong> → <strong>New repository secret</strong> → Name: <code>AZURE_CREDENTIALS</code>, Value: paste the JSON.</span></li>
+</ul>
+
+<h3>Step 2: Create the GitHub Actions Workflow</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">In your repository → create file <code>.github/workflows/deploy-functions.yml</code>.</span></li>
+  <li><span class="box"></span><span class="txt">Paste the YAML below into the file.</span></li>
+  <li><span class="box"></span><span class="txt">Commit the file with message: <code>ci: add automated Azure Functions deployment pipeline</code></span></li>
+</ul>
+
+<pre><code>name: Deploy Azure Functions
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'azure-functions/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: azure-functions/library-functions
+
+      - name: Run tests
+        run: npm test --if-present
+        working-directory: azure-functions/library-functions
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Azure Functions
+        uses: azure/functions-action@v1
+        with:
+          app-name: 'library-functions-[yourname]'
+          package: 'azure-functions/library-functions'
+
+      - name: Logout from Azure
+        run: az logout</code></pre>
+
+<h3>Step 3: Trigger the Pipeline and Watch It Run</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Make a small change to your Azure Function code (add a comment, change a log message).</span></li>
+  <li><span class="box"></span><span class="txt">Commit it to the <code>main</code> branch (or merge a PR to main).</span></li>
+  <li><span class="box"></span><span class="txt">Go to the <strong>Actions</strong> tab in your GitHub repository → watch the pipeline run in real time.</span></li>
+  <li><span class="box"></span><span class="txt">Each step should show a green ✅. After it finishes, test the Azure Function URL — your new code is live.</span></li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 6 — GitHub Actions for Power Platform Automatic Export</span>
+
+<h3>Step 1: Set Up Power Platform Credentials</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">In Azure → Entra ID → <strong>App registrations</strong> → <strong>+ New registration</strong> → Name: <code>github-powerplatform-deploy</code>.</span></li>
+  <li><span class="box"></span><span class="txt">Note the <strong>Application (client) ID</strong> and <strong>Directory (tenant) ID</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">Go to <strong>Certificates &amp; secrets</strong> → <strong>Client secrets</strong> → <strong>+ New client secret</strong> → copy the value.</span></li>
+  <li><span class="box"></span><span class="txt">In your Power Platform environment, add this app registration as an Application User with System Administrator role.</span></li>
+  <li><span class="box"></span><span class="txt">In GitHub Secrets, add: <code>PP_APP_ID</code>, <code>PP_TENANT_ID</code>, <code>PP_CLIENT_SECRET</code>, <code>PP_ENVIRONMENT_URL</code>.</span></li>
+</ul>
+
+<h3>Step 2: Create the Power Platform Export Workflow</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Create <code>.github/workflows/export-solution.yml</code> with the content below.</span></li>
+  <li><span class="box"></span><span class="txt">Test by clicking <strong>Run workflow</strong> in the GitHub Actions tab → your Power Platform solution is automatically exported to GitHub.</span></li>
+</ul>
+
+<pre><code>name: Export Power Platform Solution
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Power Platform Tools
+        uses: microsoft/powerplatform-actions/actions-install@v1
+
+      - name: Export solution from Power Platform
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: ${{ secrets.PP_ENVIRONMENT_URL }}
+          app-id: ${{ secrets.PP_APP_ID }}
+          client-secret: ${{ secrets.PP_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.PP_TENANT_ID }}
+          solution-name: CommunityLibrary
+          solution-output-file: power-platform/solution/CommunityLibrary.zip
+
+      - name: Commit exported solution to GitHub
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add power-platform/solution/
+          git commit -m "chore: auto-export Power Platform solution $(date +'%Y-%m-%d %H:%M')"
+          git push</code></pre>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 7 — Azure DevOps Sprint Board</span>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Go to <code>dev.azure.com</code> → create a new organization → create project: <code>Community Library</code>, template: <strong>Scrum</strong>.</span></li>
+  <li><span class="box"></span><span class="txt">Go to <strong>Boards</strong> → <strong>Backlog</strong> → Create Epic: <code>Library Management System</code>.</span></li>
+  <li><span class="box"></span><span class="txt">Under the Epic, create Features: Member App (Canvas), Admin App (Model-Driven), Automation (Flows), Reporting (Power BI), AI Chatbot (Copilot Studio), Azure Backend (Functions + SQL).</span></li>
+  <li><span class="box"></span><span class="txt">Under each Feature, create 2 User Stories in this format: "As a [user], I want to [action] so that [benefit]."</span></li>
+  <li><span class="box"></span><span class="txt">Set Sprint 1 = October, Sprint 2 = November, Sprint 3 = December. Assign work items to the appropriate sprint.</span></li>
+</ul>
+
+<div class="card c-tip"><span class="lab">💭 Why Write Requirements as "As a [user], I want to [action] so that [benefit]"?</span>
+<p>This format — called a <strong>User Story</strong> — forces you to think from the user's perspective, not the developer's perspective.</p>
+<p>A developer might write: "Build a filter function for the book gallery."<br>
+A user story writes: "As a library member, I want to filter books by genre so I can find books I enjoy without scrolling through the whole catalog."</p>
+<p>The user story tells you: <strong>who</strong> is affected (member, not librarian), <strong>what</strong> they need (filter by genre), and <strong>why</strong> they need it (efficiency, enjoyment). The "why" is crucial. Without it, developers build technically correct features that nobody uses.</p>
+</div>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 12: Explaining Decisions</span>
+<h3>This Week's Grammar Pattern: The 6-Step Decision Explanation</h3>
+<ol>
+  <li>State the decision: <em>"We chose X."</em></li>
+  <li>Give the main reason: <em>"This is because Y."</em></li>
+  <li>Acknowledge the alternative: <em>"An alternative was Z."</em></li>
+  <li>Explain why you rejected it: <em>"However, Z has the limitation that..."</em></li>
+  <li>Acknowledge your choice's downside: <em>"The trade-off is that X requires..."</em></li>
+  <li>State confidence: <em>"Overall, X is the better fit because..."</em></li>
+</ol>
+<p><strong>Example:</strong></p>
+<p><em>"We chose GitHub Actions over Azure DevOps Pipelines for our CI/CD system. This is because GitHub Actions is directly integrated into our GitHub repository, reducing the number of tools required. An alternative was Azure DevOps Pipelines, which is Microsoft's native pipeline tool with deeper Azure Portal integration. However, Azure DevOps requires a separate account and setup, adding complexity unnecessary for a project of this size. The trade-off with GitHub Actions is that for large enterprise deployments, Azure DevOps offers more granular approval controls. Overall, GitHub Actions is the better fit because we are a small team already using GitHub and want simplicity over governance complexity."</em></p>
+
+<h3>Grammar Practice</h3>
+<p>Write a decision explanation (all 6 steps) for ONE of these:</p>
+<ul>
+  <li>Option A: Why we stored Azure credentials in GitHub Secrets instead of hardcoding them in YAML</li>
+  <li>Option B: Why we used Consumption (Serverless) for the Azure Function instead of App Service</li>
+  <li>Option C: Why the Power Platform export is triggered manually instead of automatically</li>
+</ul>
+
+<h3>Writing Exercise: Architecture Decision Record (ADR)</h3>
+<pre><code># ADR-001: [Short title]
+
+Date: [Date] | Status: Accepted | Author: [Your name]
+
+## Context
+[2-3 sentences: what situation required this decision?]
+
+## Decision
+We will [exactly what you decided].
+
+## Rationale
+We chose this because [main reason]. Compared to [other option], this [advantage].
+While [other option] would have [its benefit], it also [its limitation], which is
+not acceptable because [why].
+
+## Consequences
+
+Positive:
+- [Benefit 1]
+- [Benefit 2]
+
+Negative (trade-offs):
+- [Limitation 1]
+
+## Alternatives Considered
+Alternative A: [Name] — [Why not chosen, 1-2 sentences]
+
+## Review
+This decision will be revisited if [condition that would change it].</code></pre>
+
+<h3>Professional Communication: The Deployment Announcement</h3>
+<pre><code>Subject: [System Name] — [What Was Deployed] — [Date]
+
+Hi team,
+
+[Component] has been successfully deployed to [environment].
+
+WHAT WAS DEPLOYED:
+- [Change 1]
+- [Change 2]
+
+WHEN: [Time and date]
+
+HOW TO TEST: [2-3 steps to verify it works]
+
+IF SOMETHING LOOKS WRONG: Contact [name] on Teams.
+
+The previous version can be restored in [estimated time] if needed.
+
+[Your name]</code></pre>
+
+<h3>🚫 Common English Mistakes — Week 12</h3>
+<ul>
+  <li><strong>"As discussed" without referencing where:</strong> ❌ "As discussed, I have deployed the pipeline." ✅ "As <strong>we discussed in the November 22 Teams call</strong>, I have deployed the pipeline."</li>
+  <li><strong>Weak conclusions:</strong> ❌ "So GitHub Actions is good and we should use it." ✅ "Overall, GitHub Actions is the right choice because it integrates with our repository, reduces tooling complexity, and provides the 2,000 free minutes per month we need."</li>
+  <li><strong>"Basically" overuse:</strong> ❌ "Basically, CI/CD basically means deployment basically happens automatically." ✅ "CI/CD means deployments happen <strong>automatically</strong> whenever code is merged — without manual intervention."</li>
+  <li><strong>Inconsistent capitalization:</strong> GitHub ✅ | Azure ✅ | YAML ✅ | pipeline (lowercase) | CI/CD (uppercase with slash).</li>
+</ul>
+
+<h3>✅ Week 12 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Did you write a full Architecture Decision Record for one decision?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a deployment announcement for the GitHub Actions pipeline?</span></li>
+  <li><span class="box"></span><span class="txt">Can you explain why you chose GitHub Actions using all 6 steps of the decision structure?</span></li>
+  <li><span class="box"></span><span class="txt">Read your Week 9 journal — notice the precision improvement over 4 weeks.</span></li>
+  <li><span class="box"></span><span class="txt">Write one sentence summarising November: "In November, I built ______, connected ______, and learned that ______."</span></li>
+</ul>
+</div>
+
+</section>
+
+<!-- ==================== NOVEMBER RECAP ==================== -->
+<section id="nov-recap">
+<h2>November Recap — What You Built</h2>
+<div class="card c-check"><span class="lab">By November 30, you have:</span>
+<ul>
+  <li>✅ An <strong>Azure Resource Group</strong> (<code>rg-community-library</code>) with all services organized and costing ₹0 on free tier</li>
+  <li>✅ An <strong>Azure SQL Database</strong> (LibraryDB) with the full library schema — Books, Members, Loans tables with proper constraints and relationships</li>
+  <li>✅ An <strong>Azure Function</strong> (<code>CalculateLateFee</code>) — a real API callable by Power Automate, Power Apps, or any system</li>
+  <li>✅ <strong>Azure Blob Storage</strong> storing all 50 book cover images, displayed in the canvas app</li>
+  <li>✅ A <strong>GitHub repository</strong> (<code>community-library</code>) with proper folder structure, README, and the Power Platform solution backed up</li>
+  <li>✅ <strong>GitHub Actions pipelines</strong> — Azure Functions deploy automatically on push to main; Power Platform solution exports on demand</li>
+  <li>✅ An <strong>Azure DevOps sprint board</strong> tracking all project work with Epics, Features, and User Stories</li>
+</ul>
+</div>
+
+<div class="card c-gloss"><span class="lab">November Vocabulary Master List — Test Yourself</span>
+<table>
+<tr><th>Word</th><th>Your definition (write from memory)</th></tr>
+<tr><td>Azure Portal</td><td></td></tr>
+<tr><td>Subscription</td><td></td></tr>
+<tr><td>Resource Group</td><td></td></tr>
+<tr><td>Region</td><td></td></tr>
+<tr><td>SQL</td><td></td></tr>
+<tr><td>Connection String</td><td></td></tr>
+<tr><td>Schema</td><td></td></tr>
+<tr><td>Query</td><td></td></tr>
+<tr><td>Serverless</td><td></td></tr>
+<tr><td>API</td><td></td></tr>
+<tr><td>HTTP</td><td></td></tr>
+<tr><td>JSON</td><td></td></tr>
+<tr><td>Blob Storage</td><td></td></tr>
+<tr><td>Endpoint</td><td></td></tr>
+<tr><td>Repository</td><td></td></tr>
+<tr><td>Commit</td><td></td></tr>
+<tr><td>Branch</td><td></td></tr>
+<tr><td>Pull Request</td><td></td></tr>
+<tr><td>Merge</td><td></td></tr>
+<tr><td>.gitignore</td><td></td></tr>
+<tr><td>README.md</td><td></td></tr>
+<tr><td>CI/CD</td><td></td></tr>
+<tr><td>Pipeline</td><td></td></tr>
+<tr><td>YAML</td><td></td></tr>
+<tr><td>Secret (GitHub)</td><td></td></tr>
+<tr><td>Environment (deployment)</td><td></td></tr>
+<tr><td>Azure DevOps</td><td></td></tr>
+</table>
+</div>
+
+<div class="card c-tip"><span class="lab">Looking Ahead: December</span>
+<p>December is the month where everything connects. You now have a Power Platform system (apps, flows, Dataverse), an Azure backend (SQL, Functions, Storage), and a GitHub repository with CI/CD pipelines.</p>
+<p>What is missing? <strong>Intelligence.</strong> The system stores and processes data. But it does not THINK.</p>
+<p>In December, we add AI: AI Builder in Power Apps, Copilot Studio as a full action-taking agent, Azure AI Language for sentiment analysis, and the final capstone project.</p>
+<p><strong>English goal for December:</strong> Write your first technical document in English — a 1-page system design document. By December 31, you will write one explaining the Community Library system: what it does, why each component exists, and what trade-offs were made.</p>
+</div>
 </section>
 
 <div class="pn">
-<a href="phase2.html"><div class="d">← Previous</div><div class="tt">Phase 2 · Building apps</div></a>
-<a class="nx" href="phase4.html"><div class="d">Next phase →</div><div class="tt">Phase 4 · Data &amp; integration</div></a>
+  <a class="pv" href="phase2.html"><div class="d">← Previous Month</div><div class="tt">October · Power Platform Deep Dive</div></a>
+  <a class="nx" href="phase4.html"><div class="d">Next Month →</div><div class="tt">December · AI Integration &amp; Capstone</div></a>
 </div>
+
 </main>
 <button class="top" id="top" aria-label="Back to top">↑</button>
 <script src="assets/course.js"></script>

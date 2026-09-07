@@ -1,14 +1,44 @@
 (function(){
-  // ---- site map: pages and their day-anchors (shared across every page) ----
+  // ---- site map: pages and their anchors ----
   var PAGES=[
-    {p:'index',   file:'index.html',    t:'Start here', days:[['welcome','Welcome'],['how','How to use'],['project','Your project'],['setup','Day 0 · Setup'],['roadmap','The roadmap'],['keep','Keep it forever']]},
-    {p:'phase1',  file:'phase1.html',   t:'Foundations', gk:'Phase 1', days:[['day1','Day 1 · Orientation'],['day2','Day 2 · Tables & data'],['day3','Day 3 · Relationships'],['day4','Day 4 · Solutions & security']]},
-    {p:'phase2',  file:'phase2.html',   t:'Building apps', gk:'Phase 2', days:[['powerfx-basics','Read First · Power Fx'],['day5','Day 5 · Canvas app'],['day6','Day 6 · Power Fx'],['day7','Day 7 · Galleries & forms'],['day8','Day 8 · Model-driven']]},
-    {p:'phase3',  file:'phase3.html',   t:'Automation', gk:'Phase 3', days:[['day9','Day 9 · First flow'],['day10','Day 10 · Logic'],['day11','Day 11 · Approvals & data']]},
-    {p:'phase4',  file:'phase4.html',   t:'Data & integration', gk:'Phase 4', days:[['day12','Day 12 · SharePoint'],['day13','Day 13 · Dataflows & M'],['day14','Day 14 · Connectors & APIs']]},
-    {p:'phase5',  file:'phase5.html',   t:'AI & governance', gk:'Phase 5', days:[['day15','Day 15 · Copilot Studio'],['day16','Day 16 · Governance & Azure']]},
-    {p:'phase6',  file:'phase6.html',   t:'Power BI', gk:'Phase 6', days:[['setup-bi','Setup guide'],['day17','Day 17 · Get started & data'],['day18','Day 18 · Visuals & reports'],['day19','Day 19 · Prepare & model'],['day20','Day 20 · Share & capstone']]},
-    {p:'reference',file:'reference.html',t:'Reference', days:[['glossary','Glossary'],['abbreviations','Abbreviations'],['help','Troubleshooting']]}
+    {p:'index', file:'index.html', t:'Start Here', days:[
+      ['welcome','Welcome'],
+      ['why','Ask WHY First'],
+      ['english','English Strategy'],
+      ['timeline','4-Month Timeline'],
+      ['project','Community Library'],
+      ['accounts','Accounts & Setup'],
+      ['mindset','Your Mindset']
+    ]},
+    {p:'phase1', file:'phase1.html', t:'September', gk:'Month 1', days:[
+      ['week1','Week 1 · Cloud & Identity'],
+      ['week2','Week 2 · SharePoint & Teams'],
+      ['week3','Week 3 · Power Platform'],
+      ['week4','Week 4 · Backup & Transition']
+    ]},
+    {p:'phase2', file:'phase2.html', t:'October', gk:'Month 2', days:[
+      ['week5','Week 5 · Canvas App'],
+      ['week6','Week 6 · Power Fx'],
+      ['week7','Week 7 · Power Automate'],
+      ['week8','Week 8 · Security & Power BI']
+    ]},
+    {p:'phase3', file:'phase3.html', t:'November', gk:'Month 3', days:[
+      ['week9','Week 9 · Azure & SQL'],
+      ['week10','Week 10 · Functions & Storage'],
+      ['week11','Week 11 · GitHub'],
+      ['week12','Week 12 · CI/CD & DevOps']
+    ]},
+    {p:'phase4', file:'phase4.html', t:'December', gk:'Month 4', days:[
+      ['week13','Week 13 · AI Builder'],
+      ['week14','Week 14 · Copilot Studio'],
+      ['week15','Week 15 · AI Ethics'],
+      ['week16','Week 16 · Capstone']
+    ]},
+    {p:'reference', file:'reference.html', t:'Reference', days:[
+      ['glossary','Glossary'],
+      ['abbreviations','Abbreviations'],
+      ['help','Troubleshooting']
+    ]}
   ];
   var current=document.body.getAttribute('data-page')||'index';
 
@@ -16,9 +46,7 @@
   var nav=document.getElementById('nav'), html='';
   PAGES.forEach(function(pg){
     var on=pg.p===current;
-    html+='<a class="np'+(on?' on':'')+'" href="'+pg.file+'">'+
-      (pg.gk?'<span class="gk">'+pg.gk+'</span>':'')+pg.t+'</a>';
-    // show day anchors only for the active page
+    html+='<a class="np'+(on?' on':'')+'" href="'+pg.file+'">'+(pg.gk?'<span class="gk">'+pg.gk+'</span>':'')+pg.t+'</a>';
     html+='<ul class="subs">';
     pg.days.forEach(function(d){
       var href=on?('#'+d[0]):(pg.file+'#'+d[0]);
@@ -37,7 +65,7 @@
   });
 
   // ---- checkbox persistence (per page) + progress bar ----
-  var KEY='pp20-'+current;
+  var KEY='ai4m-'+current;
   var saved={}; try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
   var items=[].slice.call(document.querySelectorAll('.tasks li'));
   var pfill=document.getElementById('pfill'), pnum=document.getElementById('pnum'), ptot=document.getElementById('ptot');
@@ -65,7 +93,7 @@
   });
   refresh();
 
-  // ---- scroll spy (day anchors) + back-to-top ----
+  // ---- scroll spy (anchors) + back-to-top ----
   var secs=[].slice.call(document.querySelectorAll('section[id],header[id]'));
   var top=document.getElementById('top');
   function onscroll(){
@@ -79,8 +107,8 @@
   addEventListener('scroll',onscroll,{passive:true}); addEventListener('resize',onscroll); onscroll();
   if(top)top.onclick=function(){scrollTo({top:0,behavior:'smooth'})};
 
-  // ---- dark / light theme toggle (top-right) ----
-  var THKEY='pp20-theme';
+  // ---- dark / light theme toggle ----
+  var THKEY='ai4m-theme';
   var savedTheme; try{savedTheme=localStorage.getItem(THKEY)}catch(e){}
   if(savedTheme==='dark') document.documentElement.classList.add('dark');
   var tbtn=document.createElement('button');

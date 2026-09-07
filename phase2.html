@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Phase 2 · Building apps — Power Platform in 20 Days</title>
+<title>Month 2 — October · AI-Ready in 4 Months</title>
 <link rel="stylesheet" href="assets/course.css">
 </head>
 <body data-page="phase2">
 <button id="menu" aria-label="Menu">☰</button>
 <aside id="rail">
   <div class="brand"><a href="index.html">
-    <div class="t">Power Platform in 20 Days</div>
-    <div class="s">A Beginner's Course</div></a>
+    <div class="t">AI-Ready in 4 Months</div>
+    <div class="s">Power Platform · Azure · GitHub · AI</div></a>
     <div class="prog"><i id="pfill"></i></div>
     <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
   </div>
@@ -19,634 +19,1144 @@
 </aside>
 
 <main>
-<div class="crumb"><a href="index.html">Home</a> / Phase 2 · Building apps</div>
-<header class="hero">
-  <span class="pill">Phase 2 · Days 5–8</span>
-  <h1>Building apps</h1>
-  <p>Turn your Dataverse tables into real, working software. You'll design a hand-crafted <em>canvas app</em>
-  called Library Manager with full browse, edit, and loan screens — then meet the auto-generated
-  <em>model-driven</em> back-office app that runs on the same data.</p>
+
+<header class="hero" id="top-hero">
+  <span class="pill">Month 2 · October 1–31, 2026</span>
+  <h1>Power Platform Deep Dive</h1>
+  <p>The M365 E5 trial is gone. But you are not starting over — you are going deeper. This month you build the complete Community Library Management System. By October 31, a real person could use it to borrow books. That is the standard we are building to.</p>
 </header>
 
-<!-- POWER FX KNOWLEDGE BASE -->
-<section class="day" id="powerfx-basics">
-<div class="dhead"><span class="dnum">Read First</span></div>
-<h2>Power Fx — the formula language you will use every day</h2>
-<p class="meta">~30 minutes · Read this entire section before starting Day 5</p>
-<p>Canvas apps are controlled entirely by formulas you type in a thing called the <strong>formula bar</strong>. These formulas are called <strong>Power Fx</strong>. You don't need to be a programmer — Power Fx was designed to feel like <strong>Excel formulas</strong>. If you've ever typed <code>=SUM(A1:A5)</code> in Excel, you already know the idea.</p>
-<p>This section teaches you everything you need to read and write the formulas you'll encounter in Days 5–8. Read it once, try the practice at the end, and you'll be ready.</p>
+<section id="changes">
+<h2>What changes after September 30</h2>
+<div class="card c-concept"><span class="lab">October tool availability — Developer Plan (free forever)</span>
+<table>
+<tr><th>Feature</th><th>September (E5 Trial)</th><th>October (Developer Plan)</th></tr>
+<tr><td>Dataverse</td><td>✅ Included</td><td>✅ Included (1 environment)</td></tr>
+<tr><td>Power Apps</td><td>✅ Full</td><td>✅ Full (for your own environment)</td></tr>
+<tr><td>Power Automate</td><td>✅ Premium connectors</td><td>✅ Standard + Dataverse connectors</td></tr>
+<tr><td>Power BI</td><td>✅ Pro (sharing enabled)</td><td>⚠️ Free (personal use only, no sharing)</td></tr>
+<tr><td>Copilot Studio</td><td>✅ Full (2,000 sessions)</td><td>❌ Not included (paid separately)</td></tr>
+<tr><td>SharePoint</td><td>✅ Full</td><td>❌ Requires M365 subscription</td></tr>
+<tr><td>Teams</td><td>✅ Full</td><td>❌ Requires M365 subscription</td></tr>
+<tr><td>Entra ID Premium</td><td>✅ P2</td><td>❌ Basic only</td></tr>
+</table>
+</div>
 
-<div class="card c-concept"><span class="lab">Concept — what the formula bar is and how to use it</span>
-<p>When you open a canvas app in the Studio (editor), you will see a bar at the very top of the screen — just above the canvas where you design your app. That is the <strong>formula bar</strong>.</p>
+<div class="card c-tip"><span class="lab">💭 System Thinking — How does this change your architecture for October?</span>
+<p>You no longer have SharePoint (for Events list) or Teams (for publishing the chatbot). You still have Dataverse, Power Apps, Power Automate, and Power BI.</p>
+<p>In October, the library events list moves from SharePoint to a Dataverse table. The chatbot waits until December. Power BI becomes your personal analysis tool.</p>
+<p><strong>This is reality.</strong> Professional developers always design within constraints — budget limits, license limits, expiry dates. Knowing what you CAN'T do is as important as knowing what you CAN do. This month, you build a fully working library system with exactly the tools you have.</p>
+</div>
+
+<div class="card c-concept"><span class="lab">October week-by-week plan</span>
+<table>
+<tr><th>Week</th><th>Dates</th><th>Focus</th></tr>
+<tr><td>Week 5</td><td>Oct 1–7</td><td>Canvas App — Screen design, galleries, navigation</td></tr>
+<tr><td>Week 6</td><td>Oct 8–14</td><td>Power Fx — Formulas, logic, data operations</td></tr>
+<tr><td>Week 7</td><td>Oct 15–21</td><td>Power Automate Advanced — Conditions, loops, error handling</td></tr>
+<tr><td>Week 8</td><td>Oct 22–31</td><td>Model-Driven App + Dataverse Security + Power BI</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ WEEK 5 ═══ -->
+<section class="day" id="week5">
+<div class="dhead"><span class="dnum">Week 5 · October 1–7</span></div>
+<h2>Canvas App — Building What Users Actually See</h2>
+<p class="meta">~4 hours · make.powerapps.com · Developer Plan environment</p>
+
+<div class="card c-gloss"><span class="lab">Vocabulary — Week 5</span>
+<dl>
+  <dt><strong>Screen</strong></dt>
+  <dd>One page in a canvas app — like one page in a book, or one room in a house.<br>
+  <em>Analogy: Pages in a magazine. The home page shows the cover story. You flip to the next page for the full article. In an app, you navigate between screens the same way.</em><br>
+  <em>Example: "The library app has 4 screens: Home (search books), Book Details (one book's info), My Loans (my borrowing history), and Profile (my membership details)."</em></dd>
+
+  <dt><strong>Gallery</strong></dt>
+  <dd>A control that displays a list of items — each item in the list gets the same layout, repeated.<br>
+  <em>Analogy: A bookshelf. Each shelf slot has the same size and shape. Every book appears in a slot. The slot design is defined once — it applies to all books automatically.</em><br>
+  <em>Example: "I created a Gallery connected to the Book table. It shows 50 books — each with a cover image, title, and available copies. I designed the layout once; Power Apps repeated it for all 50 rows."</em></dd>
+
+  <dt><strong>Control</strong></dt>
+  <dd>Any individual element in a canvas app — a button, a text box, an image, a gallery, a date picker.<br>
+  <em>Analogy: Furniture in a room. A sofa, a table, a lamp — each is a separate piece. A screen is the room; controls are the furniture.</em><br>
+  <em>Example: "I have a Text Input control where users type the book title to search. Next to it is a Button control labeled 'Search.'"</em></dd>
+
+  <dt><strong>Property</strong></dt>
+  <dd>A setting that controls how a control looks or behaves — its color, size, text, what data it shows, whether it is visible.<br>
+  <em>Analogy: Adjusting a desk lamp — you can change the height, the brightness, and the direction. These are properties of the lamp.</em><br>
+  <em>Example: "The Borrow Button's 'Visible' property is set to: <code>Available_Copies &gt; 0</code>. So the button only appears when copies are available."</em></dd>
+
+  <dt><strong>Navigate</strong></dt>
+  <dd>Moving the user from one screen to another when they click something.<br>
+  <em>Analogy: Clicking a link on a website takes you to a new page. Navigate does the same thing inside the app.</em><br>
+  <em>Example: "When a user taps a book in the Gallery, the app Navigates to the Book Details screen and passes that specific book's data so the screen shows the correct information."</em></dd>
+
+  <dt><strong>Context Variable</strong></dt>
+  <dd>A temporary value that lives only on the current screen — when you navigate away, it disappears.<br>
+  <em>Analogy: A sticky note on your desk. It holds information temporarily while you work on this task. When you finish and move to a different task, you throw the sticky note away.</em><br>
+  <em>Example: "I used a context variable called 'SelectedBook' to pass the book the user clicked on to the Book Details screen."</em></dd>
+
+  <dt><strong>Global Variable</strong></dt>
+  <dd>A value that lives for the entire duration the app is open — all screens can read it.<br>
+  <em>Analogy: A whiteboard in the office that everyone can see. Anyone in any room can walk out, look at the whiteboard, and write on it.</em><br>
+  <em>Example: "I stored the logged-in user's name in a global variable called 'CurrentUser' when the app first opens. Every screen can display 'Hello, Rohit!' using this variable."</em></dd>
+
+  <dt><strong>Delegation</strong></dt>
+  <dd>When Power Apps lets the data source (Dataverse) do the filtering and sorting instead of downloading all the data to the app first.<br>
+  <em>Analogy: Two ways to find a book — (A) Take every book off the shelf and search through them yourself. (B) Ask the librarian: "Find me all Science books from 2020." Option B (delegation) is much faster.</em><br>
+  <em>Example: "My search formula uses Filter() which is a delegable function for Dataverse — Dataverse does the searching and only sends matching books to the app."</em></dd>
+</dl>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — The Three Layers of a Canvas App</span>
+<p>Every canvas app has three layers. Understanding these layers helps you design better apps and debug problems faster.</p>
+<pre><code>LAYER 1: PRESENTATION (what the user sees)
+──────────────────────────────────────────────
+Screens, Controls, Colors, Fonts, Layout
+"What does it look like? Where do buttons go?"
+
+        ↕ (connected by formulas)
+
+LAYER 2: LOGIC (what the app does)
+──────────────────────────────────────────────
+Power Fx formulas, Variables, Navigation, Conditions
+"What happens when a button is clicked? What data shows where?"
+
+        ↕ (connected by connectors)
+
+LAYER 3: DATA (what the app stores and reads)
+──────────────────────────────────────────────
+Dataverse tables, Variables, Collections
+"Where does the information come from? Where does it go?"</code></pre>
+<p><strong>Why this layering matters:</strong></p>
 <ul>
-<li>On the left side of the formula bar, there is a <strong>property dropdown</strong> — a list of every setting a control has. For example, a Label has a "Text" property, a "Color" property, a "Visible" property, and dozens more.</li>
-<li>On the right side, there is a text box where you type the formula for the selected property.</li>
+  <li>Wrong data → check Layer 3 (data source correct?) or Layer 2 (formula correct?)</li>
+  <li>Button does not respond → check Layer 2 (OnSelect formula correct?)</li>
+  <li>Layout wrong on phone → check Layer 1 (controls positioned for mobile screen size?)</li>
 </ul>
-<p><strong>How to use it, step by step:</strong></p>
+<p><strong>Separating concerns</strong> — keeping presentation, logic, and data as independent as possible — is one of the most important principles in software architecture.</p>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — What happens if we mix all three layers together?</span>
+<p>Imagine the formula that calculates late fees is also responsible for displaying the button color. To change the button color, you must dig into the late fee formula. While editing, you accidentally change the fee calculation. Now fees are wrong.</p>
+<p>This is called <strong>tight coupling</strong> — when two different concerns are tangled together. Changes in one area unexpectedly break other areas. Professional developers spend years untangling tightly coupled systems. We design loosely coupled systems from the beginning.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 1 — Build the Home Screen</span>
+<p><strong>Before you start:</strong> Open a private browser window. Go to <code>make.powerapps.com</code>. Sign in with your <strong>Developer Plan</strong> account (not the expired trial). Confirm the environment picker shows your Developer Plan environment. Confirm all Dataverse tables (Book, Member, Loan, Author) are there. If tables are missing: import from the solution ZIP you exported in Week 4 of September.</p>
+
+<p><strong>Step 1: Create a new canvas app</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Left menu → <strong>Apps</strong> → <strong>+ New app</strong> → <strong>Canvas</strong></span></li>
+  <li><span class="box"></span><span class="txt">Choose <strong>Tablet</strong> format</span></li>
+  <li><span class="box"></span><span class="txt">Name: <code>Community Library</code> → click <strong>Create</strong></span></li>
+</ul>
+
+<p><strong>Step 2: Rename Screen1</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">In the left panel (Tree view), right-click <code>Screen1</code> → <strong>Rename</strong> → name it: <code>HomeScreen</code></span></li>
+</ul>
+
+<p><strong>Step 3: Add a header rectangle</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Insert → Shapes → <strong>Rectangle</strong>. Set: X=0, Y=0, Width=<code>Parent.Width</code>, Height=80, Fill=<code>RGBA(0, 120, 212, 1)</code></span></li>
+  <li><span class="box"></span><span class="txt">Insert a <strong>Label</strong> on top: Text=<code>"Community Library"</code>, X=20, Y=15, Font Size=24, Bold=true, Color=White</span></li>
+</ul>
+
+<div class="card c-tip" style="margin:.7rem 0"><span class="lab">💭 Why RGBA values instead of a color picker?</span>
+<p>If you pick a color with a color picker on 50 controls and a designer says "make all blue elements 10% darker," you must change 50 places. Define color once in a global variable (App.OnStart), change it once, and all 50 controls update automatically. This is the <strong>DRY principle</strong> — Don't Repeat Yourself.</p>
+</div>
+
+<p><strong>Step 4: Add the search box</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Insert → <strong>Text Input</strong>. Set: HintText=<code>"Search books by title or author..."</code>, X=20, Y=100, Width=<code>Parent.Width - 40</code>, Height=50, BorderRadius=8</span></li>
+  <li><span class="box"></span><span class="txt">Rename this control: <code>SearchInput</code></span></li>
+</ul>
+
+<p><strong>Step 5: Add the books gallery</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Insert → <strong>Blank Vertical Gallery</strong></span></li>
+  <li><span class="box"></span><span class="txt">Set the <strong>Items</strong> property to: <code>Search(Books, SearchInput.Text, "cr_title", "cr_author_name")</code></span></li>
+  <li><span class="box"></span><span class="txt">Inside the gallery template, add a Label for Title: <code>ThisItem.cr_title</code></span></li>
+  <li><span class="box"></span><span class="txt">Add a Label for Author: <code>ThisItem.cr_author_name</code></span></li>
+  <li><span class="box"></span><span class="txt">Add a Label for availability. Text: <code>If(ThisItem.cr_available_copies &gt; 0, "✓ Available", "✗ On Loan")</code>. Color: <code>If(ThisItem.cr_available_copies &gt; 0, Green, Red)</code></span></li>
+  <li><span class="box"></span><span class="txt">Set the Gallery's <strong>OnSelect</strong>: <code>Navigate(BookDetailScreen, ScreenTransition.Slide, {SelectedBook: ThisItem})</code></span></li>
+</ul>
+
+<div class="card c-tip" style="margin:.7rem 0"><span class="lab">💭 System Thinking — What if the Dataverse table has 5,000 books?</span>
+<p>With Dataverse as the data source, <code>Search()</code> is a delegable function — Dataverse does the searching and only returns matching books. But if you use <code>Filter()</code> with a non-delegable condition (using <code>Left()</code> or <code>Len()</code> inside Filter), Power Apps downloads only the first 500 rows, filters those locally, and misses books #501 onwards. Always check the yellow delegation warning triangle when writing a formula in the Items property.</p>
+</div>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 2 — Build the Book Detail Screen</span>
+<p><strong>Step 1: Add a new screen</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Left panel → click <strong>+</strong> next to Screens → <strong>Blank screen</strong> → rename it: <code>BookDetailScreen</code></span></li>
+</ul>
+
+<p><strong>Step 2: Show book information using the SelectedBook context variable</strong></p>
+<table>
+<tr><th>Control</th><th>Property</th><th>Formula</th></tr>
+<tr><td>Title Label</td><td>Text</td><td><code>SelectedBook.cr_title</code></td></tr>
+<tr><td>Author Label</td><td>Text</td><td><code>"by " &amp; SelectedBook.cr_author_name</code></td></tr>
+<tr><td>Genre Label</td><td>Text</td><td><code>"Genre: " &amp; SelectedBook.cr_genre</code></td></tr>
+<tr><td>Year Label</td><td>Text</td><td><code>"Published: " &amp; Text(SelectedBook.cr_published_year)</code></td></tr>
+<tr><td>Rating Label</td><td>Text</td><td><code>"⭐ " &amp; Text(SelectedBook.cr_average_rating, "[$-en-US]0.0")</code></td></tr>
+<tr><td>Available Label</td><td>Text</td><td><code>"Available: " &amp; Text(SelectedBook.cr_available_copies) &amp; " / " &amp; Text(SelectedBook.cr_total_copies)</code></td></tr>
+</table>
+
+<p><strong>Step 3: Add the Borrow button — the most important control in the app</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Insert a <strong>Button</strong>. Text: <code>"Borrow This Book"</code></span></li>
+  <li><span class="box"></span><span class="txt">Set <strong>Visible</strong> property: <code>SelectedBook.cr_available_copies &gt; 0</code> (button only shows when copies available)</span></li>
+  <li><span class="box"></span><span class="txt">Set <strong>OnSelect</strong> property to the formula below:</span></li>
+</ul>
+<pre><code>Patch(
+  Loans,
+  Defaults(Loans),
+  {
+    cr_book: {Id: SelectedBook.cr_bookid, '@odata.type': '#Microsoft.Dynamics.CRM.cr_book'},
+    cr_member: {Id: LookUp(Members, cr_email = User().Email).cr_memberid, '@odata.type': '#Microsoft.Dynamics.CRM.cr_member'},
+    cr_loan_date: Today(),
+    cr_due_date: DateAdd(Today(), 14, TimeUnit.Days),
+    cr_status: "Active"
+  }
+);
+Notify("Book borrowed successfully! Due back by " &amp; Text(DateAdd(Today(), 14, TimeUnit.Days), "dd mmm yyyy"), NotificationType.Success);
+Navigate(HomeScreen)</code></pre>
+<p><strong>What this formula does (line by line):</strong></p>
+<ul>
+  <li><code>Patch(Loans, Defaults(Loans), {...})</code> — creates a NEW row in the Loans table</li>
+  <li><code>cr_book: ...</code> — links this loan to the selected book using the book's ID</li>
+  <li><code>cr_member: LookUp(Members, cr_email = User().Email)</code> — finds the logged-in user in the Members table</li>
+  <li><code>cr_loan_date: Today()</code> — sets today as the borrow date</li>
+  <li><code>cr_due_date: DateAdd(Today(), 14, TimeUnit.Days)</code> — sets due date to 14 days from today</li>
+  <li><code>Notify(...)</code> — shows a green success message</li>
+  <li><code>Navigate(HomeScreen)</code> — sends user back to home screen</li>
+</ul>
+
+<div class="card c-tip" style="margin:.7rem 0"><span class="lab">💭 System Thinking — What if LookUp finds no match?</span>
+<p>If Rohit's Microsoft account email is <code>rohit@personal.com</code> but the Member table has <code>rohit@library.com</code>, the LookUp returns blank. Patch then tries to create a loan with no member — which creates an orphaned record. This is a <strong>data quality issue</strong>. Professional systems validate at the form level. We add error handling in Week 6.</p>
+</div>
+
+<p><strong>Step 4: Add a back button</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Insert a Button or left-arrow Icon. <strong>OnSelect</strong>: <code>Navigate(HomeScreen, ScreenTransition.UnCover)</code></span></li>
+</ul>
+
+<p><strong>Step 5: Add the waitlist label (shown when no copies available)</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Insert a Label. Text: <code>"All copies are currently on loan. Ask a librarian to add you to the waitlist."</code></span></li>
+  <li><span class="box"></span><span class="txt"><strong>Visible</strong>: <code>SelectedBook.cr_available_copies = 0</code> &nbsp;|&nbsp; Color: Orange</span></li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 3 — Build the My Loans Screen</span>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add a new blank screen, name it: <code>MyLoansScreen</code></span></li>
+  <li><span class="box"></span><span class="txt">Insert a <strong>Blank Vertical Gallery</strong>. Set <strong>Items</strong>: <code>Filter(Loans, cr_member.cr_email = User().Email)</code> — shows ONLY the logged-in user's loans</span></li>
+  <li><span class="box"></span><span class="txt">Inside the gallery, add Label for book title: <code>ThisItem.cr_book.cr_title</code></span></li>
+  <li><span class="box"></span><span class="txt">Add Label for loan date: <code>Text(ThisItem.cr_loan_date, "dd mmm yyyy")</code></span></li>
+  <li><span class="box"></span><span class="txt">Add Label for due date: <code>Text(ThisItem.cr_due_date, "dd mmm yyyy")</code></span></li>
+  <li><span class="box"></span><span class="txt">Add status Label. Text: <code>If(IsBlank(ThisItem.cr_return_date), If(Today() &gt; ThisItem.cr_due_date, "OVERDUE", "Active"), "Returned")</code>. Color: <code>If(IsBlank(ThisItem.cr_return_date), If(Today() &gt; ThisItem.cr_due_date, Red, DarkGreen), Gray)</code></span></li>
+</ul>
+<div class="card c-tip" style="margin:.7rem 0"><span class="lab">💭 System Thinking — The principle of least privilege</span>
+<p>Rohit can only see his own loans because the formula filters by <code>User().Email</code>. But this is enforced at the FORMULA level only. In Week 8, we add Dataverse security roles — then even if someone writes a different app without this filter, Dataverse itself blocks access. <strong>Security at the data layer cannot be bypassed by any app.</strong></p>
+</div>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 5: "If X, then Y" — Conditional Sentences</span>
+<h3>Why this grammar pattern?</h3>
+<p>Canvas app logic IS conditional sentences written in a formula language. Understanding the English grammar of conditions helps you understand the app logic — and vice versa.</p>
+<p><strong>The pattern:</strong> "If [something is true], [result happens]."<br>
+In formulas: <code>If(AvailableCopies &gt; 0, "Borrow", "Waitlist")</code><br>
+In English: "If available copies is greater than zero, show 'Borrow'. Otherwise, show 'Waitlist'."</p>
+
+<table>
+<tr><th>Type</th><th>Structure</th><th>Example</th></tr>
+<tr><td>Real present</td><td>If + present, present</td><td>"If the user is logged in, the app shows their loans."</td></tr>
+<tr><td>Real future</td><td>If + present, will + verb</td><td>"If all copies are on loan, the system will show a waitlist message."</td></tr>
+<tr><td>Unlikely</td><td>If + past, would + verb</td><td>"If every member borrowed 5 books at once, the library would run out of copies quickly."</td></tr>
+<tr><td>Impossible/Past</td><td>If + past perfect, would have + verb</td><td>"If we had not set up error handling, the app would have crashed."</td></tr>
+</table>
+<p>For technical descriptions, use <strong>Real present</strong> and <strong>Real future</strong> most often.</p>
+
+<h3>Grammar practice — complete these sentences</h3>
 <ol>
-<li>Click on any control on the canvas — for example, click a Label.</li>
-<li>Look at the property dropdown on the left of the formula bar. It probably says <strong>Text</strong>.</li>
-<li>Look at the formula box on the right. It might say <code>"Label1"</code>.</li>
-<li>Click inside the formula box. Delete the text and type <code>"Hello World"</code>. Press <kbd>Enter</kbd>.</li>
-<li>The Label now shows "Hello World" on the canvas.</li>
+  <li>Condition: User types in search box. Result: Gallery filters in real time.<br>"If _________________________, the gallery _________________________."</li>
+  <li>Condition: Available_Copies = 0. Result: Borrow button is hidden.<br>"If _________________________, the Borrow button _________________________."</li>
+  <li>Condition: LookUp returns blank (member not found). Result: Show error message.<br>"If _________________________, the app _________________________."</li>
+  <li>Condition: DateDiff(Today, DueDate) is negative. Result: Loan is overdue.<br>"If _________________________, the loan _________________________."</li>
+  <li>Condition: User does NOT have the Library Member security role. Result: Cannot create a loan.<br>"If _________________________, the user _________________________."</li>
 </ol>
-<p>That's it. That's the formula bar. You click a control → choose a property → type a formula. Everything in a canvas app works this way.</p>
-</div>
 
-<div class="card c-concept"><span class="lab">Concept — the three rules of Power Fx syntax</span>
-<p>Power Fx has three basic rules. Learn these three and you can read any formula.</p>
-<p><strong>Rule 1: Text must be in double quotes.</strong><br>
-Anything that is plain text must be wrapped in double quotes: <code>"Hello"</code>, <code>"Save"</code>, <code>"Library Manager"</code>. Numbers and formulas do NOT go in quotes. Write <code>22</code> not <code>"22"</code> for a font size. Write <code>RGBA(47,111,237,1)</code> not <code>"RGBA(47,111,237,1)"</code> for a colour.</p>
-<p><strong>Rule 2: To get a control's value, write ControlName.PropertyName.</strong><br>
-The dot ( <code>.</code> ) is how you read a value from something:<br>
-<code>SearchInput.Text</code> → "whatever text the user typed in the SearchInput box right now"<br>
-<code>BookForm.Mode</code> → "which mode the form is in right now (View, Edit, or New)"<br>
-<code>BookGallery.Selected</code> → "which row the user last clicked in the gallery"<br>
-<code>App.Width</code> → "the total width of the screen in pixels"</p>
-<p><strong>Rule 3: Functions are written with a capital letter and brackets.</strong><br>
-<code>If(condition, valueIfTrue, valueIfFalse)</code><br>
-<code>Navigate(ScreenName, ScreenTransition.Fade)</code><br>
-<code>Search(TableName, textToSearch, "columnLogicalName")</code><br>
-You will be given the exact formula to type in each step. You don't need to memorise them — you need to understand what each part means.</p>
-</div>
-
-<div class="card c-concept"><span class="lab">Concept — operators (the symbols in formulas)</span>
+<h3>Vocabulary in sentences</h3>
+<p>Write one conditional sentence ("If X, then Y") for each word:</p>
 <table>
-<tr><th>Symbol</th><th>What it does</th><th>Example</th><th>Reads as</th></tr>
-<tr><td><code>&amp;</code></td><td>Join two pieces of text together</td><td><code>"Pages: " &amp; Text(50)</code></td><td>"Pages: 50"</td></tr>
-<tr><td><code>=</code></td><td>Check if two things are equal</td><td><code>Returned = true</code></td><td>Is Returned equal to true?</td></tr>
-<tr><td><code>&lt;&gt;</code></td><td>Check if two things are NOT equal</td><td><code>Status &lt;&gt; "Overdue"</code></td><td>Is Status not equal to "Overdue"?</td></tr>
-<tr><td><code>&lt;</code> / <code>&gt;</code></td><td>Less than / greater than</td><td><code>Pages &gt; 300</code></td><td>Are there more than 300 pages?</td></tr>
-<tr><td><code>&amp;&amp;</code> or <code>And()</code></td><td>Both conditions must be true</td><td><code>Pages &gt; 100 &amp;&amp; Rating = 5</code></td><td>More than 100 pages AND rated 5</td></tr>
-<tr><td><code>||</code> or <code>Or()</code></td><td>At least one condition is true</td><td><code>Genre = "Fiction" || Genre = "Children"</code></td><td>Fiction OR Children genre</td></tr>
-<tr><td><code>!</code> or <code>Not()</code></td><td>Reverses true/false</td><td><code>!IsBlank(Title)</code></td><td>Title is NOT blank</td></tr>
+<tr><th>Word</th><th>Write your sentence</th></tr>
+<tr><td>Gallery</td><td></td></tr>
+<tr><td>Property</td><td></td></tr>
+<tr><td>Navigate</td><td></td></tr>
+<tr><td>Context Variable</td><td></td></tr>
+<tr><td>Delegation</td><td></td></tr>
 </table>
+
+<h3>Writing exercise: Write 5 user stories for the library app</h3>
+<p>Format: <em>"As a [type of user], I want to [action] so that [benefit]."</em> Then add the conditional logic: "If [condition], the app [result]."</p>
+<p><strong>Example:</strong><br>
+User story: <em>"As a library member, I want to see only available books when I search so that I do not waste time requesting books that are all on loan."</em><br>
+App logic: <em>"If the user applies the 'Available Only' filter, the gallery shows only books where Available_Copies is greater than zero."</em></p>
+
+<h3>🔊 Read aloud exercise</h3>
+<p>Read this slowly, as if explaining to a new colleague:</p>
+<blockquote><em>"The Borrow button has three layers of logic. First: if the user's email does not match any record in the Members table, the button shows an error message instead of borrowing. Second: if Available_Copies on the selected book is zero at the exact moment of borrowing — even if it showed one available a moment earlier — the system shows a message saying all copies were just borrowed and asks the user to try again. Third: if both checks pass, the system creates a new loan record in Dataverse, sets the due date to 14 days from today, and shows a green confirmation message."</em></blockquote>
+<p>After reading: close your eyes and explain in your own words what a "race condition" is.</p>
+
+<h3>Professional communication: describing a feature in a meeting</h3>
+<p><strong>Structure: Purpose → Action → Result → Edge Case</strong></p>
+<pre><code>"This [screen/feature] allows [who] to [do what].
+When [the user does X], the app [does Y].
+The result is [what the user sees or what data is saved].
+One edge case we handle is: if [unusual situation], the app [how it handles it]."</code></pre>
+<p><strong>Example:</strong> <em>"The Home screen allows library members to search for books. When the member types in the search box, the app filters the book gallery in real time. The result is a filtered list of matching books. One edge case: if the search returns no results, the gallery shows a message — 'No books found. Try a different search.' — instead of showing an empty screen."</em></p>
+<p>Write your own description of the Book Detail screen or the My Loans screen using this structure.</p>
+
+<h3>🚫 Common English mistakes — Week 5</h3>
+<ul>
+  <li><strong>Mistake 1: "If I will click"</strong> ❌ "If I will click the button, the record will be saved." ✅ "<strong>If I click</strong> the button, the record will be saved." — After "If" in a real condition, always use PRESENT tense, never "will."</li>
+  <li><strong>Mistake 2: "The data are" vs "The data is"</strong> — In modern professional English, "data is" is more common. Be consistent — pick one and stick to it.</li>
+  <li><strong>Mistake 3: "Screenshotted"</strong> ❌ "I screenshotted the error." ✅ "I <strong>took a screenshot of</strong> the error."</li>
+  <li><strong>Mistake 4: Starting every sentence with "I"</strong> ❌ "I built the home screen. I added a gallery. I connected it..." ✅ "I built the home screen and added a gallery connected to Dataverse. <strong>The gallery uses a filter formula</strong> that shows only matching books as the user types."</li>
+</ul>
+
+<h3>✅ Week 5 English progress check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you write 5 correct "If X, then Y" sentences about your app?</span></li>
+  <li><span class="box"></span><span class="txt">Can you explain what your Home screen does in 4 sentences to someone who has never seen Power Apps?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write 5 user stories this week?</span></li>
+  <li><span class="box"></span><span class="txt">Are you avoiding "If I will..." and using "If I..." instead?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write at least 3 journal entries this week?</span></li>
+</ul>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ WEEK 6 ═══ -->
+<section class="day" id="week6">
+<div class="dhead"><span class="dnum">Week 6 · October 8–14</span></div>
+<h2>Power Fx — The Language Behind Everything</h2>
+<p class="meta">~3 hours · make.powerapps.com · Power Fx formula bar</p>
+
+<div class="card c-gloss"><span class="lab">Vocabulary — Week 6</span>
+<dl>
+  <dt><strong>Formula</strong></dt>
+  <dd>A calculation or instruction written in Power Fx that tells a control what to do or show.<br>
+  <em>Analogy: A recipe instruction — "If the dough is not ready, wait 10 more minutes. Otherwise, put it in the oven." A formula makes decisions based on conditions.</em><br>
+  <em>Example: "The formula calculates available copies live: <code>Text(SelectedBook.cr_total_copies - CountRows(Filter(Loans, cr_book.cr_bookid = SelectedBook.cr_bookid, IsBlank(cr_return_date))))</code>."</em></dd>
+
+  <dt><strong>Function</strong></dt>
+  <dd>A built-in operation in Power Fx that does a specific job — like Filter, Sort, Patch, Navigate, Notify, LookUp, Today, DateAdd.<br>
+  <em>Analogy: Tools in a toolbox. A hammer (Patch), a measuring tape (DateDiff), scissors (Split). Each tool does one specific job.</em><br>
+  <em>Example: "The DateDiff() function calculates the number of days between two dates: <code>DateDiff(cr_due_date, Today(), TimeUnit.Days)</code>."</em></dd>
+
+  <dt><strong>Collection</strong></dt>
+  <dd>A temporary local table stored inside the app — not in Dataverse — just in the app's memory, lost when the app closes.<br>
+  <em>Analogy: A shopping basket. You pick items from the shelves (Dataverse) and put them in your basket (Collection) to review before finalising. The basket is temporary — it does not change the shop's inventory.</em><br>
+  <em>Example: "I created a Collection called 'SelectedGenres' to store which genre filters the user has turned on. When the user closes the app, the collection disappears."</em></dd>
+
+  <dt><strong>Error Handling</strong></dt>
+  <dd>Code or formulas that catch problems and respond gracefully instead of crashing.<br>
+  <em>Analogy: A safety net under a tightrope walker. If they fall, the net catches them. The performance does not stop — it continues.</em><br>
+  <em>Example: "My Borrow button formula has error handling: if the Patch fails, it shows 'Sorry, there was a problem borrowing this book. Please try again.' instead of a confusing technical error."</em></dd>
+
+  <dt><strong>IfError</strong></dt>
+  <dd>A Power Fx function that runs one formula and, if it fails, runs a different formula instead.<br>
+  <em>Example: <code>IfError(Patch(Loans, ...), Notify('Borrow failed. Check your internet connection.', NotificationType.Error))</code></em></dd>
+
+  <dt><strong>IsBlank</strong></dt>
+  <dd>Checks if a value is empty — returns true if empty, false if it has a value.<br>
+  <em>Example: <code>If(IsBlank(cr_return_date), 'On Loan', 'Returned')</code> — if the return date is blank, the book has not been returned yet.</em></dd>
+</dl>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — the 10 most important Power Fx functions</span>
-<p>You will use these in Days 5–8. Each one is explained here so you are not confused when you see it.</p>
+<div class="card c-concept"><span class="lab">Concept — Power Fx Is Reactive (Functional Programming)</span>
+<p>Power Fx formulas are different from traditional programming in one important way: <strong>they react to changes automatically</strong>.</p>
+<p><strong>Traditional code (step-by-step):</strong></p>
+<pre><code>x = 5
+y = x + 3   // y is now 8
+x = 10      // y is STILL 8 — it calculated once and stopped</code></pre>
+<p><strong>Power Fx (reactive — declares a relationship):</strong></p>
+<pre><code>y = x + 3   // y is ALWAYS x + 3, no matter when x changes
+// If x becomes 10, y automatically becomes 13</code></pre>
+<p>This is why when you type in the search box, the gallery updates instantly — you did not write "when the user finishes typing, refresh the gallery." Power Fx watches <code>Search(Books, SearchInput.Text, ...)</code> and automatically re-evaluates it every time <code>SearchInput.Text</code> changes.</p>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — Advantages and limitations of reactive style</span>
+<p><strong>Advantages:</strong></p>
+<ul>
+  <li>No need to write "event listeners" — Power Apps handles this</li>
+  <li>Fewer bugs — you declare relationships, not procedures</li>
+  <li>Easier for beginners to understand</li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+  <li>Complex workflows (do step A, wait for result, then do step B based on result) are harder</li>
+  <li>Debugging is harder — when many formulas react to each other, tracking a bug requires thinking about the whole chain</li>
+  <li>Performance issues when formulas are complex and trigger on every keystroke</li>
+</ul>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 4 — Improve the Borrow Formula with Error Handling</span>
+<p>The current Borrow formula has 3 problems: (1) What if the loan record fails to save? (2) What if the user is not in the Members table? (3) What if Available Copies becomes negative because two people borrow at the same time? Let us fix each one.</p>
+
+<p><strong>Fix 1: Check if member exists before borrowing</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Replace the OnSelect formula of the Borrow button with the full guarded version below:</span></li>
+</ul>
+<pre><code>If(
+  IsBlank(LookUp(Members, cr_email = User().Email)),
+  Notify("Your account is not registered as a library member. Please contact a librarian.", NotificationType.Error),
+  Patch(
+    Loans,
+    Defaults(Loans),
+    {
+      cr_book: {Id: SelectedBook.cr_bookid, '@odata.type': '#Microsoft.Dynamics.CRM.cr_book'},
+      cr_member: {Id: LookUp(Members, cr_email = User().Email).cr_memberid, '@odata.type': '#Microsoft.Dynamics.CRM.cr_member'},
+      cr_loan_date: Today(),
+      cr_due_date: DateAdd(Today(), 14, TimeUnit.Days),
+      cr_status: "Active"
+    }
+  );
+  Notify("Book borrowed successfully! Due back by " &amp; Text(DateAdd(Today(), 14, TimeUnit.Days), "dd mmm yyyy"), NotificationType.Success);
+  Navigate(HomeScreen)
+)</code></pre>
+
+<p><strong>Fix 2: Wrap Patch with IfError (network or server failure)</strong></p>
+<pre><code>IfError(
+  Patch(Loans, Defaults(Loans), {...}),
+  Notify("Could not save the loan record. Please check your internet connection and try again.", NotificationType.Error)
+)</code></pre>
+
+<p><strong>Fix 3: Race condition — re-read Available_Copies from Dataverse just before borrowing</strong></p>
+<pre><code>Set(LiveAvailableCopies, LookUp(Books, cr_bookid = SelectedBook.cr_bookid).cr_available_copies);
+If(
+  LiveAvailableCopies &lt;= 0,
+  Notify("Sorry, all copies were just borrowed. Please refresh and try again.", NotificationType.Warning),
+  Patch(Loans, ...)
+)</code></pre>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Test Fix 1: sign in as a user NOT in the Members table — does the error message appear instead of creating a loan?</span></li>
+  <li><span class="box"></span><span class="txt">Test Fix 3: manually set Available_Copies to 0 in Dataverse, then try borrowing — does the "all copies just borrowed" message appear?</span></li>
+</ul>
+
+<div class="card c-concept" style="margin:.7rem 0"><span class="lab">The race condition — a senior architect concept</span>
+<p><code>SelectedBook.cr_available_copies</code> was read when you navigated to the Book Detail screen. If someone else borrowed the last copy 2 seconds later, this value is stale. <code>LookUp(Books, ...)</code> reads fresh data from Dataverse right now.</p>
+<p>Three strategies for stale data: <strong>Optimistic locking</strong> (try to save, show conflict if someone else saved first — this is what we did), <strong>Pessimistic locking</strong> (lock the record when opened — safe but slow), <strong>Last-write-wins</strong> (simple but risky for financial data). You are learning senior architect concepts now.</p>
+</div>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 5 — Power Fx Formulas Practice Set</span>
+<p>Open a new blank canvas app (call it "Practice") and write these formulas:</p>
+
+<p><strong>Exercise A — Date calculations</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Days until due: <code>DateDiff(Today(), cr_due_date, TimeUnit.Days)</code></span></li>
+  <li><span class="box"></span><span class="txt">Formatted due status: <code>If(DateDiff(Today(), cr_due_date, TimeUnit.Days) &lt; 0, "OVERDUE by " &amp; Abs(DateDiff(Today(), cr_due_date, TimeUnit.Days)) &amp; " days", "Due in " &amp; DateDiff(Today(), cr_due_date, TimeUnit.Days) &amp; " days")</code></span></li>
+</ul>
+
+<p><strong>Exercise B — Counting</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Count all active loans: <code>CountRows(Filter(Loans, cr_status = "Active"))</code></span></li>
+  <li><span class="box"></span><span class="txt">Count overdue loans: <code>CountRows(Filter(Loans, cr_status = "Active", Today() &gt; cr_due_date))</code></span></li>
+  <li><span class="box"></span><span class="txt">Total late fees: <code>Sum(Filter(Loans, cr_status = "Returned"), cr_late_fee)</code></span></li>
+</ul>
+
+<p><strong>Exercise C — String operations</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">First 50 characters: <code>Left(cr_description, 50) &amp; "..."</code></span></li>
+  <li><span class="box"></span><span class="txt">Capitalize first letter: <code>Upper(Left(cr_title, 1)) &amp; Lower(Mid(cr_title, 2))</code></span></li>
+  <li><span class="box"></span><span class="txt">Validate email format: <code>IsMatch(EmailInput.Text, Email)</code></span></li>
+</ul>
+
+<p><strong>Exercise D — Combining data from two tables (ForAll + Collect)</strong></p>
+<pre><code>ForAll(
+  Filter(Loans, IsBlank(cr_return_date), Today() &gt; cr_due_date),
+  Collect(
+    OverdueLoansWithMember,
+    {
+      BookTitle: cr_book.cr_title,
+      MemberName: cr_member.cr_full_name,
+      DaysOverdue: DateDiff(cr_due_date, Today(), TimeUnit.Days),
+      LateFee: DateDiff(cr_due_date, Today(), TimeUnit.Days) * 5
+    }
+  )
+)</code></pre>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Run this formula in the OnSelect of a Button. Then display the OverdueLoansWithMember collection in a gallery. Does it show all overdue loans with member names and calculated fees?</span></li>
+</ul>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 6: "Because... Therefore..." — Cause and Effect Chains</span>
+<h3>Why this grammar pattern?</h3>
+<p>Power Fx formulas are chains of logic: one thing causes another. Cause-effect language explains WHY you made a decision, WHY a formula works, or WHY something broke.</p>
+
 <table>
-<tr><th>Function</th><th>What it does</th><th>Simple example</th></tr>
-<tr><td><code>If(condition, yes, no)</code></td><td>If the condition is true, give the first value; otherwise the second.</td><td><code>If(Pages &gt; 300, "Long book", "Short book")</code></td></tr>
-<tr><td><code>Switch(value, case1, result1, case2, result2, ...)</code></td><td>Like If but for many possible values. Cleaner than nesting many Ifs.</td><td><code>Switch(Status, "Active", "✓", "Overdue", "⚠", "Returned", "✔")</code></td></tr>
-<tr><td><code>IsBlank(value)</code></td><td>Returns true if the value is empty or not set.</td><td><code>IsBlank(SearchInput.Text)</code> → true when nothing typed</td></tr>
-<tr><td><code>Text(number)</code></td><td>Converts a number to text so you can join it with &amp;.</td><td><code>"Pages: " &amp; Text(ThisItem.Pages)</code></td></tr>
-<tr><td><code>Filter(table, condition)</code></td><td>Returns only the rows where condition is true.</td><td><code>Filter(Books, 'In stock' = true)</code></td></tr>
-<tr><td><code>Search(table, text, "column")</code></td><td>Returns rows where the column contains the text.</td><td><code>Search(Books, SearchInput.Text, "learn_title")</code></td></tr>
-<tr><td><code>CountRows(table)</code></td><td>Counts how many rows are in a table or gallery.</td><td><code>CountRows(BookGallery.AllItems)</code></td></tr>
-<tr><td><code>Navigate(screen, transition)</code></td><td>Takes the user to a different screen.</td><td><code>Navigate(BooksScreen, ScreenTransition.Fade)</code></td></tr>
-<tr><td><code>Remove(table, record)</code></td><td>Deletes a row from a table.</td><td><code>Remove(Books, BookGallery.Selected)</code></td></tr>
-<tr><td><code>Now()</code> / <code>Today()</code></td><td>The current date and time / just the current date.</td><td><code>Now()</code> → 2026-09-03 14:35:00</td></tr>
+<tr><th>Connector</th><th>Use</th><th>Example</th></tr>
+<tr><td><strong>because</strong></td><td>gives the reason</td><td>"The formula uses DateDiff <strong>because</strong> we need to count days automatically."</td></tr>
+<tr><td><strong>therefore</strong></td><td>shows the result</td><td>"The delegation limit is 500 rows; <strong>therefore</strong>, we use a delegable function."</td></tr>
+<tr><td><strong>as a result</strong></td><td>shows result (formal)</td><td>"The filter is delegable. <strong>As a result</strong>, Dataverse does the work, not the app."</td></tr>
+<tr><td><strong>so</strong></td><td>shows result (casual)</td><td>"The formula is reactive, <strong>so</strong> the gallery updates every time the user types."</td></tr>
+<tr><td><strong>due to</strong></td><td>reason before a noun</td><td>"<strong>Due to</strong> the race condition risk, we re-read Available_Copies before borrowing."</td></tr>
+<tr><td><strong>which means</strong></td><td>explains a consequence</td><td>"The formula is reactive, <strong>which means</strong> you never need to press a Refresh button."</td></tr>
 </table>
-</div>
 
-<div class="card c-concept"><span class="lab">Concept — form-specific functions (you need these in Day 7)</span>
-<p>These four functions only work with Form controls. A Form is the control you use to view, edit, or create one row of data.</p>
-<table>
-<tr><th>Function</th><th>What it does</th></tr>
-<tr><td><code>SubmitForm(FormName)</code></td><td>Saves the form to Dataverse. Creates a new row if in New mode, updates if in Edit mode.</td></tr>
-<tr><td><code>NewForm(FormName)</code></td><td>Switches the form to New mode — all fields go blank, ready to create a new row.</td></tr>
-<tr><td><code>EditForm(FormName)</code></td><td>Switches the form to Edit mode — fields become editable.</td></tr>
-<tr><td><code>ResetForm(FormName)</code></td><td>Cancels all unsaved changes and returns to View mode.</td></tr>
-</table>
-<p>A Form always has a <strong>Mode</strong> property that tells you what mode it's currently in: <code>FormMode.View</code>, <code>FormMode.Edit</code>, or <code>FormMode.New</code>. You'll use this to show/hide buttons.</p>
-</div>
-
-<div class="card c-concept"><span class="lab">Concept — how to read errors (red squiggles)</span>
-<p>When a formula has a mistake, Power Fx underlines it in red. Here's how to diagnose and fix errors:</p>
+<h3>Grammar practice</h3>
 <ol>
-<li><strong>Hover over the red underline</strong> — a tooltip shows the error message in plain English. For example: "Name isn't valid. 'BookGallery' isn't recognized."</li>
-<li><strong>Check the name of the control.</strong> The most common beginner mistake is a typo in a control name. If you named your gallery "BooksList" but the formula says "BookGallery", it won't work. Open the Tree view, check the exact name, and fix the typo.</li>
-<li><strong>Check your quotes.</strong> Text must be in straight double quotes: <code>"text"</code>. If you copied a formula from a document and it has curly quotes like <code>"text"</code>, Power Fx will not understand it. Delete and retype the quotes inside the studio.</li>
-<li><strong>Check semicolons vs commas.</strong> If your computer's regional settings use a semicolon as the list separator (common in India and Europe), Power Fx may want <code>If(condition; yes; no)</code> instead of <code>If(condition, yes, no)</code>. Power Apps will usually fix this automatically — if it does, let it.</li>
-<li><strong>Warnings (yellow) vs errors (red).</strong> A yellow squiggle is a warning — the formula will still work, but Power Fx is flagging something to be aware of. A red squiggle is an error — the formula will not work until fixed.</li>
+  <li>Cause: Power Fx is reactive. Effect: Gallery updates automatically when search changes.<br>"Power Fx is reactive, _______________________________."</li>
+  <li>Cause: Non-delegable function used. Effect: Only first 500 rows searched.<br>"We used a non-delegable function; _______________________________, only 500 rows are searched."</li>
+  <li>Cause: Available_Copies stored statically. Effect: Two users can borrow last copy simultaneously.<br>"We store Available_Copies as a static number. _______________________________ two users may simultaneously borrow the last copy."</li>
+  <li>Cause: IfError added to Borrow formula. Effect: App shows friendly message instead of crashing.<br>"We added IfError to the formula. _______________________________ the app shows a helpful message instead of a technical error."</li>
 </ol>
-</div>
 
-<div class="card c-concept"><span class="lab">Concept — RGBA colours explained</span>
-<p>In canvas apps, colours are written as <code>RGBA(red, green, blue, alpha)</code> where:</p>
+<h3>Writing exercise: explain a formula in plain English</h3>
+<p>Pick any formula you wrote this week. Write a plain-English explanation using this structure:</p>
+<ol>
+  <li>What the formula does (one sentence)</li>
+  <li>Why we need it (cause — "because...")</li>
+  <li>How it works step by step (then... then... then...)</li>
+  <li>What happens if it fails (therefore... / as a result...)</li>
+</ol>
+<p><strong>Example:</strong> <em>"The Borrow button formula creates a new loan record in the database. We need it because simply pressing a button does not save anything. The formula works in three steps: first, it checks whether the current user exists in the Members table; then, it re-reads the Available_Copies to prevent race conditions; finally, if both checks pass, it creates the loan record. If any step fails, the IfError function shows a friendly message — 'Could not save. Please try again.'"</em></p>
+
+<h3>🔊 Read aloud exercise</h3>
+<blockquote><em>"The delegation problem occurs because Power Apps has a limit on how many rows it downloads from a data source at one time. This limit is 500 rows by default. If a formula is not delegable — meaning Dataverse cannot process the filter remotely — Power Apps downloads the first 500 rows, applies the filter locally, and returns results only from those 500 rows. As a result, if your library has 600 books and the book you searched for is number 601 in the database, it will not appear in the search results, even though it exists. This is a silent error — the app does not warn you. Therefore, always use delegable functions when working with large datasets."</em></blockquote>
+
+<h3>Professional communication: asking for technical help</h3>
+<pre><code>Subject: [Brief description of the problem] — Need Help
+
+Hi [Name/Team],
+
+I am trying to [what you are trying to do].
+
+What I have done so far:
+- [Step 1]
+- [Step 2]
+
+The problem: [What is going wrong — exact error message if any]
+
+What I have already tried:
+- [Thing you tried] — Result: [what happened]
+
+My environment: [Power Apps / Developer Plan / Dataverse / etc.]
+
+Could you please [specific help you need]?
+
+Thank you,
+[Your name]</code></pre>
+
+<h3>🚫 Common English mistakes — Week 6</h3>
 <ul>
-<li><strong>Red, Green, Blue</strong> — numbers from 0 to 255 for how much of each colour to mix.</li>
-<li><strong>Alpha</strong> — transparency from 0 (fully transparent) to 1 (fully opaque). You'll almost always use 1.</li>
+  <li><strong>Mistake 1: "Due to" to start a sentence</strong> ❌ "Due to the delegation limit, only 500 rows were searched." ✅ "<strong>Because of</strong> the delegation limit, only 500 rows were searched."</li>
+  <li><strong>Mistake 2: "Hence" overuse</strong> ❌ "Hence, the formula failed. Hence, I used IfError." ✅ Vary: "Therefore...", "As a result...", "So...", "This is why..."</li>
+  <li><strong>Mistake 3: affect vs effect</strong> ✅ "The delegation limit <strong>affects</strong> search results." (affect = verb) ✅ "The <strong>effect</strong> of the delegation limit is that only 500 rows are searched." (effect = noun). Memory trick: <strong>A</strong>ffect = <strong>A</strong>ction (verb). <strong>E</strong>ffect = End result (noun).</li>
+  <li><strong>Mistake 4: Long sentences with multiple "and"s</strong> ❌ "I opened Power Apps and I created a new formula and I tested it and it worked." ✅ "I opened Power Apps and created a new formula. After testing it, I confirmed it worked."</li>
 </ul>
-<p>Examples: <code>RGBA(47, 111, 237, 1)</code> → the blue accent colour used in this course. <code>RGBA(255, 255, 255, 1)</code> → pure white. <code>RGBA(0, 0, 0, 1)</code> → pure black. <code>RGBA(220, 53, 69, 1)</code> → red (for delete buttons).</p>
-<p>You don't need to memorise these. The colour picker in the Properties pane generates RGBA values for you — just pick a colour visually and the formula appears automatically. But you need to recognise it when you see it.</p>
-</div>
 
-<div class="card c-do"><span class="lab">Practice — 6 warm-up formulas before Day 5</span>
-<p>Do this now: go to <code>make.powerapps.com</code> → Solutions → My Learning Solution → Library Manager → Edit. Try these 6 formulas on the BooksScreen. You already have the Label control with the "Library Manager" title — use that.</p>
+<h3>✅ Week 6 English progress check</h3>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Formula 1 — plain text:</strong> Click the "Library Manager" Label. In the formula bar, confirm the property shows <strong>Text</strong>. The formula should say <code>"Library Manager"</code>. Change it to <code>"My App"</code>. Press Enter. The label changes. Change it back to <code>"Library Manager"</code>.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Formula 2 — joining text with &amp;:</strong> Keep the same Label selected. Change its Text to <code>"Library Manager — " &amp; "Community Edition"</code>. Press Enter. The label now shows both words joined. Change it back. <em>Key lesson: &amp; joins pieces of text.</em></span></li>
-<li><span class="box"></span><span class="txt"><strong>Formula 3 — using a property:</strong> Add a new Label (Insert → Label). Set its Text property to <code>App.Width</code>. Press Enter. The label shows a number (the app's width in pixels). This shows you how to read a property value. Delete this label when done.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Formula 4 — If():</strong> Add another Label. Set its Text to <code>If(1 = 1, "Condition is true", "Condition is false")</code>. Press Enter. It shows "Condition is true" because 1 = 1 is always true. Now change it to <code>If(1 = 2, "Condition is true", "Condition is false")</code> — it switches to "Condition is false". Delete the label when done.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Formula 5 — RGBA colour:</strong> Click the Rectangle that makes your blue header bar. In the formula bar, select the Fill property. The formula is <code>RGBA(47, 111, 237, 1)</code>. Change 237 to 100: <code>RGBA(47, 111, 100, 1)</code>. The header turns greenish. Change it back to <code>RGBA(47, 111, 237, 1)</code>. <em>Key lesson: you can edit any property this way.</em></span></li>
-<li><span class="box"></span><span class="txt"><strong>Formula 6 — Visible:</strong> Click the "Library Manager" Label. Change the property dropdown (left of formula bar) to <strong>Visible</strong>. It currently says <code>true</code>. Change it to <code>false</code>. The label disappears on the canvas. Change it back to <code>true</code>. <em>Key lesson: Visible = true/false shows or hides any control.</em></span></li>
+  <li><span class="box"></span><span class="txt">Can you explain what "delegation" is using the words "because" and "therefore"?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a plain-English explanation of one formula you built?</span></li>
+  <li><span class="box"></span><span class="txt">Can you write a professional help request message without saying "please do the needful"?</span></li>
+  <li><span class="box"></span><span class="txt">Can you correctly use "affect" (verb) and "effect" (noun)?</span></li>
 </ul>
-<p style="margin-top:.5rem">If all 6 worked, you are ready for Day 5. You now know how to use the formula bar, type formulas, and read RGBA colours.</p>
 </div>
-
-<div class="card c-tip"><span class="lab">Tip — you will always be given the formula to type</span>
-In Days 5–8, every step that needs a formula tells you exactly what to type. You do not need to write formulas from scratch yet — you're learning to <em>read, understand, and type</em> them. Writing them from scratch comes with practice over weeks and months. For now, focus on understanding what each part of the formula does — that understanding is more valuable than memorisation.</div>
 </section>
 
-<!-- DAY 5 -->
-<section class="day" id="day5">
-<div class="dhead"><span class="dnum">Day 5</span></div>
-<h2>Canvas app foundations: the studio, controls, and the formula bar</h2>
-<p class="meta">~100 minutes</p>
+<!-- ═══════════════════════════════════════════════ WEEK 7 ═══ -->
+<section class="day" id="week7">
+<div class="dhead"><span class="dnum">Week 7 · October 15–21</span></div>
+<h2>Power Automate — When the App Sleeps, the Flows Run</h2>
+<p class="meta">~4 hours · make.powerautomate.com · Developer Plan environment</p>
 
-<div class="card c-concept"><span class="lab">Concept — canvas app vs model-driven app</span>
-<p>Power Apps gives you two completely different ways to build an app, and understanding the difference is essential:</p>
-<ul>
-<li><strong>Canvas app</strong> — you design every screen, pixel by pixel, by dragging controls onto a blank canvas. Total creative control. You decide where the title goes, what colour the buttons are, what happens on each tap. Think of it as building a custom mobile app or web form, but without writing front-end code. Better for field workers, customer-facing apps, and tailored experiences.</li>
-<li><strong>Model-driven app</strong> — you point it at your data model (tables, views, forms) and Power Apps auto-generates a professional, fully-featured app. The look is standardised (no pixel control), but you get built-in features: activity timelines, business process flows, command bars, automatic mobile layout, offline capability. Better for back-office data entry and management apps where speed and data depth matter more than custom design.</li>
-</ul>
-<p>Both apps read and write the <em>same</em> Dataverse tables. This phase builds one of each over the same data.</p>
+<div class="card c-gloss"><span class="lab">Vocabulary — Week 7</span>
+<dl>
+  <dt><strong>Trigger</strong> (Power Automate)</dt>
+  <dd>The event that starts a flow — like an alarm clock. When the alarm rings (trigger), you wake up (flow starts).<br>
+  <strong>Types:</strong> <em>Automated</em> — triggered by a data event (new row created, row updated). <em>Instant</em> — triggered manually by a button click. <em>Scheduled</em> — triggered at a set time (every morning at 7 AM).<br>
+  <em>Example: "The overdue reminder flow uses a scheduled trigger: every morning at 7 AM, it wakes up and checks all loans. If any are overdue, it sends emails."</em></dd>
+
+  <dt><strong>Condition</strong></dt>
+  <dd>A decision point in a flow — "if this is true, do X; otherwise, do Y".<br>
+  <em>Analogy: A traffic light. Red (condition: is the light red?) → Stop (action if true). Green → Go (action if false).</em><br>
+  <em>Example: "In the overdue flow, there is a condition: 'Is Due_Date before Today?' If yes → send overdue email. If no → do nothing."</em></dd>
+
+  <dt><strong>Loop</strong></dt>
+  <dd>A part of a flow that repeats — "do this action for each item in a list".<br>
+  <em>Analogy: Sending invitations to a party. You have a list of 30 guests. A loop automates this: "for each guest in the list, send one invitation."</em><br>
+  <em>Example: "The overdue reminder flow uses an 'Apply to each' loop. It gets all overdue loans (a list of records), then for each overdue loan, it sends one email to that member."</em></dd>
+
+  <dt><strong>Variable</strong> (Power Automate)</dt>
+  <dd>A temporary storage container in a flow — holds a value that you can read, change, and use later.<br>
+  <em>Analogy: A notepad you carry during a meeting. You write things down (set variable), cross out old values (update variable), and refer back to them (use variable).</em><br>
+  <em>Example: "I initialised a variable called 'TotalFee' at value 0. Inside the loop, for each overdue loan, I added the daily fee to TotalFee."</em></dd>
+
+  <dt><strong>Parallel Branch</strong></dt>
+  <dd>Two or more parts of a flow that run at the same time — not waiting for each other.<br>
+  <em>Analogy: A restaurant kitchen. Three cooks prepare salad, main course, and dessert simultaneously. The meal is ready much faster than if they worked one at a time.</em><br>
+  <em>Example: "When a new loan is created, one branch sends a confirmation email to the member (2 seconds), the other sends a notification to Pooja's Teams (1 second). Both happen simultaneously — total time: 2 seconds instead of 3."</em></dd>
+
+  <dt><strong>Child Flow</strong></dt>
+  <dd>A flow that is called (started) by another flow — it does one specific job and can be reused by many parent flows.<br>
+  <em>Analogy: A specialist consultant. The main project manager (parent flow) calls the legal consultant (child flow) whenever legal work is needed. The same consultant is used for multiple projects.</em><br>
+  <em>Example: "I created a child flow called 'Calculate Late Fee' that takes a loan date, a due date, and a fee-per-day rate, and returns the calculated fee. Three different parent flows call this child flow."</em></dd>
+</dl>
 </div>
 
-<figure class="fig">
-<svg viewBox="0 0 560 150" role="img" aria-label="Canvas app is pixel-first, model-driven is data-first">
-<rect x="20" y="24" width="250" height="104" rx="10" fill="#eef4ff" stroke="#2f6fed"/>
-<text x="145" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Canvas app</text>
-<text x="145" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a5567">You design every screen</text>
-<text x="145" y="86" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a5567">(pixel-first, total control)</text>
-<text x="145" y="104" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">Library Manager</text>
-<text x="145" y="116" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">→ tailored borrowing app</text>
-<rect x="290" y="24" width="250" height="104" rx="10" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="415" y="48" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Model-driven app</text>
-<text x="415" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a5567">Auto-generated from tables</text>
-<text x="415" y="86" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#4a5567">(data-first, standard look)</text>
-<text x="415" y="104" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">Library Back Office</text>
-<text x="415" y="116" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">→ staff admin app</text>
-</svg>
-<figcaption>Both apps share the same Dataverse data — different look, same truth</figcaption>
-</figure>
+<div class="card c-concept"><span class="lab">Concept — The Anatomy of a Well-Built Flow</span>
+<pre><code>A WELL-BUILT FLOW:
 
-<div class="card c-concept"><span class="lab">Concept — the app studio: every panel explained</span>
-<p>When you open a canvas app for editing, you see the <strong>Studio</strong>. Here is every panel:</p>
-<ul>
-<li><strong>Tree view (left panel, first icon)</strong> — a list of every screen and every control on each screen, in a hierarchy. Click anything here to select it. Always rename controls here — <code>BookGallery</code> not <code>Gallery3</code>.</li>
-<li><strong>Data panel (left panel, cylinder icon)</strong> — where you add and manage data sources (Dataverse tables, SharePoint lists, etc.).</li>
-<li><strong>Media panel (left panel, image icon)</strong> — upload images, audio, or video files used in the app.</li>
-<li><strong>Canvas (centre)</strong> — the visual editing area. Drag controls, resize them, arrange them.</li>
-<li><strong>Properties pane (right)</strong> — when you select a control, its properties appear here: text, colour, font, position, size. You can set values directly in these fields.</li>
-<li><strong>Formula bar (top, above the canvas)</strong> — shows the formula for the selected property of the selected control. Click the property dropdown on the left of the formula bar to switch between properties.</li>
-<li><strong>Insert menu (top toolbar)</strong> — the menu to add new controls: Button, Label, Text input, Gallery, Form, etc.</li>
-<li><strong>Play ▶ button (top right)</strong> — runs a preview of the app in a new window. Press <kbd>Esc</kbd> to return to editing.</li>
-</ul></div>
+1. TRIGGER
+   └─ What starts this flow?
+   └─ Be as specific as possible — "When a Loans row is created" not "When any record changes"
 
-<figure class="fig">
-<svg viewBox="0 0 580 230" role="img" aria-label="Studio panels: Tree view left, Canvas centre, Properties pane right, Formula bar top">
-<rect x="14" y="14" width="552" height="200" rx="10" fill="#f4f6f9" stroke="#cbd3de"/>
-<text x="290" y="34" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">Canvas App Studio</text>
-<rect x="24" y="44" width="6" height="160" rx="3" fill="#2f6fed"/>
-<rect x="34" y="44" width="110" height="160" rx="7" fill="#eef4ff" stroke="#2f6fed"/>
-<text x="89" y="64" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1f2733">Tree view</text>
-<text x="89" y="82" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">▾ BooksScreen</text>
-<text x="89" y="96" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">  BookGallery</text>
-<text x="89" y="110" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">  SearchInput</text>
-<text x="89" y="124" text-anchor="middle" font-family="monospace" font-size="9" fill="#7b8798">  NewBookBtn</text>
-<text x="89" y="145" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">▾ BookFormScreen</text>
-<text x="89" y="159" text-anchor="middle" font-family="monospace" font-size="9" fill="#4a5567">  BookForm</text>
-<rect x="34" y="44" width="110" height="18" rx="3" fill="#2f6fed20"/>
-<rect x="154" y="44" width="4" height="160" fill="#dde3ec"/>
-<rect x="160" y="44" width="266" height="160" rx="7" fill="#ffffff" stroke="#dde3ec"/>
-<text x="293" y="64" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1f2733">Canvas</text>
-<rect x="174" y="74" width="238" height="32" rx="5" fill="#f0f4ff" stroke="#2f6fed"/><text x="190" y="95" font-family="sans-serif" font-size="10" fill="#4a5567">BookGallery · Title, Genre, Pages</text>
-<rect x="174" y="114" width="238" height="28" rx="5" fill="#f8fafc" stroke="#cbd3de"/><text x="190" y="133" font-family="sans-serif" font-size="10" fill="#4a5567">SearchInput</text>
-<rect x="174" y="152" width="80" height="28" rx="5" fill="#2f6fed"/><text x="214" y="171" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#fff">+ New Book</text>
-<rect x="430" y="44" width="130" height="160" rx="7" fill="#f4f6f9" stroke="#cbd3de"/>
-<text x="495" y="64" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1f2733">Properties</text>
-<text x="444" y="82" font-family="monospace" font-size="9" fill="#4a5567">Items:</text>
-<text x="444" y="96" font-family="monospace" font-size="9" fill="#7b8798">Search(Books, …)</text>
-<text x="444" y="112" font-family="monospace" font-size="9" fill="#4a5567">Layout: Title+sub</text>
-<text x="444" y="128" font-family="monospace" font-size="9" fill="#4a5567">Width: 320</text>
-<text x="444" y="144" font-family="monospace" font-size="9" fill="#4a5567">OnSelect:</text>
-<text x="444" y="158" font-family="monospace" font-size="9" fill="#7b8798">Navigate(…)</text>
-</svg>
-<figcaption>Studio: Tree view (left), Canvas (centre), Properties (right) — click any control to edit its properties</figcaption>
-</figure>
+2. INITIALISE VARIABLES
+   └─ Define all variables at the top — never inside loops
+   └─ Give them clear names: TotalLateFees, not x or temp1
 
-<div class="card c-do"><span class="lab">Do this — create the app and set up screens</span>
+3. GET DATA
+   └─ Query only what you need — use filters
+   └─ Handle the empty case: what if no records are returned?
+
+4. MAIN LOGIC (conditions and loops)
+   └─ Each action focuses on one thing
+   └─ Add comments to each step explaining WHY, not WHAT
+
+5. ERROR HANDLING
+   └─ "Configure run after" on key steps
+   └─ If a step fails: log the error? Send an alert to Pooja?
+
+6. COMPLETION
+   └─ Send a summary if needed
+   └─ Clean up temporary data</code></pre>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — Why is one giant flow dangerous?</span>
+<p>Imagine the overdue loan flow does 9 things: check loans → calculate fees → send emails → update Dataverse → generate report → email report to Pooja → archive old loans → update member status → send Teams message.</p>
+<p>If step 5 (generate report) fails, the flow stops. Steps 6-9 never run. Emails were already sent (step 3) but Dataverse was not updated (step 4 succeeded, step 5 failed). Your data is now inconsistent.</p>
+<p><strong>The rule:</strong> a flow should do ONE thing. If you need to explain it in a sentence and the sentence has more than one "and", it is probably doing too much. Use child flows for reusable parts.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 6 — Build the Overdue Loan Daily Reminder Flow</span>
+<p>This flow runs every morning at 7 AM, finds all overdue loans, and sends a reminder email to each member.</p>
+
+<p><strong>Step 1: Create the scheduled flow</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Go to <strong>Solutions → My Learning Solution → New → App → Canvas app</strong>. Name = <code>Library Manager</code>. Layout = <strong>Tablet</strong>. Click <strong>Create</strong>. The Studio opens.</span></li>
-<li><span class="box"></span><span class="txt">In the <strong>Tree view</strong>, right-click <strong>Screen1</strong> → Rename → type <code>BooksScreen</code>. This will be the main browse screen.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>+ New screen</strong> (the button at the bottom of the Tree view or from Insert menu) → Blank. Rename it <code>BookFormScreen</code>. Repeat once more → Rename to <code>LoanFormScreen</code>. You now have 3 screens in the tree view.</span></li>
-<li><span class="box"></span><span class="txt">Open the <strong>Data panel</strong> (cylinder icon). Click <strong>Add data</strong>. Search for <strong>Dataverse</strong>. Select it. Search for and add: <code>Books</code>, <code>Authors</code>, <code>Members</code>, <code>Loans</code>. All four tables are now available as data sources throughout the app.</span></li>
-<li><span class="box"></span><span class="txt">Click on <strong>BooksScreen</strong> in the tree view. Insert a <strong>Rectangle</strong> (Insert → Rectangle). Set its properties one at a time in the Properties pane on the right:<br>
-Width = <code>App.Width</code> → <em>means "match the width of the whole app screen" — this makes the header span the full width on any device.</em><br>
-Height = <code>60</code> → 60 pixels tall.<br>
-X = <code>0</code>, Y = <code>0</code> → position it at the very top-left corner.<br>
-Fill = <code>RGBA(47, 111, 237, 1)</code> → the blue colour (47 red, 111 green, 237 blue, fully opaque). This is your header bar.</span></li>
-<li><span class="box"></span><span class="txt">Insert a <strong>Label</strong>. Set Text = <code>"Library Manager"</code>, Color = <code>White</code>, Font size = <code>22</code>, FontWeight = <code>Bold</code>, X = <code>20</code>, Y = <code>0</code>, Height = <code>60</code>. This is the app title in the header.</span></li>
-<li><span class="box"></span><span class="txt">Press <strong>Play ▶</strong> to see your header bar. Press <kbd>Esc</kbd> to return. Press <kbd>Ctrl</kbd>+<kbd>S</kbd> to save.</span></li>
-</ul></div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Canvas app</b> — an app you design screen-by-screen by dragging controls; total layout control.</li>
-<li><b>Model-driven app</b> — an app auto-generated from your tables; standard look, rich features.</li>
-<li><b>Studio</b> — the canvas app editor with Tree view, Canvas, Properties pane, and Formula bar.</li>
-<li><b>Screen / control / property</b> — one page / an element on it / a setting on that element.</li>
-<li><b>Tree view</b> — the hierarchical list of all screens and controls; always rename controls here.</li>
-<li><b>Data source</b> — a Dataverse table (or other service) connected to the app.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — canvas vs model-driven in enterprise</span>
-<p>Professional Power Platform architects choose app type based on the audience and use case:</p>
-<ul>
-<li><strong>Field worker apps are almost always canvas:</strong> a construction safety inspector needs a custom checklist app with large touch targets, a camera button, and GPS location capture — model-driven doesn't support that level of custom layout.</li>
-<li><strong>Back-office admin tools are almost always model-driven:</strong> the same company's office staff manage work orders through a model-driven app that auto-generates professional forms, includes activity timelines, and adapts to any screen size without extra work.</li>
-<li><strong>Many real solutions use both:</strong> the field app (canvas) writes to Dataverse; the office app (model-driven) reads and manages the same rows. One database, two apps, two audiences.</li>
+  <li><span class="box"></span><span class="txt">Go to <code>make.powerautomate.com</code> → <strong>+ New flow</strong> → <strong>Scheduled cloud flow</strong></span></li>
+  <li><span class="box"></span><span class="txt">Name: <code>Overdue Loan Daily Reminder</code> · Starting time: <code>07:00 AM</code> · Repeat every: <code>1 Day</code> → click <strong>Create</strong></span></li>
 </ul>
-<p>Knowing both types — and when to choose each — is a key skill interviewers test for Power Apps roles.</p>
-</div>
 
-<div class="card c-warn"><span class="lab">Common mistakes in the app studio</span>
-<ul>
-<li><strong>Leaving controls named Gallery1, Button2, etc.</strong> When you have 15 controls with default names, it's impossible to read a formula like <code>Gallery2.Selected</code>. Rename every control before wiring up formulas — it takes 5 seconds and saves hours of confusion.</li>
-<li><strong>Working in the wrong screen.</strong> The tree view shows all screens. If you accidentally drop a button on BooksScreen when you meant BookFormScreen, nothing will appear where you expect. Always click the target screen in the tree view before inserting controls.</li>
-<li><strong>Pressing Play without saving first.</strong> If Power Apps crashes during Play mode, unsaved changes are lost. Save with Ctrl+S before every Play test.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 5 hands-on checks</span>
+<p><strong>Step 2: Initialise variables</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the Tree view, rename Screen1 to <code>BooksScreen</code>, then add the two remaining screens and rename them correctly. Confirm the tree view shows: BooksScreen, BookFormScreen, LoanFormScreen — in that order.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> On BooksScreen, insert a Rectangle and set Fill = <code>RGBA(47, 111, 237, 1)</code>. Press Play ▶ — the header should appear blue. Then change the Fill to <code>RGBA(11, 130, 100, 1)</code> (green). Press Play again. Change it back to the blue colour. Practice reading RGBA values.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> In the Data panel, add all 4 tables (Books, Authors, Members, Loans) as data sources. Then switch to the Tree view — the data sources don't appear there. Switch to the Data panel — confirm all 4 are listed. This separation (tree = UI, data = sources) is the studio's fundamental mental model.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Select the header Label on BooksScreen. In the formula bar, click the property dropdown (currently shows "Text"). Explore every property available for a Label: Color, Fill, Font, FontSize, Bold, Visible, OnSelect, X, Y, Width, Height. Don't change anything — just read the list. Count how many properties a Label has.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Press <kbd>Ctrl</kbd>+<kbd>Z</kbd> to undo the last action. Press <kbd>Ctrl</kbd>+<kbd>Y</kbd> to redo. Practice the undo/redo cycle — it works exactly like Word or Excel and is your most important mistake-recovery tool in the studio.</span></li>
+  <li><span class="box"></span><span class="txt">Add step → <strong>Initialize variable</strong>: Name = <code>OverdueCount</code>, Type = Integer, Value = 0</span></li>
+</ul>
+
+<p><strong>Step 3: Get all overdue loans from Dataverse</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add step → <strong>Microsoft Dataverse → List rows</strong>: Table = <code>Loans</code>, Filter rows = <code>cr_status eq 'Active' and cr_due_date lt @{utcNow()}</code></span></li>
+</ul>
+<div class="card c-tip" style="margin:.4rem 0"><span class="lab">What the filter means</span>
+<p><code>lt</code> = less than. <code>utcNow()</code> = current date and time in UTC. This filter says: "give me loans where the due date is in the past (less than right now)."</p>
+</div>
+
+<p><strong>Step 4: Loop through each overdue loan</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add step → <strong>Apply to each</strong> (select output from Step 3)</span></li>
+  <li><span class="box"></span><span class="txt">Inside the loop — Sub-step 1: <strong>Get a row by ID</strong> from Members table. Row ID: <code>items('Apply_to_each')?['_cr_member_value']</code></span></li>
+  <li><span class="box"></span><span class="txt">Inside the loop — Sub-step 2: <strong>Compose</strong> action to calculate days overdue: <code>@{div(sub(ticks(utcNow()), ticks(items('Apply_to_each')?['cr_due_date'])), 864000000000)}</code></span></li>
+  <li><span class="box"></span><span class="txt">Inside the loop — Sub-step 3: <strong>Send an email (V2)</strong>. To: <code>outputs('Get_a_row_by_ID')?['cr_email']</code>. Subject: <code>Overdue Library Book — Action Required</code>. Body includes member name, book title, due date, days overdue, and late fee calculation.</span></li>
+  <li><span class="box"></span><span class="txt">Inside the loop — Sub-step 4: <strong>Increment variable</strong> → OverdueCount → add 1</span></li>
+</ul>
+
+<p><strong>Step 5: After the loop — send daily summary to Pooja</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add <strong>Condition</strong> after the loop: Is OverdueCount greater than 0?</span></li>
+  <li><span class="box"></span><span class="txt">If YES: Send email to Pooja Sharma. Subject: <code>Daily Overdue Summary — @{variables('OverdueCount')} overdue loans</code></span></li>
+  <li><span class="box"></span><span class="txt">If NO: no action needed (or send "all clear" message)</span></li>
+</ul>
+
+<p><strong>Step 6: Test the flow</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>Save</strong> → <strong>Test</strong> (top right) → <strong>Manually</strong> → <strong>Run flow</strong></span></li>
+  <li><span class="box"></span><span class="txt">Watch each step execute — green checkmark = success</span></li>
+  <li><span class="box"></span><span class="txt">If a step fails (shown in red): click it, look at Inputs and Outputs, read the exact error message, fix the specific problem</span></li>
 </ul>
 </div>
 
-<div class="card c-check"><span class="lab">Mini-quiz — Day 5</span>
-<p><strong>Q1</strong> In canvas apps, what is the Tree view for, and what is the Data panel for?</p>
-<p><strong>Q2</strong> You press Play ▶ and a button you added to BooksScreen doesn't appear. What are two possible causes?</p>
-<p><strong>Q3</strong> Why should you rename every control before writing formulas?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> Tree view: shows the hierarchy of all screens and controls — use it to select, rename, and organise UI elements. Data panel: manages the data sources (Dataverse tables, SharePoint lists) connected to the app.</p>
-<p><strong>A2</strong> (1) The button's Visible property is set to false or a formula that evaluates to false. (2) The button was accidentally placed on a different screen than BooksScreen — check the Tree view to see which screen it's under.</p>
-<p><strong>A3</strong> If you don't rename controls, formulas like <code>Gallery2.Selected</code> are impossible to understand a week later. Descriptive names like <code>BookGallery.Selected</code> are self-documenting and catch errors when controls get reordered.</p>
-</details>
+<div class="card c-do"><span class="lab">Exercise 7 — Build the Membership Approval Flow</span>
+<p>When a new row is added to the Members table with status "Pending", this flow asks Pooja for approval.</p>
+
+<p><strong>Step 1: Create the automated flow</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt"><strong>+ New flow → Automated cloud flow</strong>. Trigger: <strong>When a row is added</strong> (Dataverse) → Members table. Filter: <code>cr_membership_status eq 'Pending'</code></span></li>
+</ul>
+
+<p><strong>Step 2: Send an approval request</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add step → <strong>Start and wait for an approval</strong>. Type: <strong>Approve/Reject — First to respond</strong>. Title: <code>New Member Registration Approval</code>. Assigned to: <code>pooja.sharma@[yourtenant]</code></span></li>
+  <li><span class="box"></span><span class="txt">Details: include name (<code>@{triggerOutputs()?['body/cr_full_name']}</code>), email, membership type, and registration date from the trigger</span></li>
+</ul>
+
+<p><strong>Step 3: Handle the decision</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add <strong>Condition</strong>: outcome is equal to <code>Approve</code></span></li>
+  <li><span class="box"></span><span class="txt">If YES (approved): <strong>Update a row</strong> in Members — set <code>cr_membership_status</code> to <code>Active</code>. Send email to new member: "Congratulations! Your library membership has been approved."</span></li>
+  <li><span class="box"></span><span class="txt">If NO (rejected): <strong>Update a row</strong> in Members — set <code>cr_membership_status</code> to <code>Rejected</code>. Send email to new member: "Thank you for your interest. Your membership application requires further information."</span></li>
+</ul>
+
+<div class="card c-tip" style="margin:.7rem 0"><span class="lab">💭 System Thinking — What are the risks of this approval approach?</span>
+<ol>
+  <li><strong>Pooja goes on vacation.</strong> Nobody approves new members for 2 weeks. Members are stuck "Pending."</li>
+  <li><strong>Pooja's email goes to spam.</strong> She never sees the approval request.</li>
+  <li><strong>The approval email expires.</strong> Some systems auto-reject after X days.</li>
+</ol>
+<p><strong>Good system design questions:</strong> Who is the backup approver if Pooja is unavailable? (Escalation path) How long should approval wait before timing out? Should un-responded approvals auto-approve or auto-reject?</p>
+<p><strong>Action:</strong> Add an approver escalation — if Pooja does not respond in 48 hours, send the approval to Sanjay Singh (Senior Librarian) as well.</p>
+</div>
 </div>
 
-<div class="card c-check"><span class="lab">Check yourself</span>
-You have a saved app with 3 screens, a blue header bar, a title label, and all 4 Dataverse tables connected as data sources. The app doesn't show data yet — that's Day 6.</div>
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 7: Active vs Passive Voice</span>
+<h3>Why this grammar pattern?</h3>
+<p>In technical writing, both active and passive voice are used — but for different purposes.</p>
+<p><strong>Active voice:</strong> The subject DOES the action.</p>
+<ul><li>"The flow <strong>sends</strong> the overdue reminder email."</li><li>"Power Automate <strong>creates</strong> the loan record."</li><li>"Pooja <strong>approves</strong> the membership request."</li></ul>
+<p><strong>Passive voice:</strong> The action is DONE TO the subject.</p>
+<ul><li>"The overdue reminder email <strong>is sent</strong> by the flow."</li><li>"The loan record <strong>is created</strong> automatically."</li><li>"The membership request <strong>was approved</strong>."</li></ul>
+<p><strong>Use passive when:</strong> who does the action is unimportant or unknown ("The database <strong>was updated</strong> at 7 AM"), in documentation describing processes ("New members <strong>are approved</strong> within 48 hours").</p>
+<p><strong>Use active when:</strong> in most everyday technical writing (clearer and more direct), when responsibility matters ("Pooja must approve new members"), in user instructions ("Click the Borrow button").</p>
+
+<h3>Grammar practice — transform between active and passive</h3>
+<p><strong>Active → Passive:</strong></p>
+<ol>
+  <li>"The scheduled flow checks all overdue loans every morning at 7 AM."<br>Passive: "All overdue loans _________________________ every morning at 7 AM."</li>
+  <li>"Power Automate sends an approval email to Pooja when a new member registers."<br>Passive: "An approval email _________________________ to Pooja when a new member registers."</li>
+</ol>
+<p><strong>Passive → Active:</strong></p>
+<ol start="3">
+  <li>"The due date is calculated automatically by the system."<br>Active: "The system _________________________."</li>
+  <li>"The late fee was determined by the library committee in 2025."<br>Active: "The library committee _________________________."</li>
+</ol>
+
+<h3>Vocabulary in sentences</h3>
+<table>
+<tr><th>Word</th><th>Active sentence</th><th>Passive sentence</th></tr>
+<tr><td>Trigger</td><td></td><td></td></tr>
+<tr><td>Condition</td><td></td><td></td></tr>
+<tr><td>Loop</td><td></td><td></td></tr>
+<tr><td>Child Flow</td><td></td><td></td></tr>
+</table>
+
+<h3>Writing exercise: incident report</h3>
+<pre><code>INCIDENT REPORT
+
+Date and time: [When it happened]
+Reported by: [Your name]
+Severity: [Low / Medium / High]
+
+WHAT HAPPENED:
+[1-2 sentences describing the problem. Use past tense.]
+
+IMPACT:
+[Who was affected? What could they not do?]
+
+ROOT CAUSE:
+[Why did it happen? Use "because" or "due to".]
+
+STEPS TAKEN TO RESOLVE:
+1. [First thing done]
+2. [Second thing done]
+3. [Third thing done]
+
+RESOLUTION:
+[Was it fixed? When? How do you know it is fixed?]
+
+PREVENTION:
+[What will be done to prevent this in future? Use passive: "An alert will be added..."]</code></pre>
+
+<h3>🔊 Read aloud exercise</h3>
+<blockquote><em>"At approximately 7:15 AM on October 17, the overdue loan reminder flow failed to complete. The failure was caused by an expired authentication token in the Outlook connector. As a result, 12 overdue reminder emails were not sent to members. The issue was identified when Pooja noticed that the flow run history showed a red 'Failed' status. The Outlook connection was re-authenticated at 9:00 AM. The flow was then triggered manually to resend the missing emails. All 12 emails were successfully delivered by 9:10 AM. To prevent recurrence, a monitoring alert has been configured to notify Pooja if any flow fails for more than 30 minutes."</em></blockquote>
+<p>After reading: find 2 sentences in passive voice and 2 in active voice. Write them in your journal.</p>
+
+<h3>Professional communication: the incident summary message</h3>
+<pre><code>Hi team,
+
+Quick update on this morning's [flow/app] issue.
+
+WHAT HAPPENED: [1 sentence]
+IMPACT: [Who was affected, what they could not do]
+STATUS: [Fixed / Under investigation / Monitoring]
+RESOLUTION: [What was done to fix it — 1-2 sentences]
+PREVENTION: [What will be done to prevent recurrence]
+
+Everything is now working normally. Let me know if you notice any further issues.
+
+[Your name]</code></pre>
+
+<h3>🚫 Common English mistakes — Week 7</h3>
+<ul>
+  <li><strong>Mistake 1: Unclear "it" references</strong> ❌ "The flow calls the function and it returns the result and then it sends the email." ✅ "The flow calls the function. <strong>The function</strong> returns the result. <strong>The flow</strong> then sends the email."</li>
+  <li><strong>Mistake 2: Passive overuse making sentences unclear</strong> ❌ "The email was sent by the flow that was triggered by the loan that was created by the user." ✅ "When the user creates a loan, <strong>it triggers</strong> the flow, which <strong>sends</strong> a confirmation email."</li>
+  <li><strong>Mistake 3: "Prepone"</strong> ❌ "Can we prepone the meeting to 9 AM?" ✅ "Can we <strong>move the meeting earlier</strong> to 9 AM?" — "Prepone" is Indian English, not understood internationally. "Postpone" (delay to later) is standard.</li>
+  <li><strong>Mistake 4: Mixing tenses in a report</strong> ❌ "The flow failed at 7 AM. I check the error logs and find the token is expired." ✅ "The flow <strong>failed</strong> at 7 AM. I <strong>checked</strong> the error logs and <strong>found</strong> that the token <strong>was</strong> expired." — Stay in past tense throughout incident reports.</li>
+</ul>
+
+<h3>✅ Week 7 English progress check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you explain the difference between active and passive voice with one example each?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write an incident report this week?</span></li>
+  <li><span class="box"></span><span class="txt">Can you identify unclear "it" references in your writing and fix them?</span></li>
+  <li><span class="box"></span><span class="txt">Are you using past tense consistently in technical log entries?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write the incident summary Teams message?</span></li>
+</ul>
+</div>
 </section>
 
-<!-- DAY 6 -->
-<section class="day" id="day6">
-<div class="dhead"><span class="dnum">Day 6</span></div>
-<h2>BooksScreen: gallery, search, and Power Fx formulas</h2>
-<p class="meta">~110 minutes</p>
+<!-- ═══════════════════════════════════════════════ WEEK 8 ═══ -->
+<section class="day" id="week8">
+<div class="dhead"><span class="dnum">Week 8 · October 22–31</span></div>
+<h2>Model-Driven App + Dataverse Security + Power BI (Personal)</h2>
+<p class="meta">~5 hours · make.powerapps.com + app.powerbi.com · Developer Plan environment</p>
 
-<div class="card c-concept"><span class="lab">Concept — Power Fx: the formula language of canvas apps</span>
-<p><strong>Power Fx</strong> is the language you type into the formula bar. It looks exactly like Excel formulas — in fact it was designed to feel familiar to anyone who knows Excel. Key ideas:</p>
-<ul>
-<li>You refer to a control by its name: <code>SearchInput</code>, <code>BookGallery</code>.</li>
-<li>You get a control's value by name + dot + property: <code>SearchInput.Text</code> = "whatever is typed in the SearchInput box right now".</li>
-<li>Some properties are <strong>events</strong> — they run code when something happens. <code>OnSelect</code> runs when a button is clicked. <code>OnVisible</code> runs when a screen is navigated to.</li>
-<li>Functions are capitalized and work like Excel: <code>If(</code>, <code>Filter(</code>, <code>Search(</code>, <code>Navigate(</code>.</li>
-<li>Use straight quotes <code>"like this"</code>, not curly quotes "like this" — curly quotes cause errors.</li>
-</ul>
+<div class="card c-gloss"><span class="lab">Vocabulary — Week 8</span>
+<dl>
+  <dt><strong>Security Role</strong></dt>
+  <dd>A named collection of permissions in Dataverse — it defines what records a user can Create, Read, Update, and Delete, and at what scope (just their own records, their team's records, or all records in the organization).<br>
+  <em>Example: "The 'Library Member' security role allows: Read all Book records (so members can search the catalog), Create Loan records only for themselves, and Read their own Member record. They cannot see other members' records at all."</em></dd>
+
+  <dt><strong>CRUD</strong></dt>
+  <dd>Create, Read, Update, Delete — the four basic operations you can do on any data. Every permission system in the world is built on these four actions.<br>
+  <em>Example: "Neha (Junior Librarian) has CRUD permissions on Book records but only Read on Loan records. She can add new books but cannot change or delete loan history."</em></dd>
+
+  <dt><strong>Business Rule</strong></dt>
+  <dd>Logic enforced at the Dataverse level — a rule that applies no matter which app, tool, or API touches the data.<br>
+  <em>Analogy: A bank rule that says you cannot withdraw more than your balance. This rule applies whether you use the ATM, the website, or the mobile app — the rule lives at the bank level.</em><br>
+  <em>Example: "I created a Dataverse business rule: if Total_Copies is changed to less than (Total_Copies - Available_Copies), show an error — 'You cannot reduce total copies below the number currently on loan.'"</em></dd>
+
+  <dt><strong>View</strong> (model-driven app)</dt>
+  <dd>A saved filter and column configuration for a table — "show me all overdue loans, sorted by member name, showing these 5 columns".<br>
+  <em>Example: "I created an 'Overdue Loans' view: filter where Status = Active AND Due_Date &lt; Today, sorted by Due_Date ascending. Every librarian uses this view to see the worst overdue loans first."</em></dd>
+
+  <dt><strong>DAX</strong> (Data Analysis Expressions)</dt>
+  <dd>A formula language used in Power BI to create calculated measures and columns. Like Excel formulas, but for Power BI — works across the entire dataset, not just a cell.<br>
+  <em>Example: <code>Overdue Rate = DIVIDE(COUNTROWS(FILTER(Loans, Loans[Status] = "Active" &amp;&amp; Loans[DueDate] &lt; TODAY())), COUNTROWS(FILTER(Loans, Loans[Status] = "Active")))</code></em></dd>
+</dl>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — Gallery and how Items works</span>
-<p>A <strong>Gallery</strong> is a scrollable list. Its <strong>Items</strong> property controls what rows appear. Set <code>Items = Books</code> and it shows all books. Use the <code>Search()</code> function to filter by what the user types.</p>
-<p>Inside the gallery, <strong>ThisItem</strong> refers to "the row this particular gallery card is displaying." So <code>ThisItem.Title</code> means "the Title of the book on this particular card." This is how galleries show different data on each card automatically.</p>
-<p>From <em>outside</em> the gallery, <strong>BookGallery.Selected</strong> means "whichever row the user last clicked on." This is how you pass the selected book to a form screen.</p>
-</div>
-
-<div class="card c-do"><span class="lab">Do this — build BooksScreen: gallery and search</span>
+<div class="card c-do"><span class="lab">Exercise 8 — Create Dataverse Security Roles</span>
+<p><strong>Step 1: Open Security Roles</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Click <strong>BooksScreen</strong> in the tree view. Go to <strong>Insert → Gallery → Vertical gallery</strong>. A gallery appears on the canvas — resize it to fill the screen below your header (set Y = 120 or so).</span></li>
-<li><span class="box"></span><span class="txt">In the Tree view, right-click the gallery → Rename → <code>BookGallery</code>.</span></li>
-<li><span class="box"></span><span class="txt">With <strong>BookGallery</strong> selected, look at the <strong>Properties pane</strong> on the right. Set <strong>Data source</strong> = <code>Books</code>. The gallery fills with your 5 book rows immediately.</span></li>
-<li><span class="box"></span><span class="txt">In the Properties pane, set <strong>Layout</strong> = "Title, subtitle, and body". Now each card shows three lines. Click inside the gallery (double-click to enter the gallery template). Click the <strong>Title1</strong> label. In the formula bar, confirm its Text property = <code>ThisItem.Title</code>.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>Subtitle1</strong> inside the gallery. Set its Text = <code>ThisItem.Genre</code> — this shows the choice label (e.g. "Children").</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>Body1</strong> inside the gallery. Set its Text = <code>"Pages: " &amp; Text(ThisItem.Pages)</code> — the <code>&amp;</code> joins text, and <code>Text()</code> converts the number to text for joining.</span></li>
-<li><span class="box"></span><span class="txt">Press <kbd>Esc</kbd> to exit the gallery template. Now add a <strong>Text input</strong> for search: <strong>Insert → Input → Text input</strong>. Position it above the gallery. Rename it to <code>SearchInput</code>. In the Properties pane, set <strong>HintText</strong> = <code>"Search by title…"</code>.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>BookGallery</strong>. Change its <strong>Items</strong> property in the formula bar to:
-<br><code>Search(Books, SearchInput.Text, "cr_title")</code>
-<br><strong>Breaking this down:</strong> <code>Search(</code> is the function. <code>Books</code> is the table to search through. <code>SearchInput.Text</code> is "whatever the user typed in the SearchInput box" — it updates live as they type. <code>"cr_title"</code> is the logical column name to search in. To find your logical name: go to Dataverse → Book table → Title column → Advanced options → copy the Logical name field. If your prefix is <code>learn</code>, it will be <code>"learn_title"</code>. If it starts with <code>cr</code>, use <code>"cr_title"</code>. Replace accordingly.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Button</strong> for adding new books: <strong>Insert → Button</strong>. Rename to <code>NewBookBtn</code>. Set Text = <code>"+ New Book"</code>. Set <strong>OnSelect</strong> = <code>NewForm(BookForm); Navigate(BookFormScreen, ScreenTransition.Fade)</code>.<br><strong>Breaking this down:</strong> The OnSelect property runs when the button is clicked. The semicolon ( <code>;</code> ) separates two actions that happen one after the other. <code>NewForm(BookForm)</code> tells the form to go into "New/blank" mode. <code>Navigate(BookFormScreen, ScreenTransition.Fade)</code> takes the user to the BookFormScreen with a fade animation. (BookForm doesn't exist yet — you'll add it on Day 7. Power Fx shows a yellow warning but it's fine.)</span></li>
-<li><span class="box"></span><span class="txt">Select <strong>BookGallery</strong>. Set its <strong>OnSelect</strong> property = <code>Navigate(BookFormScreen, ScreenTransition.Fade)</code>. Now clicking any book row will navigate to the form screen.</span></li>
-<li><span class="box"></span><span class="txt">Play ▶ — type in the search box and watch the gallery filter in real time. Click a book row — you go to BookFormScreen (blank for now). Press <kbd>Esc</kbd>. Save.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — how to find the logical column name</span>
-Go to <code>make.powerapps.com</code> → Tables → Book → click the Title column → scroll to <strong>Advanced options</strong>. The <strong>Logical name</strong> field shows something like <code>cr123_title</code> or <code>learn_title</code>. That exact string (with your prefix) goes inside the quotes in the Search() function. You'll need this for filter expressions in Power Automate too.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Power Fx</b> — the Excel-like formula language of canvas apps.</li>
-<li><b>Gallery / Items</b> — a scrollable list of rows / the formula that says which rows to show.</li>
-<li><b>ThisItem</b> — "the row displayed on this gallery card"; only valid inside a gallery template.</li>
-<li><b>BookGallery.Selected</b> — the row the user last clicked in the gallery; used outside the gallery.</li>
-<li><b>Search(table, text, "column")</b> — returns rows where the column contains the text.</li>
-<li><b>OnSelect</b> — the event property that runs when a button or gallery row is clicked.</li>
-<li><b>Navigate(Screen, Transition)</b> — navigates to another screen.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — Power Fx in production apps</span>
-<p>Power Fx is used in every Power Apps production app worldwide. Some patterns you'll see in real projects:</p>
-<ul>
-<li><strong>Search is almost always present:</strong> any gallery showing more than 10 rows gets a search box. The <code>Search(table, text, "column")</code> pattern you just learned is copy-pasted thousands of times a day by developers worldwide.</li>
-<li><strong>Filter + Search combined:</strong> real apps often combine both. For example, show only "In stock" books that match the search: <code>Search(Filter(Books, 'In stock' = true), SearchInput.Text, "learn_title")</code>. You'll add this in Exercise 3 below.</li>
-<li><strong>Navigation is the backbone:</strong> every multi-screen app is just <code>Navigate()</code> calls wired to buttons and gallery rows. Mastering navigation makes you capable of building any flow of screens a UX designer can draw.</li>
+  <li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → Settings (gear icon top right) → <strong>Advanced settings</strong> → Settings → Security → <strong>Security Roles</strong></span></li>
 </ul>
 
-<figure class="fig">
-<svg viewBox="0 0 560 100" role="img" aria-label="Gallery Items formula: Search filters Books by SearchInput.Text">
-<rect x="14" y="24" width="532" height="58" rx="9" fill="#eef4ff" stroke="#2f6fed"/>
-<text x="280" y="44" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">BookGallery.Items formula breakdown</text>
-<text x="28" y="64" font-family="monospace" font-size="11" fill="#2f6fed">Search(</text>
-<text x="105" y="64" font-family="monospace" font-size="11" fill="#0e9f6e">Books</text>
-<text x="148" y="64" font-family="monospace" font-size="11" fill="#2f6fed">,</text>
-<text x="162" y="64" font-family="monospace" font-size="11" fill="#7a5cd6">SearchInput.Text</text>
-<text x="330" y="64" font-family="monospace" font-size="11" fill="#2f6fed">,</text>
-<text x="344" y="64" font-family="monospace" font-size="11" fill="#e0483b">"learn_title"</text>
-<text x="465" y="64" font-family="monospace" font-size="11" fill="#2f6fed">)</text>
-<text x="28" y="76" font-family="monospace" font-size="8.5" fill="#7b8798">function   ← data source   ← user's typing   ← logical column name</text>
-</svg>
-<figcaption>Search() takes three arguments: the table, the text to match, and the column logical name in quotes</figcaption>
-</figure>
-</div>
-
-<div class="card c-warn"><span class="lab">Common mistakes with galleries and formulas</span>
-<ul>
-<li><strong>Using display name instead of logical name in Search().</strong> <code>Search(Books, text, "Title")</code> will not work — the logical name (like <code>"learn_title"</code> or <code>"cr123_title"</code>) must go in the quotes. Copy it from the column's Advanced options.</li>
-<li><strong>Editing inside the gallery template accidentally.</strong> When you double-click a gallery, you enter the template and your edits apply to that repeating row pattern. Clicking Esc exits the template. A common mistake is placing a button inside the gallery template — it then appears on every row instead of once.</li>
-<li><strong>Using ThisItem outside a gallery.</strong> <code>ThisItem</code> only works inside a gallery's template. Outside, use <code>BookGallery.Selected</code> to refer to the selected row.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 6 hands-on checks</span>
+<p><strong>Step 2: Create "Library Member" role</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> With the gallery showing all books, open the formula bar for BookGallery's <code>Items</code> property. Change <code>Search(Books, SearchInput.Text, "learn_title")</code> to just <code>Books</code>. Press Play — the search box no longer filters. Undo the change (Ctrl+Z) to restore Search(). This shows what the formula actually does.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Inside the gallery template, click <strong>Body1</strong>. Change its Text formula to <code>"Copies: " &amp; Text(ThisItem.'Available copies') &amp; " / " &amp; Text(ThisItem.'Total copies')</code>. Press Play — each card now shows the copy count like "Copies: 2 / 3". This is a real UX pattern in library apps.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add an <strong>in-stock filter</strong>: Insert a Toggle control above the gallery. Rename it <code>InStockToggle</code>. Set its <strong>Default</strong> = <code>false</code>. Change BookGallery's Items = <code>Search(If(InStockToggle.Value, Filter(Books, 'In stock'), Books), SearchInput.Text, "learn_title")</code>. Press Play — toggle ON filters to in-stock books only. This combines Filter() and Search() — the production pattern.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a <strong>Label</strong> showing the count of filtered results. Set Text = <code>Text(CountRows(BookGallery.AllItems)) &amp; " books"</code>. Press Play and search — the count updates in real time. <code>CountRows(Gallery.AllItems)</code> counts the filtered rows, not all rows.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Select <strong>BooksScreen</strong> in the tree view. Set its <strong>OnVisible</strong> property = <code>ResetForm(BookForm)</code>. This ensures the book form clears whenever you navigate back to the books list — prevents stale data appearing if a user presses Back mid-edit.</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>+ New</strong>. Name: <code>Library Member</code></span></li>
+</ul>
+<table>
+<tr><th>Table</th><th>Create</th><th>Read</th><th>Write</th><th>Delete</th></tr>
+<tr><td>Book</td><td>None</td><td>Organization</td><td>None</td><td>None</td></tr>
+<tr><td>Member</td><td>None</td><td>User</td><td>User</td><td>None</td></tr>
+<tr><td>Loan</td><td>User</td><td>User</td><td>User</td><td>None</td></tr>
+<tr><td>Author</td><td>None</td><td>Organization</td><td>None</td><td>None</td></tr>
+</table>
+<p><strong>Why these scope choices?</strong></p>
+<ul>
+  <li><strong>Book = Read at Organization:</strong> All members must see the full catalog — all 50 books, even ones Rohit did not create.</li>
+  <li><strong>Member = Read at User:</strong> Rohit should only see HIS member profile, not Priyanka's or Gaurav's.</li>
+  <li><strong>Loan = User scope:</strong> Rohit can create loans, read his own loans, and mark them returned. He cannot see other members' loans.</li>
+</ul>
+
+<p><strong>Step 3: Create "Library Staff" role</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>+ New</strong>. Name: <code>Library Staff</code></span></li>
+</ul>
+<table>
+<tr><th>Table</th><th>Create</th><th>Read</th><th>Write</th><th>Delete</th></tr>
+<tr><td>Book</td><td>Organization</td><td>Organization</td><td>Organization</td><td>Organization</td></tr>
+<tr><td>Member</td><td>Organization</td><td>Organization</td><td>Organization</td><td>None</td></tr>
+<tr><td>Loan</td><td>Organization</td><td>Organization</td><td>Organization</td><td>None</td></tr>
+<tr><td>Author</td><td>Organization</td><td>Organization</td><td>Organization</td><td>Organization</td></tr>
+</table>
+<p>Staff can do everything except delete Member or Loan records — you never delete loan history in a real library system.</p>
+
+<p><strong>Step 4: Assign roles to users</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Settings → Security → Users → click <strong>Rohit Verma</strong> → <strong>Manage Roles</strong> → assign <code>Library Member</code></span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Sanjay Singh</strong> → <strong>Manage Roles</strong> → assign <code>Library Staff</code></span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Neha Agarwal</strong> → <strong>Manage Roles</strong> → assign <code>Library Staff</code></span></li>
+</ul>
+
+<p><strong>Step 5: Test the security</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Open a private browser window. Sign in as Rohit Verma. Open the Library canvas app.</span></li>
+  <li><span class="box"></span><span class="txt">Can Rohit see all books? ✅ (Organization Read on Book)</span></li>
+  <li><span class="box"></span><span class="txt">Can Rohit see Priyanka's loans? ❌ (User Read on Loan — he can only see his own)</span></li>
+  <li><span class="box"></span><span class="txt">Can Rohit add a new book? ❌ (None on Book → Create)</span></li>
+</ul>
+<div class="card c-tip" style="margin:.7rem 0"><span class="lab">💭 System Thinking — Why secure at Dataverse, not just in the Power Apps formula?</span>
+<p>If security is only in the Power Apps formula (<code>Filter(Loans, cr_member.cr_email = User().Email)</code>), what happens when:</p>
+<ul>
+  <li>Someone builds a second app without that filter?</li>
+  <li>Someone connects Power BI directly to Dataverse?</li>
+  <li>A developer calls the Dataverse API directly from code?</li>
+</ul>
+<p>All three bypass the formula. Everyone sees everyone's data. <strong>Security at the Dataverse layer cannot be bypassed by any app, any tool, or any API.</strong> This is defence in depth.</p>
+</div>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 9 — Build the Library Admin Model-Driven App</span>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>+ New app</strong> → <strong>Model-driven</strong>. Name: <code>Library Admin</code></span></li>
+  <li><span class="box"></span><span class="txt">In the App Designer, add the <strong>Books</strong> table to the sitemap. Create views: All Books, Books with Low Stock, High-Rated Books</span></li>
+  <li><span class="box"></span><span class="txt">Add the <strong>Members</strong> table. Create views: All Members, Active Members, Pending Approval, Expired Members</span></li>
+  <li><span class="box"></span><span class="txt">Add the <strong>Loans</strong> table. Create views: All Loans, Active Loans, Overdue Loans, Today's Returns</span></li>
+  <li><span class="box"></span><span class="txt">Add the <strong>Authors</strong> table</span></li>
+  <li><span class="box"></span><span class="txt">For the Loans table, create a Quick Chart: Bar chart, Data = Count of loans per Member</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Publish</strong>. Play the app and confirm you can see all tables and views.</span></li>
+</ul>
+
+<div class="card c-concept" style="margin:.7rem 0"><span class="lab">Canvas App vs Model-Driven App — when to use which</span>
+<table>
+<tr><th>Use Canvas App when...</th><th>Use Model-Driven App when...</th></tr>
+<tr><td>You need a specific visual design</td><td>You need to manage lots of records quickly</td></tr>
+<tr><td>Members use it (non-experts)</td><td>Librarians use it (business process experts)</td></tr>
+<tr><td>Mobile-first experience</td><td>Desktop-first, data-intensive</td></tr>
+<tr><td>Custom UX is required</td><td>Standard Microsoft forms are good enough</td></tr>
+<tr><td>Simple data structure</td><td>Complex data with many relationships</td></tr>
+</table>
+<p><strong>Real answer:</strong> Most good systems have BOTH — a canvas app for end users and a model-driven app for administrators. You built both. That is the professional architecture.</p>
+</div>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 10 — Power BI Dashboard (Personal Use)</span>
+<p>Without Power BI Pro, we cannot share reports. But we can build and use them personally and publish to "My Workspace."</p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Open <code>app.powerbi.com</code>. Go to <strong>My Workspace</strong> → <strong>+ New → Report</strong>. Connect to your Dataverse loans data (or upload the loans.csv sample data).</span></li>
+</ul>
+<p><strong>Page 1: Operations Overview</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add Card visuals: Total Books in Library, Active Members, Active Loans Today, Total Overdue Loans</span></li>
+  <li><span class="box"></span><span class="txt">Add Bar Chart: Loans per Month (last 12 months). X-axis = month, Y-axis = count</span></li>
+  <li><span class="box"></span><span class="txt">Add Pie Chart: Books by Genre</span></li>
+</ul>
+<p><strong>Page 2: Overdue Analysis</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add Table: all overdue loans with member name, book title, days overdue, late fee</span></li>
+  <li><span class="box"></span><span class="txt">Add Bar Chart: members with most overdue loans</span></li>
+  <li><span class="box"></span><span class="txt">Add KPI card for Overdue Rate % using the DAX measure below</span></li>
+</ul>
+<p><strong>Page 3: Popular Books</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add Bar Chart: Top 10 Most Borrowed Books</span></li>
+  <li><span class="box"></span><span class="txt">Add Scatter Plot: Rating vs Borrow Count (shows if popular = highly rated)</span></li>
+  <li><span class="box"></span><span class="txt">Add Table: Books with Available_Copies = 0 (waitlist candidates)</span></li>
+</ul>
+<p><strong>Key DAX measure to write (New Measure):</strong></p>
+<pre><code>Overdue Rate =
+DIVIDE(
+    COUNTROWS(
+        FILTER(
+            Loans,
+            Loans[Status] = "Active" &amp;&amp;
+            Loans[Due_Date] &lt; TODAY()
+        )
+    ),
+    COUNTROWS(
+        FILTER(
+            Loans,
+            Loans[Status] = "Active"
+        )
+    ),
+    0
+)</code></pre>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Format Overdue Rate as a percentage. A healthy library should aim for below 10%.</span></li>
+  <li><span class="box"></span><span class="txt">Save and publish to My Workspace.</span></li>
 </ul>
 </div>
 
-<div class="card c-check"><span class="lab">Mini-quiz — Day 6</span>
-<p><strong>Q1</strong> What is the difference between <code>ThisItem</code> and <code>BookGallery.Selected</code>?</p>
-<p><strong>Q2</strong> Write the Power Fx formula to show only Loan rows where Returned = false in a gallery.</p>
-<p><strong>Q3</strong> A gallery's Items is set to <code>Books</code>. The user types "Dune" in the search box. Does the gallery filter? Why or why not?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> <code>ThisItem</code> is only valid inside a gallery template — it refers to the specific row that gallery card is rendering. <code>BookGallery.Selected</code> is used outside the gallery and refers to the row the user most recently clicked (selected).</p>
-<p><strong>A2</strong> <code>Filter(Loans, Returned = false)</code> — set this as the gallery's Items property. Only open loans appear.</p>
-<p><strong>A3</strong> No — when Items is simply <code>Books</code> (not wrapped in Search()), the search box has no connection to the gallery. Typing in it does nothing. You must wire them together with <code>Search(Books, SearchInput.Text, "learn_title")</code>.</p>
-</details>
-</div>
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 8: Comparison Sentences</span>
+<h3>Why this grammar pattern?</h3>
+<p>This week you compared canvas apps vs model-driven apps, and evaluated security options. In professional technical communication, you constantly compare tools, approaches, and decisions. Structured comparison language makes your arguments clearer.</p>
 
-<div class="card c-check"><span class="lab">Check yourself</span>
-BooksScreen shows all 5 books. Typing in SearchInput filters the list. Clicking a book row navigates to BookFormScreen. That's a real search-and-browse screen — a core UI pattern in almost every business app.</div>
+<table>
+<tr><th>Structure</th><th>Example</th></tr>
+<tr><td>X is <strong>more [adj] than</strong> Y</td><td>"A model-driven app is more <strong>efficient</strong> than a canvas app for managing large volumes of records."</td></tr>
+<tr><td>X is <strong>less [adj] than</strong> Y</td><td>"A canvas app is less <strong>automatic</strong> than a model-driven app in terms of form generation."</td></tr>
+<tr><td>X is <strong>better for</strong> [use case]</td><td>"Canvas apps are <strong>better for</strong> end-user-facing interfaces that need custom design."</td></tr>
+<tr><td>X is <strong>not as [adj] as</strong> Y</td><td>"SharePoint lists are <strong>not as powerful as</strong> Dataverse for complex business logic."</td></tr>
+<tr><td><strong>Unlike</strong> X, Y [verb]</td><td>"<strong>Unlike</strong> canvas apps, model-driven apps generate forms automatically."</td></tr>
+<tr><td><strong>Both</strong> X and Y [verb]</td><td>"<strong>Both</strong> canvas apps and model-driven apps connect to the same Dataverse data."</td></tr>
+<tr><td><strong>Whereas</strong> X [verb], Y [verb]</td><td>"<strong>Whereas</strong> canvas apps give full design control, model-driven apps prioritise speed of development."</td></tr>
+</table>
+
+<h3>Grammar practice</h3>
+<ol>
+  <li>Canvas App vs Model-Driven App — use "whereas":<br>"Whereas canvas apps _________________________, model-driven apps _________________________."</li>
+  <li>Dataverse Security Roles vs formula-level security — use "more secure than":<br>"Dataverse security roles are more secure than _________________________ because _________________________."</li>
+  <li>Power BI Free vs Power BI Pro — use "unlike":<br>"Unlike Power BI Pro, _________________________."</li>
+  <li>Scheduled flow vs Event-driven flow — use "better for":<br>"A scheduled flow is better for _________________________, whereas an event-driven flow is better for _________________________."</li>
+</ol>
+
+<h3>Vocabulary in sentences</h3>
+<table>
+<tr><th>Word</th><th>Write your comparison sentence</th></tr>
+<tr><td>Security Role</td><td></td></tr>
+<tr><td>CRUD</td><td></td></tr>
+<tr><td>Business Rule</td><td></td></tr>
+<tr><td>DAX</td><td></td></tr>
+<tr><td>View (model-driven)</td><td></td></tr>
+</table>
+
+<h3>Writing exercise: Architecture Decision Record (ADR)</h3>
+<p>When you choose one technical option over another, document WHY. This protects you when someone later asks "Why did you build it this way?"</p>
+<pre><code>ARCHITECTURE DECISION RECORD
+Decision: [What you decided]
+Date: [Date]
+Author: [Your name]
+
+CONTEXT:
+[Why a decision was needed — what problem or requirement drove this]
+
+OPTIONS CONSIDERED:
+Option A: [Name]
+  Advantages: [what is good about it]
+  Disadvantages: [what is bad about it]
+
+Option B: [Name]
+  Advantages: [what is good about it]
+  Disadvantages: [what is bad about it]
+
+DECISION: [Option A / B]
+REASON: We chose [Option] because [reason]. Unlike [the other option],
+[chosen option] [advantage]. However, we acknowledge the limitation
+that [one downside of the chosen option].
+REVIEW DATE: [When you will revisit this if circumstances change]</code></pre>
+<p>Write an ADR for: "Canvas App for Members vs Model-Driven App for Members."</p>
+
+<h3>🔊 Read aloud exercise</h3>
+<blockquote><em>"Canvas apps and model-driven apps both connect to the same Dataverse database, but they serve different purposes. A canvas app gives the developer complete control over the visual design — every button, colour, and layout is placed exactly where you want it. This makes canvas apps ideal for member-facing interfaces where first impressions matter. A model-driven app, on the other hand, generates its forms and views automatically from the underlying data structure. This makes it less visually flexible but significantly faster to build for administrators who need to manage large numbers of records quickly. For the Community Library, we chose a canvas app for members because they are casual users who need a polished, simple interface, and a model-driven app for librarians because they are power users who need efficient data management above visual design."</em></blockquote>
+<p>After reading: in your own words, when would YOU choose a canvas app, and when would you choose a model-driven app? Write 3 sentences.</p>
+
+<h3>Professional communication: the weekly build summary</h3>
+<p>At the end of every week, write a short summary. Over 4 months, 16 of these become your project portfolio.</p>
+<pre><code>WEEKLY BUILD SUMMARY — Week [Number]
+Date: [Date]
+Written by: [Your name]
+
+THIS WEEK I BUILT:
+1. [Thing 1] — [1 sentence describing it]
+2. [Thing 2] — [1 sentence describing it]
+3. [Thing 3] — [1 sentence describing it]
+
+KEY DECISIONS:
+- I chose [Option A] over [Option B] because [reason].
+
+WHAT I LEARNED:
+- Technical: [1 concept or insight]
+- English: [1 grammar or communication improvement]
+
+WHAT WAS DIFFICULT:
+- [Honest description of a real challenge]
+
+WHAT I AM PROUD OF:
+- [Something you built that works well]
+
+NEXT WEEK:
+- [What you plan to do — specific, not vague]</code></pre>
+
+<h3>🚫 Common English mistakes — Week 8</h3>
+<ul>
+  <li><strong>Mistake 1: "More better" / "most best"</strong> ❌ "Canvas apps are more better for end users." ✅ "Canvas apps are <strong>better</strong> for end users." — Never combine "more" with short adjectives that already have comparative forms: good→better, bad→worse, big→bigger.</li>
+  <li><strong>Mistake 2: "Different than" vs "Different from"</strong> ✅ "Canvas apps are <strong>different from</strong> model-driven apps." (formal, comparing nouns). "Different than" is used before a clause: "The result is <strong>different than</strong> I expected."</li>
+  <li><strong>Mistake 3: Forgetting "the" before unique things</strong> ❌ "Admin can see all records in model-driven app." ✅ "<strong>The</strong> admin can see all records in <strong>the</strong> model-driven app."</li>
+  <li><strong>Mistake 4: "Kindly" overuse</strong> ❌ "Kindly review the roles. Kindly approve the PR. Kindly update the docs." ✅ Use <strong>Please</strong> for most requests. Reserve "Kindly" for formal communications, used at most once per message.</li>
+</ul>
+
+<h3>✅ Week 8 English progress check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you write a comparison between canvas app and model-driven app using 3 different comparison structures?</span></li>
+  <li><span class="box"></span><span class="txt">Did you fill in the Weekly Build Summary template for Week 8?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write an Architecture Decision Record for any design choice this month?</span></li>
+  <li><span class="box"></span><span class="txt">Are you avoiding "more better", "most best", and "kindly" overuse?</span></li>
+  <li><span class="box"></span><span class="txt">Read your Week 5 journal entry — write one sentence about how your English improved since the start of October.</span></li>
+</ul>
+</div>
 </section>
 
-<!-- DAY 7 -->
-<section class="day" id="day7">
-<div class="dhead"><span class="dnum">Day 7</span></div>
-<h2>BookFormScreen and LoanFormScreen: forms, CRUD, and navigation</h2>
-<p class="meta">~120 minutes</p>
+<!-- ═══════════════════════════════════════════════ RECAP ═══ -->
+<section id="recap">
+<h2>October Recap</h2>
+<div class="card c-check"><span class="lab">What you built by October 31</span>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">✅ Complete <strong>Canvas App</strong> — Home screen (search &amp; gallery), Book Detail screen (borrow button with error handling and race condition fix), My Loans screen (user's own loans)</span></li>
+  <li><span class="box"></span><span class="txt">✅ <strong>Power Fx formulas</strong> — conditional visibility, IfError, IsBlank, DateDiff, Filter, Patch, LookUp, ForAll, Collect</span></li>
+  <li><span class="box"></span><span class="txt">✅ <strong>Overdue Loan Daily Reminder Flow</strong> — scheduled at 7 AM, loops through all overdue loans, sends personalised emails, sends summary to Pooja</span></li>
+  <li><span class="box"></span><span class="txt">✅ <strong>Membership Approval Flow</strong> — triggered on new member registration, sends approval to Pooja, handles approve/reject, emails member with result</span></li>
+  <li><span class="box"></span><span class="txt">✅ <strong>Dataverse Security Roles</strong> — Library Member (user-scope loans, org-scope books) and Library Staff (org-scope everything except delete)</span></li>
+  <li><span class="box"></span><span class="txt">✅ <strong>Library Admin Model-Driven App</strong> — Books, Members, Loans, Authors with custom views and a loans-per-member chart</span></li>
+  <li><span class="box"></span><span class="txt">✅ <strong>Power BI Dashboard</strong> — Operations Overview, Overdue Analysis, Popular Books pages with DAX Overdue Rate measure</span></li>
+</ul>
+<p><strong>This is a working system. A real library could use it.</strong></p>
+</div>
 
-<div class="card c-concept"><span class="lab">Concept — the Edit Form control and its modes</span>
-<p>A <strong>Form</strong> control is the standard way to display and edit one row from a table. It has three modes:</p>
+<div class="card c-gloss"><span class="lab">October Vocabulary Master List — write your own definitions</span>
+<table>
+<tr><th>Word</th><th>Your definition (write from memory)</th></tr>
+<tr><td>Screen</td><td></td></tr>
+<tr><td>Gallery</td><td></td></tr>
+<tr><td>Control</td><td></td></tr>
+<tr><td>Property</td><td></td></tr>
+<tr><td>Navigate</td><td></td></tr>
+<tr><td>Context Variable</td><td></td></tr>
+<tr><td>Global Variable</td><td></td></tr>
+<tr><td>Delegation</td><td></td></tr>
+<tr><td>Formula</td><td></td></tr>
+<tr><td>Function</td><td></td></tr>
+<tr><td>Collection</td><td></td></tr>
+<tr><td>Error Handling</td><td></td></tr>
+<tr><td>IfError</td><td></td></tr>
+<tr><td>IsBlank</td><td></td></tr>
+<tr><td>Trigger (Power Automate)</td><td></td></tr>
+<tr><td>Condition</td><td></td></tr>
+<tr><td>Loop</td><td></td></tr>
+<tr><td>Variable (Power Automate)</td><td></td></tr>
+<tr><td>Parallel Branch</td><td></td></tr>
+<tr><td>Child Flow</td><td></td></tr>
+<tr><td>Security Role</td><td></td></tr>
+<tr><td>CRUD</td><td></td></tr>
+<tr><td>Business Rule</td><td></td></tr>
+<tr><td>View (model-driven)</td><td></td></tr>
+<tr><td>DAX</td><td></td></tr>
+</table>
+</div>
+
+<div class="card c-tip"><span class="lab">Looking ahead — November</span>
+<p>In November, we leave the Power Platform portal and enter <strong>Azure</strong> and <strong>GitHub</strong> — the world where software engineers live. You will learn:</p>
 <ul>
-<li><strong>View mode</strong> — shows the row read-only. The user can see but not change data.</li>
-<li><strong>Edit mode</strong> — shows the row with editable fields. The user can change values and then save.</li>
-<li><strong>New mode</strong> — all fields are empty and blank, ready for a new row.</li>
+  <li>What a "real" database looks like (Azure SQL)</li>
+  <li>What code looks like in a repository (GitHub)</li>
+  <li>How teams deploy software safely without breaking production (GitHub Actions, CI/CD)</li>
+  <li>How to connect Azure to your Power Platform system</li>
 </ul>
-<p>Key form functions: <code>SubmitForm(FormName)</code> — saves the row to Dataverse (creates if New mode, updates if Edit mode). <code>NewForm(FormName)</code> — switches to New mode. <code>EditForm(FormName)</code> — switches to Edit mode. <code>ResetForm(FormName)</code> — clears unsaved changes and returns to View mode. The form's <strong>Item</strong> property says <em>which row</em> it is displaying.</p>
+<p><strong>English goal for November:</strong> Start writing in the <strong>past tense</strong> about what you built — like an engineer's notebook: <em>"On November 3, I created an Azure SQL database named 'LibraryDB' in the Central India region. I chose Central India because it is the closest Azure region to our learners. The database has a free tier of 250 GB..."</em> This habit — writing technical logs in English — is exactly what senior engineers do in real projects.</p>
 </div>
-
-<div class="card c-do"><span class="lab">Do this — build BookFormScreen</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt">Click <strong>BookFormScreen</strong> in the tree view. Add the same blue header rectangle (Width = <code>App.Width</code>, Height = 60, Fill = <code>RGBA(47,111,237,1)</code>) and a title Label: Text = <code>"Book Details"</code>, Color = White, FontSize = 22, Bold.</span></li>
-<li><span class="box"></span><span class="txt">Insert a <strong>Back button</strong>: Insert → Icon → Back arrow. Position it in the header at the left. Set its <strong>OnSelect</strong> = <code>Navigate(BooksScreen, ScreenTransition.Back)</code>. Set Color = White.</span></li>
-<li><span class="box"></span><span class="txt">Insert → Forms → <strong>Edit form</strong>. Resize it to fill most of the screen below the header. In the Tree view, rename it to <code>BookForm</code>.</span></li>
-<li><span class="box"></span><span class="txt">With <strong>BookForm</strong> selected: in Properties pane, set <strong>Data source</strong> = <code>Books</code>. Click <strong>Edit fields</strong> → add all fields: Title, ISBN, Genre, Pages, Published year, Description, Available copies, Total copies, In stock, Author. Remove any fields you don't want.</span></li>
-<li><span class="box"></span><span class="txt">Set BookForm's <strong>Item</strong> property = <code>BookGallery.Selected</code>. This links the form to whichever book was clicked in the gallery.</span></li>
-<li><span class="box"></span><span class="txt">Set BookForm's <strong>DefaultMode</strong> = <code>If(IsBlank(BookGallery.Selected), FormMode.New, FormMode.View)</code>.<br><strong>Breaking this down word by word:</strong><br>
-<code>If(</code> — start of the If function. It has three parts: condition, value-if-true, value-if-false.<br>
-<code>IsBlank(BookGallery.Selected)</code> — is the gallery's selected row empty? When a user presses "+ New Book" (not clicking any existing row), there is no selected row, so this is true.<br>
-<code>, FormMode.New</code> — if true (nothing selected), open the form in New mode (all blank).<br>
-<code>, FormMode.View</code> — if false (a row is selected), open the form in View mode showing that row's data.<br>
-<code>)</code> — closes the If function.<br>
-<em>In plain English: "If nothing is selected in the gallery, open the form blank for a new entry. If something IS selected, open the form showing that book's details."</em></span></li>
-<li><span class="box"></span><span class="txt">Set BookForm's <strong>OnSuccess</strong> = <code>Navigate(BooksScreen, ScreenTransition.Fade)</code>. After saving, the app returns to the books list automatically.</span></li>
-<li><span class="box"></span><span class="txt">Add an <strong>Edit button</strong>: Insert → Button, rename to <code>EditBtn</code>. Text = <code>"Edit"</code>. OnSelect = <code>EditForm(BookForm)</code>.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Save button</strong>: rename to <code>SaveBtn</code>. Text = <code>"Save"</code>. OnSelect = <code>SubmitForm(BookForm)</code>. Make it visible only when editing: Visible = <code>BookForm.Mode = FormMode.Edit || BookForm.Mode = FormMode.New</code>.<br><strong>Breaking down the Visible formula:</strong> <code>BookForm.Mode</code> is the form's current mode. <code>= FormMode.Edit</code> checks if it's in Edit mode. <code>||</code> means OR. <code>= FormMode.New</code> checks if it's in New mode. So the full formula means: "Show this button ONLY if the form is currently in Edit mode OR New mode." When the form is in View mode (just looking at a book), the Save button hides automatically.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Cancel button</strong>: rename to <code>CancelBtn</code>. Text = <code>"Cancel"</code>. OnSelect = <code>ResetForm(BookForm); Navigate(BooksScreen, ScreenTransition.Fade)</code>. Visible = <code>BookForm.Mode = FormMode.Edit || BookForm.Mode = FormMode.New</code> (same rule as Save — only visible during editing).<br><strong>Breaking down OnSelect:</strong> <code>ResetForm(BookForm)</code> throws away any changes the user made (cancels the edit). <code>Navigate(BooksScreen, ScreenTransition.Fade)</code> takes the user back to the books list. The semicolon separates the two actions — they happen in order.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Delete button</strong>: rename to <code>DeleteBtn</code>. Text = <code>"Delete"</code>. Fill = <code>RGBA(220,53,69,1)</code> (red colour). OnSelect = <code>Remove(Books, BookGallery.Selected); Navigate(BooksScreen, ScreenTransition.Fade)</code>. Visible = <code>BookForm.Mode = FormMode.View</code>.<br><strong>Breaking down OnSelect:</strong> <code>Remove(Books, BookGallery.Selected)</code> — <code>Remove</code> deletes a row. <code>Books</code> is the table. <code>BookGallery.Selected</code> is whichever book row was clicked. Then <code>Navigate</code> takes the user back. <strong>Breaking down Visible:</strong> <code>BookForm.Mode = FormMode.View</code> — only show the Delete button when in View mode. You don't want a Delete button appearing while someone is mid-edit.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Lend button</strong> on BookFormScreen: Text = <code>"Lend this book"</code>. OnSelect = <code>Navigate(LoanFormScreen, ScreenTransition.Fade)</code>. Visible = <code>BookGallery.Selected.In stock = true</code> (only show when book is in stock).</span></li>
-<li><span class="box"></span><span class="txt">Play ▶. Click a book on BooksScreen → see it in BookFormScreen in View mode. Click Edit → fields become editable. Change something → Save → you're back at BooksScreen and the change is saved. Click New Book → form is blank → fill in → Save → new row appears. Test Delete too. Press <kbd>Esc</kbd>. Save the app.</span></li>
-</ul></div>
-
-<div class="card c-do"><span class="lab">Do this — build LoanFormScreen</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt">Click <strong>LoanFormScreen</strong> in the tree view. Add the same blue header (rectangle + Label: Text = <code>"New Loan"</code>, Color = White).</span></li>
-<li><span class="box"></span><span class="txt">Add a Back arrow icon: OnSelect = <code>Navigate(BooksScreen, ScreenTransition.Back)</code>.</span></li>
-<li><span class="box"></span><span class="txt">Insert → Forms → Edit form. Rename it <code>LoanForm</code>. Data source = <code>Loans</code>.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>Edit fields</strong> on LoanForm. Add: Book, Member, Loan date, Due date. Keep it focused — only these four for the lending form.</span></li>
-<li><span class="box"></span><span class="txt">Set LoanForm's <strong>DefaultMode</strong> = <code>FormMode.New</code> — this screen is always for creating a new loan.</span></li>
-<li><span class="box"></span><span class="txt">In the Book field inside LoanForm: click on the Book field card. Find its <strong>DefaultSelectedItems</strong> property in the formula bar (click on the Book field card in the form, then look for DefaultSelectedItems in the property dropdown). Set it = <code>[BookGallery.Selected]</code>. This pre-fills the book from the selection. (The brackets [ ] create a single-item table.)</span></li>
-<li><span class="box"></span><span class="txt">Set LoanForm's <strong>OnSuccess</strong> = <code>Navigate(BooksScreen, ScreenTransition.Fade)</code>.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Save Loan button</strong>: Text = <code>"Save Loan"</code>. OnSelect = <code>SubmitForm(LoanForm)</code>.</span></li>
-<li><span class="box"></span><span class="txt">Add a <strong>Cancel button</strong>: Text = <code>"Cancel"</code>. OnSelect = <code>ResetForm(LoanForm); Navigate(BooksScreen, ScreenTransition.Fade)</code>.</span></li>
-<li><span class="box"></span><span class="txt">Set LoanFormScreen's <strong>OnVisible</strong> = <code>NewForm(LoanForm)</code>. This ensures the form resets to blank every time you navigate to this screen, even if it was used before.</span></li>
-<li><span class="box"></span><span class="txt">Play ▶. Click a book → click "Lend this book" → see the book pre-filled in the loan form → pick a member, add dates → Save Loan. Go back to BooksScreen. Open Library Back Office (in another tab) to confirm the Loan row was created in Dataverse. Press <kbd>Esc</kbd>. Save.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — ScreenTransition types</span>
-<code>Navigate(Screen, ScreenTransition.Fade)</code> — fades out then in. <code>ScreenTransition.Cover</code> — new screen slides over from the right (feels like forward navigation). <code>ScreenTransition.Back</code> — new screen slides in from the left (feels like going back). Use Cover/Back pairs to give users a sense of direction.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Edit form / View / Edit / New mode</b> — the control for one row / read-only / editable / blank-new.</li>
-<li><b>Item property</b> — the formula that tells the form which row to display.</li>
-<li><b>SubmitForm</b> — saves the current form row to Dataverse (create or update).</li>
-<li><b>NewForm / EditForm / ResetForm</b> — switch to New / Edit / View (discarding changes) mode.</li>
-<li><b>OnSuccess</b> — runs automatically after a successful SubmitForm.</li>
-<li><b>OnVisible</b> — runs every time a screen is navigated to.</li>
-<li><b>Remove(table, record)</b> — deletes a row from a Dataverse table.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — forms and CRUD in enterprise apps</span>
-<p>The Edit Form pattern you built today (View → Edit → Save, with OnSuccess navigation) is the most common pattern in every data-entry app worldwide:</p>
-<ul>
-<li>A field service company uses this exact pattern for Work Order forms: technicians view an assigned job (View mode), tap Edit to fill in completion details, tap Save, and the app navigates back to their job list.</li>
-<li>An insurance company's claims app uses three form screens: ClaimsList, ClaimDetails (view/edit), and NewClaim (always New mode with DefaultMode = FormMode.New).</li>
-<li>The Delete pattern with Remove() is used cautiously in production — most real apps don't delete records; they set a Status = "Inactive" instead, so data is preserved for audits. Your Library Back Office can retire books (set In stock = No) without deleting them.</li>
-</ul>
-</div>
-
-<div class="card c-warn"><span class="lab">Common mistakes with forms</span>
-<ul>
-<li><strong>Forgetting to set the Item property.</strong> If BookForm.Item is blank, the form has no data to display or edit — it appears empty in View mode. Always set <code>Item = BookGallery.Selected</code> (or whichever gallery feeds it).</li>
-<li><strong>Using SubmitForm in the wrong context.</strong> <code>SubmitForm(BookForm)</code> saves the form that was most recently in Edit or New mode. If the form is in View mode, SubmitForm does nothing. Use <code>EditForm(BookForm)</code> first to switch to Edit mode, then SubmitForm on the Save button.</li>
-<li><strong>Not testing OnSuccess.</strong> <code>OnSuccess</code> only fires after a <em>successful</em> save. If the form has a validation error (e.g. a Required field is blank), OnSuccess doesn't run and the navigation doesn't happen. Test by deliberately leaving a Required field blank — confirm the error appears and the user stays on the form.</li>
-<li><strong>Making Delete available in Edit/New mode.</strong> Always use <code>Visible = BookForm.Mode = FormMode.View</code> on the Delete button — deleting a record that was just created (New mode) or is mid-edit causes unexpected behaviour.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 7 hands-on checks</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Press Play ▶. On BooksScreen, click the "+ New Book" button. In the form (New mode), leave Title blank and click Save. Confirm Dataverse shows a validation error and the app stays on the form screen. Title is Required — the form blocks empty saves automatically.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> In Play mode, click an existing book → Edit → change the Genre → Cancel. Go back and click that book again — confirm the genre is unchanged. <code>ResetForm</code> in the Cancel button discards changes without saving. This is the expected behaviour users rely on.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add a <strong>Label</strong> to BookFormScreen that shows the current form mode as a word. Set its Text = <code>Switch(BookForm.Mode, FormMode.View, "Viewing", FormMode.Edit, "Editing", FormMode.New, "Adding new")</code>. Press Play and cycle through the modes — the label updates. This is a useful developer debugging UI that you'd remove before publishing.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> On LoanFormScreen, add a <strong>Label</strong> above the form showing the pre-filled book title: Text = <code>"Lending: " &amp; BookGallery.Selected.Title</code>. This reminds the librarian which book they're creating a loan for.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Test the full workflow end to end: Add a new book → Lend that book → check the Loan table in Dataverse (or Library Back Office) to confirm the Loan row was created with the correct Book, Member, Loan date, Due date. This is your <strong>end-to-end integration test</strong> — the app, the form, and Dataverse all working together.</span></li>
-</ul>
-</div>
-
-<div class="card c-check"><span class="lab">Mini-quiz — Day 7</span>
-<p><strong>Q1</strong> What is the difference between <code>SubmitForm(BookForm)</code> and <code>Patch(Books, BookGallery.Selected, {Title: "New Title"})</code>?</p>
-<p><strong>Q2</strong> You set <code>OnSuccess = Navigate(BooksScreen, ScreenTransition.Fade)</code> on BookForm. A user fills in a form with a blank Required field and clicks Save. Does the navigation happen?</p>
-<p><strong>Q3</strong> What does <code>DefaultMode = If(IsBlank(BookGallery.Selected), FormMode.New, FormMode.View)</code> achieve?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> SubmitForm uses the form control's field values (whatever is in the form's field inputs). Patch() directly writes specified values to a record without needing a form control. SubmitForm is for forms; Patch() is for inline data changes from buttons or logic.</p>
-<p><strong>A2</strong> No. OnSuccess only fires when the save completes without errors. A Required field being blank causes a validation error — the form shows the error and OnSuccess does not run, keeping the user on the form screen.</p>
-<p><strong>A3</strong> When a user presses "+ New Book", BookGallery.Selected is blank (nothing selected), so the form opens in New mode (all fields empty). When a user clicks an existing book row, BookGallery.Selected is that row, so the form opens in View mode showing that book's data.</p>
-</details>
-</div>
-
-<div class="card c-check"><span class="lab">Check yourself</span>
-Your app has full CRUD: you can browse books, search, view details, edit, create, delete, and lend a book — all saved to Dataverse. That's a production-quality book management workflow.</div>
-</section>
-
-<!-- DAY 8 -->
-<section class="day" id="day8">
-<div class="dhead"><span class="dnum">Day 8</span></div>
-<h2>Library Back Office: model-driven app, views, forms, and business rules</h2>
-<p class="meta">~120 minutes</p>
-
-<div class="card c-concept"><span class="lab">Concept — what model-driven apps give you for free</span>
-<p>Canvas apps give you full control — but you design every button, every screen. Model-driven apps trade that control for speed and built-in features:</p>
-<ul>
-<li><strong>Auto-generated forms and views</strong> — the app reads your table columns and creates the form automatically. Change a column → the form updates.</li>
-<li><strong>Built-in command bars</strong> — New, Save, Delete, Refresh buttons appear automatically. No Power Fx needed.</li>
-<li><strong>Sub-grids</strong> — a related table shown inside a record (e.g. all Loans for a Member inside the Member form).</li>
-<li><strong>Activity timeline</strong> — notes, emails, tasks linked to a record.</li>
-<li><strong>Business process flows</strong> — a guided step-by-step process shown at the top of a record.</li>
-<li><strong>Always mobile-ready</strong> — the layout automatically adapts to phones and tablets.</li>
-</ul>
-</div>
-
-<div class="card c-concept"><span class="lab">Concept — site map, views, forms, and business rules</span>
-<ul>
-<li><strong>Site map</strong> — the navigation menu of a model-driven app. You define Groups (sections) and Subareas (links to tables or dashboards). Users see this on the left side of the app.</li>
-<li><strong>View</strong> — a saved, filtered, sorted list of rows for a table. Active Books, Overdue Loans, etc. Users switch between views using a dropdown.</li>
-<li><strong>Form</strong> — the layout for a single record. You arrange fields into sections and tabs. A record can have multiple forms (one for quick entry, one for detailed view).</li>
-<li><strong>Business rule</strong> — "if this, then that" logic attached to a table, written in a visual designer with no code. Runs in model-driven apps, canvas apps, and even the Dataverse data grid — everywhere the data is edited.</li>
-</ul></div>
-
-<div class="card c-do"><span class="lab">Do this — create Library Back Office and configure the site map</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt">Go to <strong>Solutions → My Learning Solution → New → App → Model-driven app</strong>. Name = <code>Library Back Office</code>. Click <strong>Create</strong>.</span></li>
-<li><span class="box"></span><span class="txt">The App Designer opens. In the left <strong>Pages</strong> panel, click <strong>Add page → Dataverse table</strong>. Add all four tables: <strong>Book</strong>, <strong>Author</strong>, <strong>Member</strong>, <strong>Loan</strong>. Click Add.</span></li>
-<li><span class="box"></span><span class="txt">The site map now lists all four tables. Rearrange them by dragging: Book first, then Loan, then Member, then Author.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>Save</strong> → <strong>Publish</strong> → <strong>Play</strong>. The app opens. You see a left sidebar with your four tables. Click Book → you see a list of all books. Click any book → the auto-generated form shows all its fields. Try creating a new book from the command bar — faster than the canvas app!</span></li>
-</ul></div>
-
-<div class="card c-do"><span class="lab">Do this — customise views for every table</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt">Back in the App Designer, click <strong>Book</strong> in the Pages list → click <strong>Views</strong>. You see "Active Books" and "Inactive Books". Click <strong>Active Books</strong> to edit it.</span></li>
-<li><span class="box"></span><span class="txt">In the View editor, add columns: <strong>Title</strong> (already there), <strong>Author</strong>, <strong>Genre</strong>, <strong>Available copies</strong>, <strong>In stock</strong>. Drag to reorder. Set column widths. Sort by Title ascending. Save and publish.</span></li>
-<li><span class="box"></span><span class="txt">Create a new view: click <strong>+ New view</strong> in the view editor. Name = <code>Books in stock</code>. Add filter: In stock = Yes. Sort by Title ascending. Save and publish.</span></li>
-<li><span class="box"></span><span class="txt">Now do <strong>Loan</strong> views. Edit <strong>Active Loans</strong>: add columns Loan name, Book, Member, Loan date, Due date, Status. Sort by Due date ascending.</span></li>
-<li><span class="box"></span><span class="txt">Create <strong>Overdue Loans</strong> view: filter Status = Overdue, sort by Due date ascending. This is the first thing library staff will open every morning.</span></li>
-<li><span class="box"></span><span class="txt">For <strong>Member</strong>: edit Active Members to show Full name, Email, Membership, Active. Create view <strong>Student Members</strong>: filter Membership = Student.</span></li>
-</ul></div>
-
-<div class="card c-do"><span class="lab">Do this — customise forms with sections and sub-grids</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt">In App Designer, click <strong>Book → Forms → Main form (Information)</strong> to open the Form designer.</span></li>
-<li><span class="box"></span><span class="txt">The form has a default layout. Rearrange fields: drag <strong>Title</strong> to be full-width at the top (Section with 1 column). Below it, add a new 2-column section: left = Author, right = Genre. Next 2-column section: left = Pages, right = Published year. Full-width section: Description. Final 3-column section: Available copies, Total copies, In stock.</span></li>
-<li><span class="box"></span><span class="txt">Add a new <strong>Tab</strong> at the top of the form. Name it <code>Loan History</code>. Inside that tab, click <strong>+ Component → Sub-grid</strong>. Table = Loan, Default view = Active Loans. Save and publish. Now when you open a Book record, the Loan History tab shows all loans for that book.</span></li>
-<li><span class="box"></span><span class="txt">Open <strong>Member → Forms → Main form</strong>. Add a sub-grid for Loans on a "Loan History" tab (same pattern). Save and publish.</span></li>
-</ul></div>
-
-<div class="card c-do"><span class="lab">Do this — add two business rules to the Loan table</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt">In the maker portal: <strong>Tables → Loan → Business rules → New business rule</strong>. The visual designer opens.</span></li>
-<li><span class="box"></span><span class="txt">First rule — <strong>Auto-set Overdue status</strong>:<br>
-- Condition: <code>Returned</code> Equals <code>No</code> AND <code>Due date</code> Is before <code>Now</code>.<br>
-- Action (in "If Yes" branch): <strong>Set field value</strong> → Field = Status, Value = Overdue.<br>
-- Set Scope = <strong>All Forms</strong>.<br>
-- Save → Activate. (This rule fires whenever a form checks the Loan row. To trigger it on schedule, you'll add an Overdue Check flow in Phase 3.)</span></li>
-<li><span class="box"></span><span class="txt">Second rule — <strong>Set return date when returned</strong>:<br>
-- Condition: <code>Returned</code> Equals <code>Yes</code> AND <code>Return date</code> Does not contain data.<br>
-- Action: <strong>Set field value</strong> → Field = Return date, to formula = <code>Now()</code>.<br>
-- Scope = All Forms. Save → Activate.</span></li>
-<li><span class="box"></span><span class="txt">Test: open a Loan record in Library Back Office. Set Returned = Yes → Save. The Return date field is automatically set to today. Open an overdue Loan (Due date in the past, Returned = No) → when you save, Status should change to Overdue.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — same data, two completely different apps</span>
-Both Library Manager (canvas) and Library Back Office (model-driven) read and write the exact same Book, Member, and Loan rows in Dataverse. There is only one copy of the data. If a member borrows a book in Library Manager, it appears immediately in Library Back Office. This "one source of truth" principle is fundamental to enterprise software design.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Model-driven app</b> — an app auto-built from your table design; standardised look, rich built-in features.</li>
-<li><b>Site map</b> — the navigation menu of a model-driven app (Groups + Subareas).</li>
-<li><b>View</b> — a saved, filtered, sorted list of rows for a table; users switch between them.</li>
-<li><b>Form</b> — the field layout for one record; supports sections, tabs, and sub-grids.</li>
-<li><b>Sub-grid</b> — a related table shown inside a record (e.g. all Loans for a Member).</li>
-<li><b>Business rule</b> — visual if-then logic attached to a table; runs in all apps without code.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — model-driven apps and business rules in enterprise</span>
-<p>Model-driven apps power some of the world's largest CRM and ERP systems. Dynamics 365 — used by thousands of Fortune 500 companies — is entirely model-driven Power Platform. When you built Library Back Office today, you built something architecturally identical to a Dynamics 365 module:</p>
-<ul>
-<li>The <strong>site map</strong> you configured is the same left-navigation structure Dynamics 365 users see every day.</li>
-<li><strong>Business rules</strong> in enterprise apps automate compliance: an insurance company's business rule says "if ClaimAmount &gt; 50000, set Approval required = Yes" — exactly the same as your Loan Overdue rule, but for a financial process.</li>
-<li><strong>Sub-grids</strong> are ubiquitous in enterprise forms: every customer record in a CRM shows a sub-grid of their purchases, their support tickets, and their contacts — the same pattern as your Loan History sub-grid in the Member form.</li>
-</ul>
-<p>You are not just learning Power Platform — you are learning how Dynamics 365, and enterprise data platforms in general, are built.</p>
-</div>
-
-<div class="card c-warn"><span class="lab">Common mistakes with model-driven apps and business rules</span>
-<ul>
-<li><strong>Not publishing after changes.</strong> Changes to views, forms, or business rules in the App Designer don't take effect until you click <strong>Publish</strong>. A common mistake is testing before publishing and wondering why nothing changed.</li>
-<li><strong>Business rules don't run in flows.</strong> A business rule runs when a record is opened or saved in an app — it does NOT run when a Power Automate flow updates a record via the API. For flow-triggered data changes, you need flow logic (conditions + update row actions).</li>
-<li><strong>Forgetting to Activate a business rule.</strong> After saving a business rule, its status is Draft. It won't run until you click <strong>Activate</strong>. Check the status icon on the business rules list.</li>
-<li><strong>Adding too many fields to views.</strong> A view with 15 columns becomes unreadable on screen. Stick to 5-7 of the most important columns. More detail belongs in the form (which you see when you click a row).</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 8 hands-on checks</span>
-<ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In Library Back Office, open the Loan table view. Create an <strong>Overdue Loans</strong> view if you haven't already: filter Status = Overdue, columns = Loan name, Book, Member, Loan date, Due date, Late fee. Sort by Due date ascending. Save and publish. Open the app and switch to this view — it becomes library staff's daily morning screen.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Open a Loan record in Library Back Office. Set Returned = Yes and save. Confirm the business rule fires and sets Return date = today. Open that Loan record again — Return date should be filled. This proves the business rule is active and working.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> In the Member form designer, add a <strong>3rd tab</strong> called "Membership info". Inside that tab, add a 2-column section: left = Membership type, right = Membership expiry. Left = Join date, right = Active. Save and publish. The Member form now has a dedicated membership section — cleaner for admin staff.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Add a third business rule to the Loan table: <strong>name = "Warn about late fee"</strong>. Condition: Status = Overdue. Action: Set field value → Late fee = 5 (₹5 per day). Note: this sets a fixed fee, not a calculated one — you'd calculate days in a flow. Save and activate. Test by opening an Overdue loan in Library Back Office.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5 (end-to-end test):</strong> Open Library Manager (canvas app) in one tab. Open Library Back Office (model-driven) in another. Add a new Loan in Library Manager. Without refreshing the model-driven app, go to its Loan table view — refresh and confirm the new Loan row appears. Then set Returned = Yes in Library Back Office. Go back to Library Manager — the data is the same. Both apps, one Dataverse.</span></li>
-</ul>
-</div>
-
-<div class="card c-check"><span class="lab">Mini-quiz — Day 8</span>
-<p><strong>Q1</strong> A business rule sets Status = Overdue when Due date is in the past. A Power Automate flow updates a Loan row directly via the Dataverse connector. Does the business rule run?</p>
-<p><strong>Q2</strong> You publish a new view in the App Designer, but the view doesn't appear in the model-driven app. What is the most likely cause?</p>
-<p><strong>Q3</strong> What is the advantage of a sub-grid over a separate table view for showing related records?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> No. Business rules run in the app form context (when a user opens or saves a record in the UI). When Power Automate writes directly via the API, business rules are not triggered. Use flow conditions and Update row actions for flow-based logic.</p>
-<p><strong>A2</strong> You may have saved but not published. In the App Designer, Save stores the draft; Publish pushes it live. Always click Publish after changes, then hard-refresh the app (Ctrl+Shift+R).</p>
-<p><strong>A3</strong> A sub-grid shows related records inline inside the parent record — no navigation needed. A user viewing a Member record sees all their Loans without leaving the Member screen. This is faster and more efficient for staff who need context about both the member and their loans at the same time.</p>
-</details>
-</div>
-
-<div class="card c-check"><span class="lab">Check yourself</span>
-You have two complete apps over the same data. Can you explain when you'd choose canvas vs model-driven in a real project? (Custom consumer or field app → canvas. Fast internal data management or operations tool → model-driven.) Both exist in the real world — great Power Platform developers use both.</div>
 </section>
 
 <div class="pn">
-<a href="phase1.html"><div class="d">← Previous</div><div class="tt">Phase 1 · Foundations</div></a>
-<a class="nx" href="phase3.html"><div class="d">Next phase →</div><div class="tt">Phase 3 · Automation</div></a>
+  <a class="pv" href="phase1.html"><div class="d">← Previous Month</div><div class="tt">September · Cloud &amp; Foundations</div></a>
+  <a class="nx" href="phase3.html"><div class="d">Next Month →</div><div class="tt">November · Azure &amp; GitHub</div></a>
 </div>
+
 </main>
 <button class="top" id="top" aria-label="Back to top">↑</button>
 <script src="assets/course.js"></script>

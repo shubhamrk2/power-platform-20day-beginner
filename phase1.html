@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Phase 1 · Foundations — Power Platform in 20 Days</title>
+<title>Month 1 — September · AI-Ready in 4 Months</title>
 <link rel="stylesheet" href="assets/course.css">
 </head>
 <body data-page="phase1">
 <button id="menu" aria-label="Menu">☰</button>
 <aside id="rail">
   <div class="brand"><a href="index.html">
-    <div class="t">Power Platform in 20 Days</div>
-    <div class="s">A Beginner's Course</div></a>
+    <div class="t">AI-Ready in 4 Months</div>
+    <div class="s">Power Platform · Azure · GitHub · AI</div></a>
     <div class="prog"><i id="pfill"></i></div>
     <div class="progtxt"><span id="pnum">0</span> / <span id="ptot">0</span> steps on this page</div>
   </div>
@@ -19,535 +19,1273 @@
 </aside>
 
 <main>
-<div class="crumb"><a href="index.html">Home</a> / Phase 1 · Foundations</div>
-<header class="hero">
-  <span class="pill">Phase 1 · Days 1–4</span>
-  <h1>Foundations</h1>
-  <p>Before you build anything, get comfortable with the cloud and learn how data is stored and shaped.
-  These four days are the ground everything else stands on. Every line of code, every flow, every chart
-  you build in Days 5–20 connects back to what you set up here.</p>
+
+<header class="hero" id="top-hero">
+  <span class="pill">Month 1 · September 6 – 30, 2026</span>
+  <h1>The Foundation — Cloud, Identity &amp; Power Platform</h1>
+  <p>The M365 E5 trial is active. Every premium feature is available. This month we build a mental map of the entire Microsoft ecosystem — tenants, identity, SharePoint, Teams, Dataverse, Power BI, and Copilot Studio — before the trial expires on September 30.</p>
 </header>
 
-<!-- DAY 1 -->
-<section class="day" id="day1">
-<div class="dhead"><span class="dnum">Day 1</span></div>
-<h2>Getting your bearings: the cloud, Microsoft 365, Power Platform</h2>
-<p class="meta">~90 minutes</p>
-
-<div class="card c-concept"><span class="lab">Concept — what is "the cloud"?</span>
-<p><strong>Plain English:</strong> "the cloud" means <em>powerful computers in a data centre somewhere that you use through your web browser</em>. You don't install anything — you open a website, sign in, and the work happens on Microsoft's computers, not yours. That's why any device with a browser works.</p>
-<p><strong>A bit more technical:</strong> the tools are <em>web applications</em>. Your browser sends requests over the internet to Microsoft's servers. Those servers do the computation and send back the screen you see. Your creations (tables, apps, flows) are saved on those servers, so you can sign in from any device and find them again.</p>
+<div class="card c-warn"><span class="lab">Careful — Trial Expires September 30</span>
+<p>The Microsoft 365 E5 trial expires on <strong>September 30, 2026</strong>. After that date, premium features (Teams, SharePoint, Copilot Studio, Power BI Pro, MFA logs) become unavailable unless you pay. <strong>Week 4 is entirely dedicated to safely exporting and migrating everything before that date.</strong> Do not skip it.</p>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — the words every beginner must know</span>
-<ul>
-<li><strong>Browser</strong> — the program for visiting websites. Microsoft Edge and Google Chrome are the two you'll use. Both came with your computer.</li>
-<li><strong>Tab</strong> — one website open inside the browser window, like a page in a book. You can have many tabs open at once.</li>
-<li><strong>URL / address</strong> — the web address you type at the top bar, e.g. <code>make.powerapps.com</code>. Press <kbd>Enter</kbd> after typing it.</li>
-<li><strong>Sign in</strong> — proving who you are with an email address + password. Different accounts (work, personal) are completely separate.</li>
-<li><strong>Incognito / private window</strong> — a browser window that forgets all sign-ins when you close it. Keeps your learning account clean.</li>
-</ul></div>
+<div class="card c-concept"><span class="lab">The Big Question for September — What IS Microsoft 365 and why does it exist?</span>
+<p>Imagine you are starting a new company. You need: email for all employees, file storage everyone can share, a tool for video calls and meetings, a way to track customers, and security so only your employees can see company files.</p>
+<p>Before Microsoft 365 existed, you bought all these separately — an email server (expensive hardware), a file server, a video call license, a security system — and paid a tech expert to keep it all running. If a hard drive broke, your emails were gone.</p>
+<p><strong>Microsoft 365 says:</strong> "Give us a monthly fee per person, and we run ALL of this for you in our data centers around the world. No hardware. No expert. No single point of failure."</p>
+<p>This is called <strong>Software as a Service (SaaS)</strong> — you pay for software as if it were water or electricity. You do not own the pipe, you just pay for what flows through it.</p>
+</div>
 
-<div class="card c-concept"><span class="lab">Concept — Microsoft 365 and Power Platform: how they relate</span>
-<p>You signed up for <strong>Microsoft 365 E5</strong>. This gives you the familiar Office apps (Word, Excel, Teams, SharePoint, Outlook) <em>and</em> the whole <strong>Power Platform</strong>. Both share one identity system called <strong>Microsoft Entra ID</strong> (formerly "Azure Active Directory") — so the same email + password that opens Outlook opens Power Apps. There is only one user account; everything flows from it.</p>
+<div class="card c-tip"><span class="lab">💭 System Thinking — What are the risks of giving ALL your data to Microsoft?</span>
+<p><strong>Think about this genuinely before reading the answer.</strong></p>
 <ul>
-<li><strong>Power Apps</strong> — build apps. <em>Phase 2.</em></li>
-<li><strong>Power Automate</strong> — build automations ("flows"). <em>Phase 3.</em></li>
-<li><strong>Copilot Studio</strong> — build AI chatbots. <em>Phase 5.</em></li>
-<li><strong>Power BI</strong> — build charts and dashboards. <em>Phase 6.</em></li>
-<li><strong>Dataverse</strong> — the shared database underneath it all. <em>Day 2 onwards.</em></li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Concept — tenant, environment, and solution (the three "rooms")</span>
-<p>Think of the Microsoft cloud like a building:</p>
-<ul>
-<li><strong>Tenant</strong> — the whole building. Your entire organisation's space in Microsoft's cloud. Every user, every app, every file lives inside it. The tenant has a domain like <code>yourtenant.onmicrosoft.com</code>.</li>
-<li><strong>Environment</strong> — a room inside the building. An isolated container with its own Dataverse database, its own security settings, and its own URL (like <code>org12345.crm.dynamics.com</code>). You can have many environments: one for learning, one for testing, one for production. What you build in the Learning environment cannot affect any other environment.</li>
-<li><strong>Solution</strong> — a labelled box inside a room. Groups your tables, apps, and flows so you can manage and move them together. You'll create this on Day 4.</li>
-</ul></div>
-
-<figure class="fig">
-<svg viewBox="0 0 580 210" role="img" aria-label="Hierarchy: Tenant contains Environment, which contains Solution, which contains Components">
-<defs><marker id="a1" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
-<rect x="14" y="14" width="552" height="182" rx="12" fill="#fef9ed" stroke="#e0a020" stroke-width="1.5"/>
-<text x="290" y="36" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#7a5000">TENANT  (your whole Microsoft cloud space)</text>
-<rect x="36" y="52" width="510" height="130" rx="10" fill="#f0f4ff" stroke="#2f6fed" stroke-width="1.5"/>
-<text x="291" y="72" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">ENVIRONMENT — "Learning"  (an isolated room with its own database)</text>
-<rect x="60" y="86" width="460" height="84" rx="9" fill="#f0fbf4" stroke="#0e9f6e" stroke-width="1.5"/>
-<text x="290" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#1f2733">SOLUTION — "My Learning Solution"  (a movable box)</text>
-<rect x="84" y="116" width="96" height="40" rx="7" fill="#fff" stroke="#9fb0c8"/><text x="132" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Tables</text>
-<rect x="196" y="116" width="96" height="40" rx="7" fill="#fff" stroke="#9fb0c8"/><text x="244" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Apps</text>
-<rect x="308" y="116" width="96" height="40" rx="7" fill="#fff" stroke="#9fb0c8"/><text x="356" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Flows</text>
-<rect x="420" y="116" width="96" height="40" rx="7" fill="#fff" stroke="#9fb0c8"/><text x="468" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4a5567">Chatbots</text>
-</svg>
-<figcaption>Everything you build lives inside: Tenant → Environment → Solution → Components</figcaption>
-</figure>
-
-<div class="card c-concept"><span class="lab">Concept — the maker portal and every menu item explained</span>
-<p>The <strong>maker portal</strong> at <code>make.powerapps.com</code> is your main workshop. Here is what every left-nav item does:</p>
-<ul>
-<li><strong>Home</strong> — quick-start templates and recent items.</li>
-<li><strong>Apps</strong> — list of all canvas and model-driven apps you've created.</li>
-<li><strong>Tables</strong> — all Dataverse tables in the current environment. Where you build your data model.</li>
-<li><strong>Flows</strong> — shortcut to Power Automate for this environment.</li>
-<li><strong>Chatbots</strong> — shortcut to Copilot Studio.</li>
-<li><strong>Solutions</strong> — the boxes that group everything together. You'll live here from Day 4.</li>
-<li><strong>Dataflows</strong> — tools to import and clean data from files/databases into Dataverse tables.</li>
-<li><strong>Connections</strong> — the authenticated links to external services (Outlook, SharePoint, etc.) that your flows and apps use.</li>
-<li><strong>Custom connectors</strong> — bridges to external web APIs that don't have a built-in connector.</li>
-<li><strong>AI models</strong> — pre-built AI models (invoice scanning, text classification, object detection) you can call from apps and flows.</li>
+  <li>If Microsoft has an outage (Azure went down in 2021 — thousands of companies could not work for hours), your entire company stops</li>
+  <li>If Microsoft raises prices, you must pay or lose everything</li>
+  <li>If governments force Microsoft to share data, your company's private information may be exposed</li>
+  <li>If you stop paying, Microsoft locks your data — you must export before that happens</li>
 </ul>
-<p>The <strong>environment picker</strong> in the top-right corner shows which environment you are in. Always confirm it says <strong>Learning</strong> (or your Developer Plan environment) before building anything.</p>
+<p><strong>This is why</strong> companies use a "multi-cloud" or "hybrid" strategy — not everything in one place. You will learn about this in November.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — open incognito, sign in, explore everything</span>
+<div class="card c-concept"><span class="lab">September Week-by-Week Plan</span>
+<table>
+<tr><th>Week</th><th>Dates</th><th>Focus</th></tr>
+<tr><td><strong>Week 1</strong></td><td>Sept 6–12</td><td>Cloud fundamentals, Microsoft Identity (Entra ID), tenant setup</td></tr>
+<tr><td><strong>Week 2</strong></td><td>Sept 13–19</td><td>SharePoint, Teams, OneDrive — use while trial is active</td></tr>
+<tr><td><strong>Week 3</strong></td><td>Sept 20–26</td><td>Power Platform intro, Dataverse basics, Power BI Pro, Copilot Studio chatbot</td></tr>
+<tr><td><strong>Week 4</strong></td><td>Sept 27–30</td><td>Export, backup, migrate to Developer Plan, September recap</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="day" id="week1">
+<div class="dhead"><span class="dnum">Week 1 · September 6–12</span></div>
+<h2>The Cloud, Tenants, Identity &amp; the Microsoft Ecosystem</h2>
+<p class="meta">~3 hours · Done in browser · Internet required · M365 E5 trial active</p>
+
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 1 — Learn these before doing anything. Read each one out loud.</span>
+<dl>
+  <dt><strong>1. Cloud (noun)</strong></dt>
+  <dd>Computers that belong to someone else (Microsoft, Amazon, Google) that you rent over the internet.<br>
+  <em>Analogy: Electricity. You do not own a power station. You pay your bill and power comes from the grid.</em><br>
+  <em>Example: "We moved our company email to the cloud so we do not need to maintain our own email server."</em></dd>
+
+  <dt><strong>2. Tenant (noun)</strong></dt>
+  <dd>Your company's private space inside Microsoft's cloud.<br>
+  <em>Analogy: An apartment building. Microsoft owns the building. Your company rents one apartment. Your neighbour company has their own apartment — they cannot enter yours.</em><br>
+  <em>Example: "Our company's tenant is on Microsoft's India data center. All our users exist only inside our tenant."</em></dd>
+
+  <dt><strong>3. License (noun)</strong></dt>
+  <dd>Permission to use a software feature, given to one person.<br>
+  <em>Analogy: A bus ticket. The bus exists for everyone, but you can only ride if you have a ticket. If your ticket expires, you cannot ride.</em><br>
+  <em>Example: "Pooja has a Microsoft 365 E5 license, so she can use all premium features. Rohit has only a basic license."</em></dd>
+
+  <dt><strong>4. Identity (noun, in technology)</strong></dt>
+  <dd>Proof of who you are in a computer system — your username, password, and what you are allowed to do.<br>
+  <em>Analogy: Your Aadhaar card. It proves who you are, what benefits you are entitled to, and where you can go.</em><br>
+  <em>Example: "When Sanjay signs in, the system checks his identity. Because his identity has 'Library Staff' role, he can see the book inventory."</em></dd>
+
+  <dt><strong>5. Azure Active Directory / Entra ID (noun)</strong></dt>
+  <dd>Microsoft's system for managing identities — who can sign in, what they can see, and what they can do.<br>
+  <em>Analogy: The reception desk and security system of an office building. If your badge says "Finance Department," you can only go to the Finance floor.</em><br>
+  <em>Example: "Entra ID knows Neha is a Junior Librarian. When she tries to delete a book record, Entra ID blocks her — Junior Librarians only have Read access."</em></dd>
+
+  <dt><strong>6. Role (noun)</strong></dt>
+  <dd>A set of permissions grouped under one name.<br>
+  <em>Analogy: A job title. "Manager" can approve expenses. "Employee" can submit expenses but not approve. The title defines what you can do.</em><br>
+  <em>Example: "The System Administrator role gives full control. We gave Rohit the Basic User role because he is a library member, not staff."</em></dd>
+
+  <dt><strong>7. Provision (verb)</strong></dt>
+  <dd>To set up or create a resource or system, making it ready to use.<br>
+  <em>Analogy: When you rent an apartment, the landlord provisions it — connects electricity, water, gas before you move in.</em><br>
+  <em>Example: "It takes 2–3 minutes to provision a new Power Platform environment because Microsoft is setting up the database in the background."</em></dd>
+
+  <dt><strong>8. Domain (noun)</strong></dt>
+  <dd>The name of your company's online address — the part after the @ in your email.<br>
+  <em>Analogy: Your home address. If your address is "123, Library Lane, Delhi," your domain is "LibraryLane.in."</em><br>
+  <em>Example: "Our trial tenant uses the domain accenturetrial.onmicrosoft.com. All user emails end with @accenturetrial.onmicrosoft.com."</em></dd>
+</dl>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — What Is a Microsoft Tenant? The Layered Structure</span>
+<p><strong>Everything in Microsoft 365, Power Platform, and Azure connects to the tenant.</strong> If you understand the tenant, you understand the whole architecture. Think of Microsoft's system like a country:</p>
+<pre><code>MICROSOFT'S GLOBAL CLOUD  (the country)
+│
+├── YOUR TENANT  (your state/province)
+│   │
+│   ├── USERS (the citizens)
+│   │   ├── Pooja Sharma (System Administrator)
+│   │   ├── Sanjay Singh (Senior Librarian)
+│   │   ├── Neha Agarwal (Junior Librarian)
+│   │   └── Rohit Verma (Library Member)
+│   │
+│   ├── GROUPS (villages / neighborhoods)
+│   │   ├── Library Staff (Pooja, Sanjay, Neha)
+│   │   └── Library Members (Rohit, Priyanka, Gaurav)
+│   │
+│   ├── LICENSES (what citizens are allowed to do)
+│   │   ├── Microsoft 365 E5 — full access (expires Sept 30)
+│   │   └── Basic — limited access (free)
+│   │
+│   ├── APPLICATIONS (buildings inside your state)
+│   │   ├── SharePoint  (the library building)
+│   │   ├── Teams       (the meeting rooms)
+│   │   ├── Power Apps  (your custom app)
+│   │   └── Power Automate (the auto-robot worker)
+│   │
+│   └── ENVIRONMENTS (zones for building)
+│       ├── LM-DEV  (where you build)
+│       ├── LM-UAT  (where you test)
+│       └── LM-PRD  (where real users go)
+│
+└── OTHER COMPANIES' TENANTS (other states — invisible to you)</code></pre>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — Why three separate environments (DEV, UAT, PRD)?</span>
+<p><strong>What would happen if there was only one environment?</strong></p>
+<p>Imagine you are changing how loan records are created. While you are building and testing, your half-finished broken feature is live for all members. Rohit opens the app to borrow a book and sees errors. He cannot borrow. The library stops working.</p>
+<p>This is called <strong>"developing in production"</strong> — one of the most dangerous mistakes in software.</p>
+<ul>
+  <li><strong>DEV</strong> = Your workshop. Messy, experimental, always changing.</li>
+  <li><strong>UAT (User Acceptance Testing)</strong> = A clean copy where real users test before launch. If Rohit finds a bug here, nothing is actually broken for real.</li>
+  <li><strong>PRD (Production)</strong> = The real thing. Members use it. It must always work.</li>
+</ul>
+<p>This pattern — DEV → UAT → PRD — is used by every company in the world, from a 5-person startup to Google.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 1 — Explore Your Tenant</span>
+<p><strong>Before you start:</strong> Open a private/incognito browser window (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>). This prevents "wrong account" mistakes by forcing a fresh sign-in.</p>
+
+<p><strong>Step 1: Open the Admin Center</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Open a <strong>private / incognito window</strong>: In Edge or Chrome press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>. (Mac: <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>.)</span></li>
-<li><span class="box"></span><span class="txt">Type <code>make.powerapps.com</code> and press <kbd>Enter</kbd>. Sign in with the <strong>learning account</strong> — the email and password you were given in Day 0.</span></li>
-<li><span class="box"></span><span class="txt">Top-right corner: click the <strong>environment picker</strong>. You will see a list of environments. Select <strong>your building environment</strong> — if you used the Developer Plan, it is named after you (e.g. <strong>"Ashwini Pandey's Environment"</strong>); if an admin created one, select <strong>"Learning"</strong>. Do this every single time you start — building in the wrong environment is the most common beginner mistake and things you create simply won't appear where you expect them.</span></li>
-<li><span class="box"></span><span class="txt">Spend 5 minutes clicking every item in the left sidebar. Don't create anything — just look. Read the headings and subheadings on each screen. Notice that <strong>Tables</strong> is empty for now.</span></li>
-<li><span class="box"></span><span class="txt">Now open a second tab. Go to <code>admin.powerplatform.microsoft.com</code> (sign in if asked — use the same learning account). Click <strong>Environments</strong> on the left and find your Learning environment in the list. Click it to see its details: the URL (<code>org….crm.dynamics.com</code>), the region, and the capacity. This is the admin control panel for environments.</span></li>
-<li><span class="box"></span><span class="txt">Go to <code>microsoft365.com</code> in another tab and sign in. Click the app launcher (the grid of 9 dots in the top-left) to see all your M365 apps. Notice how Teams, SharePoint, and Outlook are all here — the same tenant, the same account.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — why incognito matters every session</span>
-A private window forgets all sign-ins when closed. This prevents the browser from silently logging you into a wrong account (like your personal Microsoft account) when you open Power Apps. The maker portal is very sensitive to which account it sees — always start in incognito.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Cloud</b> — computers you use over the internet through a browser.</li>
-<li><b>Browser / tab / URL / incognito</b> — the program / one open site / a site address / a no-memory window.</li>
-<li><b>Microsoft Entra ID</b> — the identity system that manages all users in a tenant.</li>
-<li><b>Tenant / environment / solution</b> — the whole space / a room inside it / a box of components.</li>
-<li><b>Maker portal</b> — <code>make.powerapps.com</code>, your main workshop.</li>
-<li><b>Environment picker</b> — the top-right selector that tells Power Apps which room you're working in.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — how enterprises use this</span>
-<p>Large organisations use this exact cloud setup to build hundreds of internal tools:</p>
-<ul>
-<li>A hospital system uses a canvas app (built by nurses, not IT) to capture patient intake data — replacing paper forms. The data flows into a Power BI dashboard for administrators in another environment.</li>
-<li>A retail chain keeps separate environments per country — <strong>Dev</strong> (building), <strong>UAT</strong> (user testing), <strong>Production</strong> (live). One tenant; data isolated per environment.</li>
-<li>A manufacturing company triggers a safety alert flow whenever a sensor reading exceeds a threshold — no code, just Power Automate checking an API on a schedule.</li>
+  <li><span class="box"></span><span class="txt">Go to <code>admin.microsoft.com</code> and sign in with your M365 E5 trial account</span></li>
+  <li><span class="box"></span><span class="txt">Look at the dashboard — note what it shows: tenant health, active users, licenses used, recent activity</span></li>
+  <li><span class="box"></span><span class="txt">Ask yourself: Who built this screen? Why does Microsoft give administrators this view but not regular users?</span></li>
 </ul>
-<p>The tenant → environment → solution hierarchy you just learned is exactly what enterprise solution architects draw in whiteboard sessions. You already think like one.</p>
-</div>
 
-<div class="card c-warn"><span class="lab">Common mistakes on Day 1</span>
-<ul>
-<li><strong>Building in the wrong environment.</strong> The picker defaults to the company default environment — often a shared production space. Always switch to Learning first. Creating tables in the wrong environment can break live apps others are using.</li>
-<li><strong>Signing in with a personal Microsoft account.</strong> If a personal @outlook.com account is saved in the browser, Power Apps may use that. Always use incognito, and double-check the account shown in the top-right corner.</li>
-<li><strong>Confusing tenant with environment.</strong> "Our tenant" = the whole company's cloud space. "Our environment" = one isolated container inside it. A single tenant can have hundreds of environments.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 1 hands-on checks</span>
+<p><strong>Step 2: Find Your Tenant ID</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Close and reopen the incognito window. Navigate to <code>make.powerapps.com</code> from memory (no search — type the URL). Sign in and switch to the Learning environment. Time yourself — it should take under 60 seconds.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Without looking at notes, write every left-nav item of the maker portal from memory. Then open the portal and score yourself.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> In the admin center → Environments → click your Learning environment. Write down: (a) its exact URL, (b) the region, (c) how much Dataverse storage it has. Keep this note — you'll need the URL in later phases.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Open Microsoft Teams in a new tab. Confirm the same email appears in Teams as in Power Apps — proof they share one Entra ID identity.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> In the maker portal, click <strong>Connections → + New connection</strong> → search "Microsoft Teams" → click it → read what information it needs → click Cancel. You've previewed how flows authenticate to external services — you'll use this in Phase 3.</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Settings</strong> (left menu) → <strong>Org settings</strong> → <strong>Organization profile</strong> tab</span></li>
+  <li><span class="box"></span><span class="txt">Find the <strong>Tenant ID</strong> — a unique code like <code>a1b2c3d4-e5f6-...</code></span></li>
+  <li><span class="box"></span><span class="txt">Write down your Tenant ID: _______________________</span></li>
+</ul>
+<p><strong>Why Tenant ID matters:</strong> When you make API calls to Microsoft (October), you need to tell Microsoft WHICH company's data you want. The Tenant ID is your company's unique fingerprint. No two tenants share the same ID.</p>
+
+<p><strong>Step 3: Explore Your Users</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>Users</strong> → <strong>Active users</strong> — see your 6 test users: Pooja, Sanjay, Neha, Rohit, Priyanka, Gaurav</span></li>
+  <li><span class="box"></span><span class="txt">Click on <strong>Pooja Sharma</strong> — note what license she has, which groups she belongs to</span></li>
+  <li><span class="box"></span><span class="txt">Click on <strong>Rohit Verma</strong> — compare his license to Pooja's. What can Pooja do that Rohit cannot?</span></li>
+</ul>
+
+<p><strong>Step 4: Look at the License Assignment</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click on <strong>Pooja Sharma</strong> → <strong>Licenses and Apps</strong> tab → expand the Microsoft 365 E5 license</span></li>
+  <li><span class="box"></span><span class="txt">Count how many features are included. This is why E5 is expensive — it includes everything: security, compliance, AI tools, phone calls, analytics.</span></li>
 </ul>
 </div>
 
-<div class="card c-check"><span class="lab">Mini-quiz — Day 1</span>
-<p><strong>Q1</strong> Your colleague says "I can't find the app I built." What is the single most likely cause?</p>
-<p><strong>Q2</strong> What is the URL of the Power Platform admin center?</p>
-<p><strong>Q3</strong> Name two things shared across all environments in a tenant, and one thing that is different per environment.</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> They built in a different environment than they are now looking in. Always check the top-right environment picker first when debugging missing apps or tables.</p>
-<p><strong>A2</strong> <code>admin.powerplatform.microsoft.com</code></p>
-<p><strong>A3</strong> Same across all environments: user accounts (Entra ID identities), the tenant domain. Different per environment: the Dataverse database, apps, flows, solutions, and security roles.</p>
-</details>
+<div class="card c-tip"><span class="lab">💭 System Thinking — What happens on October 1 when the E5 trial expires?</span>
+<p><strong>Think first. Then read.</strong></p>
+<ul>
+  <li>Rohit's email stops working — Exchange Online requires a license</li>
+  <li>Pooja can no longer use Teams — Teams requires a license</li>
+  <li>SharePoint sites become read-only, then inaccessible</li>
+  <li>Power Apps premium connectors stop working</li>
+  <li><strong>BUT:</strong> Dataverse data is not deleted immediately — you have 30 days to export</li>
+  <li><strong>BUT:</strong> If you move to a Developer Plan (free), your Power Apps and Dataverse environment continues</li>
+</ul>
+<p><strong>This is why Week 4 (Sept 27–30) is dedicated to backup and transition.</strong> We plan our exit from the very beginning.</p>
 </div>
 
-<div class="card c-check"><span class="lab">Check yourself</span>
-Can you (1) open incognito, (2) sign in at <code>make.powerapps.com</code>, (3) switch to the Learning environment, and (4) explain in one sentence what an environment is? If yes, you're ready for Day 2.</div>
+<div class="card c-concept"><span class="lab">Concept — Microsoft Entra ID: The Identity System</span>
+<p>Entra ID (previously called Azure Active Directory) is the most important piece of the entire Microsoft ecosystem. It is the <strong>brain that decides who can do what</strong>.</p>
+<p><strong>How sign-in works — step by step (when Sanjay signs into Power Apps):</strong></p>
+<pre><code>Step 1: Sanjay types username + password at make.powerapps.com
+         ↓
+Step 2: Power Apps sends credentials to Entra ID:
+        "Hey Entra ID, is this person real?"
+         ↓
+Step 3: Entra ID checks its database:
+        - Is sanjay.singh@[tenant] a real user? ✅
+        - Is his password correct? ✅
+        - Does he have an active license? ✅
+        - Is MFA required? → If yes, Sanjay gets a code on his phone
+         ↓
+Step 4: Entra ID issues a TOKEN — a temporary digital pass
+        (Like a wristband at a concert — proves you paid without
+        showing your ticket every 5 seconds)
+         ↓
+Step 5: Power Apps reads the token, sees Sanjay's roles:
+        "Library Staff role + Basic User role"
+        Shows Sanjay only what his roles allow</code></pre>
+
+<p><strong>Multi-Factor Authentication (MFA):</strong></p>
+<p>The E5 license includes Azure AD Premium P2, which lets you enforce MFA. Why it matters: Neha uses password "Library2024" everywhere. A hacker steals it from a different website and tries it on your tenant — it works. But with MFA, they also need Neha's phone. When they try to sign in, Neha's phone gets a notification: "Someone is trying to sign in. Approve?" She taps Deny. The hacker is blocked.</p>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — Why use Tokens instead of sending username/password every click?</span>
+<p>Without tokens: Every time Sanjay clicks something, the app sends his password to Microsoft. This is very slow (network call every click) and very dangerous (password travels the network constantly — hackers love this).</p>
+<p>With tokens: The token is issued ONCE when you log in. It says "Sanjay is authenticated, Library Staff role, valid for 1 hour." The app trusts the token. After 1 hour, the token is silently refreshed.</p>
+<p><em>Analogy: A hotel key card. You check in once (authenticate). The hotel gives you a key card (token) that opens your room for your stay. The front desk is not following you to check your ID every time you open your room door.</em></p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 2 — Enable MFA and Review Sign-In Logs (E5 Premium Feature)</span>
+<p>This is a premium E5 feature that expires September 30. Use it now.</p>
+
+<p><strong>Step 1: Look at Security Defaults</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Go to <code>entra.microsoft.com</code> → sign in with your admin account</span></li>
+  <li><span class="box"></span><span class="txt">Left menu: <strong>Identity</strong> → <strong>Overview</strong> → <strong>Properties</strong> → scroll down → <strong>Manage Security Defaults</strong></span></li>
+  <li><span class="box"></span><span class="txt">Note whether Security Defaults is On or Off. With E5 you can use Conditional Access — more powerful. For now, just see what it looks like.</span></li>
+</ul>
+
+<p><strong>Step 2: Look at Sign-In Logs — Security Camera Footage of Your Tenant</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt"><code>entra.microsoft.com</code> → <strong>Identity</strong> → <strong>Monitoring &amp; health</strong> → <strong>Sign-in logs</strong></span></li>
+  <li><span class="box"></span><span class="txt">See every single sign-in attempt in your tenant. Click on one entry — note who signed in, from where (IP, country), what app, success or failure, MFA required?</span></li>
+  <li><span class="box"></span><span class="txt">Ask yourself: If you saw "Rohit Verma signed in from Russia at 3:00 AM on Sunday," what would you do?</span></li>
+</ul>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — Why do companies monitor sign-in logs?</span>
+<p>Sign-in logs are the security camera footage of your Microsoft tenant. If Rohit lives in Delhi but a sign-in log shows his account accessing the system from Russia at 3 AM — Rohit was asleep — someone else is using his account. This is a security incident.</p>
+<p>Most people never look at logs — until something goes wrong. Smart administrators look at them regularly. After September 30, you will no longer have access to these premium sign-in logs. That is another reason to use them now.</p>
+</div>
+
+<div class="card c-warn"><span class="lab">What Happens to Your Data After September 30</span>
+<pre><code>September 30:  Trial expires
+               → Users cannot sign in
+               → Apps stop working for premium features
+
+October 1-30:  Grace period (30 days)
+               → Admin can still access admin center
+               → Data is still in the tenant but frozen
+               → THIS IS YOUR WINDOW TO EXPORT EVERYTHING
+
+October 31+:   Tenant is disabled
+               → Data begins deletion process
+               → After 60-90 days, Microsoft permanently deletes all data
+
+NEVER get to October 31 without exporting your data!</code></pre>
+<p><strong>This is System Design Thinking in action:</strong> When we set up a system, we always think about how we will close it down safely. Engineers call this "graceful degradation" — planning how to exit before you even start.</p>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 1: Simple Present Tense</span>
+<h3>Why This Grammar Pattern?</h3>
+<p>When you describe how a system works, you use the <strong>simple present tense</strong>. This is the most common tense in technical writing and documentation.</p>
+<ul>
+  <li>✅ "A <strong>tenant</strong> <strong>IS</strong> a company's private space in Microsoft's cloud."</li>
+  <li>✅ "Entra ID <strong>manages</strong> who can sign in and what they can see."</li>
+  <li>✅ "A license <strong>gives</strong> a user permission to use specific features."</li>
+  <li>✅ "The admin center <strong>shows</strong> all users, licenses, and service health."</li>
+</ul>
+<p>Notice: for he/she/it, always add <strong>-s</strong> or <strong>-es</strong> to the verb:</p>
+<ul>
+  <li>The system → the system <strong>manages</strong>, <strong>shows</strong>, <strong>allows</strong>, <strong>controls</strong></li>
+  <li>A user → a user <strong>has</strong>, <strong>gets</strong>, <strong>signs in</strong>, <strong>belongs to</strong></li>
+</ul>
+
+<h3>Grammar Practice — Complete These Sentences</h3>
+<ol>
+  <li>"A tenant ______________ (contain) all the users and applications of one company."</li>
+  <li>"The sign-in log ______________ (record) every time a user signs into any Microsoft service."</li>
+  <li>"When a license expires, the user ______________ (lose) access to the features it covered."</li>
+  <li>"Entra ID ______________ (check) the username and password before allowing access."</li>
+  <li>"A security role ______________ (define) what actions a user is allowed to perform."</li>
+</ol>
+<p><em>Answers: contains, records, loses, checks, defines</em></p>
+
+<h3>Vocabulary in Sentences — Write Your Own</h3>
+<table>
+<tr><th>Word</th><th>Write your own original sentence here</th></tr>
+<tr><td>Tenant</td><td></td></tr>
+<tr><td>License</td><td></td></tr>
+<tr><td>Role</td><td></td></tr>
+<tr><td>Domain</td><td></td></tr>
+<tr><td>Provision</td><td></td></tr>
+</table>
+<p><strong>Example of a good original sentence:</strong><br>
+Word: Identity → <em>"In the Microsoft system, identity means the combination of who you are and what you are allowed to do — like a staff ID badge that also lists your access permissions."</em></p>
+
+<h3>Writing Exercise: Describe Your Tenant</h3>
+<p>Write 5 sentences describing the tenant you explored today. Use simple present tense throughout. Use at least 4 of this week's vocabulary words.</p>
+<p><strong>Template:</strong></p>
+<pre><code>"Our tenant [describe what it contains].
+It has [number] users, including [examples].
+Pooja's account has [license type], which means she [what she can do].
+Rohit's account has [license type], so he [what he can/cannot do].
+The most important thing the tenant does is [function]."</code></pre>
+<p><strong>Example answer (read, then write your own WITHOUT looking):</strong><br>
+<em>"Our tenant contains all our company's users, applications, and data inside Microsoft's cloud. It has 7 users, including administrators and regular library members. Pooja's account has a Microsoft 365 E5 license, which means she can use Copilot Studio, Power BI Pro, and advanced security features. Rohit's account has a basic license, so he can sign in and use the canvas app but cannot access admin settings. The most important thing the tenant does is keep our data completely separate from every other company in Microsoft's cloud."</em></p>
+
+<h3>🔊 Read Aloud Exercise</h3>
+<p>Read this out loud — the words in <strong>CAPITALS</strong> should be said a little louder. Repeat 3 times. Do not rush.</p>
+<p><em>"A TENANT is like an apartment in a very large building. Microsoft OWNS the building — their data centers around the world. Your company RENTS one apartment — the tenant. Your neighbour company has their OWN apartment. They CANNOT see into yours. Everything your company creates — emails, files, apps, user accounts — lives inside your apartment. When the apartment's lease expires, Microsoft REMOVES the apartment and everything in it."</em></p>
+<p>After reading: Close your eyes and say 2 sentences from memory about what a tenant is.</p>
+
+<h3>Professional Communication: The "Good Morning Message"</h3>
+<p>In many Indian workplaces, people send just "Good morning" in groups. In international and technical teams, a morning message includes context.</p>
+<p><strong>Instead of:</strong> <em>"Good morning everyone"</em></p>
+<p><strong>Write this:</strong></p>
+<pre><code>Good morning [Name/Team],
+
+Quick update on this week's work:
+
+I am currently setting up the Microsoft 365 tenant for the Community Library project.
+Today I will be configuring user accounts and checking license assignments.
+I expect to have the Entra ID security settings reviewed by end of day.
+
+Let me know if you need anything.
+
+[Your name]</code></pre>
+<p><strong>Why this is better:</strong> It tells colleagues what you are working on, what your plan is, and that you are available. This builds professional trust.</p>
+
+<h3>🚫 Common English Mistakes — Week 1</h3>
+<p><strong>Mistake 1: Missing articles (the / a / an)</strong><br>
+❌ "I created user in tenant."<br>
+✅ "I created <strong>a</strong> user in <strong>the</strong> tenant."<br>
+Rule: Use "a/an" the first time you mention something. Use "the" when both of you know which specific thing you mean.</p>
+
+<p><strong>Mistake 2: "I am having" instead of "I have"</strong><br>
+❌ "I am having a question about licenses."<br>
+✅ "I <strong>have</strong> a question about licenses."<br>
+Rule: Verbs like have, know, understand, need, want, belong — do NOT use the -ing form.</p>
+
+<p><strong>Mistake 3: "informations" / "feedbacks" / "knowledges"</strong><br>
+❌ "I found many informations in the admin center."<br>
+✅ "I found a lot of <strong>information</strong> in the admin center."<br>
+Rule: These words have NO plural: information, knowledge, feedback, data, advice, equipment, access. Never add -s.</p>
+
+<p><strong>Mistake 4: "How I can..." instead of "How can I..."</strong><br>
+❌ "How I can add a new user?"<br>
+✅ "<strong>How can I</strong> add a new user?"<br>
+Rule: In questions, the helping verb (can, should, will, does) comes BEFORE the subject (I, you, we).</p>
+
+<h3>✅ Week 1 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you describe what a tenant is in 2 sentences without looking at notes?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write 5 sentences about the admin center in simple present tense?</span></li>
+  <li><span class="box"></span><span class="txt">Are you using "the" and "a" correctly before technical nouns?</span></li>
+  <li><span class="box"></span><span class="txt">Are you saying "I have a question" instead of "I am having a question"?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a professional morning message this week?</span></li>
+</ul>
+</div>
 </section>
 
-<!-- DAY 2 -->
-<section class="day" id="day2">
-<div class="dhead"><span class="dnum">Day 2</span></div>
-<h2>Dataverse: tables, columns, rows, and data types</h2>
-<p class="meta">~100 minutes</p>
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="day" id="week2">
+<div class="dhead"><span class="dnum">Week 2 · September 13–19</span></div>
+<h2>SharePoint, Teams &amp; OneDrive — The M365 Core</h2>
+<p class="meta">~3 hours · Done in browser · Internet required · M365 E5 trial active</p>
 
-<div class="card c-concept"><span class="lab">Concept — a database is like a very strict spreadsheet</span>
-<p>If you have seen an Excel spreadsheet, you already understand 80% of this:</p>
-<ul>
-<li>A <strong>table</strong> is like one <em>sheet</em> — it holds one kind of thing (e.g. all your Books).</li>
-<li>A <strong>column</strong> (also called a <em>field</em>) is one piece of information about that thing (Title, Pages, Genre).</li>
-<li>A <strong>row</strong> (also called a <em>record</em>) is one actual thing — the specific book called "Matilda".</li>
-</ul>
-<p>The difference from Excel: each column has a fixed <em>data type</em> (enforced), tables can link to each other, and access is controlled by security roles. <strong>Dataverse</strong> is the Power Platform's built-in database — always on, no server to manage.</p>
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 2</span>
+<dl>
+  <dt><strong>9. SharePoint (noun)</strong></dt>
+  <dd>Microsoft's system for storing and sharing files and lists inside a company, accessible from anywhere.<br>
+  <em>Analogy: The office notice board plus the filing cabinet — digital and accessible from anywhere in the world.</em><br>
+  <em>Example: "We store the library's event calendar in a SharePoint list. Every librarian can see it from their laptop or phone, and changes are updated instantly."</em></dd>
+
+  <dt><strong>10. List (noun, in SharePoint)</strong></dt>
+  <dd>A table of data stored in SharePoint — like an Excel spreadsheet, but with sharing, permissions, and workflows built in.<br>
+  <em>Analogy: A physical ledger. The "Book Loan Register" is a list — each row is one loan, each column is one piece of information.</em><br>
+  <em>Example: "I created a SharePoint list called 'Library Events' with columns for Event Name, Date, Location, and Maximum Capacity."</em></dd>
+
+  <dt><strong>11. Library (noun, in SharePoint)</strong></dt>
+  <dd>A special type of SharePoint storage for files (documents, images, videos) — NOT the same as a book library!<br>
+  <em>Analogy: A folder on your computer, but shared with the whole team and with full version history.</em><br>
+  <em>Example: "The library policy documents are stored in a Document Library. When the Librarian edits the Borrowing Policy, SharePoint keeps the old version too."</em></dd>
+
+  <dt><strong>12. Version History (noun)</strong></dt>
+  <dd>A record of every change made to a file or document, who made it, and when.<br>
+  <em>Analogy: The "undo" button, but for weeks or months. You can see what a document looked like 3 weeks ago and restore it.</em><br>
+  <em>Example: "Someone deleted the 'Late Fees' section from the borrowing policy. I went to version history and restored the document from 2 days ago in 30 seconds."</em></dd>
+
+  <dt><strong>13. Permission (noun)</strong></dt>
+  <dd>What a specific person or group is allowed to do — read, edit, delete, or share.<br>
+  <em>Analogy: Different keys for different rooms. The librarian has a key to the storage room. A member has a key to the reading room only.</em><br>
+  <em>Example: "Rohit has Read permission on the events list, so he can see events but cannot add or delete them. Pooja has Edit permission."</em></dd>
+
+  <dt><strong>14. Teams Channel (noun)</strong></dt>
+  <dd>A discussion room inside Microsoft Teams for a specific topic or team.<br>
+  <em>Analogy: WhatsApp groups, but inside a company tool, with files, meetings, and apps attached.</em><br>
+  <em>Example: "We created a 'Book Acquisitions' channel in Teams so librarians can discuss which new books to buy. All conversation is recorded and searchable."</em></dd>
+
+  <dt><strong>15. OneDrive (noun)</strong></dt>
+  <dd>Your personal cloud storage in Microsoft 365 — only you can see it unless you share.<br>
+  <em>Analogy: Your personal locker. Your team has a shared office (SharePoint), but your locker (OneDrive) is just for you.</em><br>
+  <em>Example: "I keep work-in-progress reports in OneDrive. When they are finished and ready for the team, I move them to the SharePoint document library."</em></dd>
+</dl>
 </div>
 
-<figure class="fig">
-<svg viewBox="0 0 620 200" role="img" aria-label="A Book table showing columns across the top and rows down the side, with data types labelled">
-<text x="20" y="22" font-family="monospace" font-size="11" fill="#7b8798">TABLE: Book  —  columns (fields) across the top, one row (record) per book</text>
-<rect x="14" y="32" width="592" height="30" fill="#eef4ff" stroke="#2f6fed"/>
-<line x1="160" y1="32" x2="160" y2="180" stroke="#cbd3de"/><line x1="300" y1="32" x2="300" y2="180" stroke="#cbd3de"/><line x1="400" y1="32" x2="400" y2="180" stroke="#cbd3de"/><line x1="490" y1="32" x2="490" y2="180" stroke="#cbd3de"/>
-<g font-family="sans-serif" font-size="10.5" font-weight="bold" fill="#1f2733">
-<text x="22" y="52">Title (Text)</text><text x="168" y="52">Genre (Choice)</text><text x="308" y="52">Pages (Number)</text><text x="408" y="52">In stock (Yes/No)</text><text x="498" y="52">ISBN (Text)</text></g>
-<g font-family="sans-serif" font-size="11" fill="#4a5567">
-<rect x="14" y="62" width="592" height="34" fill="#fff" stroke="#e4e8ee"/>
-<text x="22" y="84">Matilda</text><text x="168" y="84">Children</text><text x="308" y="84">240</text><text x="408" y="84">Yes</text><text x="498" y="84">9780141365466</text>
-<rect x="14" y="96" width="592" height="34" fill="#f8fafc" stroke="#e4e8ee"/>
-<text x="22" y="118">Dune</text><text x="168" y="118">Science</text><text x="308" y="118">412</text><text x="408" y="118">No</text><text x="498" y="118">9780441172719</text>
-<rect x="14" y="130" width="592" height="34" fill="#fff" stroke="#e4e8ee"/>
-<text x="22" y="152">Emma</text><text x="168" y="152">Fiction</text><text x="308" y="152">474</text><text x="408" y="152">Yes</text><text x="498" y="152">9780141439587</text>
-<rect x="14" y="164" width="592" height="16" fill="#f8fafc" stroke="#e4e8ee"/>
-<text x="22" y="176" font-size="9" fill="#9fb0c8">…more rows…</text>
-</g>
-<rect x="8" y="62" width="6" height="118" fill="#0e9f6e"/>
-</svg>
-<figcaption>A Dataverse table: columns describe what you know about a book; each row is one book</figcaption>
-</figure>
+<div class="card c-concept"><span class="lab">Concept — Why SharePoint Matters for Power Platform</span>
+<p>SharePoint is not just a file storage tool. In the Power Platform world, SharePoint is often used as a <strong>data source</strong> for apps and flows:</p>
+<pre><code>SharePoint List (data source)
+        ↕
+Power Apps reads and writes data
+        ↕
+Power Automate runs when data changes
+        ↕
+Power BI shows the data in charts</code></pre>
 
-<div class="card c-concept"><span class="lab">Concept — every data type and when to use it</span>
-<p>When you add a column, you pick a type. Here are all the types you will use across this course:</p>
-<ul>
-<li><strong>Text</strong> — short words or sentences (names, codes, titles). Max length is settable.</li>
-<li><strong>Multiline Text</strong> — long text like descriptions, notes, or biography. Appears as a text area.</li>
-<li><strong>Whole Number</strong> — counts with no decimal (Pages, Quantity). Good for integers only.</li>
-<li><strong>Decimal Number</strong> — numbers with decimals (ratings, percentages). Use Currency instead for money.</li>
-<li><strong>Currency</strong> — money. Stores value + currency symbol. Use for Late fee, Price.</li>
-<li><strong>Date Only</strong> — just a date, no time. Use for Loan date, Due date, Born.</li>
-<li><strong>Date and Time</strong> — date plus a specific time. Use for meeting times, timestamps.</li>
-<li><strong>Choice</strong> — a fixed pick-list you define (Genre: Fiction / Science / Children…). Good for a small, stable set of options.</li>
-<li><strong>Lookup</strong> — a pointer to a row in another table. Like a dropdown showing real rows. Use for Author (lookup to Author table).</li>
-<li><strong>Yes/No</strong> — a true/false switch (In stock, Returned, Active).</li>
-<li><strong>Email</strong> — text that validates as an email address and shows as a clickable link.</li>
-<li><strong>Phone</strong> — text formatted as a phone number.</li>
-<li><strong>URL</strong> — text that validates as a web address and shows as a clickable link.</li>
-<li><strong>Image</strong> — stores a picture (e.g. book cover photo).</li>
-<li><strong>File</strong> — stores a binary file attachment.</li>
-</ul>
-<p>Also important: <strong>Required vs Optional</strong> — a Required column cannot be saved blank. Set it for essential fields like Title. <strong>Default value</strong> — fills in a value automatically (e.g. In stock defaults to Yes, Available copies defaults to 1). <strong>Description</strong> — a note on the column for other developers to read.</p>
+<p><strong>SharePoint List vs Dataverse Table — when to use which:</strong></p>
+<table>
+<tr><th>Feature</th><th>SharePoint List</th><th>Dataverse Table</th></tr>
+<tr><td>Free with M365</td><td>✅ Yes</td><td>❌ Requires Power Apps license</td></tr>
+<tr><td>Easy for non-tech users to edit</td><td>✅ Yes, looks like Excel</td><td>⚠️ Requires the Power Apps interface</td></tr>
+<tr><td>Handles millions of rows</td><td>❌ Limit: 30 million items</td><td>✅ Enterprise-grade</td></tr>
+<tr><td>Supports complex relationships</td><td>⚠️ Basic only</td><td>✅ Full relational database</td></tr>
+<tr><td>Offline use</td><td>❌ Requires internet</td><td>✅ With proper setup</td></tr>
+<tr><td>Best for</td><td>Small lists, event calendars, team collaboration</td><td>Business applications, complex data</td></tr>
+</table>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — build the Book table with all columns</span>
+<div class="card c-tip"><span class="lab">💭 System Thinking — If SharePoint lists are free, why don't all companies use them for everything?</span>
+<p><strong>The answer: Complexity and scale.</strong></p>
+<p>A library with 50 books and 30 members can use SharePoint lists. But a library with 5,000 books, 10,000 members, and 500 loans per day? SharePoint lists slow down, become hard to manage, and cannot handle complex data relationships (a loan connects to a book, which connects to an author, which connects to a publisher — 4 levels of relationship, which SharePoint cannot handle cleanly).</p>
+<p>Dataverse is a proper relational database. SharePoint lists are a useful collaboration tool that happens to store data. Knowing which one to use for which situation is a skill that senior architects have. <strong>You are learning it now.</strong></p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 3 — Build the Library Events List in SharePoint</span>
+<p><strong>Step 1: Open SharePoint</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">In the maker portal, left menu → <strong>Tables → New table</strong>. Display name = <code>Book</code>. Dataverse creates a primary column automatically — rename it to <code>Title</code>. Set Required = Yes, Max length = 100. Click <strong>Save</strong>.</span></li>
-<li><span class="box"></span><span class="txt">Click <strong>+ New column</strong>. Create each column below, one at a time, clicking Save after each:</span></li>
-<li><span class="box"></span><span class="txt"><code>ISBN</code> → Type: Text, Max length: 13, Description: "13-digit book identifier".</span></li>
-<li><span class="box"></span><span class="txt"><code>Genre</code> → Type: Choice. In the Choices panel, add these options one by one: <strong>Fiction</strong>, <strong>Non-fiction</strong>, <strong>Science</strong>, <strong>Textbook</strong>, <strong>Biography</strong>, <strong>Children</strong>. Set a default if you like (Fiction is a safe default).</span></li>
-<li><span class="box"></span><span class="txt"><code>Pages</code> → Type: Whole number, Minimum value: 1.</span></li>
-<li><span class="box"></span><span class="txt"><code>Published year</code> → Type: Whole number.</span></li>
-<li><span class="box"></span><span class="txt"><code>Description</code> → Type: Multiline text.</span></li>
-<li><span class="box"></span><span class="txt"><code>Available copies</code> → Type: Whole number, Default value: 1.</span></li>
-<li><span class="box"></span><span class="txt"><code>Total copies</code> → Type: Whole number, Default value: 1.</span></li>
-<li><span class="box"></span><span class="txt"><code>In stock</code> → Type: Yes/No, Default value: Yes.</span></li>
-<li><span class="box"></span><span class="txt">Skip <code>Author</code> for now — you'll add it as a Lookup on Day 3 once the Author table exists. For today, you can add a temporary text column called <code>Author (temp)</code> if you want.</span></li>
-<li><span class="box"></span><span class="txt">Now open the table's <strong>data grid</strong> (click <strong>Edit</strong> in the data section). Manually add these 3 rows to verify the table structure works. You'll import all 50 real books on Day 3 using <a href="../sample-data/books.csv"><strong>books.csv</strong></a> (download from the home page Sample Data section):</span></li>
-<li><span class="box"></span><span class="txt">Row 1: Title=<code>Matilda</code>, ISBN=<code>9780142410370</code>, Genre=<code>Children</code>, Pages=<code>240</code>, Published year=<code>1988</code>, Available copies=<code>2</code>, Total copies=<code>3</code>, In stock=<code>Yes</code>, Rating=<code>5</code>, Language=<code>English</code>.</span></li>
-<li><span class="box"></span><span class="txt">Row 2: Title=<code>Dune</code>, ISBN=<code>9780441013593</code>, Genre=<code>Fiction</code>, Pages=<code>412</code>, Published year=<code>1965</code>, Available copies=<code>0</code>, Total copies=<code>2</code>, In stock=<code>No</code>, Rating=<code>5</code>, Language=<code>English</code>. Note: In stock = No, Available = 0 — this tests how your canvas app will show "unavailable" books.</span></li>
-<li><span class="box"></span><span class="txt">Row 3: Title=<code>Atomic Habits</code>, ISBN=<code>9780735211292</code>, Genre=<code>Non-fiction</code>, Pages=<code>320</code>, Published year=<code>2018</code>, Available copies=<code>3</code>, Total copies=<code>4</code>, In stock=<code>Yes</code>, Rating=<code>5</code>, Language=<code>English</code>.</span></li>
-<li><span class="box"></span><span class="txt">Now look at <strong>Views</strong> (the tab on the table page). The default view is "Active Books". Click <strong>New view</strong>, name it <code>Books in stock</code>, add filter: In stock = Yes, sort by Title ascending. Save and publish. Come back to this after Day 4 when you can see it inside the model-driven app.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — display name vs logical name</span>
-Behind your friendly <strong>Display name</strong> (what people read), Dataverse keeps a <strong>logical name</strong> with a publisher prefix, like <code>cr123_title</code> or <code>learn_isbn</code>. You'll need the logical name when writing Power Automate filter expressions on Day 10. To find it: open the column → scroll to <em>Advanced options</em> → the logical name appears there. Note it down for columns you'll filter on.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Dataverse</b> — the Power Platform's built-in, always-on database.</li>
-<li><b>Table / column (field) / row (record)</b> — a kind of thing / a piece of info about it / one actual thing.</li>
-<li><b>Data type</b> — the kind of value a column holds (Text, Number, Choice, Lookup, Yes/No…).</li>
-<li><b>Primary column</b> — the main name column for each row (always required).</li>
-<li><b>Required / Default value</b> — cannot be left blank / fills in automatically.</li>
-<li><b>View</b> — a saved, filtered, sorted list of rows in a table.</li>
-<li><b>Logical name</b> — the system name used in formulas and filter expressions.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — how companies design Dataverse data models</span>
-<p>When professional Power Platform developers join a project, the first thing they do is <strong>model the data</strong>. A well-designed data model can support an app for 10 years; a bad one requires constant rework. Real patterns you'll see:</p>
-<ul>
-<li>A field service company has a <strong>Work Order</strong> table (one per job), linking to <strong>Customer</strong>, <strong>Technician</strong>, <strong>Asset</strong>, and <strong>Parts Used</strong> tables. The Work Order is their "Loan" equivalent — the event table linking everything else.</li>
-<li>A bank has a <strong>Case</strong> table with a Choice column for Status (Open / In Review / Resolved / Closed) — exactly like your Loan Status column.</li>
-<li>An HR system stores employees in a <strong>Contact</strong> table with a Yes/No column called <strong>Active</strong> and a Choice column for <strong>Employment type</strong> — exactly like your Member table's Active and Membership fields.</li>
+  <li><span class="box"></span><span class="txt">Go to <code>microsoft365.com</code> → sign in → click the <strong>SharePoint</strong> app</span></li>
+  <li><span class="box"></span><span class="txt">You will see the SharePoint home — a list of sites you have access to</span></li>
 </ul>
-<p>The patterns are universal. Your Community Library data model IS how real enterprise apps are built.</p>
-</div>
 
-<div class="card c-warn"><span class="lab">Common mistakes when designing tables</span>
-<ul>
-<li><strong>Using Text for everything.</strong> If you store "240" as text instead of Whole number, you can't sort it numerically (10, 100, 2 will sort before 240 alphabetically) and can't do maths on it in flows.</li>
-<li><strong>Not setting Required on primary columns.</strong> Without Required on Title, someone can save a blank book row — your gallery will then show empty cards with no text.</li>
-<li><strong>Using Whole Number for phone numbers.</strong> Phone numbers start with 0 (e.g. 0812...). Integers drop leading zeros. Always use Text for phone, ISBN, and postal codes.</li>
-<li><strong>Creating a new table when a column is enough.</strong> If "Genre" only needs a label (Fiction, Science), use a Choice column. A whole Genre table is overkill unless genres have their own properties (description, icon, policy rules).</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 2 hands-on checks</span>
+<p><strong>Step 2: Create a Team Site for the Library</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the Book table data grid, try to save a row with Title left blank. What happens? (Dataverse should block it because Title is Required.)</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Click the <strong>Genre</strong> column → Column settings → Edit. Add a new choice option: <strong>Reference</strong>. Save. Open a Book row and confirm "Reference" appears in the Genre dropdown.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Find the <strong>logical name</strong> of the Title column: click the column → Advanced options → note the logical name (e.g. <code>learn_title</code>). Write it down — you'll need this exact string in the Power Fx Search() formula on Day 6.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> Create a new view called <code>Science books</code>: filter Genre = Science, sort by Title ascending. Save and publish. In the data grid, use the view dropdown to switch between "Active Books" and "Science books." Watch the list filter.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5:</strong> Try entering ISBN = <code>abc</code> (letters) for a Book row. Does Dataverse allow it? (Yes — ISBN is Text type, so any text is valid. Real validation would need a business rule or Power Fx formula. You'll add this in Day 8.)</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>+ Create site</strong> → choose <strong>Team site</strong> (not Communication site)</span></li>
+  <li><span class="box"></span><span class="txt">Name: <code>Community Library</code> — Description: <code>All resources for the Community Library Management System</code></span></li>
+  <li><span class="box"></span><span class="txt">Privacy: <strong>Private</strong> (only people you add can see it)</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Next</strong> → add your 6 test users → <strong>Finish</strong></span></li>
+</ul>
+<p><em>Why Team site and not Communication site? Team site is for a team that works together — everyone can contribute and edit. Communication site is for broadcasting — people read but most cannot edit. Library staff all work together, so Team site is correct.</em></p>
+
+<p><strong>Step 3: Create the Events List</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Inside the Community Library site → click <strong>+ New</strong> → <strong>List</strong> → <strong>Blank list</strong></span></li>
+  <li><span class="box"></span><span class="txt">Name: <code>Library Events</code> — Description: <code>Upcoming events at the Community Library</code></span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Create</strong></span></li>
+</ul>
+
+<p><strong>Step 4: Add Columns (click + Add column for each)</strong></p>
+<table>
+<tr><th>Column Name</th><th>Column Type</th><th>Why this type?</th></tr>
+<tr><td>Event_Date</td><td>Date and Time</td><td>So we can sort by date and build calendar views — plain text cannot do this</td></tr>
+<tr><td>Location</td><td>Single line of text</td><td>Short text for room name</td></tr>
+<tr><td>Max_Capacity</td><td>Number</td><td>So we can count available spots and do math</td></tr>
+<tr><td>Description</td><td>Multiple lines of text</td><td>Long text for full event details</td></tr>
+<tr><td>Is_Online</td><td>Yes/No</td><td>Boolean — true or false, nothing in between</td></tr>
+<tr><td>Registration_Link</td><td>Hyperlink</td><td>So we can store a URL to register</td></tr>
+</table>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add all 6 columns using the types above — click <strong>+ Add column</strong> for each one</span></li>
+  <li><span class="box"></span><span class="txt">Add 5 sample events from <code>sample-data/library-events.csv</code> — open the CSV in Excel and type the data into the list rows</span></li>
+  <li><span class="box"></span><span class="txt">When typing a date, notice SharePoint shows a calendar picker — this only works because you chose the Date and Time column type</span></li>
+</ul>
+
+<p><strong>Step 5: Create the "Upcoming Events" View</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click the <strong>View</strong> dropdown (top right, near "All Items") → <strong>Create new view</strong></span></li>
+  <li><span class="box"></span><span class="txt">Name: <code>Upcoming Events</code> — Sort by: <code>Event_Date</code> Ascending</span></li>
+  <li><span class="box"></span><span class="txt">Filter: <code>Event_Date</code> is greater than <code>[Today]</code> (shows only future events)</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>OK</strong> — now the list shows only future events, sorted by date automatically for everyone</span></li>
 </ul>
 </div>
 
-<div class="card c-check"><span class="lab">Mini-quiz — Day 2</span>
-<p><strong>Q1</strong> A column stores values like "Open", "Closed", "Pending" and the list will never change. Should it be a Choice or a Lookup?</p>
-<p><strong>Q2</strong> You want to store a monetary amount (e.g. library late fees in ₹). Which data type should you use?</p>
-<p><strong>Q3</strong> What is the purpose of a Default value on a column?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> Choice — the list is fixed and the options have no extra properties. A Lookup would be overkill and requires a second table.</p>
-<p><strong>A2</strong> Currency — it stores value + currency symbol and handles multi-currency correctly. Not Decimal Number, because Currency gives you the ₹ symbol and proper accounting display.</p>
-<p><strong>A3</strong> A Default value fills in a field automatically when a new row is created. For example, "Available copies" defaults to 1 so every new book starts with 1 copy without manual entry. It saves data-entry time and reduces human error.</p>
-</details>
+<div class="card c-tip"><span class="lab">💭 System Thinking — Why create VIEWS instead of sorting manually every time?</span>
+<p><strong>Without views:</strong> Pooja sorts the list by date. Sanjay opens the same list and sees it unsorted (because his browser has its own state). Every person has to sort manually. If 10 people use the list, each person wastes time sorting every time.</p>
+<p><strong>With views:</strong> The "Upcoming Events" view is saved once. Everyone who clicks it sees the same sorted, filtered list automatically. Changes to the data update automatically.</p>
+<p><strong>This concept — saving a reusable configuration — appears everywhere in technology:</strong> database views, Power BI report filters, Power Apps gallery filters, GitHub branch protections. The principle is always the same: define it once, use it everywhere.</p>
 </div>
 
-<div class="card c-check"><span class="lab">Check yourself</span>
-You have a <strong>Book</strong> table with 9 columns and 5 rows. Quick quiz: which data type for a phone number — Whole number or Text? (<em>Text — phone numbers start with 0 and you never do maths on them.</em>) Which type for "Is the book currently lent out?" (<em>Yes/No.</em>)</div>
+<div class="card c-concept"><span class="lab">Concept — Microsoft Teams: More Than Chat</span>
+<p>Most people think Teams is just a video call and chat tool. In the Microsoft ecosystem, Teams is a <strong>platform</strong> — it integrates with almost everything:</p>
+<ol>
+  <li><strong>Teams + SharePoint:</strong> Every Teams channel has a Files tab that IS a SharePoint document library. When you share a file in Teams, it is stored in SharePoint automatically.</li>
+  <li><strong>Teams + Power Apps:</strong> You can embed a Power App directly inside a Teams tab. Library members could open Teams and see the Library App inside it.</li>
+  <li><strong>Teams + Power Automate:</strong> You can build flows that send messages to Teams channels ("New book 'Atomic Habits' added to the library") or ask for approval in Teams ("Priyanka requests membership upgrade — Approve or Reject").</li>
+  <li><strong>Teams + Copilot Studio:</strong> You can publish your library chatbot directly into Teams. Library members type questions in Teams and the chatbot answers.</li>
+</ol>
+
+<div class="card c-do"><span class="lab">Add the Library Events List as a Teams Tab</span>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Open Microsoft Teams at <code>teams.microsoft.com</code></span></li>
+  <li><span class="box"></span><span class="txt">Create a team called "Community Library Staff" if it does not exist</span></li>
+  <li><span class="box"></span><span class="txt">Go to the "General" channel → click the <strong>+</strong> button (Add a tab)</span></li>
+  <li><span class="box"></span><span class="txt">Search for <strong>SharePoint</strong> → click it → select the "Community Library" site and the "Library Events" list</span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Save</strong> — now the list appears inside Teams. Librarians never need to navigate to SharePoint separately.</span></li>
+</ul>
+</div>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — Why does Microsoft integrate all its products so tightly?</span>
+<p><strong>Business strategy:</strong> If Teams integrates with SharePoint, Outlook, Power Apps, and Dataverse — and you use all of them — you are deeply embedded in the Microsoft ecosystem. Switching to a competitor (Google Workspace, Slack, Salesforce) means losing all these integrations. This is called a <strong>"switching cost"</strong> — the pain of leaving one platform for another.</p>
+<p>This is not evil — it is a business model. All big platforms do this (Apple, Google, Amazon). Understanding this helps you make smarter decisions about which tools to choose and which ones to depend on too heavily.</p>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 2: "[Tool] allows / enables / stores / connects"</span>
+<h3>This Week's Grammar Pattern</h3>
+<p>Technical descriptions always explain what a tool DOES for the user. Learn these powerful verbs:</p>
+<table>
+<tr><th>Verb</th><th>Meaning</th><th>Example</th></tr>
+<tr><td><strong>allows</strong></td><td>gives permission or makes possible</td><td>"SharePoint <strong>allows</strong> teams to share files from any device."</td></tr>
+<tr><td><strong>enables</strong></td><td>makes possible what was not possible before</td><td>"OneDrive <strong>enables</strong> you to access files from any computer in the world."</td></tr>
+<tr><td><strong>provides</strong></td><td>gives, supplies</td><td>"Teams <strong>provides</strong> a central place for chat, calls, and file sharing."</td></tr>
+<tr><td><strong>stores</strong></td><td>keeps data somewhere</td><td>"A SharePoint library <strong>stores</strong> documents with full version history."</td></tr>
+<tr><td><strong>connects</strong></td><td>links two things</td><td>"SharePoint <strong>connects</strong> directly to Power Apps so apps can read list data."</td></tr>
+<tr><td><strong>restricts</strong></td><td>limits access</td><td>"Permissions <strong>restrict</strong> who can edit a list — others can only read it."</td></tr>
+</table>
+
+<h3>Grammar Practice — Complete These Sentences</h3>
+<ol>
+  <li>"SharePoint ______________ (store) files in the cloud so no physical server is needed."</li>
+  <li>"Version history ______________ (allow) you to restore an older version of any document."</li>
+  <li>"Microsoft Teams ______________ (connect) chat, calls, and SharePoint files in one place."</li>
+  <li>"A 'Read' permission ______________ (mean) the user can see the data but not change it."</li>
+  <li>"The Upcoming Events view ______________ (show) only future events because of the filter."</li>
+</ol>
+<p><em>Answers: stores, allows, connects, means, shows</em></p>
+
+<h3>Writing Exercise: Explain SharePoint to a Non-Technical Person</h3>
+<p>Imagine your parent or friend asks: "What is this SharePoint thing you keep talking about?" Write 4–5 sentences that explain it simply, without technical jargon. Then write 2 sentences explaining WHY it is useful.</p>
+<p><strong>Example (read once, then write your own without looking):</strong><br>
+<em>"SharePoint is like a shared filing cabinet that lives on the internet, not in any one office. Everyone in our team can open it from their phone, laptop, or computer, anywhere in the world. When someone adds a new document, everyone sees it immediately. If someone accidentally changes something important, we can go back to the old version in one click. It is useful because it replaces the problem of different people keeping different copies of the same file on their own computers."</em></p>
+
+<h3>🔊 Read Aloud Exercise</h3>
+<p>Read this slowly and clearly, 3 times. Pause at every full stop and comma:</p>
+<p><em>"SharePoint is Microsoft's tool for storing and sharing information inside a company. A SharePoint site is like a department's digital office. Inside the site, you can create lists — which are like spreadsheets where the whole team can add and edit rows — and libraries — which are folders of documents with version history. The most important difference between SharePoint and a regular shared folder is that SharePoint has permissions: you can control exactly who sees what, who can edit, and who can only read."</em></p>
+<p>After reading: Explain out loud — in your own words — what the difference is between a SharePoint list and a SharePoint library.</p>
+
+<h3>Professional Communication: Teams Message Announcing a New List</h3>
+<pre><code>Hi team,
+
+I have created a new [what you created] in [where].
+
+You can find it here: [link or navigation instructions]
+
+The list contains columns for [what columns].
+
+Please use this list for [what purpose].
+If you have questions or need changes, message me here.
+
+Thank you,
+[Your name]</code></pre>
+<p><strong>Completed example:</strong></p>
+<pre><code>Hi team,
+
+I have created a new SharePoint list called "Library Events" in the Community Library site.
+
+You can find it by going to our Teams channel → Files tab → Library Events.
+
+The list contains columns for Event Name, Date, Location, Maximum Capacity, and Registration Link.
+
+Please use this list to add all upcoming library events. Members will soon be able to see
+this list through the library app. If you need additional columns, message me here.
+
+Thank you,
+[Your name]</code></pre>
+
+<h3>🚫 Common English Mistakes — Week 2</h3>
+<p><strong>Mistake 1: "Revert back" — used in India to mean "reply"</strong><br>
+❌ "Please revert back to me with the list details."<br>
+✅ "Please <strong>reply</strong> to me." OR "Please <strong>let me know</strong> the details."<br>
+Note: In standard English, "revert" means to go back to a previous state (like reverting a file). It does NOT mean "reply."</p>
+
+<p><strong>Mistake 2: "Please do the needful"</strong><br>
+❌ "Please do the needful and create the SharePoint site."<br>
+✅ "Please <strong>create the SharePoint site</strong> and let me know when it is ready."<br>
+Rule: Always say specifically WHAT you need. "Do the needful" is not understood outside India.</p>
+
+<p><strong>Mistake 3: "As and when"</strong><br>
+❌ "I will add the events as and when they are confirmed."<br>
+✅ "I will add the events <strong>as they are confirmed</strong>." OR "<strong>when they are confirmed</strong>."</p>
+
+<p><strong>Mistake 4: Adding -s to uncountable nouns</strong><br>
+❌ "I received many feedbacks from the librarians."<br>
+✅ "I received a lot of <strong>feedback</strong>."<br>
+Uncountable: feedback, information, access, advice, news, permission (the concept).</p>
+
+<h3>✅ Week 2 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you explain what SharePoint does in 3 sentences without notes?</span></li>
+  <li><span class="box"></span><span class="txt">Can you use "allows", "enables", "stores" correctly in original sentences?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a Teams announcement message this week (even as practice in your journal)?</span></li>
+  <li><span class="box"></span><span class="txt">Can you avoid "revert back" and "do the needful"?</span></li>
+  <li><span class="box"></span><span class="txt">Is your journal updated with today's entry?</span></li>
+</ul>
+</div>
 </section>
 
-<!-- DAY 3 -->
-<section class="day" id="day3">
-<div class="dhead"><span class="dnum">Day 3</span></div>
-<h2>Linking data: relationships, lookups, and the full data model</h2>
-<p class="meta">~110 minutes</p>
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="day" id="week3">
+<div class="dhead"><span class="dnum">Week 3 · September 20–26</span></div>
+<h2>Power Platform Introduction + Dataverse + Power BI Pro + Copilot Studio</h2>
+<p class="meta">~4 hours · Done in browser · Internet required · Use all E5 features this week</p>
 
-<div class="card c-concept"><span class="lab">Concept — why relationships matter (store each fact once)</span>
-<p>Imagine every book stored the author's country and birth year. If an author wrote 10 books, you'd type their details 10 times — and have to fix 10 rows when something changed. The solution: store each author <em>once</em> in an Author table, then <em>point</em> each book to the right author. That pointing is a <strong>relationship</strong> — the core idea of good data design.</p>
-<p>The pattern: one Author can relate to <em>many</em> Books. This is called <strong>one-to-many (1:N)</strong>. The lookup column lives on the "many" side (the Book table holds a pointer to its Author). There are also many-to-many relationships — for example, a Book can have many Authors, and an Author can write many Books — but we won't need that complexity here.</p>
+<div class="card c-gloss"><span class="lab">Vocabulary for Week 3 — Power Platform</span>
+<dl>
+  <dt><strong>16. Power Apps (noun)</strong></dt>
+  <dd>Microsoft's tool for building mobile and web apps without writing code.<br>
+  <em>Analogy: Building a house with pre-made walls and furniture — you assemble pieces that Microsoft made, not make every brick yourself.</em><br>
+  <em>Example: "I built the library borrowing app in Power Apps. Members can search books, see availability, and borrow — without me writing a single line of traditional code."</em></dd>
+
+  <dt><strong>17. Canvas App (noun)</strong></dt>
+  <dd>A type of Power App where you design every pixel — drag and drop elements exactly where you want, like painting on a blank canvas.<br>
+  <em>Analogy: A blank sketchbook. You decide where to draw, what color, what size. Complete creative control.</em><br>
+  <em>Example: "I made the Library Member app a canvas app because I wanted book covers in a specific grid layout with the library's brand colors."</em></dd>
+
+  <dt><strong>18. Model-Driven App (noun)</strong></dt>
+  <dd>A type of Power App that automatically generates forms and views based on your Dataverse data structure — less design, more automatic.<br>
+  <em>Analogy: A template house. The layout is decided for you — kitchen here, bedroom there. You furnish it, but you do not move walls.</em><br>
+  <em>Example: "I made the Library Admin app a model-driven app because the admin needs to manage lots of records quickly. The auto-generated forms are perfect for that."</em></dd>
+
+  <dt><strong>19. Power Automate (noun)</strong></dt>
+  <dd>Microsoft's tool for automating repetitive tasks — it watches for things to happen and does something in response.<br>
+  <em>Analogy: A very reliable employee who only does one specific job, perfectly, every time, without being asked. Loan overdue → send email. Every time.</em><br>
+  <em>Example: "I set up a Power Automate flow: when a new loan is created, automatically send a confirmation email and set a due-date reminder."</em></dd>
+
+  <dt><strong>20. Flow (noun)</strong></dt>
+  <dd>One automated process built in Power Automate — it has a trigger (what starts it) and actions (what it does).<br>
+  <em>Analogy: A recipe. The trigger is "when the water boils." The actions are "add rice, stir, reduce heat, wait 15 minutes."</em><br>
+  <em>Example: "The overdue reminder flow triggers every morning at 7 AM. If a loan is overdue, it sends an email to the member and to Pooja."</em></dd>
+
+  <dt><strong>21. Dataverse (noun)</strong></dt>
+  <dd>Microsoft's powerful cloud database system — stores structured data (tables, rows, columns) with relationships, security, and business logic built in.<br>
+  <em>Analogy: A very organized library filing system. Every book has a specific place. You cannot put a book in the wrong section. The system enforces rules.</em><br>
+  <em>Example: "All our library data — books, authors, members, loans — lives in Dataverse. Unlike Excel, Dataverse ensures a loan MUST be linked to a real member."</em></dd>
+
+  <dt><strong>22. Table (noun, in Dataverse)</strong></dt>
+  <dd>One category of data — like a spreadsheet with rows and columns. A "Book" table has one row per book.<br>
+  <em>Analogy: One section of a library card catalog. Each section is like a table. Each card is one row.</em><br>
+  <em>Example: "The Loan table has 100 rows — one for each borrowing event. Each row has columns: Book_ID, Member_ID, Loan_Date, Due_Date, Return_Date."</em></dd>
+
+  <dt><strong>23. Relationship (noun, in databases)</strong></dt>
+  <dd>A link between two tables — shows how data in one table connects to data in another.<br>
+  <em>Analogy: A library card. The card belongs to one member (Rohit). Rohit's card has many stamps (loans). Each stamp points to one book. Relationships: Member → Loan → Book.</em><br>
+  <em>Example: "In Dataverse, the Loan table has a relationship to Member and to Book. Every loan MUST have a valid member and a valid book — you cannot create a loan for a member who does not exist."</em></dd>
+
+  <dt><strong>24. Power BI (noun)</strong></dt>
+  <dd>Microsoft's tool for turning raw data into charts, dashboards, and visual reports.<br>
+  <em>Analogy: The annual report your CEO shows to shareholders — instead of rows of numbers, colorful charts that immediately communicate "Sales went up 20% in Q3."</em><br>
+  <em>Example: "Using Power BI, I connected to our Dataverse loan data and built a dashboard: loans per month, most borrowed books, members with overdue loans, late fee totals."</em></dd>
+</dl>
 </div>
 
-<figure class="fig">
-<svg viewBox="0 0 560 180" role="img" aria-label="One Author points to many Books via a lookup column">
-<rect x="30" y="64" width="150" height="60" rx="9" fill="#f3fbf6" stroke="#0e9f6e"/>
-<text x="105" y="90" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1f2733">Author</text>
-<text x="105" y="108" text-anchor="middle" font-family="monospace" font-size="10" fill="#4a5567">Full name, Country, Born</text>
-<line x1="180" y1="94" x2="356" y2="44" stroke="#9fb0c8" stroke-width="1.6"/>
-<line x1="180" y1="94" x2="356" y2="94" stroke="#9fb0c8" stroke-width="1.6"/>
-<line x1="180" y1="94" x2="356" y2="144" stroke="#9fb0c8" stroke-width="1.6"/>
-<text x="255" y="76" font-family="monospace" font-size="11" fill="#2f6fed">1  →  many</text>
-<g>
-<rect x="358" y="22" width="175" height="40" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="47" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "Matilda"</text>
-<rect x="358" y="74" width="175" height="40" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="99" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "The BFG"</text>
-<rect x="358" y="126" width="175" height="40" rx="8" fill="#eef4ff" stroke="#2f6fed"/><text x="445" y="151" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1f2733">Book — "Danny…"</text>
-</g>
-</svg>
-<figcaption>One Author → many Books: the Book table has a Lookup column pointing to the Author table</figcaption>
-</figure>
-
-<div class="card c-concept"><span class="lab">Concept — choice vs lookup (when to use which)</span>
+<div class="card c-concept"><span class="lab">Concept — How Power Platform Fits Together: One Data Source, Four Lenses</span>
+<pre><code>POWER APPS          POWER AUTOMATE
+(user interface)    (automation)
+       ↕                  ↕
+         DATAVERSE (the data)
+       ↕                  ↕
+POWER BI            COPILOT STUDIO
+(insight)           (chatbot AI)</code></pre>
+<p>All four tools read and write to the same Dataverse. This is the entire design principle of Power Platform — <strong>one data source, four different lenses.</strong> In our library:</p>
 <ul>
-<li>A <strong>Choice</strong> is a pick-list of <em>fixed words you decide in advance</em> (Genre: Fiction / Non-fiction…). The options are part of the column design. Use for small, stable lists where each option has no extra details.</li>
-<li>A <strong>Lookup</strong> points to <em>a row in another table</em> (Author lookup shows you Author rows). The options are <em>live data</em> that grows as you add rows. Use when the options have their own properties (name, country, biography).</li>
+  <li><strong>Power Apps (Canvas):</strong> Rohit opens the app, searches "Atomic Habits," borrows it → creates a Loan row in Dataverse</li>
+  <li><strong>Power Automate:</strong> The new Loan row triggers a flow → sends Rohit a confirmation email → schedules a due-date reminder</li>
+  <li><strong>Power BI:</strong> Pooja opens the dashboard → sees "87 loans this month — up 12% from last month" → chart shows Atomic Habits is the most borrowed book</li>
+  <li><strong>Copilot Studio:</strong> Gaurav types: "Is Atomic Habits available?" → chatbot queries Dataverse → responds: "0 copies available. 1 person has it due on October 15."</li>
 </ul>
-<p>Rule of thumb: short fixed list → <strong>Choice</strong>. A "thing" with its own record → <strong>Lookup</strong>.</p>
+<p><strong>All four tools. One data source. One community library.</strong></p>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — cascading deletes: Restrict vs Cascade</span>
-<p>When you link two tables, Dataverse asks what happens if you delete the "one" side. Two options:</p>
-<ul>
-<li><strong>Restrict</strong> — refuse to delete an Author if they still have Books pointing to them. Protects data integrity. Use this for important lookups (deleting Roald Dahl should fail because Matilda still exists).</li>
-<li><strong>Cascade</strong> — delete the Author and also delete all their Books automatically. Dangerous unless you're sure. Used for cleanup scenarios (deleting a Member auto-deletes their Loans).</li>
-</ul>
-<p>For this course, use <strong>Restrict</strong> on Author→Book. Use the Dataverse default for Member→Loan (which is Restrict — safe).</p>
+<div class="card c-tip"><span class="lab">💭 System Thinking — What happens to all four tools if Dataverse goes down?</span>
+<p>All four break simultaneously. The app cannot save loans, flows cannot read data, Power BI shows errors, the chatbot cannot answer questions.</p>
+<p>This is the risk of a <strong>single point of failure</strong>. Advanced architects add redundancy — backups, failover databases, offline caching. We will not build this level of complexity in our project, but understanding that it IS a risk is the first step to designing safe systems.</p>
 </div>
 
-<div class="card c-do"><span class="lab">Do this — create Author, Member, and Loan tables with exact columns</span>
+<div class="card c-do"><span class="lab">Exercise 4 — Explore Dataverse and Build the Book Table</span>
+<p><strong>Step 1: Open the Power Apps Maker Portal</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Tables → New table</strong> = <code>Author</code>. Rename its primary column to <code>Full name</code> (Required). Add:</span></li>
-<li><span class="box"></span><span class="txt"><code>Country</code> → Text.</span></li>
-<li><span class="box"></span><span class="txt"><code>Born</code> → Date only.</span></li>
-<li><span class="box"></span><span class="txt"><code>Biography</code> → Multiline text.</span></li>
-<li><span class="box"></span><span class="txt">Add 3 Author rows manually to verify the table works. Use these real authors from <a href="../sample-data/authors.csv"><strong>authors.csv</strong></a>: <code>Roald Dahl / United Kingdom / 1916-09-13</code>, <code>Frank Herbert / United States / 1920-10-08</code>, <code>Jane Austen / United Kingdom / 1775-12-16</code>. You will import all 46 real authors later from the CSV.</span></li>
-<li><span class="box"></span><span class="txt">Now go back to the <strong>Book</strong> table. If you added a temporary "Author (temp)" text column, delete it. Add a proper <strong>Lookup</strong> column: <strong>+ New column</strong> → name <code>Author</code> → Type: <strong>Lookup</strong> → Related table: <strong>Author</strong>. Save. Now each Book can point to a real Author row.</span></li>
-<li><span class="box"></span><span class="txt">Open each of your 3 Book rows in the data grid and set the Author lookup: Matilda → Roald Dahl, Dune → Frank Herbert, Atomic Habits → leave blank for now (James Clear is not yet in the Author table).</span></li>
-<li><span class="box"></span><span class="txt"><strong>New table</strong> = <code>Member</code>. Rename primary column to <code>Full name</code> (Required). Add:</span></li>
-<li><span class="box"></span><span class="txt"><code>Email</code> → Type: Email.</span></li>
-<li><span class="box"></span><span class="txt"><code>Phone</code> → Type: Phone.</span></li>
-<li><span class="box"></span><span class="txt"><code>Join date</code> → Type: Date only. Set Default value: today (click the calendar icon → "Today").</span></li>
-<li><span class="box"></span><span class="txt"><code>Membership expiry</code> → Type: Date only.</span></li>
-<li><span class="box"></span><span class="txt"><code>Membership</code> → Type: Choice. Options: <strong>Standard</strong>, <strong>Student</strong>, <strong>Senior</strong>, <strong>Premium</strong>. Default: Standard.</span></li>
-<li><span class="box"></span><span class="txt"><code>Active</code> → Type: Yes/No. Default: Yes.</span></li>
-<li><span class="box"></span><span class="txt">Add 4 Member rows. Use real rows from <a href="../sample-data/members.csv"><strong>members.csv</strong></a> — for example: <code>Rohit Verma / rohit.verma@[tenant] / +91-9876543210 / Premium / 2024-01-15</code> and <code>Priyanka Singh / priyanka.singh@[tenant] / +91-9456789012 / Student / 2024-04-05</code>. You will import all 30 members later from the CSV via dataflow (Day 13).</span></li>
-<li><span class="box"></span><span class="txt"><strong>New table</strong> = <code>Loan</code>. Rename primary column to <code>Loan name</code>. (Users don't type this — you can leave it blank when entering rows; the system creates a name. Or enter a pattern like <code>LN-001</code>.) Add:</span></li>
-<li><span class="box"></span><span class="txt"><code>Book</code> → Type: Lookup → Related table: <strong>Book</strong>. Required: Yes.</span></li>
-<li><span class="box"></span><span class="txt"><code>Member</code> → Type: Lookup → Related table: <strong>Member</strong>. Required: Yes.</span></li>
-<li><span class="box"></span><span class="txt"><code>Loan date</code> → Type: Date only. Required: Yes.</span></li>
-<li><span class="box"></span><span class="txt"><code>Due date</code> → Type: Date only. Required: Yes. (Typically Loan date + 14 days — you'll automate this in Phase 3.)</span></li>
-<li><span class="box"></span><span class="txt"><code>Return date</code> → Type: Date only. Optional (filled when the member returns the book).</span></li>
-<li><span class="box"></span><span class="txt"><code>Returned</code> → Type: Yes/No. Default: No.</span></li>
-<li><span class="box"></span><span class="txt"><code>Status</code> → Type: Choice. Options: <strong>Open</strong>, <strong>Returned</strong>, <strong>Overdue</strong>. Default: Open.</span></li>
-<li><span class="box"></span><span class="txt"><code>Late fee</code> → Type: Currency. Default value: 0.</span></li>
-<li><span class="box"></span><span class="txt"><code>Notes</code> → Type: Multiline text.</span></li>
-<li><span class="box"></span><span class="txt">Add 5 Loan rows. For each: pick a real Book from the dropdown, a real Member, set a Loan date (any past date), Due date (Loan date + 14 days), Returned = No, Status = Open. Make one loan Overdue (set Due date in the past and Status = Overdue). The Loan table is the heart of your Power BI report in Phase 6.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — the Loan table connects everything</span>
-The <strong>Loan</strong> table points to <em>two</em> other tables — Book and Member — making it the central event record. In Phase 6 (Power BI), Loan becomes the "fact" table and Book/Member become the "dimension" tables you slice by. Every design decision you make now shows up later. Store each fact once, link with lookups.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Relationship</b> — a link between two tables; one side is "one", the other is "many".</li>
-<li><b>One-to-many (1:N)</b> — one Author can have many Books; the lookup lives on the "many" side.</li>
-<li><b>Lookup column</b> — a column that points to a row in another table; appears as a dropdown in forms.</li>
-<li><b>Choice (option set)</b> — a fixed pick-list defined in the column design.</li>
-<li><b>Restrict / Cascade</b> — two delete behaviors: block delete if children exist / delete children automatically.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — data modelling in practice</span>
-<p>Your four-table model (Author → Book ← Loan → Member) is a classic pattern called a <strong>transactional data model</strong>. It appears everywhere:</p>
-<ul>
-<li><strong>E-commerce:</strong> Customer → Order → OrderLine ← Product. OrderLine is the Loan equivalent — the linking event table.</li>
-<li><strong>Healthcare:</strong> Patient → Appointment ← Doctor. Appointment links two "dimension" tables to one event.</li>
-<li><strong>Banking:</strong> Account → Transaction ← MerchantCategory. Every transaction links an account to a category.</li>
+  <li><span class="box"></span><span class="txt">Open a private browser window → go to <code>make.powerapps.com</code> → sign in with your trial account</span></li>
+  <li><span class="box"></span><span class="txt">Check the environment picker (top right) — confirm it says <strong>LM-DEV</strong>. ALWAYS check this before doing anything.</span></li>
 </ul>
-<p>Understanding the difference between <em>dimension tables</em> (Author, Book, Member — the "what") and <em>event/fact tables</em> (Loan — the "what happened") is a skill that transfers from Dataverse to SQL to Power BI to any data platform. You are building the mental model now, at Day 3 of 20.</p>
 
-<figure class="fig">
-<svg viewBox="0 0 560 110" role="img" aria-label="Loan links Book and Member — one loan is one borrowing event">
-<defs><marker id="d3a" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9fb0c8"/></marker></defs>
-<rect x="14" y="34" width="120" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="74" y="54" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Book</text><text x="74" y="70" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">dimension</text>
-<line x1="134" y1="56" x2="198" y2="56" stroke="#9fb0c8" stroke-width="1.8" marker-end="url(#d3a)"/>
-<rect x="200" y="24" width="160" height="62" rx="9" fill="#f3fbf6" stroke="#0e9f6e" stroke-width="1.8"/><text x="280" y="49" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2733">Loan (event)</text><text x="280" y="65" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#4a5567">Book ← + → Member</text><text x="280" y="78" text-anchor="middle" font-family="monospace" font-size="8" fill="#7b8798">loan date, due date, status</text>
-<line x1="362" y1="56" x2="426" y2="56" stroke="#9fb0c8" stroke-width="1.8" marker-end="url(#d3a)"/>
-<rect x="428" y="34" width="118" height="44" rx="9" fill="#eef4ff" stroke="#2f6fed"/><text x="487" y="54" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1f2733">Member</text><text x="487" y="70" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#7b8798">dimension</text>
-</svg>
-<figcaption>Loan is the event table — it records WHO borrowed WHAT and WHEN</figcaption>
-</figure>
-</div>
-
-<div class="card c-warn"><span class="lab">Common mistakes with relationships</span>
-<ul>
-<li><strong>Putting the Lookup on the wrong side.</strong> The Lookup always goes on the "many" side (Book has a Lookup to Author, not Author has a Lookup to Book). If Author had a Lookup to Book, each author could only have one book.</li>
-<li><strong>Using a text field for related data.</strong> Typing "Roald Dahl" as text in a Book row isn't a relationship — it's just a string. If Roald Dahl's name changes in the Author table, the book's text field doesn't update. A Lookup column is the only true link.</li>
-<li><strong>Forgetting to add rows to the Loan table for testing.</strong> If Loan has no rows, your Power BI report (Phase 6) will be blank and all DAX measures return 0. Add at least 10 diverse loan rows now — overdue, returned, and open — so your reports are meaningful.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 3 hands-on checks</span>
+<p><strong>Step 2: Explore Existing Tables</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> In the Loan data grid, try to save a row without selecting a Book. Confirm that Dataverse blocks you (Book is Required). Then select a Book and save — note that the dropdown shows real Book rows by their Title.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Open one of your Author rows. Look at the Related items panel (or a sub-grid if available) — can you see which Books are linked to this author? This is the "one side" seeing its "many" related rows.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Add 5 more Loan rows to reach a total of at least 10. Make at least 2 rows with Status = Overdue (set Due date in the past). Make at least 2 rows with Returned = Yes. This rich test data will make Phases 3 and 6 significantly more interesting.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> In the Member table, add a column called <code>Membership expiry</code> (Type: Date only). Then in the Loan table, add a <code>Notes</code> column (Multiline text) if you haven't already. These will be used in the canvas app form on Day 7.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5 (challenge):</strong> Think about this real scenario: one Loan row has Returned = Yes but its Return date is blank. Write a business rule (without building it yet) in plain English that would fix this. Answer: "If Returned = Yes AND Return date is blank → set Return date = Today." You'll build this exact rule on Day 8.</span></li>
+  <li><span class="box"></span><span class="txt">Left menu → <strong>Dataverse</strong> → <strong>Tables</strong> → click <strong>All</strong> to see all tables including Microsoft's standard ones</span></li>
+  <li><span class="box"></span><span class="txt">Look for tables like "Account", "Contact" — these are default Dataverse tables from Dynamics 365 (Microsoft's CRM). They look like sales tools because they were built for sales teams.</span></li>
+</ul>
+
+<p><strong>Step 3: Create the Book Table</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>+ New table</strong> → Name: <code>Book</code> → Description: <code>Stores information about all books in the Community Library</code> → Click <strong>Create</strong></span></li>
+</ul>
+
+<p><strong>Step 4: Add Columns to the Book Table</strong></p>
+<table>
+<tr><th>Column Name</th><th>Data Type</th><th>Required?</th><th>Why?</th></tr>
+<tr><td>ISBN</td><td>Text (max 20 chars)</td><td>No</td><td>Not required — some old books do not have ISBNs</td></tr>
+<tr><td>Author_Name</td><td>Text (max 100 chars)</td><td>Yes</td><td>Required — an unknown author is not useful</td></tr>
+<tr><td>Genre</td><td>Choice</td><td>Yes</td><td>Choices: Fiction, Non-Fiction, Science, Biography, Children, Textbook — prevents typos like "Ficton"</td></tr>
+<tr><td>Published_Year</td><td>Whole Number</td><td>No</td><td>Number (not text) so we can filter "books published after 2020"</td></tr>
+<tr><td>Total_Copies</td><td>Whole Number</td><td>Yes</td><td>Required — a book with unknown copies cannot be managed</td></tr>
+<tr><td>Available_Copies</td><td>Whole Number</td><td>Yes</td><td>How many copies are available right now</td></tr>
+<tr><td>Average_Rating</td><td>Decimal Number</td><td>No</td><td>Decimal so we can have 4.2, not just 4</td></tr>
+</table>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Add all 7 columns using the types above — click <strong>+ Add column</strong> for each</span></li>
+</ul>
+
+<p><strong>Step 5: Add Sample Data</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>Edit</strong> at the top of the table to open the data grid</span></li>
+  <li><span class="box"></span><span class="txt">Add 5 books manually from <code>sample-data/books.csv</code> — one book per row</span></li>
+  <li><span class="box"></span><span class="txt">When you save a row, the system auto-generates a unique ID. This is called the <strong>Primary Key</strong> — a unique identifier for every row. No two rows can ever have the same Primary Key. This is how the Loan table knows WHICH book was borrowed when two books share the same title.</span></li>
 </ul>
 </div>
 
-<div class="card c-check"><span class="lab">Mini-quiz — Day 3</span>
-<p><strong>Q1</strong> You want to store which Member is responsible for a Loan. Should the Lookup column be on the Loan table or the Member table?</p>
-<p><strong>Q2</strong> A book can be borrowed many times. A loan belongs to exactly one book. What cardinality is this, and on which table does the Lookup column live?</p>
-<p><strong>Q3</strong> What is the difference between a Choice column and a Lookup column, and give one example of each from the Community Library?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> On the Loan table — it's the "many" side. One Member can have many Loans; each Loan belongs to one Member. The Lookup lives on the many side (Loan).</p>
-<p><strong>A2</strong> One-to-many (1:N). The Lookup column lives on the Loan table (the "many" side), pointing up to the Book table (the "one" side).</p>
-<p><strong>A3</strong> Choice: a fixed list of options defined at design time, no second table needed. Example: Loan[Status] = Open / Returned / Overdue. Lookup: a live pointer to a row in another table; the options are rows. Example: Loan[Book] → a dropdown showing real Book rows.</p>
-</details>
+<div class="card c-tip"><span class="lab">💭 System Thinking — If a book gets borrowed, who or what should update "Available_Copies"?</span>
+<p><strong>Option A:</strong> The librarian manually changes Available_Copies when a loan is created → Bad. Humans make mistakes. If the librarian forgets, the data is wrong.</p>
+<p><strong>Option B:</strong> A Power Automate flow automatically decreases Available_Copies when a Loan is created → Better. But what if two loans are created at the exact same time? (This is called a "race condition.") The count could be wrong.</p>
+<p><strong>Option C:</strong> Available_Copies is never stored — it is always calculated fresh: <code>Total_Copies - COUNT(open loans for this book)</code> → Best for accuracy. Can never be wrong. Downside: it is slower (a calculation, not a stored number).</p>
+<p><strong>This is a real architectural debate in data systems.</strong> The trade-off: fast reading (store the result) vs always accurate (calculate fresh). In November when we learn SQL, we will build both and compare.</p>
 </div>
 
-<div class="card c-check"><span class="lab">Check yourself</span>
-Book rows now link to real Author rows; Loan rows link to real Book and Member rows. Question: is "Country of publication" for a book better as a Choice or Text? (<em>Text — there are 200 countries, it can change, and each country has no extra properties to store.</em>)</div>
+<div class="card c-do"><span class="lab">Exercise 5 — Build Your First Power BI Report (E5 Pro Feature — Use Before Sept 30)</span>
+<p>Power BI Pro is included in M365 E5. After September 30, you will use Power BI Free which cannot share reports. Use Pro now.</p>
+
+<p><strong>Step 1: Open Power BI</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Go to <code>app.powerbi.com</code> → sign in with your trial account</span></li>
+</ul>
+
+<p><strong>Step 2: Upload the Sample Data</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>+ New</strong> → <strong>Report</strong> → <strong>Get data</strong> → <strong>Text/CSV</strong> → upload <code>sample-data/loans.csv</code></span></li>
+</ul>
+
+<p><strong>Step 3: Build Three Simple Visuals</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt"><strong>Visual 1 — Line chart: Loans per Month</strong><br>X-axis: Loan_Date (group by Month) · Y-axis: Count of Loan_ID<br>This shows: "Is the library growing? Are more people borrowing books over time?"</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Visual 2 — Bar chart: Most Borrowed Books</strong><br>X-axis: Book_Name · Y-axis: Count of Loan_ID (sorted descending)<br>This shows: "Which books are most popular?"</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Visual 3 — Card: Total Late Fees Collected</strong><br>Value: Sum of Late_Fee<br>This shows: "How much revenue from late fees this year?"</span></li>
+</ul>
+
+<p><strong>Step 4: Publish and Share (E5 Pro only)</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>Publish</strong> (top right) → choose "My Workspace" → <strong>Select</strong></span></li>
+  <li><span class="box"></span><span class="txt">After publishing, click the link to open in the Power BI service → click <strong>Share</strong> → type Pooja Sharma's email → <strong>Grant access</strong></span></li>
+  <li><span class="box"></span><span class="txt">Pooja can now open this report in her browser — no Power BI Desktop, no file downloads, just a link</span></li>
+</ul>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — What is the difference between "the data" and "the report"?</span>
+<p><strong>The data</strong> (loans.csv) is raw numbers — rows and columns with no interpretation.</p>
+<p><strong>The report</strong> is a lens — it asks a specific question of the data and shows the answer visually.</p>
+<p>The same data powers many different reports. The library operations team looks at "loans per librarian." The finance team looks at "late fees by month." The acquisition team looks at "most requested books we don't have." All three read the same data, but answer different questions.</p>
+<p><strong>This is why separating data from presentation is so important in system design.</strong> The data layer (Dataverse) should be clean and complete. The presentation layer (Power BI) should be flexible and purpose-built. Never mix them.</p>
+</div>
+
+<!-- COPILOT STUDIO -->
+<div class="card c-warn"><span class="lab">Build This Now — Copilot Studio Access Expires September 30</span>
+<p>Copilot Studio is included in the M365 E5 license. After September 30, using Copilot Studio requires a separate paid license (approximately ₹17,000–₹25,000 per month for 2,000 sessions). This is one of the most powerful tools in the Microsoft stack. We must build something real with it <strong>before the trial closes.</strong></p>
+<p>The <code>library-faq.txt</code>, <code>borrowing-policy.txt</code>, and <code>late-return-policy.txt</code> files in your sample data were created specifically for this exercise. Everything connects.</p>
+</div>
+
+<div class="card c-gloss"><span class="lab">New Vocabulary — Copilot Studio (Words 25–30)</span>
+<dl>
+  <dt><strong>25. Chatbot / Conversational Agent (noun)</strong></dt>
+  <dd>A computer program that has a text conversation with a user — it reads what the user types and responds intelligently.<br>
+  <em>Analogy: The helpdesk at a library. You ask "Is this book available?" The helpdesk checks and tells you. A chatbot does the same — 24 hours a day, never tired, for hundreds of people simultaneously.</em><br>
+  <em>Example: "We built a Library Helper chatbot so members can ask questions at midnight without waiting for a librarian."</em></dd>
+
+  <dt><strong>26. Topic (noun, in Copilot Studio)</strong></dt>
+  <dd>One specific subject or type of question that the chatbot knows how to handle.<br>
+  <em>Analogy: A library information booklet with chapters. Chapter 1: Opening Hours. Chapter 2: How to Borrow. Chapter 3: Late Fees. Each chapter is one topic.</em><br>
+  <em>Example: "I created a 'Check Book Availability' topic. When a user asks 'Is Harry Potter available?' the chatbot goes to this topic and checks Dataverse."</em></dd>
+
+  <dt><strong>27. Trigger Phrase (noun)</strong></dt>
+  <dd>The words a user types that activate a specific topic.<br>
+  <em>Analogy: A filing system. When someone says the keyword "refund," the cashier opens the Refunds file. The keyword is the trigger phrase.</em><br>
+  <em>Example: "I added trigger phrases like 'is this book available', 'can I borrow', and 'check availability'. Now the chatbot recognises many different ways of asking the same question."</em></dd>
+
+  <dt><strong>28. Knowledge Source (noun)</strong></dt>
+  <dd>A document or file you give to the chatbot so it can read it and answer questions based on what is written inside.<br>
+  <em>Analogy: Giving a new employee the company handbook and saying "If a customer asks a question, look here first." The handbook is the knowledge source.</em><br>
+  <em>Example: "I uploaded library-faq.txt and borrowing-policy.txt as knowledge sources. Now when Gaurav asks 'How many books can I borrow?' the chatbot reads the policy and answers: 'Standard members may borrow up to 3 books.'"</em></dd>
+
+  <dt><strong>29. Generative Answers (noun)</strong></dt>
+  <dd>AI-powered answers the chatbot creates by reading your knowledge documents — it does not memorize specific answers but uses AI to understand and respond to any question.<br>
+  <em>Analogy: A very smart employee who has read the entire company handbook and can answer questions you never specifically trained them for.</em><br>
+  <em>Example: "With Generative Answers enabled, when a member asked 'Can I renew my loan online?' — a question I never created a specific topic for — the chatbot found the relevant section in borrowing-policy.txt and answered correctly."</em></dd>
+
+  <dt><strong>30. Publishing (verb, chatbot)</strong></dt>
+  <dd>Making the chatbot available for real users — before publishing, only you can test it; after publishing, you choose which channels (Teams, website) it appears on.<br>
+  <em>Analogy: Printing and distributing a notice. While writing it, only you see it. Once you put it on the notice board, everyone can read it.</em><br>
+  <em>Example: "After building and testing the Library Helper, I published it to Microsoft Teams. Now library members can chat with the bot directly in Teams."</em></dd>
+</dl>
+</div>
+
+<div class="card c-concept"><span class="lab">Concept — What Is Copilot Studio and Why Does It Exist?</span>
+<p>Before AI existed, if you wanted to help users answer questions without a human, you had two options:</p>
+<ol>
+  <li><strong>A FAQ page</strong> — users read it themselves (they often cannot find the answer)</li>
+  <li><strong>A decision-tree bot</strong> — if user says "X" then say "Y" (brittle, breaks when users phrase things differently)</li>
+</ol>
+<p>Both were frustrating. Users still emailed or called. <strong>Copilot Studio is a third option:</strong> It uses AI (large language models — the same technology behind ChatGPT) to understand what the user is asking — even if they phrase it unexpectedly. Then it either follows a scripted path or generates an answer from your documents.</p>
+
+<p><strong>The two types of answers:</strong></p>
+<pre><code>USER'S QUESTION
+       ↓
+Does a Topic match this question?
+       ↓
+   YES ──────────────────────────→ SCRIPTED ANSWER
+   (trigger phrase matches)         (you designed exactly what the bot says)
+       ↓
+    NO
+       ↓
+Is Generative Answers enabled?
+       ↓
+   YES ──────────────────────────→ AI-GENERATED ANSWER
+   (knowledge sources exist)        (AI reads your documents and creates a response)
+       ↓
+    NO
+       ↓
+        BOT SAYS: "I'm sorry, I don't know the answer to that."</code></pre>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 System Thinking — When to use a scripted Topic vs Generative Answers?</span>
+<p><strong>Use scripted Topics when:</strong></p>
+<ul>
+  <li>The answer must be precise and cannot vary ("The library is open 9 AM to 8 PM")</li>
+  <li>The question requires taking an action ("Check if this book is available" — the bot must query Dataverse)</li>
+  <li>Legal or compliance language must be exact</li>
+</ul>
+<p><strong>Use Generative Answers when:</strong></p>
+<ul>
+  <li>There are thousands of possible questions you cannot predict</li>
+  <li>The documents already contain the correct answers</li>
+  <li>Approximate, natural-language answers are acceptable</li>
+</ul>
+<p><strong>The risk of Generative Answers:</strong> AI can "hallucinate" — it can confidently give a wrong answer. This is why you always test your bot carefully and why important decisions (approving a loan, cancelling a membership) should NEVER be handled by generative AI alone — they need a scripted flow with human confirmation.</p>
+</div>
+
+<div class="card c-do"><span class="lab">Exercise 6 — Build the Library Helper Chatbot in Copilot Studio</span>
+<p><strong>Step 1: Open Copilot Studio</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Open a private browser window → go to <code>copilotstudio.microsoft.com</code></span></li>
+  <li><span class="box"></span><span class="txt">Sign in with your M365 E5 trial account → confirm environment picker shows <strong>LM-DEV</strong></span></li>
+</ul>
+
+<p><strong>Step 2: Create a New Agent</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>+ New agent</strong> (top right)</span></li>
+  <li><span class="box"></span><span class="txt">Name: <code>Library Helper</code> — Description: <code>Helps Community Library members find books, understand policies, and get answers to common questions</code></span></li>
+  <li><span class="box"></span><span class="txt">In the <strong>Instructions</strong> box, type:
+    <pre><code>You are the Library Helper for the Community Library.
+You are friendly, patient, and helpful.
+You answer questions about books, loans, membership, and library policies.
+When you do not know something, you say so honestly.
+You do not make up information that is not in the library's documents.</code></pre></span></li>
+  <li><span class="box"></span><span class="txt">Click <strong>Create</strong></span></li>
+</ul>
+<p><em>The Instructions box is the system prompt — it tells the AI what personality to have and what its limits are. This is exactly how ChatGPT and other AI assistants work — there is always a system prompt setting the context.</em></p>
+
+<p><strong>Step 3: Add Knowledge Sources</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Left menu → <strong>Knowledge</strong> → <strong>+ Add knowledge</strong> → <strong>Files</strong></span></li>
+  <li><span class="box"></span><span class="txt">Upload <code>library-faq.txt</code> from your sample-data folder</span></li>
+  <li><span class="box"></span><span class="txt">Upload <code>borrowing-policy.txt</code></span></li>
+  <li><span class="box"></span><span class="txt">Upload <code>late-return-policy.txt</code></span></li>
+  <li><span class="box"></span><span class="txt">Wait 1–2 minutes for files to be processed and indexed</span></li>
+</ul>
+
+<p><strong>Step 4: Test the Bot with Generative Answers</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Click <strong>Test</strong> (top right) → type: <code>How many books can I borrow at once?</code> — the bot should find the answer in borrowing-policy.txt</span></li>
+  <li><span class="box"></span><span class="txt">Type: <code>What happens if I return a book late?</code> — the bot should reference late-return-policy.txt</span></li>
+  <li><span class="box"></span><span class="txt">Type: <code>What is the opening time of the library?</code> — check if this is in library-faq.txt</span></li>
+  <li><span class="box"></span><span class="txt">Type something NOT in any document: <code>Can I borrow books in other languages?</code> — a well-configured bot should say it does not know, not make something up</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Important:</strong> Notice the bot does not quote the document word for word. It reads and then writes a conversational answer. But verify: if the document says "3 books" and the AI says "5 books" — that is a hallucination. Always verify AI answers against your source documents.</span></li>
+</ul>
+
+<p><strong>Step 5: Create a Scripted Topic — "Book Availability"</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Left menu → <strong>Topics</strong> → <strong>+ Add a topic</strong> → <strong>From blank</strong> — Name: <code>Check Book Availability</code></span></li>
+  <li><span class="box"></span><span class="txt">Add trigger phrases — type each and press Enter: <code>is this book available</code>, <code>can I borrow</code>, <code>check availability</code>, <code>how many copies</code>, <code>do you have</code>, <code>is available</code></span></li>
+  <li><span class="box"></span><span class="txt">Add a <strong>Question node</strong>: Bot says "Which book are you looking for? Please type the title." — save user's answer to variable: <code>BookTitle</code></span></li>
+  <li><span class="box"></span><span class="txt">Add an <strong>Action node</strong> → <strong>Call an action</strong> → <strong>Basic flow</strong> — this creates a Power Automate flow that queries Dataverse for the book and returns AvailableCopies and TotalCopies (full flow configuration is in October)</span></li>
+  <li><span class="box"></span><span class="txt">Add a <strong>Message node</strong>: "I found the book <strong>{BookTitle}</strong>. There are currently <strong>{AvailableCopies}</strong> out of <strong>{TotalCopies}</strong> copies available."</span></li>
+  <li><span class="box"></span><span class="txt">Add a <strong>Condition node</strong>: If AvailableCopies = 0 → "All copies are currently on loan. Would you like me to add you to the waitlist?" / Otherwise → "Great news! You can ask any librarian to help you borrow a copy."</span></li>
+</ul>
+
+<p><strong>Step 6: Publish to Teams</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Left menu → <strong>Channels</strong> → click <strong>Microsoft Teams</strong> → click <strong>Add to Teams</strong> → follow the prompts</span></li>
+  <li><span class="box"></span><span class="txt">Open Microsoft Teams → search for "Library Helper" in the search bar → start a conversation</span></li>
+  <li><span class="box"></span><span class="txt">Test in Teams: type "What is the borrowing limit?" / "Is Atomic Habits available?" / "Can I renew my book online?"</span></li>
+</ul>
+</div>
+
+<div class="card c-tip"><span class="lab">💭 Key Principle from Copilot Studio — AI vs Database</span>
+<p>Why do we use a scripted topic for book availability instead of letting the AI answer from the knowledge documents?</p>
+<p>Because the knowledge documents are <strong>static</strong> — they were written at one point in time. The borrowing policy says "3 copies of Atomic Habits exist." But if 2 are borrowed right now, the document still says 3. The generative AI would say "3 copies are available" — which is wrong.</p>
+<p>For questions about <strong>LIVE DATA</strong> (current availability, current loan status), you must query the database directly through Power Automate.</p>
+<p><strong>Critical principle: AI is good at understanding language. Databases are good at knowing current facts. Use each for what it does best.</strong></p>
+</div>
+
+<div class="card c-gloss"><span class="lab">Full Vocabulary Master List — All 30 Words from September</span>
+<p>Review all 30 words. Write your own definition from memory — do not look at the descriptions above.</p>
+<table>
+<tr><th>Word</th><th>Your definition (write from memory)</th></tr>
+<tr><td>Cloud</td><td></td></tr>
+<tr><td>Tenant</td><td></td></tr>
+<tr><td>License</td><td></td></tr>
+<tr><td>Identity</td><td></td></tr>
+<tr><td>Azure Active Directory / Entra ID</td><td></td></tr>
+<tr><td>Role</td><td></td></tr>
+<tr><td>Provision</td><td></td></tr>
+<tr><td>Domain</td><td></td></tr>
+<tr><td>SharePoint</td><td></td></tr>
+<tr><td>List (SharePoint)</td><td></td></tr>
+<tr><td>Library (SharePoint)</td><td></td></tr>
+<tr><td>Version History</td><td></td></tr>
+<tr><td>Permission</td><td></td></tr>
+<tr><td>Teams Channel</td><td></td></tr>
+<tr><td>OneDrive</td><td></td></tr>
+<tr><td>Power Apps</td><td></td></tr>
+<tr><td>Canvas App</td><td></td></tr>
+<tr><td>Model-Driven App</td><td></td></tr>
+<tr><td>Power Automate</td><td></td></tr>
+<tr><td>Flow</td><td></td></tr>
+<tr><td>Dataverse</td><td></td></tr>
+<tr><td>Table</td><td></td></tr>
+<tr><td>Relationship</td><td></td></tr>
+<tr><td>Power BI</td><td></td></tr>
+<tr><td>Chatbot / Conversational Agent</td><td></td></tr>
+<tr><td>Topic (Copilot Studio)</td><td></td></tr>
+<tr><td>Trigger Phrase</td><td></td></tr>
+<tr><td>Knowledge Source</td><td></td></tr>
+<tr><td>Generative Answers</td><td></td></tr>
+<tr><td>Publishing (chatbot)</td><td></td></tr>
+</table>
+</div>
+
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 3: "When X, Y" — Cause and Effect</span>
+<h3>Why This Grammar Pattern?</h3>
+<p>Power Platform is built on EVENTS causing RESPONSES. The English sentence "When [event], [result]" mirrors exactly how flows and apps work — and is the sentence pattern you will use most in technical writing.</p>
+<ul>
+  <li>✅ "<strong>When</strong> a member borrows a book, the flow <strong>sends</strong> a confirmation email."</li>
+  <li>✅ "<strong>When</strong> the due date passes without a return, the system <strong>marks</strong> the loan overdue."</li>
+  <li>✅ "<strong>When</strong> Available_Copies reaches zero, the Borrow button <strong>disappears</strong> and a Waitlist label <strong>appears</strong>."</li>
+</ul>
+<p>Related patterns: "If X, then Y" / "As soon as X, Y" / "Every time X, Y" / "Because X, Y"</p>
+
+<h3>Grammar Practice — Write the Full Sentence</h3>
+<ol>
+  <li>Trigger: New loan created → Result: confirmation email sent<br>"When ____________________________________________, the flow ____________________________________________."</li>
+  <li>Trigger: Due date 2 days away → Result: reminder email sent<br>"When ____________________________________________, the system ____________________________________________."</li>
+  <li>Trigger: Member types question in chatbot → Result: Copilot Studio searches knowledge source<br>"When ____________________________________________, Copilot Studio ____________________________________________."</li>
+  <li>Trigger: Token expires after 1 hour → Result: user must sign in again<br>"When ____________________________________________, the system ____________________________________________."</li>
+</ol>
+
+<h3>Writing Exercise: Describe the Community Library Ecosystem</h3>
+<p>Write one paragraph (5–7 sentences) describing how the four tools connect, using "when" and "because" throughout.</p>
+<p><strong>Template:</strong></p>
+<pre><code>"The Community Library system uses four connected tools.
+At the centre is Dataverse, which [what it stores].
+When a member [action in Power Apps], Dataverse [what happens].
+Because Dataverse is the shared source, [what Power Automate can do].
+Power BI reads the same [table] and [shows what].
+When all four tools share one data source, [what benefit this creates]."</code></pre>
+
+<h3>🔊 Read Aloud Exercise</h3>
+<p>Read this slowly. Pause at every comma and full stop:</p>
+<p><em>"When Rohit opens the library app and searches for Atomic Habits, Power Apps queries the Dataverse Books table and shows him the result. When he taps Borrow, Power Apps creates a new row in the Loans table in Dataverse. This triggers a Power Automate flow, which immediately sends Rohit a confirmation email with his due date. Two weeks later, if Rohit has not returned the book, a scheduled flow checks all loans every morning at 7 AM and sends him an overdue reminder. Pooja can see all of this in the Power BI dashboard — loans per day, overdue rates, and popular books — all from the same Dataverse data."</em></p>
+<p>After reading: Say what happens in the system when a book becomes overdue. Use the word "when" at least twice.</p>
+
+<h3>Professional Communication: Status Update Email</h3>
+<pre><code>Subject: Community Library System — Week [X] Update
+
+Hi [Name],
+
+This week I completed the following:
+- [What you built — 1 sentence each, 3 bullet points]
+
+One decision I made this week:
+- I chose [option] instead of [alternative] because [reason].
+
+Next week I plan to:
+- [Next step 1]
+- [Next step 2]
+
+Current blocker (if any): [Describe] / None at this time.
+
+Please let me know if you have questions.
+
+[Your name]</code></pre>
+
+<h3>🚫 Common English Mistakes — Week 3</h3>
+<p><strong>Mistake 1: Mixing tenses in one sentence</strong><br>
+❌ "I created the table and then I am adding the columns."<br>
+✅ "I <strong>created</strong> the table and then <strong>added</strong> the columns."</p>
+
+<p><strong>Mistake 2: "I am having" for states (still very common!)</strong><br>
+❌ "I am having difficulty understanding the relationship between tables."<br>
+✅ "I <strong>have</strong> difficulty understanding..." OR "I <strong>find</strong> it difficult to understand..."</p>
+
+<p><strong>Mistake 3: "Itself" overuse</strong><br>
+❌ "The flow itself will send the email itself to the member itself."<br>
+✅ "The flow will <strong>automatically</strong> send the email to the member."</p>
+
+<p><strong>Mistake 4: "As" to give reasons (ambiguous)</strong><br>
+❌ "As the trial expires on September 30, we must export the data."<br>
+✅ "<strong>Because</strong> the trial expires on September 30, we must export the data."<br>
+Use "because" for reasons. Use "as" only for simultaneous actions.</p>
+
+<h3>✅ Week 3 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you describe how Power Apps connects to Dataverse using "when" and "because"?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a status update email for this week?</span></li>
+  <li><span class="box"></span><span class="txt">Can you explain what Power BI does in one sentence without technical jargon?</span></li>
+  <li><span class="box"></span><span class="txt">Can you write 5 correct "When X, the system Y" sentences?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write at least 4 journal entries this week?</span></li>
+</ul>
+</div>
 </section>
 
-<!-- DAY 4 -->
-<section class="day" id="day4">
-<div class="dhead"><span class="dnum">Day 4</span></div>
-<h2>Keeping it tidy: solutions, security roles, environment variables</h2>
-<p class="meta">~90 minutes</p>
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="day" id="week4">
+<div class="dhead"><span class="dnum">Week 4 · September 27–30</span></div>
+<h2>Backup, Transition &amp; September Recap</h2>
+<p class="meta">~3 hours · Critical — must complete before September 30 · trial expires at midnight</p>
 
-<div class="card c-concept"><span class="lab">Concept — a solution is a moving box for your whole project</span>
-<p>As you build tables, apps, and flows, they can scatter across the environment. A <strong>solution</strong> is a labelled box you put related things into. Benefits:</p>
-<ul>
-<li><strong>Organisation</strong> — find everything in one place.</li>
-<li><strong>Portability</strong> — export the whole box as a <code>.zip</code> file, import it into another environment. This is how professionals ship software from Dev → Test → Production.</li>
-<li><strong>Backup</strong> — that <code>.zip</code> is also your safety copy (Day 16 walks through exporting it).</li>
-</ul>
-<p>When you add an existing table to a solution, Dataverse <em>references</em> it — the table data isn't duplicated. New components you create <em>inside</em> the solution automatically belong to it.</p>
-<p>A solution has a <strong>publisher</strong> with a short <strong>prefix</strong> (e.g. <code>learn</code>). Every new column you create inside the solution gets that prefix on its logical name: <code>learn_isbn</code>. This prevents name clashes when multiple solutions from different publishers live in the same environment.</p>
+<div class="card c-warn"><span class="lab">The Most Important Week of September — A Controlled Exit</span>
+<p>The trial expires on September 30. This week, you do something no tutorial teaches but every professional needs to know: <strong>a controlled exit</strong>.</p>
+<p><strong>Stopping:</strong> The lights go out. Data may be lost. Users are confused. Nothing works. This is what happens when a trial expires without preparation.</p>
+<p><strong>Decommissioning properly:</strong> You export all data. You migrate what can be migrated. You inform users. You test the new environment before the old one closes. When the old environment goes dark, the new one is already running.</p>
+<p>This is a professional skill. Companies pay consultants significant money to decommission systems properly. You are learning it now, at a small scale.</p>
 </div>
 
-<div class="card c-concept"><span class="lab">Concept — security roles (who can do what)</span>
-<p>A <strong>security role</strong> is a collection of permissions: can this person <em>create</em>, <em>read</em>, <em>update</em>, or <em>delete</em> rows in each table? Permissions also have <em>scope</em>: their own rows only (User), their business unit (Business Unit), or everyone (Organisation).</p>
-<ul>
-<li><strong>System Administrator</strong> — can do everything. Give this to yourself in the Learning environment (it's an isolated practice room, so there's no risk).</li>
-<li><strong>Basic User</strong> — can use apps and read/write data they're allowed to. Give this to people using the finished app.</li>
-</ul>
-<p>In the real world: a library staff member would get a custom role with read/write on Book and Loan but no access to admin settings.</p>
-</div>
-
-<div class="card c-concept"><span class="lab">Concept — environment variables (stored settings)</span>
-<p>An <strong>environment variable</strong> is a named, typed value stored at the environment level — separate from any app or flow. When the value changes (e.g. the loan period changes from 14 days to 21 days), you update the environment variable in one place and every flow that reads it automatically uses the new value. No editing individual flows.</p>
-<p>Types: <strong>Text</strong>, <strong>Number</strong>, <strong>Boolean</strong> (true/false), <strong>JSON</strong> (structured data), <strong>Data source</strong> (a connection reference), <strong>Secret</strong> (stored securely in Key Vault).</p>
-<p>Each variable has a <strong>default value</strong> (set at design time) and an optional <strong>current value</strong> (set per environment, overrides default). This lets you have different values in Dev vs Production without editing your flow.</p>
-</div>
-
-<div class="card c-do"><span class="lab">Do this — create the solution and adopt all your work</span>
+<div class="card c-do"><span class="lab">Exercise 7 — Export and Migrate Everything Before September 30</span>
+<p><strong>Export 1: The Power Platform Solution</strong><br>
+A "solution" is a container that holds your apps, flows, tables — like a ZIP file for your entire project.</p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt">Maker portal → <strong>Solutions → New solution</strong>. Display name = <code>My Learning Solution</code>. Click <strong>New publisher</strong>: name = <code>Learner</code>, prefix = <code>learn</code>. Save. Back in the new solution dialog, select your Learner publisher. Create the solution.</span></li>
-<li><span class="box"></span><span class="txt">Open <strong>My Learning Solution</strong> → click <strong>Add existing → Table</strong>. Tick all four tables: <strong>Book</strong>, <strong>Author</strong>, <strong>Member</strong>, <strong>Loan</strong>. Click <strong>Next → Add</strong>. All four tables (and their columns, views, and relationships) are now tracked inside the solution.</span></li>
-<li><span class="box"></span><span class="txt">Add an <strong>environment variable</strong>: inside the solution → <strong>New → More → Environment variable</strong>. Display name = <code>LoanPeriodDays</code>, Type = Number. Default value = <code>14</code>. Save. (In Phase 3 you'll read this in a flow to calculate Due date automatically.)</span></li>
-<li><span class="box"></span><span class="txt">From now on: every new table, app, flow, or chatbot must be created <em>from inside this solution</em>. The pattern is: Solutions → My Learning Solution → New → [component type]. This ensures everything is tracked together.</span></li>
-<li><span class="box"></span><span class="txt">Now assign yourself a security role. Go to <code>admin.powerplatform.microsoft.com</code> → <strong>Environments → Learning</strong> → <strong>Settings → Users + Permissions → Users</strong>. Find the learning account → <strong>Manage security roles</strong> → tick <strong>System Administrator</strong> → Save. The learning account now has full access to the Learning environment.</span></li>
-<li><span class="box"></span><span class="txt">Explore the solution: inside <strong>My Learning Solution</strong>, look at the Objects tab. You'll see Tables, Environment variables. Over the course, Apps, Cloud flows, Chatbots will all appear here too.</span></li>
-</ul></div>
-
-<div class="card c-tip"><span class="lab">Tip — managed vs unmanaged</span>
-While you build, your solution is <strong>unmanaged</strong> — you can edit everything freely. When you export it for deployment you can choose <strong>managed</strong> — a locked version where components can't be directly edited in the target environment. This prevents accidental changes in Production. You'll export on Day 16.</div>
-
-<div class="card c-gloss"><span class="lab">Words you learned today</span>
-<ul class="terms">
-<li><b>Solution</b> — a movable box grouping related tables, apps, and flows.</li>
-<li><b>Publisher / prefix</b> — the solution's owner identity / the short code added to new column logical names.</li>
-<li><b>Managed / unmanaged</b> — locked (deployable) vs editable (in-progress) solution.</li>
-<li><b>Security role</b> — a set of table-level permissions scoped to user / business unit / org.</li>
-<li><b>Environment variable</b> — a named, typed setting stored at environment level; read by flows and apps.</li>
-<li><b>Default value / current value</b> — the design-time fallback / the per-environment override.</li>
-</ul></div>
-
-<div class="card c-concept"><span class="lab">Real world — solutions in enterprise Power Platform</span>
-<p>In enterprise deployments, solutions are the <em>unit of work</em> — every change is tracked inside a solution and moved between environments as a managed package. Real examples:</p>
-<ul>
-<li>A global bank maintains 12 separate solutions in one environment — each for a different business domain (HR, Finance, Compliance). Teams don't interfere with each other's components because each solution uses a different publisher prefix.</li>
-<li>A retailer's "ALM pipeline" automatically exports the Dev solution as managed every night, imports it into Test, runs automated tests, and deploys to Production on Friday — no human steps after the initial setup.</li>
-<li><strong>Environment variables</strong> are the mechanism that makes this possible: the database connection string, the email address for alerts, and the API endpoint are all environment variables. Dev, Test, and Production each have their own <em>current values</em> for those variables, but the flow code never changes.</li>
+  <li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → LM-DEV environment → left menu → <strong>Solutions</strong></span></li>
+  <li><span class="box"></span><span class="txt">Click on your solution (e.g., "Community Library") → <strong>Export solution</strong> → <strong>Next</strong> → choose <strong>Unmanaged</strong> → <strong>Export</strong></span></li>
+  <li><span class="box"></span><span class="txt">A ZIP file downloads. Save it to your computer. This file contains your entire project.</span></li>
 </ul>
-</div>
+<p><em>Unmanaged = editable, used in development (LM-DEV). Managed = locked, used in production (LM-PRD). Managed prevents people from directly editing production code.</em></p>
 
-<div class="card c-warn"><span class="lab">Common mistakes with solutions</span>
-<ul>
-<li><strong>Building outside the solution.</strong> If you create an app from the <em>Apps</em> menu instead of from <em>Solutions → My Learning Solution → New</em>, that app won't be in the solution. You'll be unable to export it as part of the solution package. The fix: add existing components to the solution after the fact — but this is easy to forget. Build from inside the solution from now on.</li>
-<li><strong>Skipping environment variables for config.</strong> Hardcoding a value like "14" for loan days directly in a flow means you must edit the flow to change it. Always store configurable values in environment variables.</li>
-<li><strong>Exporting unmanaged to production.</strong> An unmanaged solution can be edited in the target environment — removing the separation between Dev and Prod. Always export managed for Test and Production deployments.</li>
-</ul>
-</div>
-
-<div class="card c-do"><span class="lab">Practice — Day 4 hands-on checks</span>
+<p><strong>Export 2: Dataverse Table Data</strong></p>
 <ul class="tasks">
-<li><span class="box"></span><span class="txt"><strong>Exercise 1:</strong> Inside <strong>My Learning Solution</strong>, look at the <strong>Objects</strong> tab. Confirm all 4 tables are listed. Click <strong>Book</strong> — notice it shows the table's views, forms, and columns tracked inside the solution.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 2:</strong> Add a second environment variable: name = <code>LibraryName</code>, Type = Text, Default value = <code>Community Library</code>. In Phase 3, a flow will use this as the "from" name in confirmation emails — changing it here will update all flows at once.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 3:</strong> Export the solution (unmanaged) right now: Solutions → My Learning Solution → <strong>Export solution</strong> → Version 1.0.0.1 → Unmanaged → Export. Save the ZIP file to your Desktop. This is your first backup. Open the zip — inside you'll see XML files describing your tables and metadata.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 4:</strong> In the admin center (<code>admin.powerplatform.microsoft.com</code>), navigate to Environments → Learning → Settings → Users + Permissions → Users. Confirm the learning account has the <strong>System Administrator</strong> security role. If not, click Manage security roles and add it.</span></li>
-<li><span class="box"></span><span class="txt"><strong>Exercise 5 (forward preview):</strong> In the solution, click <strong>New → App → Model-driven app</strong>. Name it <code>Test app</code> → Create → immediately close without saving (click Cancel or Discard). Go back to the solution Objects list — the discarded app should NOT appear. This confirms that cancelled operations don't clutter your solution.</span></li>
+  <li><span class="box"></span><span class="txt"><code>make.powerapps.com</code> → <strong>Dataverse → Tables</strong> → click on <strong>Book</strong> table → <strong>Export → Export data</strong></span></li>
+  <li><span class="box"></span><span class="txt">Repeat for <strong>Member</strong>, <strong>Loan</strong>, <strong>Author</strong> tables — each creates an Excel file with all rows</span></li>
+</ul>
+
+<p><strong>Import to Developer Plan</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Open your personal Microsoft account (Developer Plan) → go to <code>make.powerapps.com</code> → select your Developer Plan environment</span></li>
+  <li><span class="box"></span><span class="txt"><strong>Solutions → Import solution</strong> → upload the ZIP file you exported</span></li>
+  <li><span class="box"></span><span class="txt">After import: <strong>Dataverse → Tables</strong> → import the Excel files into each table</span></li>
+</ul>
+
+<p><strong>Verify Everything Works — Before September 30</strong></p>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you see all the tables with data in the Developer Plan environment?</span></li>
+  <li><span class="box"></span><span class="txt">Does the canvas app open and load books correctly?</span></li>
+  <li><span class="box"></span><span class="txt">Do the flows exist in the imported solution?</span></li>
+  <li><span class="box"></span><span class="txt">Is the SharePoint connection working? (It may need re-authentication — click "Fix connection" in the flow if so)</span></li>
+  <li><span class="box"></span><span class="txt">Test the Borrow button — does a new Loan record get created in Dataverse?</span></li>
 </ul>
 </div>
 
-<div class="card c-check"><span class="lab">Mini-quiz — Day 4</span>
-<p><strong>Q1</strong> A colleague creates a new flow from the Power Automate portal directly (not from inside a solution). Is it in your solution?</p>
-<p><strong>Q2</strong> You have an environment variable called <code>MaxLoanDays</code> with default value = 14. In Production, the library wants 21 days. What do you change without editing any flow?</p>
-<p><strong>Q3</strong> What is the difference between a managed and an unmanaged solution export?</p>
-<details><summary>Show answers</summary>
-<p><strong>A1</strong> No — flows created outside the solution aren't automatically tracked in it. You must add them using "Add existing → Automation → Cloud flow." Always create from inside the solution to avoid this.</p>
-<p><strong>A2</strong> In the Production environment, open the environment variable and set the <strong>Current value</strong> = 21. The default value stays 14 (used in Dev). The flow reads the current value in each environment and never needs editing.</p>
-<p><strong>A3</strong> Unmanaged: all components are fully editable in the target environment — good for backups. Managed: components are locked (makers can't edit them in the target) — required for Test and Production to prevent accidental changes to live systems.</p>
-</details>
+<div class="card c-check"><span class="lab">🗣️ English Practice — Week 4: Past Tense for Technical Logs</span>
+<h3>Why This Grammar Pattern?</h3>
+<p>Technical logs, handover documents, and status reports are written in the <strong>simple past tense</strong> — because you are describing what ALREADY HAPPENED.</p>
+<ul>
+  <li>✅ "I <strong>created</strong> the resource group named 'rg-community-library'."</li>
+  <li>✅ "I <strong>exported</strong> the Power Platform solution as an unmanaged ZIP file."</li>
+  <li>✅ "I <strong>verified</strong> that all 50 books imported correctly into the Developer Plan."</li>
+  <li>✅ "The connection <strong>failed</strong> because the SharePoint credential had expired."</li>
+</ul>
+
+<p><strong>Irregular past tenses — memorise these (you will use them constantly):</strong></p>
+<table>
+<tr><th>Present</th><th>Past</th><th>Example</th></tr>
+<tr><td>build</td><td><strong>built</strong></td><td>"I built the canvas app."</td></tr>
+<tr><td>find</td><td><strong>found</strong></td><td>"I found an error in the connection."</td></tr>
+<tr><td>run</td><td><strong>ran</strong></td><td>"The flow ran successfully."</td></tr>
+<tr><td>choose</td><td><strong>chose</strong></td><td>"I chose the Central India region."</td></tr>
+<tr><td>write</td><td><strong>wrote</strong></td><td>"I wrote the SQL schema."</td></tr>
+<tr><td>set up</td><td><strong>set up</strong></td><td>"I set up the developer account."</td></tr>
+<tr><td>export</td><td><strong>exported</strong></td><td>"I exported the solution."</td></tr>
+<tr><td>import</td><td><strong>imported</strong></td><td>"I imported the data tables."</td></tr>
+<tr><td>delete</td><td><strong>deleted</strong></td><td>"I deleted the unused environment."</td></tr>
+<tr><td>verify</td><td><strong>verified</strong></td><td>"I verified the data was correct."</td></tr>
+</table>
+
+<h3>Grammar Practice — Rewrite in Past Tense</h3>
+<ol>
+  <li>"I export the solution from Power Platform and save it to my computer." → ________________________</li>
+  <li>"The import process takes about 10 minutes and shows a progress bar." → ________________________</li>
+  <li>"I verify that all the tables appear correctly in the new environment." → ________________________</li>
+  <li>"The flow does not run because the connection is not re-authenticated." → ________________________</li>
+  <li>"I delete the old environment after confirming the new one works." → ________________________</li>
+</ol>
+
+<h3>Writing Exercise: Write a Real Technical Log Entry</h3>
+<p>A technical log records what you did, in order, with dates and results. This is one of the most valued professional habits in technology teams.</p>
+<pre><code>Date: [Date]
+Task: [What you were doing — one sentence]
+Environment: [Which system]
+Steps completed:
+  1. [Action] — Result: [What happened]
+  2. [Action] — Result: [What happened]
+  3. [Action] — Result: [What happened]
+Issues encountered: [Describe problem] / None
+Resolution: [How you fixed it] / N/A
+Status: Complete / In Progress / Blocked</code></pre>
+<p><strong>Write a real log entry for the export + migration you completed this week. Use past tense throughout.</strong></p>
+<p><strong>Example:</strong></p>
+<pre><code>Date: September 28, 2026
+Task: Export Community Library solution from LM-DEV and import to Developer Plan
+Environment: LM-DEV (source) → Personal Developer Plan (destination)
+Steps completed:
+  1. Exported CommunityLibrary solution as Unmanaged ZIP — Result: 4.2 MB file downloaded.
+  2. Exported Books, Members, Loans, Authors tables — Result: 4 Excel files, 183 rows total.
+  3. Imported solution ZIP to Developer Plan — Result: 3 apps, 4 flows, 4 tables imported.
+  4. Imported all Excel data — Result: 183 rows confirmed present.
+  5. Tested Borrow button — Result: New Loan record created successfully.
+Issues encountered: SharePoint connection in overdue flow showed "Invalid credentials."
+Resolution: Re-authenticated by clicking "Fix connection" in Power Automate.
+Status: Complete</code></pre>
+
+<h3>🔊 Read Aloud Exercise</h3>
+<p>Read this handover note out loud as if speaking to a new team member:</p>
+<p><em>"The Community Library system was successfully migrated from the Microsoft 365 E5 trial to a free Developer Plan environment on September 28. The solution contained three canvas app screens, four Power Automate flows, and four Dataverse tables. One issue occurred during migration: the SharePoint connection in the overdue reminder flow required re-authentication after the environment change. This was resolved by updating the connection credentials inside Power Automate. The system is now fully operational. All tested features — book search, borrow, loan view, and overdue reminders — worked correctly after migration."</em></p>
+
+<h3>Professional Communication: The Handover Note</h3>
+<pre><code>Subject: [Project Name] — System Handover Document
+
+Date: [Date]
+Written by: [Your name]
+Current environment: [Where the system lives]
+
+SYSTEM STATUS: [Operational / Partial / Blocked]
+
+What is working:
+- [Feature 1]
+- [Feature 2]
+- [Feature 3]
+
+Known issues:
+- [Issue and workaround] / None
+
+How to access:
+- URL: [environment URL]
+- Login: use your learning account
+- Test account credentials: [where stored — NEVER write passwords in documents]
+
+Next steps:
+- [What needs to be done next, if anything]
+
+Contact [Your name] at [contact] with any questions.</code></pre>
+<p>Write this handover note for the Community Library system as it stands at the end of September.</p>
+
+<h3>🚫 Common English Mistakes — Week 4</h3>
+<p><strong>Mistake 1: "I have done" vs "I did" — confusion about past tenses</strong><br>
+Use simple past for a specific finished action: ✅ "Yesterday, I <strong>exported</strong> the solution."<br>
+Use present perfect when the result matters now: ✅ "I <strong>have exported</strong> the solution — it is ready for import."</p>
+
+<p><strong>Mistake 2: Run-on sentences (too many ideas, no punctuation)</strong><br>
+❌ "I exported the solution and imported it and then I tested it and it worked but the SharePoint connection needed to be fixed."<br>
+✅ "I exported and imported the solution. After testing, I found that the SharePoint connection had expired. I fixed it by re-authenticating in Power Automate."<br>
+Rule: One sentence = one idea.</p>
+
+<p><strong>Mistake 3: "Out of station" (Indian English for "not in the office")</strong><br>
+❌ "Pooja was out of station this week."<br>
+✅ "Pooja was <strong>out of the office</strong> this week." OR "Pooja was <strong>unavailable</strong> this week."</p>
+
+<p><strong>Mistake 4: Vague descriptions in technical writing</strong><br>
+❌ "Something went wrong with the import."<br>
+✅ "The import <strong>failed with an authentication error</strong> on the SharePoint connector. Error code: AADSTS70011."<br>
+Rule: Always say: what failed, where, and what the exact error was.</p>
+
+<h3>✅ Week 4 English Progress Check</h3>
+<ul class="tasks">
+  <li><span class="box"></span><span class="txt">Can you write a complete technical log entry with dates, steps, results, and issues?</span></li>
+  <li><span class="box"></span><span class="txt">Can you use at least 8 irregular past tense verbs correctly?</span></li>
+  <li><span class="box"></span><span class="txt">Did you write a handover note for the Community Library system?</span></li>
+  <li><span class="box"></span><span class="txt">Can you avoid run-on sentences — one idea per sentence?</span></li>
+  <li><span class="box"></span><span class="txt">Read your Week 1 journal entry. Write 2 sentences about what changed in your writing since then.</span></li>
+</ul>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="day" id="recap">
+<div class="dhead"><span class="dnum">September Recap</span></div>
+<h2>What You Built and Understood</h2>
+<p class="meta">By September 30, you should be able to explain these to someone else — in English or Hindi. Both count.</p>
+
+<div class="card c-concept"><span class="lab">Technical Things You Know</span>
+<ol>
+  <li><strong>Tenant</strong> — your company's isolated space in Microsoft's cloud</li>
+  <li><strong>Entra ID</strong> — the identity and access management system</li>
+  <li><strong>Licenses</strong> — permissions granted to individual users</li>
+  <li><strong>Roles</strong> — groups of permissions assigned to users</li>
+  <li><strong>SharePoint</strong> — cloud-based file storage and list management</li>
+  <li><strong>Teams</strong> — collaboration platform that integrates with everything</li>
+  <li><strong>Dataverse</strong> — the relational database at the heart of Power Platform</li>
+  <li><strong>Primary Key</strong> — unique identifier for every row in a database</li>
+  <li><strong>Data types</strong> — why it matters to store dates as dates, not text</li>
+  <li><strong>Relationships</strong> — how tables connect to each other</li>
+  <li><strong>Power BI</strong> — turning data into visual insights</li>
+  <li><strong>Solution (Power Platform)</strong> — container for exporting and deploying projects</li>
+  <li><strong>Managed vs Unmanaged</strong> — production vs development</li>
+  <li><strong>DEV / UAT / PRD</strong> — the three-environment pipeline for safe deployment</li>
+  <li><strong>Copilot Studio</strong> — building AI-powered chatbots from documents</li>
+</ol>
 </div>
 
-<div class="card c-check"><span class="lab">Check yourself</span>
-<strong>My Learning Solution</strong> contains all four tables and the <code>LoanPeriodDays</code> variable. Foundations are complete. 🎉 From Day 5 you build on top of this — every new component goes inside the solution.</div>
+<div class="card c-concept"><span class="lab">System Thinking You Have Practiced</span>
+<ul>
+  <li>Why does Microsoft create tenants? (Isolation, security, billing per company)</li>
+  <li>Why do databases need primary keys? (Uniqueness, relationships, integrity)</li>
+  <li>Why do we have DEV/UAT/PRD environments? (Safe development without breaking production)</li>
+  <li>Why are some data stored and others calculated? (Trade-off between speed and accuracy)</li>
+  <li>Why does Microsoft offer a free trial? (Customer acquisition — freemium strategy)</li>
+  <li>Why do companies need sign-in logs? (Security monitoring — the security camera footage)</li>
+  <li>Why separate data from presentation? (Flexibility, maintenance, multiple audiences)</li>
+  <li>Why use scripted topics vs generative AI? (Live data needs database queries; general questions need AI)</li>
+</ul>
+</div>
+
+<div class="card c-tip"><span class="lab">English Progress — Read This</span>
+<p>By September 30, your journal should have at least 20 entries. Go back and read your <strong>first entry</strong>. Notice how much better you write now compared to Day 1.</p>
+<p>That improvement happened without you trying — just by doing it every day. That is how language learning works. That is how all learning works.</p>
+</div>
+
+<div class="card c-tip"><span class="lab">Looking Ahead: October</span>
+<p>The M365 trial is gone, but your Developer Plan is active. In October we go <strong>deep</strong> into Power Platform:</p>
+<ul>
+  <li>Build the complete library app from scratch with professional features</li>
+  <li>Master Power Fx formulas (the Excel-like language of Power Apps)</li>
+  <li>Build complex Power Automate flows with conditions and loops</li>
+  <li>Understand Dataverse relationships and security roles properly</li>
+  <li>Build the model-driven admin app</li>
+  <li>Build a full Power BI dashboard with DAX measures</li>
+</ul>
+<p><strong>English goal for October:</strong> Start writing "If... then..." sentences in your journal — the sentences of logical thinking:</p>
+<ul>
+  <li><em>"If a member's loan is overdue by more than 7 days, then the system should block them from borrowing more books."</em></li>
+  <li><em>"If Available_Copies is 0, then the Borrow button should be disabled and show 'Waitlist'."</em></li>
+  <li><em>"If the flow fails, then it should send an alert email to Pooja."</em></li>
+</ul>
+<p>These are called <strong>business rules</strong> or <strong>logic statements</strong>. In October, you will turn them into real apps and flows.</p>
+</div>
 </section>
 
 <div class="pn">
-<a href="index.html"><div class="d">← Back</div><div class="tt">Home &amp; setup</div></a>
-<a class="nx" href="phase2.html"><div class="d">Next phase →</div><div class="tt">Phase 2 · Building apps</div></a>
+  <a class="pv" href="index.html"><div class="d">← Previous</div><div class="tt">Start Here · Master Roadmap</div></a>
+  <a class="nx" href="phase2.html"><div class="d">Month 2 →</div><div class="tt">October · Power Platform Deep Dive</div></a>
 </div>
+
 </main>
 <button class="top" id="top" aria-label="Back to top">↑</button>
 <script src="assets/course.js"></script>
